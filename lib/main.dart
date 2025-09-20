@@ -18,6 +18,7 @@ import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/my
 import 'package:pashboi/features/authenticated/profile/presentation/change_password/bloc/change_password_bloc.dart';
 import 'package:pashboi/features/my_app/presentation/bloc/my_app_bloc.dart';
 import 'package:pashboi/features/onboarding/presentation/bloc/onboarding_page_bloc.dart';
+import 'package:pashboi/features/terms_and_condition/presentation/pages/bloc/term_and_condition_bloc.dart';
 import 'package:pashboi/injection.dart';
 import 'package:pashboi/features/my_app/presentation/pages/my_app.dart';
 import 'package:pashboi/shared/widgets/language_switch/bloc/language_switch_bloc.dart';
@@ -53,6 +54,7 @@ void main() async {
         BlocProvider(create: (context) => sl<CollectionLedgerBloc>()),
         BlocProvider(create: (context) => sl<MyAccountBloc>()),
         BlocProvider(create: (context) => sl<ChangePasswordBloc>()),
+        BlocProvider(create: (context) => sl<TermAndConditionBloc>()),
       ],
       child: const MyApp(),
     ),

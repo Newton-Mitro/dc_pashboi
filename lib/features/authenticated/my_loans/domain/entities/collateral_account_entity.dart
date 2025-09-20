@@ -1,37 +1,34 @@
 import 'package:pashboi/core/entities/entity.dart';
 
 class CollateralAccountEntity extends Entity<int> {
-  final int accountId;
-  final String accountNumber;
   final String accountType;
-  final double balance;
+  final String accountNumber;
+  final double totalBalance;
   final double loanableBalance;
-  final double withdrawableBalance;
-  final double pertialApplyLoanAmount;
+  final double partialApplyLoan;
   final bool isEligible;
+  final double withdrawableBalance;
 
   CollateralAccountEntity({
-    required int id,
-    required this.accountId,
-    required this.accountNumber,
+    required super.id,
     required this.accountType,
-    required this.balance,
+    required this.accountNumber,
+    required this.totalBalance,
     required this.loanableBalance,
-    required this.withdrawableBalance,
-    required this.pertialApplyLoanAmount,
+    required this.partialApplyLoan,
     required this.isEligible,
-  }) : super(id: id);
+    required this.withdrawableBalance,
+  });
 
   @override
   List<Object?> get props => [
     id,
-    accountId,
-    accountNumber,
     accountType,
-    balance,
+    accountNumber,
+    totalBalance,
     loanableBalance,
-    withdrawableBalance,
-    pertialApplyLoanAmount,
+    partialApplyLoan,
     isEligible,
+    withdrawableBalance,
   ];
 }

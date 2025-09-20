@@ -22,6 +22,7 @@ import 'package:pashboi/features/public/pages/injection.dart';
 import 'package:pashboi/features/public/project/injection.dart';
 import 'package:pashboi/features/public/service/injection.dart';
 import 'package:pashboi/features/public/service_centers/injection.dart';
+import 'package:pashboi/features/terms_and_condition/injection.dart';
 
 import 'core/injection.dart';
 import 'features/auth/injection.dart';
@@ -33,6 +34,7 @@ Future<void> setupDependencies() async {
   registerCardModule();
   registerFamilyAndFriendsModule();
   registerAuthModule();
+  registerTermAndConditionModule();
   registerMyAccountsModule();
   registerProfileModule();
   registerDepositPolicyModule();

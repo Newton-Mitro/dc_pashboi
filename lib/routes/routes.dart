@@ -34,10 +34,12 @@ import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/ac
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_statement_page/bloc/account_statement_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/openable_accounts_page/bloc/openable_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/openable_accounts_page/openable_accounts_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_application_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/instant_loan_terms_condition_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loan_terms_condition_page/apply_for_product_loan_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/loan_statement_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/bloc/loan_statement_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/product_loans_page.dart';
 import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/bloc/payment_steps_bloc.dart';
 import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/payment_page.dart';
 import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/sections/pay_to_section/bloc/payment_service_bloc.dart';
@@ -298,9 +300,14 @@ class AppRoutes {
             LoanDetailsPage(loanNumber: args['loanNumber'] ?? ''),
           );
         }
+      case AuthRoutesName.productLoansPage:
+        return _materialRoute(ProductLoansPage());
 
       case AuthRoutesName.instantLoanTermsConditionPage:
         return _materialRoute(InstantLoanTermsAndConditionPage());
+
+      case AuthRoutesName.instantLoanApplicationPage:
+        return _materialRoute(InstantLoanApplicationPage());
 
       case AuthRoutesName.productLoanTermsConditionPage:
         return _materialRoute(ApplyForProductLoanPage());

@@ -6,7 +6,7 @@ Accept: application/json
 
 {
   "ApplicationName": "MFS",
-  "ContentName": "RealTime Deposit Notes",
+  "ContentName": "RealTime Deposit Notes", // 'Instant Loan Policy', 'product loan policy', 'Terms And Conditions'
   "Application": "PassBook",
   "ByUserId": 5,
   "DeviceRegId": "24676",
