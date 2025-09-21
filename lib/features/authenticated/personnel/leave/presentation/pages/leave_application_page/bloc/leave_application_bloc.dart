@@ -27,7 +27,11 @@ class LeaveApplicationBloc
     final updatedData = Map<String, dynamic>.from(state.leaveApplicationData)
       ..addAll(event.data);
 
-    emit(state.copyWith(leaveApplicationData: updatedData));
+    var newState = state.copyWith(leaveApplicationData: updatedData);
+
+    print(newState);
+
+    emit(newState);
   }
 
   void _onSubmit(

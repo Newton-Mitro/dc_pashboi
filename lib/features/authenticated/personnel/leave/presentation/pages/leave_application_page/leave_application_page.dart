@@ -30,15 +30,15 @@ class LeaveApplicationPage extends StatefulWidget {
 }
 
 class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<LeaveApplicationBloc>().add(
-      LeaveApplicationUpdateField(
-        data: {"selectedLeaveType": widget.selectedLeaveTypeId},
-      ),
-    );
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<LeaveApplicationBloc>().add(
+  //     LeaveApplicationUpdateField(
+  //       data: {"selectedLeaveType": widget.selectedLeaveTypeId},
+  //     ),
+  //   );
+  // }
 
   int calculateTotalLeaveDays(DateTime startDate, DateTime endDate) {
     if (endDate.isBefore(startDate)) return 0;
@@ -124,7 +124,6 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppSearchTextInput(
-                          // controller: data["employeeId"],
                           initialValue: data["fallbackEmployeeCode"],
                           label: "Fallback Employee Id",
                           isSearch: true,
@@ -149,8 +148,8 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                             );
                           },
                         ),
-
                         const SizedBox(height: 16),
+
                         BlocBuilder<SearchEmployeeBloc, SearchEmployeeState>(
                           builder: (context, state) {
                             if (state is SearchEmployeeLoading) {
@@ -169,15 +168,12 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                             if (state is SearchEmployeeSuccess) {
                               final List<SearchEmployeeEntity> employees =
                                   state.employees;
-                              final String fallbackName =
-                                  employees.isNotEmpty
-                                      ? employees.first.fullName
-                                      : 'No Employee Found';
 
                               context.read<LeaveApplicationBloc>().add(
                                 LeaveApplicationUpdateField(
                                   data: {
-                                    "accountHolderName": fallbackName,
+                                    "accountHolderName":
+                                        employees.first.fullName,
                                     'fallbackEmployeeCode':
                                         employees.first.employeeCode,
                                   },
@@ -186,7 +182,6 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
 
                               return AppTextInput(
                                 initialValue: data["accountHolderName"],
-                                // controller: _accountHolderController,
                                 label: 'Fallback Employee Name',
                                 prefixIcon: Icon(
                                   Icons.person_outline,
@@ -199,7 +194,6 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                             }
                             return AppTextInput(
                               initialValue: data["accountHolderName"],
-                              // controller: _accountHolderController,
                               label: 'Fallback Employee Name',
                               prefixIcon: Icon(
                                 Icons.person_outline,
