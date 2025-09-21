@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/auth/presentation/pages/login_page.dart';
 import 'package:pashboi/features/auth/presentation/pages/registration_page.dart';
 import 'package:pashboi/features/auth/presentation/pages/reset_password_page.dart';
@@ -39,10 +40,49 @@ import 'package:pashboi/features/authenticated/my_loans/presentation/pages/insta
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loan_terms_condition_page/apply_for_product_loan_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/loan_statement_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/bloc/loan_statement_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/attendance_calender.dart';
+import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/bloc/attendance_calender_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/todays_punch/bloc/today_punch_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/todays_punch/todays_punch.dart';
+import 'package:pashboi/features/authenticated/personnel/employee_profile/presentation/pages/employee_profile_page/bloc/employees_profile_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/employee_profile/presentation/pages/employee_profile_page/employees_profile_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/product_loans_page.dart';
 import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/bloc/payment_steps_bloc.dart';
 import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/payment_page.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/domain/entities/leave_type_entity.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/accepted_fallback_request_usecase.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/leave_history_request_usecase.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/submit_leave_approvel_usecase.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/bloc/search_employee_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/bloc/leave_application_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/bloc/leave_approval_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/widget/bloc/submit_leave_approval_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_fallback_page/bloc/fallback_request_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_fallback_page/leave_fallback_acceptance_page.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_fallback_page/wigets/bloc/accepted_fallback_request_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_fallback_page/wigets/leave_fallback_page.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_history_page/bloc/leave_history_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_history_page/leave_history_page.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_history_page/wigets/bloc/update_leave_application_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_history_page/wigets/leave_history_details_page.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_info_page/bloc/leave_type_balance_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_info_page/bloc/leave_type_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_info_page/leave_information_page.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/leave_application_page.dart';
 import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/sections/pay_to_section/bloc/payment_service_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/leave_approval_page.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/widget/leave_approval_details_page.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/bloc/get_wooo_approval_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/wigets/bloc/submit_wooo_approval_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/wigets/wooo_approvel_details_page.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/woo_approval_page.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_application/bloc/wooo_type_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_application/widget/bloc/submit_wooo_application_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_application/wooo_application_page.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_history/bloc/get_wooo_data_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_history/wigets/bloc/update_wooo_request_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_history/wigets/wooo_data_history_details_page.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_history/wooo_history_page.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/change_password/page/change_password_page.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/profile_page/bloc/profile_bloc.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/profile_page/page/profile_page.dart';
@@ -340,6 +380,123 @@ class AppRoutes {
             child: DepositLaterPage(),
           ),
         );
+      case AuthRoutesName.employeeProfile:
+        return _materialRoute(
+          BlocProvider(
+            create: (_) => sl<EmployeesProfileBloc>(),
+            child: EmployeesProfilePage(),
+          ),
+        );
+
+      case AuthRoutesName.leaveInformation:
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<LeaveTypeBloc>(
+                create: (context) => sl<LeaveTypeBloc>(),
+              ),
+              BlocProvider<LeaveTypeBalanceBloc>(
+                create: (context) => sl<LeaveTypeBalanceBloc>(),
+              ),
+            ],
+            child: LeaveInformationPage(),
+          ),
+        );
+
+      case AuthRoutesName.leaveApplicationPage:
+        if (args is Map<String, dynamic> &&
+            args['leaveTypes'] is List<LeaveTypeEntity>) {
+          return _materialRoute(
+            MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => sl<LeaveApplicationBloc>()),
+                BlocProvider(create: (_) => sl<SearchEmployeeBloc>()),
+              ],
+              child: LeaveApplicationPage(
+                selectedLeaveTypeId:
+                    args['selectedLeaveTypeId'] as String? ?? '',
+                leaveTypes: args['leaveTypes'] as List<LeaveTypeEntity>,
+              ),
+            ),
+          );
+        }
+
+      case AuthRoutesName.fallbackAcceptancePage:
+        return _materialRoute(
+          BlocProvider(
+            create: (context) => sl<FallbackRequestBloc>(),
+            child: LeaveFallbackAcceptancePage(),
+          ),
+        );
+
+      case AuthRoutesName.leaveApprovalPage:
+        return _materialRoute(
+          BlocProvider(
+            create: (context) => sl<LeaveApprovalBloc>(),
+            child: LeaveApprovalPage(),
+          ),
+        );
+
+      case AuthRoutesName.leaveApprovalDetailsPage:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return _materialRoute(
+          BlocProvider(
+            create:
+                (context) => SubmitLeaveApprovalBloc(
+                  getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+                  submitLeaveApprovalUseCase: sl<SubmitLeaveApprovalUseCase>(),
+                ),
+            child: LeaveApprovalDetailsPage(data: args?['leaveApproval']),
+          ),
+        );
+
+      case AuthRoutesName.fallbackAcceptedPage:
+        final args = settings.arguments as Map<String, dynamic>;
+        return _materialRoute(
+          BlocProvider(
+            create:
+                (context) => AcceptedFallbackRequestBloc(
+                  acceptedFallbackRequestUseCase: sl<AcceptedFallbackUseCase>(),
+                  getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+                ),
+            child: LeaveFallbackPage(data: args['fallbackRequest']),
+          ),
+        );
+
+      case AuthRoutesName.leaveHistoryPage:
+        return _materialRoute(
+          BlocProvider(
+            create:
+                (context) => LeaveHistoryBloc(
+                  leaveHistoryRequestUseCase: sl<LeaveHistoryRequestUseCase>(),
+                  getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+                ),
+            child: LeaveHistoryPage(),
+          ),
+        );
+
+      case AuthRoutesName.leaveHistoryDetailsPage:
+        final args = settings.arguments as Map<String, dynamic>;
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider<LeaveTypeBloc>(
+                create: (context) => sl<LeaveTypeBloc>(),
+              ),
+              BlocProvider<SearchEmployeeBloc>(
+                create: (context) => sl<SearchEmployeeBloc>(),
+              ),
+
+              BlocProvider<UpdateLeaveApplicationBloc>(
+                create: (context) => sl<UpdateLeaveApplicationBloc>(),
+              ),
+            ],
+            child: LeaveHistoryDetailsPage(
+              data: args['leaveApproval'],
+              isEnable: args['isEnable'],
+            ),
+          ),
+        );
 
       case AuthRoutesName.depositLaterSuccessPage:
         if (args is Map<String, String>) {
@@ -504,6 +661,88 @@ class AppRoutes {
               BlocProvider(create: (context) => sl<PaymentServiceBloc>()),
             ],
             child: PaymentPage(),
+          ),
+        );
+
+      case AuthRoutesName.attendancesPage:
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<AttendanceCalenderBloc>()),
+            ],
+            child: AttendanceCalendar(),
+          ),
+        );
+
+      case AuthRoutesName.todaysPunch:
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<TodayPunchBloc>()),
+            ],
+            child: TodaysPunch(),
+          ),
+        );
+
+      case AuthRoutesName.workingOutOfOfficeApplication:
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<WoooTypeBloc>()),
+              BlocProvider(
+                create: (context) => sl<SubmitWoooApplicationBloc>(),
+              ),
+            ],
+            child: WoooApplicationPage(),
+          ),
+        );
+
+      case AuthRoutesName.workingOutOfOfficeHistory:
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<GetWoooDataBloc>()),
+            ],
+            child: WoooHistoryPage(),
+          ),
+        );
+
+      case AuthRoutesName.woooDataHistoryDetailsPage:
+        final args = settings.arguments as Map<String, dynamic>;
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<WoooTypeBloc>()),
+              BlocProvider(create: (context) => sl<UpdateWoooRequestBloc>()),
+            ],
+            child: WoooDataHistoryDetailsPage(
+              wooodataHistory: args['wooodataHistory'],
+              isEditable: args['isEditable'],
+            ),
+          ),
+        );
+
+      case AuthRoutesName.workingOutOfOfficeApproval:
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<GetWoooApprovalBloc>()),
+            ],
+            child: WooApprovalPage(),
+          ),
+        );
+
+      case AuthRoutesName.woooAprovelPage:
+        final args = settings.arguments as Map<String, dynamic>;
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<SubmitWoooApprovalBloc>()),
+            ],
+            child: WoooApprovalDetailsPage(
+              wooodataHistory: args['wooodataHistory'],
+              isEditable: args['isEditable'],
+            ),
           ),
         );
 

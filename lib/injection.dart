@@ -7,7 +7,11 @@ import 'package:pashboi/features/authenticated/family_and_friends/injection.dart
 import 'package:pashboi/features/authenticated/loan_payment/injection.dart';
 import 'package:pashboi/features/authenticated/my_accounts/injection.dart';
 import 'package:pashboi/features/authenticated/my_loans/injection.dart';
+import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/injection.dart';
+import 'package:pashboi/features/authenticated/personnel/employee_profile/injection.dart';
 import 'package:pashboi/features/authenticated/payment/injection.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/injection.dart';
+import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/injection.dart';
 import 'package:pashboi/features/authenticated/profile/injection.dart';
 import 'package:pashboi/features/authenticated/sureties/injection.dart';
 import 'package:pashboi/features/authenticated/transfer/injection.dart';
@@ -49,11 +53,14 @@ Future<void> setupDependencies() async {
   registerLoanModule();
   registerPageModule();
   registerDevelopmentCreditModule();
-
   registerLoanPaymentModule();
+  registerEmployeeDetailsModule();
   registerDepositModule();
   registerTransferModule();
   registerWithdrawlModule();
   registerPaymentModule();
+  registerLeaveTypeModule();
   registerAGMCounterModule();
+  registerAttendanceModule();
+  registerWoooLeaveTypeModule();
 }

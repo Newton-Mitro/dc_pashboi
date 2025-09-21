@@ -1,0 +1,85 @@
+import 'package:pashboi/features/authenticated/personnel/wooo/domain/entities/wooo_data_entities.dart';
+
+class WoooDataModel extends WoooDataEntities {
+  WoooDataModel({
+    super.id,
+    required super.employeeWoooId,
+    required super.totalRecords,
+    required super.woooTypeCode,
+    required super.rejoiningDate,
+    required super.reason,
+    required super.isHourly,
+    required super.byMMS,
+    required super.appliedBy,
+    required super.rejectedBy,
+    required super.totalDays,
+    required super.totalHour,
+    required super.applicationDate,
+    required super.woooTypeId,
+    required super.woooType,
+    required super.isEditable,
+    required super.isSupervisorTreeWise,
+    required super.registeredStatus,
+    required super.employeeId,
+    required super.employeeName,
+    required super.status,
+    required super.fromDate,
+    required super.toDate,
+  });
+
+  factory WoooDataModel.fromJson(Map<String, dynamic> json) {
+    return WoooDataModel(
+      id: json['EmployeeWoooId'],
+      employeeWoooId: json['EmployeeWoooId'],
+      totalRecords: json['totalRecords'],
+      woooTypeCode: json['WoooTypeCode'],
+      rejoiningDate: json['RejoiningDate'],
+      reason: json['Reason'],
+      isHourly: json['isHourly'] ?? false,
+      byMMS: json['ByMMS'] ?? false,
+      appliedBy: json['AppliedBy'],
+      rejectedBy: json['RejectedBy'],
+      totalDays: json['TotalDays'],
+      totalHour: json['TotalHour'],
+      applicationDate: json['ApplicationDate'],
+      woooTypeId: json['WoooTypeId'],
+      woooType: json['WoooType'],
+      isEditable: json['IsEditable'],
+      isSupervisorTreeWise: json['IsSupervisorTreeWise'],
+      registeredStatus: json['RegisteredStatus'],
+      employeeId: json['EmployeeId'],
+      employeeName: json['EmployeeName'],
+      status: json['Status'],
+      fromDate: json['FromDate'],
+      toDate: json['ToDate'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Id': id,
+      'EmployeeWoooId': employeeWoooId,
+      'totalRecords': totalRecords,
+      'WoooTypeCode': woooTypeCode,
+      'RejoiningDate': rejoiningDate,
+      'Reason': reason,
+      'IsHourly': isHourly,
+      'ByMMS': byMMS,
+      'AppliedBy': appliedBy,
+      'RejectedBy': rejectedBy,
+      'TotalDays': totalDays,
+      'TotalHour': totalHour,
+      'ApplicationDate': applicationDate,
+      'WoooTypeId': woooTypeId,
+      'WoooType': woooType,
+      'IsEditable': isEditable,
+      'IsSupervisorTreeWise': isSupervisorTreeWise,
+      'RegisteredStatus': registeredStatus,
+      'EmployeeId': employeeId,
+      'EmployeeName': employeeName,
+      'Status': status,
+      'FromDate': fromDate,
+      'ToDate': toDate,
+    };
+  }
+}

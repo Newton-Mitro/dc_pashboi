@@ -50,6 +50,9 @@ final class AuthRoutesName {
   static const String personnelPage = '/personnelPage';
   static const String changePasswordPage = '/changePasswordPage';
 
+  static const String employeeProfile = '/employeeProfile';
+
+  static const String leaveInformation = '/leaveInformation';
   static const String transferToBkashPage = '/transferToBkashPage';
   static const String transferToBkashSuccessPage =
       '/transferToBkashSuccessPage';
@@ -71,4 +74,33 @@ final class AuthRoutesName {
 
   static const String paymentPage = '/paymentPage';
   static const String paymentSuccessPage = '/paymentSuccessPage';
+
+  static const String leaveApplicationPage = '/leaveApplicationPage';
+
+  static const String fallbackAcceptancePage = '/fallbackAcceptancePage';
+
+  static const String fallbackAcceptedPage = '/fallbackAcceptedPage';
+
+  static const String leaveApprovalPage = '/leaveApprovalPage';
+
+  static const String leaveApprovalDetailsPage = '/leaveApprovalDetailsPage';
+
+  static const String leaveHistoryPage = '/leaveHistoryPage';
+
+  static const String leaveHistoryDetailsPage = '/leaveHistoryDetailsPage';
+
+  static const String attendancesPage = "/attendancesPage";
+
+  static const String todaysPunch = "/todaysPunch";
+
+  static const String workingOutOfOfficeApplication =
+      "workingOutOfOfficeApplication";
+
+  static const String workingOutOfOfficeHistory = "workingOutOfOfficeHistory";
+
+  static const String woooDataHistoryDetailsPage = "WoooDataHistoryDetailsPage";
+
+  static const String workingOutOfOfficeApproval ="WorkingOutOfOfficeApproval";
+
+  static const String woooAprovelPage="WoooAprovelPage";
 }

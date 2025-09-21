@@ -10,6 +10,7 @@ class AppDatePicker extends StatelessWidget {
   final Icon? prefixIcon;
   final DateTime? firstDate;
   final DateTime? lastDate;
+  final bool enabled; // <- New property
 
   const AppDatePicker({
     super.key,
@@ -20,9 +21,12 @@ class AppDatePicker extends StatelessWidget {
     this.prefixIcon,
     this.firstDate,
     this.lastDate,
+    this.enabled = true, // <- Default to true
   });
 
   Future<void> _selectDate(BuildContext context) async {
+    if (!enabled) return; // Prevent opening when disabled
+
     final DateTime now = DateTime.now();
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -64,31 +68,48 @@ class AppDatePicker extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () => _selectDate(context),
-          child: InputDecorator(
-            decoration: InputDecoration(
-              labelText: label,
-              labelStyle: TextStyle(color: context.theme.colorScheme.onSurface),
-              filled: true,
-              isDense: true,
-              prefixIcon: prefixIcon ?? const Icon(Icons.calendar_today),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-              focusedBorder: border.copyWith(
-                borderSide: BorderSide(
-                  color: context.theme.colorScheme.secondary,
-                  width: 2,
+          onTap: enabled ? () => _selectDate(context) : null,
+          child: AbsorbPointer(
+            absorbing: !enabled,
+            child: InputDecorator(
+              decoration: InputDecoration(
+                labelText: label,
+                labelStyle: TextStyle(
+                  color:
+                      enabled
+                          ? context.theme.colorScheme.onSurface
+                          : Colors.grey,
                 ),
+                filled: true,
+                isDense: true,
+                prefixIcon:
+                    prefixIcon ??
+                    Icon(
+                      Icons.calendar_today,
+                      color: enabled ? null : Colors.grey,
+                    ), // Icon color when disabled
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                focusedBorder: border.copyWith(
+                  borderSide: BorderSide(
+                    color: context.theme.colorScheme.secondary,
+                    width: 2,
+                  ),
+                ),
+                enabledBorder: border,
+                errorBorder: border.copyWith(
+                  borderSide: const BorderSide(color: Colors.red),
+                ),
+                enabled: enabled,
               ),
-              enabledBorder: border,
-              errorBorder: border.copyWith(
-                borderSide: const BorderSide(color: Colors.red),
-              ),
-            ),
-            child: Text(
-              formattedDate,
-              style: TextStyle(
-                color: context.theme.colorScheme.onSurface,
-                fontSize: 16,
+              child: Text(
+                formattedDate,
+                style: TextStyle(
+                  color:
+                      enabled
+                          ? context.theme.colorScheme.onSurface
+                          : Colors.grey,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),

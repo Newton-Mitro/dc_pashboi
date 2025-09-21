@@ -8,6 +8,7 @@ class AppTimePicker extends StatelessWidget {
   final String label;
   final String? errorText;
   final Icon? prefixIcon;
+  final bool enabled; // New property
 
   const AppTimePicker({
     super.key,
@@ -16,9 +17,12 @@ class AppTimePicker extends StatelessWidget {
     required this.label,
     this.errorText,
     this.prefixIcon,
+    this.enabled = true, // default true
   });
 
   Future<void> _selectTime(BuildContext context) async {
+    if (!enabled) return; // prevent interaction when disabled
+
     final TimeOfDay now = TimeOfDay.now();
     final TimeOfDay? picked = await showTimePicker(
       context: context,
@@ -51,27 +55,46 @@ class AppTimePicker extends StatelessWidget {
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(
-        color: context.theme.colorScheme.secondary,
+        color:
+            enabled
+                ? context.theme.colorScheme.secondary
+                : Colors.grey, // grey border when disabled
         width: 1.0,
       ),
     );
+
+    final textColor =
+        enabled
+            ? context.theme.colorScheme.onSurface
+            : Colors.grey; // grey text when disabled
+
+    final iconColor =
+        enabled
+            ? (prefixIcon?.color ?? context.theme.colorScheme.onSurface)
+            : Colors.grey; // grey icon when disabled
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () => _selectTime(context),
+          onTap: enabled ? () => _selectTime(context) : null,
           child: InputDecorator(
             decoration: InputDecoration(
               labelText: label,
-              labelStyle: TextStyle(color: context.theme.colorScheme.onSurface),
+              labelStyle: TextStyle(color: textColor),
               filled: true,
               isDense: true,
-              prefixIcon: prefixIcon ?? const Icon(Icons.access_time),
+              prefixIcon:
+                  prefixIcon != null
+                      ? Icon(prefixIcon!.icon, color: iconColor)
+                      : Icon(Icons.access_time, color: iconColor),
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
               focusedBorder: border.copyWith(
                 borderSide: BorderSide(
-                  color: context.theme.colorScheme.secondary,
+                  color:
+                      enabled
+                          ? context.theme.colorScheme.secondary
+                          : Colors.grey,
                   width: 2,
                 ),
               ),
@@ -82,10 +105,7 @@ class AppTimePicker extends StatelessWidget {
             ),
             child: Text(
               _formatTime(context, selectedTime),
-              style: TextStyle(
-                color: context.theme.colorScheme.onSurface,
-                fontSize: 16,
-              ),
+              style: TextStyle(color: textColor, fontSize: 16),
             ),
           ),
         ),

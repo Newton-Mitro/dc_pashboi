@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
+import 'package:pashboi/routes/auth_routes_name.dart';
 import 'package:pashboi/shared/menu_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,7 +25,8 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_employee_profile_title",
         ),
-        "controllerName": "EmployeeProfile",
+        "route": AuthRoutesName.employeeProfile,
+        "controllerName": "My Info",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_employee_profile_description",
@@ -36,7 +38,8 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_leave_application_title",
         ),
-        "controllerName": "LeaveApplication",
+        "route": AuthRoutesName.leaveInformation,
+        "controllerName": "Leave Application",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_leave_application_description",
@@ -48,7 +51,8 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_fallback_acceptance_title",
         ),
-        "controllerName": "FallbackAcceptance",
+        "route": AuthRoutesName.fallbackAcceptancePage,
+        "controllerName": "Fallback Acceptance",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_fallback_acceptance_description",
@@ -60,7 +64,9 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_leave_approval_title",
         ),
-        "controllerName": "LeaveApproval",
+
+        "route": AuthRoutesName.leaveApprovalPage,
+        "controllerName": "Leave Approval",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_leave_approval_description",
@@ -72,7 +78,8 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_leave_history_title",
         ),
-        "controllerName": "LeaveHistory",
+        "route": AuthRoutesName.leaveHistoryPage,
+        "controllerName": "Leave History",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_leave_history_description",
@@ -81,7 +88,8 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
       {
         "icon": Icon(FontAwesomeIcons.clock, color: color, size: 30),
         "menuName": Locales.string(context, "personnel_menu_attendance_title"),
-        "controllerName": "Attendance",
+        "route": AuthRoutesName.attendancesPage,
+        "controllerName": "Attendances",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_attendance_description",
@@ -93,7 +101,9 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_working_out_of_office_application_title",
         ),
-        "controllerName": "WorkOutOfOfficeApplication",
+        "route": AuthRoutesName.workingOutOfOfficeApplication,
+
+        "controllerName": "Working Out of Office Application",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_working_out_of_office_application_description",
@@ -105,7 +115,9 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_working_out_of_office_approval_title",
         ),
-        "controllerName": "WorkOutOfOfficeApproval",
+        "route": AuthRoutesName.workingOutOfOfficeApproval,
+
+        "controllerName": "Working Out of Office Approval",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_working_out_of_office_approval_description",
@@ -117,7 +129,9 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_working_out_of_office_history_title",
         ),
-        "controllerName": "WorkOutOfOfficeHistory",
+        "route": AuthRoutesName.workingOutOfOfficeHistory,
+
+        "controllerName": "Working Out of Office History",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_working_out_of_office_history_description",
@@ -129,7 +143,9 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
           context,
           "personnel_menu_todays_punch_title",
         ),
-        "controllerName": "TodaysPunch",
+        "route": AuthRoutesName.todaysPunch,
+
+        "controllerName": "Todays Punch",
         "menuDescription": Locales.string(
           context,
           "personnel_menu_todays_punch_description",
@@ -166,9 +182,10 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
             icon: menu['icon'],
             menuName: menu['menuName'],
             menuDescription: menu['menuDescription'],
+
             onTap:
                 isEnabled
-                    ? () => debugPrint("Tapped on ${menu['menuName']}")
+                    ? () => Navigator.pushNamed(context, menu['route'])
                     : null,
             isEnabled: isEnabled,
           );

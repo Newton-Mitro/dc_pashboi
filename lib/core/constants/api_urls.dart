@@ -110,5 +110,56 @@ class ApiUrls {
 
   static const String getDevTeams = 'getDevTeams';
 
+  static const String getEmployeeDetails =
+      'professionals_v1/getEmployeeDetails';
+
+  static const String getLeaveType = 'professionals_v1/getLeaveTypes';
+
+  static const String leaveTypeBalance =
+      'professionals_v1/getLeaveTypeBalances';
+
+  static const String getSearchEmployee = 'professionals_v1/searchEmployee';
+
+  static const String submitLeaveApplication =
+      'professionals_v1/submitLeaveApplication';
+
+  static const String getFallbackRequest =
+      'professionals_v1/getFallbackLeaveApplications';
+
+  static const String acceptedFallback =
+      'professionals_v1/acceptFallbackRequest';
   static const String fetchTermAndCondition = 'others_v1/GetMfsPolicy';
+
+  static const String getLeaveApproval =
+      'professionals_v1/GetSupervisorApprovalListForLeave';
+
+  static const String submitLeaveApproval =
+      'professionals_v1/UpdateSupervisorApprovalRequestForLeave';
+
+  static const String getLeaveHistoryRequest =
+      'professionals_v1/getLeaveHistories';
+
+  static const String updateLeaveApplication =
+      'professionals_v1/updateLeaveApplication';
+
+  static const String fetchAttendance = 'professionals_v1/getMyAttendances';
+
+  static const String fetchPunch = "professionals_V1/GetPresentDayAttendance";
+
+  static const String getWoooLeaveType = "professionals_v1/GetWoooType";
+
+  static const String addEmployeeWorkingOutofOffice =
+      "professionals_v1/AddEmployeeWorkingOutofOffice";
+
+  static const String getWoooData =
+      "professionals_v1/GetEmployeeWorkingOutofOfficeDetails";
+
+  static const String updateEmployeeWorkingOutofOffice =
+      "professionals_v1/UpdateEmployeeWorkingOutofOffice";
+
+  static const String getSupervisorApprovalRequestListForWOOO =
+      "professionals_v1/GetSupervisorApprovalRequestListForWOOO";
+
+  static const String updateSupervisorApprovalRequestForWOOO =
+      "professionals_v1/UpdateSupervisorApprovalRequestForWOOO";
 }
