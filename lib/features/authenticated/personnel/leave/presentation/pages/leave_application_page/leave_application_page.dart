@@ -148,13 +148,13 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                           color: context.theme.colorScheme.onSurface,
                         ),
                         errorText: '',
-                        onChanged: (value) {
-                          context.read<LeaveApplicationBloc>().add(
-                            LeaveApplicationUpdateField(
-                              data: {"fallbackEmployeeCode": value},
-                            ),
-                          );
-                        },
+                        // onChanged: (value) {
+                        //   context.read<LeaveApplicationBloc>().add(
+                        //     LeaveApplicationUpdateField(
+                        //       data: {"fallbackEmployeeCode": value},
+                        //     ),
+                        //   );
+                        // },
                         onSearchPressed: () {
                           context.read<SearchEmployeeBloc>().add(
                             FetchSearchEmployeeEvent(
