@@ -30,19 +30,27 @@ class LeaveApplicationPage extends StatefulWidget {
 }
 
 class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<LeaveApplicationBloc>().add(
-  //     LeaveApplicationUpdateField(
-  //       data: {"selectedLeaveType": widget.selectedLeaveTypeId},
-  //     ),
-  //   );
-  // }
+  final TextEditingController _fallbackEmployeeController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<LeaveApplicationBloc>().add(
+      LeaveApplicationUpdateField(
+        data: {"selectedLeaveType": widget.selectedLeaveTypeId},
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _fallbackEmployeeController.dispose();
+    super.dispose();
+  }
 
   int calculateTotalLeaveDays(DateTime startDate, DateTime endDate) {
     if (endDate.isBefore(startDate)) return 0;
-
     return endDate.difference(startDate).inDays + 1;
   }
 
@@ -51,12 +59,9 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Leave Application")),
       body: PageContainer(
-        child: Container(
-          height: double.infinity,
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(12),
-            child: _buildForm(),
-          ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(12),
+          child: _buildForm(),
         ),
       ),
     );
@@ -65,7 +70,14 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
   Widget _buildForm() {
     return BlocBuilder<LeaveApplicationBloc, LeaveApplicationState>(
       builder: (context, state) {
-        var data = state.leaveApplicationData;
+        final data = state.leaveApplicationData;
+
+        if (_fallbackEmployeeController.text !=
+            (data["fallbackEmployeeCode"] ?? '')) {
+          _fallbackEmployeeController.text = data["fallbackEmployeeCode"] ?? '';
+        }
+
+        final selectedLeaveType = data["selectedLeaveType"] as String?;
 
         return Card(
           color: context.theme.colorScheme.surface,
@@ -91,16 +103,17 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                 ),
                 const SizedBox(height: 12),
 
+                /// Leave Type Dropdown
                 AppDropdownSelect<String>(
                   label: "Leave Type",
                   value:
-                      (data["selectedLeaveType"] as String?)?.isEmpty ?? true
+                      selectedLeaveType?.isEmpty ?? true
                           ? widget.selectedLeaveTypeId
-                          : data["selectedLeaveType"] as String,
+                          : selectedLeaveType,
                   enabled: widget.leaveTypes.isNotEmpty,
                   items:
                       widget.leaveTypes
-                          .map<DropdownMenuItem<String>>(
+                          .map(
                             (type) => DropdownMenuItem<String>(
                               value: type.id,
                               child: Text(type.leaveType),
@@ -117,257 +130,238 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                   },
                 ),
                 const SizedBox(height: 16),
-                (data["selectedLeaveType"] != '02' &&
-                        data["selectedLeaveType"] != '03' &&
-                        data["selectedLeaveType"] != '07')
-                    ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppSearchTextInput(
-                          initialValue: data["fallbackEmployeeCode"],
-                          label: "Fallback Employee Id",
-                          isSearch: true,
+
+                /// Fallback Employee
+                if (selectedLeaveType != '02' &&
+                    selectedLeaveType != '03' &&
+                    selectedLeaveType != '07')
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppSearchTextInput(
+                        controller: _fallbackEmployeeController,
+                        label: "Fallback Employee Id",
+                        isSearch: true,
+                        enabled: true,
+                        prefixIcon: Icon(
+                          FontAwesomeIcons.userTie,
+                          color: context.theme.colorScheme.onSurface,
+                        ),
+                        errorText: '',
+                        onChanged: (value) {
+                          context.read<LeaveApplicationBloc>().add(
+                            LeaveApplicationUpdateField(
+                              data: {"fallbackEmployeeCode": value},
+                            ),
+                          );
+                        },
+                        onSearchPressed: () {
+                          context.read<SearchEmployeeBloc>().add(
+                            FetchSearchEmployeeEvent(
+                              _fallbackEmployeeController.text,
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      BlocBuilder<SearchEmployeeBloc, SearchEmployeeState>(
+                        builder: (context, state) {
+                          if (state is SearchEmployeeLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (state is SearchEmployeeError) {
+                            return Text(
+                              state.message,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                            );
+                          }
+                          if (state is SearchEmployeeSuccess &&
+                              state.employees.isNotEmpty) {
+                            final employee = state.employees.first;
+
+                            context.read<LeaveApplicationBloc>().add(
+                              LeaveApplicationUpdateField(
+                                data: {
+                                  "accountHolderName": employee.fullName,
+                                  "fallbackEmployeeCode": employee.employeeCode,
+                                },
+                              ),
+                            );
+
+                            return AppTextInput(
+                              initialValue: employee.fullName,
+                              label: 'Fallback Employee Name',
+                              enabled: false,
+                              prefixIcon: Icon(
+                                Icons.person_outline,
+                                color: context.theme.colorScheme.onSurface,
+                              ),
+                              errorText: '',
+                            );
+                          }
+
+                          return AppTextInput(
+                            initialValue: data["accountHolderName"],
+                            label: 'Fallback Employee Name',
+                            enabled: false,
+                            prefixIcon: Icon(
+                              Icons.person_outline,
+                              color: context.theme.colorScheme.onSurface,
+                            ),
+                            errorText: '',
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+
+                /// Date Selection
+                if (selectedLeaveType != '03')
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppDatePicker(
+                          label: "From Date",
                           enabled: true,
+                          selectedDate: data["startDate"],
+                          onDateChanged: (value) {
+                            context.read<LeaveApplicationBloc>().add(
+                              LeaveApplicationUpdateField(
+                                data: {"startDate": value},
+                              ),
+                            );
+                          },
+                          firstDate:
+                              (selectedLeaveType == '01' ||
+                                      selectedLeaveType == '04')
+                                  ? DateTime.now()
+                                  : null,
+                          lastDate:
+                              (selectedLeaveType == '02')
+                                  ? DateTime.now()
+                                  : null,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: AppDatePicker(
+                          label: "To Date",
+                          enabled: true,
+                          selectedDate: data["endDate"],
+                          onDateChanged: (value) {
+                            if (value != null) {
+                              final rejoin = value.add(Duration(days: 1));
+                              context.read<LeaveApplicationBloc>().add(
+                                LeaveApplicationUpdateField(
+                                  data: {
+                                    "endDate": value,
+                                    "rejoiningDate": rejoin,
+                                  },
+                                ),
+                              );
+                            }
+                          },
+                          firstDate:
+                              (selectedLeaveType == '01' ||
+                                      selectedLeaveType == '04')
+                                  ? DateTime.now()
+                                  : null,
+                          lastDate:
+                              (selectedLeaveType == '02')
+                                  ? DateTime.now()
+                                  : null,
+                        ),
+                      ),
+                    ],
+                  )
+                else
+                  Column(
+                    children: [
+                      AppDateTimePicker(
+                        label: 'From Date and Time',
+                        selectedDateTime: data["startDate"],
+                        onDateTimeChanged: (dateTime) {
+                          if (dateTime != null) {
+                            final end = dateTime.add(
+                              const Duration(hours: 2, minutes: 30),
+                            );
+                            context.read<LeaveApplicationBloc>().add(
+                              LeaveApplicationUpdateField(
+                                data: {
+                                  "startDate": dateTime,
+                                  "endDate": end,
+                                  "rejoiningDate": end,
+                                },
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      AppDateTimePicker(
+                        label: 'To Date and Time',
+                        selectedDateTime: data["endDate"],
+                        onDateTimeChanged: (_) {},
+                      ),
+                    ],
+                  ),
+                const SizedBox(height: 16),
+
+                /// Total Days + Rejoin Date
+                if (selectedLeaveType != '03')
+                  Row(
+                    children: [
+                      Expanded(
+                        child: AppTextInput(
+                          initialValue:
+                              (data['startDate'] != null &&
+                                      data['endDate'] != null)
+                                  ? calculateTotalLeaveDays(
+                                    data['startDate'],
+                                    data['endDate'],
+                                  ).toString()
+                                  : '',
+                          label: 'Total Day(s)',
+                          enabled: false,
                           prefixIcon: Icon(
-                            FontAwesomeIcons.userTie,
+                            Icons.calendar_today,
                             color: context.theme.colorScheme.onSurface,
                           ),
                           errorText: '',
-                          onChanged: (value) {
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: AppDatePicker(
+                          label: "Rejoin Date",
+                          selectedDate: data["rejoiningDate"],
+                          enabled: true,
+                          onDateChanged: (value) {
                             context.read<LeaveApplicationBloc>().add(
                               LeaveApplicationUpdateField(
-                                data: {"fallbackEmployeeCode": value},
-                              ),
-                            );
-                          },
-                          onSearchPressed: () {
-                            context.read<SearchEmployeeBloc>().add(
-                              FetchSearchEmployeeEvent(
-                                data["fallbackEmployeeCode"],
+                                data: {"rejoiningDate": value},
                               ),
                             );
                           },
                         ),
-                        const SizedBox(height: 16),
-
-                        BlocBuilder<SearchEmployeeBloc, SearchEmployeeState>(
-                          builder: (context, state) {
-                            if (state is SearchEmployeeLoading) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            if (state is SearchEmployeeError) {
-                              return Text(
-                                state.message,
-                                style: TextStyle(
-                                  color: Theme.of(context).colorScheme.error,
-                                ),
-                              );
-                            }
-                            if (state is SearchEmployeeSuccess) {
-                              final List<SearchEmployeeEntity> employees =
-                                  state.employees;
-
-                              context.read<LeaveApplicationBloc>().add(
-                                LeaveApplicationUpdateField(
-                                  data: {
-                                    "accountHolderName":
-                                        employees.first.fullName,
-                                    'fallbackEmployeeCode':
-                                        employees.first.employeeCode,
-                                  },
-                                ),
-                              );
-
-                              return AppTextInput(
-                                initialValue: data["accountHolderName"],
-                                label: 'Fallback Employee Name',
-                                prefixIcon: Icon(
-                                  Icons.person_outline,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                ),
-                                enabled: false,
-                                errorText: '',
-                              );
-                            }
-                            return AppTextInput(
-                              initialValue: data["accountHolderName"],
-                              label: 'Fallback Employee Name',
-                              prefixIcon: Icon(
-                                Icons.person_outline,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              enabled: false,
-                              errorText: '',
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    )
-                    : const SizedBox.shrink(),
-
-                data["selectedLeaveType"] != '03'
-                    ? Row(
-                      spacing: 10,
-                      children: [
-                        Expanded(
-                          child: AppDatePicker(
-                            label: "From Date",
-                            enabled: true,
-                            onDateChanged: (value) {
-                              context.read<LeaveApplicationBloc>().add(
-                                LeaveApplicationUpdateField(
-                                  data: {"startDate": value},
-                                ),
-                              );
-                            },
-                            selectedDate: data["startDate"],
-                          ),
-                        ),
-
-                        Expanded(
-                          child: AppDatePicker(
-                            label: "To Date",
-                            enabled: true,
-                            onDateChanged: (value) {
-                              if (value != null) {
-                                final rejoiningDate = value.add(
-                                  const Duration(days: 1),
-                                );
-
-                                context.read<LeaveApplicationBloc>().add(
-                                  LeaveApplicationUpdateField(
-                                    data: {
-                                      "endDate": value,
-                                      "rejoiningDate": rejoiningDate,
-                                    },
-                                  ),
-                                );
-                              }
-                            },
-                            selectedDate: data["endDate"],
-                          ),
-                        ),
-                      ],
-                    )
-                    : Column(
-                      children: [
-                        AppDateTimePicker(
-                          selectedDateTime: data["startDate"],
-                          onDateTimeChanged: (dateTime) {
-                            setState(() {
-                              context.read<LeaveApplicationBloc>().add(
-                                LeaveApplicationUpdateField(
-                                  data: {
-                                    "startDate": dateTime!,
-                                    "endDate": dateTime.add(
-                                      const Duration(hours: 2, minutes: 30),
-                                    ),
-                                  },
-                                ),
-                              );
-
-                              if (data['selectedLeaveType'] == '03') {
-                                context.read<LeaveApplicationBloc>().add(
-                                  LeaveApplicationUpdateField(
-                                    data: {
-                                      "rejoiningDate": dateTime.add(
-                                        const Duration(hours: 2, minutes: 30),
-                                      ),
-                                    },
-                                  ),
-                                );
-                              }
-                            });
-                          },
-                          label: 'Form Date and Time',
-                        ),
-
-                        SizedBox(height: 16),
-                        AppDateTimePicker(
-                          selectedDateTime: data["endDate"],
-                          onDateTimeChanged: (DateTime) {
-                            setState(() {
-                              // data["endDate"] = DateTime!;
-                              // context.read<LeaveApplicationBloc>().add(
-                              //   LeaveApplicationUpdateField(
-                              //     data: {"endDate": DateTime},
-                              //   ),
-                              // );
-
-                              // if (data['selectedLeaveType'] == '03') {
-                              //   context.read<LeaveApplicationBloc>().add(
-                              //     LeaveApplicationUpdateField(
-                              //       data: {"rejoiningDate": DateTime},
-                              //     ),
-                              //   );
-                              // }
-                            });
-                          },
-
-                          label: 'To Data and Time',
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
 
                 const SizedBox(height: 16),
-                (data["selectedLeaveType"] != '03')
-                    ? Column(
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: AppTextInput(
-                                initialValue:
-                                    (data['startDate'] != null &&
-                                            data['endDate'] != null)
-                                        ? calculateTotalLeaveDays(
-                                          data['startDate'],
-                                          data['endDate'],
-                                        ).toString()
-                                        : '',
-                                label: 'Total Day(s)',
-                                prefixIcon: Icon(
-                                  Icons.calendar_today,
-                                  color: context.theme.colorScheme.onSurface,
-                                ),
-                                enabled: false,
-                                errorText: '',
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: AppDatePicker(
-                                label: "Rejoin Date",
-                                selectedDate: data["rejoiningDate"],
-                                enabled: true,
-                                onDateChanged: (DateTime) {
-                                  context.read<LeaveApplicationBloc>().add(
-                                    LeaveApplicationUpdateField(
-                                      data: {"rejoiningDate": DateTime},
-                                    ),
-                                  );
-                                },
-                                // selectedDate: data["rejoinDate"],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    )
-                    : const SizedBox.shrink(),
-                const SizedBox(height: 16),
+
+                /// Reason for Leave
                 TextFormField(
                   initialValue: data["description"],
-                  // controller: _descriptionController,
                   maxLines: null,
                   minLines: 2,
                   keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Reason for Leave',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.edit_note),
@@ -385,48 +379,46 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                   },
                 ),
                 const SizedBox(height: 16),
+
+                /// Submit Button + Snackbar
                 BlocListener<LeaveApplicationBloc, LeaveApplicationState>(
                   listener: (context, state) {
-                    if (state.error != null && state.error!.isNotEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: 'Oops!',
-                          message: state.error!,
-                          contentType: ContentType.failure,
-                        ),
-                      );
-
+                    if (state.error?.isNotEmpty ?? false) {
                       ScaffoldMessenger.of(context)
                         ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
+                        ..showSnackBar(
+                          SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: AwesomeSnackbarContent(
+                              title: 'Oops!',
+                              message: state.error!,
+                              contentType: ContentType.failure,
+                            ),
+                          ),
+                        );
                     }
-
-                    if (state.successMessage != null &&
-                        state.successMessage!.isNotEmpty) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: 'Done!',
-                          message: state.successMessage!,
-                          contentType: ContentType.success,
-                        ),
-                      );
-
+                    if (state.successMessage?.isNotEmpty ?? false) {
                       ScaffoldMessenger.of(context)
                         ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-
+                        ..showSnackBar(
+                          SnackBar(
+                            elevation: 0,
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.transparent,
+                            content: AwesomeSnackbarContent(
+                              title: 'Done!',
+                              message: state.successMessage!,
+                              contentType: ContentType.success,
+                            ),
+                          ),
+                        );
                       if (Navigator.canPop(context)) {
                         Navigator.pop(context);
                       }
                     }
                   },
-
                   child: AppPrimaryButton(
                     label: "Apply",
                     onPressed: () {
