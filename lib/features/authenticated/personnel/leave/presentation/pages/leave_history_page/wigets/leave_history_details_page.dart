@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -386,33 +387,79 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                           const SizedBox(height: 16),
 
                           widget.isEnable
-                              ? AppPrimaryButton(
-                                label: "Apply",
-                                onPressed: () {
-                                  context
-                                      .read<UpdateLeaveApplicationBloc>()
-                                      .add(
-                                        UpdateLeaveApplication(
-                                          remarks:
-                                              _descriptionController.text
-                                                  .trim(),
-                                          fallbackEmployeeCode:
-                                              _accountSearchController.text
-                                                  .trim(),
-                                          rejoiningDate: rejoinDate.toString(),
-                                          toDate: endDate.toString(),
-                                          formTime: startDate.toString(),
-                                          toTime: endDate.toString(),
-                                          fromDate: startDate.toString(),
-                                          leaveTypeCode:
-                                              selectedLeaveType.toString(),
-                                          leaveStageRemarks: '',
-                                          leaveApplicationId:
-                                              widget.data.leaveApplicationId
-                                                  .toString(),
-                                        ),
-                                      );
+                              ? BlocListener<
+                                UpdateLeaveApplicationBloc,
+                                UpdateLeaveApplicationState
+                              >(
+                                listener: (context, state) {
+                                  if (state is UpdateLeaveApplicationError) {
+                                    final snackBar = SnackBar(
+                                      elevation: 0,
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: Colors.transparent,
+                                      content: AwesomeSnackbarContent(
+                                        title: 'Oops!',
+                                        message: state.message!,
+                                        contentType: ContentType.failure,
+                                      ),
+                                    );
+
+                                    ScaffoldMessenger.of(context)
+                                      ..hideCurrentSnackBar()
+                                      ..showSnackBar(snackBar);
+                                  }
+
+                                  if (state is UpdateLeaveApplicationSuccess) {
+                                    final snackBar = SnackBar(
+                                      elevation: 0,
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: Colors.transparent,
+                                      content: AwesomeSnackbarContent(
+                                        title: 'Done!',
+                                        message: state.message!,
+                                        contentType: ContentType.success,
+                                      ),
+                                    );
+
+                                    ScaffoldMessenger.of(context)
+                                      ..hideCurrentSnackBar()
+                                      ..showSnackBar(snackBar);
+                                    if (Navigator.canPop(context)) {
+                                      Navigator.pop(context);
+                                    }
+                                  }
+
+                                  // TODO: implement listener
                                 },
+                                child: AppPrimaryButton(
+                                  label: "Apply",
+                                  onPressed: () {
+                                    context
+                                        .read<UpdateLeaveApplicationBloc>()
+                                        .add(
+                                          UpdateLeaveApplication(
+                                            remarks:
+                                                _descriptionController.text
+                                                    .trim(),
+                                            fallbackEmployeeCode:
+                                                _accountSearchController.text
+                                                    .trim(),
+                                            rejoiningDate:
+                                                rejoinDate.toString(),
+                                            toDate: endDate.toString(),
+                                            formTime: startDate.toString(),
+                                            toTime: endDate.toString(),
+                                            fromDate: startDate.toString(),
+                                            leaveTypeCode:
+                                                selectedLeaveType.toString(),
+                                            leaveStageRemarks: '',
+                                            leaveApplicationId:
+                                                widget.data.leaveApplicationId
+                                                    .toString(),
+                                          ),
+                                        );
+                                  },
+                                ),
                               )
                               : AppPrimaryButton(
                                 label: "close",
