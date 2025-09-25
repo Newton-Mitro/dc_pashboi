@@ -5,9 +5,11 @@ import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart
 import 'package:pashboi/features/authenticated/my_loans/data/datasources/remote.datasource.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/repositories/loan_repository.impl.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/repositories/loan_repository.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_details_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_statement_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my_loans_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_details_page/bloc/loan_details_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/bloc/loan_statement_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/my_loans_page/bloc/my_loans_bloc.dart';
@@ -39,6 +41,10 @@ void registerLoanModule() async {
     () => FetchLoanDetailsUseCase(loanRepository: sl<LoanRepository>()),
   );
 
+  sl.registerLazySingleton<InstantLoanEligibilityUseCase>(
+    () => InstantLoanEligibilityUseCase(loanRepository: sl<LoanRepository>()),
+  );
+
   // Register Bloc
   sl.registerFactory<MyLoansBloc>(
     () => MyLoansBloc(
@@ -57,6 +63,13 @@ void registerLoanModule() async {
   sl.registerFactory<LoanStatementBloc>(
     () => LoanStatementBloc(
       fetchLoanStatementUseCase: sl<FetchLoanStatementUseCase>(),
+      getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+    ),
+  );
+
+  sl.registerFactory<InstantLoanEligibilityBloc>(
+    () => InstantLoanEligibilityBloc(
+      instantLoanEligibilityUseCase: sl<InstantLoanEligibilityUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
     ),
   );

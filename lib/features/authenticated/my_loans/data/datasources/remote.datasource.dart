@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:pashboi/core/constants/api_urls.dart';
@@ -6,9 +7,13 @@ import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/utils/json_util.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/against_loan_interest_model.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/collateral_info_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/data/models/eligible_conditions_model.dart';
+import 'package:pashboi/features/authenticated/my_loans/data/models/instant_loan_eligibility_model.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/loan_account_model.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/loan_product_model.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/loan_transaction_model.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/instant_loan_eligibility_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_against_loan_interest_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_collateral_accounts_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_details_usecase.dart';
@@ -32,6 +37,10 @@ abstract class LoanRemoteDataSource {
 
   Future<List<LoanTransactionModel>> fetchLoanStatement(
     FetchLoanStatementProps props,
+  );
+
+  Future<InstantLoanEligibilityModel> fetchInstantLoanEligibility(
+    InstantLoanEligibilityProps props,
   );
 }
 
@@ -309,6 +318,60 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
             );
 
             return loanInterest;
+          }
+        }
+        throw ServerException(message: "Server Error");
+      } else {
+        throw ServerException(message: "Server Error");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<InstantLoanEligibilityModel> fetchInstantLoanEligibility(
+    InstantLoanEligibilityProps props,
+  ) async {
+    try {
+      final response = await apiService.post(
+        ApiUrls.fetchInstantLoanEligibility,
+        data: {
+          "UserName": props.email,
+          "UID": props.userId,
+          "ByUserId": props.userId,
+          "RolePermissionId": props.rolePermissionId,
+          "PersonId": props.personId,
+          "EmployeeCode": props.employeeCode,
+          "MobileNumber": props.mobileNumber,
+          "MobileNo": props.mobileNumber,
+          "RequestFrom": "MobileApp",
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        final dataString = response.data?['Data'];
+        final errorMessage = response.data?['Message'];
+        final statusMessage = response.data?['Status'];
+        if (dataString == null || dataString.isNotEmpty) {
+          if (statusMessage != null && statusMessage == "failed") {
+            throw ServerException(message: errorMessage);
+          } else {
+            Map<String, dynamic> decoded = jsonDecode(dataString);
+
+            String eligibleConditionsString = decoded['EligibleConditions'];
+
+            var eligibilityMessage = decoded['EligibilityMessage'];
+            var eligibleConditionsList = jsonDecode(eligibleConditionsString);
+            var eligibleConditionsLists =
+                (eligibleConditionsList)
+                    .map((e) => EligibleConditionsModel.fromJson(e))
+                    .toList();
+
+            return InstantLoanEligibilityModel(
+              eligibilityMessage: eligibilityMessage,
+              eligibleConditions: eligibleConditionsLists,
+            );
           }
         }
         throw ServerException(message: "Server Error");

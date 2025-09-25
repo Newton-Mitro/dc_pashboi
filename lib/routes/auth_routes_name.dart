@@ -100,7 +100,9 @@ final class AuthRoutesName {
 
   static const String woooDataHistoryDetailsPage = "WoooDataHistoryDetailsPage";
 
-  static const String workingOutOfOfficeApproval ="WorkingOutOfOfficeApproval";
+  static const String workingOutOfOfficeApproval = "WorkingOutOfOfficeApproval";
 
-  static const String woooAprovelPage="WoooAprovelPage";
+  static const String woooAprovelPage = "WoooAprovelPage";
+
+  static const String instantLoanNotEligible = "instantLoanNotEligible";
 }

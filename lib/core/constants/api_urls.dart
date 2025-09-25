@@ -162,4 +162,7 @@ class ApiUrls {
 
   static const String updateSupervisorApprovalRequestForWOOO =
       "professionals_v1/UpdateSupervisorApprovalRequestForWOOO";
+
+  static const String fetchInstantLoanEligibility =
+      "loans_v3/checkInstantLoanEligibility";
 }
