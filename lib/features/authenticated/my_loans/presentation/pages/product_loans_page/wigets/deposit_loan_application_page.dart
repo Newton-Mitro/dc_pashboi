@@ -48,9 +48,34 @@ class _DepositLoanApplicationPageState
         child: Column(
           children: [
             Expanded(
-              child: SingleChildScrollView(padding: const EdgeInsets.all(12)),
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(12),
+                child: BlocBuilder<
+                  ProductLoanCollectionAccountBloc,
+                  ProductLoanCollectionAccountState
+                >(
+                  builder: (context, state) {
+                    if (state is ProductLoanCollectionAccountLoading ||
+                        state is ProductLoanCollectionAccountInitial) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+
+                    if (state is ProductLoanCollectionAccountError) {
+                      return Center(child: Text(state.message));
+                    }
+
+                    if (state is ProductLoanCollectionAccountSuccess) {
+                      final accounts =
+                          state.productLoanEligibleCollateralAccountDto;
+                      return _buildForm(accounts.collateralAccounts, width);
+                    }
+
+                    // Fallback in case state doesn't match any above
+                    return const SizedBox.shrink();
+                  },
+                ),
+              ),
             ),
-            // _buildForm(,width),
             _buildBottomButtons(width),
           ],
         ),
@@ -128,7 +153,12 @@ class _DepositLoanApplicationPageState
                         progressColor: context.theme.colorScheme.secondary,
                         foregroundColor: context.theme.colorScheme.onPrimary,
                         label: 'Hold & Press to Submit',
-                        onSubmit: () {},
+                        onSubmit: () {
+                          // TODO: implement your submit logic here
+                          // context.read<DepositLoanProductBloc>().add(
+                          //   SubmitDepositLoan(),
+                          // );
+                        },
                       );
                     },
                   ),
@@ -147,6 +177,11 @@ class _DepositLoanApplicationPageState
     return BlocBuilder<DepositLoanProductBloc, DepositLoanProductState>(
       builder: (context, state) {
         final steps = _buildSteps(state);
+
+        context.read<DepositLoanProductBloc>().add(
+          SetCollectionLedgers(ledgers: account),
+        );
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -31,7 +31,7 @@ class UpdateStepData extends DepositLoanProductEvent {
 }
 
 class SetCollectionLedgers extends DepositLoanProductEvent {
-  final List<CollectionLedgerEntity> ledgers;
+  final List<ProductLoanCollectionAccountEntity> ledgers;
 
   const SetCollectionLedgers({required this.ledgers});
 
@@ -40,7 +40,7 @@ class SetCollectionLedgers extends DepositLoanProductEvent {
 }
 
 class ToggleLedgerSelection extends DepositLoanProductEvent {
-  final CollectionLedgerEntity ledger;
+  final ProductLoanCollectionAccountEntity ledger;
 
   const ToggleLedgerSelection(this.ledger);
 
@@ -49,7 +49,7 @@ class ToggleLedgerSelection extends DepositLoanProductEvent {
 }
 
 class UpdateLedgerAmount extends DepositLoanProductEvent {
-  final CollectionLedgerEntity ledger;
+  final ProductLoanCollectionAccountEntity ledger;
   final double newAmount;
 
   const UpdateLedgerAmount({required this.ledger, required this.newAmount});

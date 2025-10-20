@@ -1,7 +1,7 @@
 import 'package:pashboi/core/entities/entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 
-class ProductLoanEligibleCollateralAccountDto extends Entity<int> {
+class ProductLoanEligibleCollateralAccountDto extends Entity<String> {
   final List<ProductLoanCollectionAccountEntity> collateralAccounts;
   final double maximumLoanAmount;
   final double interestRate;

@@ -6,7 +6,7 @@ class DepositLoanProductState extends Equatable {
   final Map<int, Map<String, dynamic>> stepData;
   final DepositAccountEntity? selectedAccount;
   final DebitCardEntity? selectedCard;
-  final List<CollectionLedgerEntity> collectionLedgers;
+  final List<ProductLoanCollectionAccountEntity> collectionLedgers;
   final bool isLoading;
   final String? error;
   final String? successMessage;
@@ -16,7 +16,7 @@ class DepositLoanProductState extends Equatable {
     this.validationErrors = const {},
     this.stepData = const {},
     this.selectedAccount,
-    List<CollectionLedgerEntity>? collectionLedgers,
+    List<ProductLoanCollectionAccountEntity>? collectionLedgers,
     this.selectedCard,
     this.isLoading = false,
     this.error,
@@ -28,7 +28,7 @@ class DepositLoanProductState extends Equatable {
     Map<int, Map<String, dynamic>>? validationErrors,
     Map<int, Map<String, dynamic>>? stepData,
     bool? isLoading,
-    List<CollectionLedgerEntity>? collectionLedgers,
+    List<ProductLoanCollectionAccountEntity>? collectionLedgers,
     String? error,
     String? successMessage,
     DepositAccountEntity? selectedAccount,

@@ -549,12 +549,14 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
                 .map((e) => ProductLoanCollateralAccountModel.fromJson(e))
                 .toList();
 
+        // final accountId = jsonData['accountId'];
         final maximumLoanAmount = jsonData['MaximumLoanAmount'];
         final interestRate = jsonData['InterestRate'];
         final numberOfInstallment = jsonData['NumberOfInstallment'];
         final totalApplyLoan = jsonData['TotalApplyLoan'];
 
         return ProductLoanEligibleCollateralAccountDto(
+          // id: accountId,
           maximumLoanAmount: maximumLoanAmount,
           interestRate: interestRate,
           totalApplyLoan: totalApplyLoan,

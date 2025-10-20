@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
-import 'package:pashboi/features/authenticated/collection_ledgers/domain/entities/collection_ledger_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/shared/widgets/app_text_input.dart';
 
@@ -11,8 +11,9 @@ class CollateralDetails extends StatefulWidget {
   final String title;
   // final DepositLoanProductState state;
   final DepositLoanProductState ledgers;
-  final void Function(CollectionLedgerEntity) onToggleSelect;
-  final void Function(CollectionLedgerEntity, double) onAmountChanged;
+  final void Function(ProductLoanCollectionAccountEntity) onToggleSelect;
+  final void Function(ProductLoanCollectionAccountEntity, double)
+  onAmountChanged;
   final String? sectionError;
   final Map<String, String>? amountErrors;
 
@@ -138,7 +139,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                       _InfoItem(
                                         icon: FontAwesomeIcons.layerGroup,
                                         label: "Account Type",
-                                        value: entry.accountTypeCode ?? "N/A",
+                                        value: entry.accountType ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.hashtag,
@@ -149,14 +150,14 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                         icon: FontAwesomeIcons.sackDollar,
                                         label: "Account Balance",
                                         value: TakaFormatter.format(
-                                          entry.amount ?? 0,
+                                          entry.totalBalance ?? 0,
                                         ),
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.coins,
                                         label: "Loanable Balance",
                                         value: TakaFormatter.format(
-                                          entry.loanBalance ?? 0,
+                                          entry.loanableBalance ?? 0,
                                         ),
                                       ),
                                     ],
@@ -167,7 +168,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                   onChanged: (value) {
                                     context.read<DepositLoanProductBloc>().add(
                                       UpdateLedgerAmount(
-                                        newAmount: entry.loanBalance,
+                                        newAmount: entry.loanableBalance,
                                         ledger: entry,
                                       ),
                                     );
@@ -184,7 +185,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                 color: theme.colorScheme.onSurface,
                                 size: 18,
                               ),
-                              initialValue: entry.loanBalance.toString(),
+                              initialValue: entry.loanableBalance.toString(),
                               enabled: true,
                               onChanged: (value) {
                                 final parsedAmount = double.tryParse(value);

@@ -2,9 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
-import 'package:pashboi/features/authenticated/collection_ledgers/domain/entities/collection_ledger_entity.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/deposit_account_entity.dart';
-
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 part 'deposit_loan_product_event.dart';
 part 'deposit_loan_product_state.dart';
 
@@ -39,11 +38,12 @@ class DepositLoanProductBloc
             .map(
               (ledger) => ledger.copyWith(
                 accountNumber: ledger.accountNumber,
-                accountTypeCode: ledger.accountTypeCode,
-                amount: ledger.amount,
-                loanBalance: ledger.loanBalance,
-                intrestRate: ledger.intrestRate,
-
+                accountType: ledger.accountType,
+                totalBalance: ledger.totalBalance,
+                loanableBalance: ledger.loanableBalance,
+                withdrawableBalance: ledger.withdrawableBalance,
+                partialApplyLoan: ledger.partialApplyLoan,
+                isEligible: ledger.isEligible,
                 isSelected: false,
               ),
             )
@@ -55,7 +55,7 @@ class DepositLoanProductBloc
     ToggleLedgerSelection event,
     Emitter<DepositLoanProductState> emit,
   ) {
-    late List<CollectionLedgerEntity> updatedLedgers;
+    late List<ProductLoanCollectionAccountEntity> updatedLedgers;
 
     updatedLedgers =
         state.collectionLedgers.map((l) {
@@ -75,7 +75,7 @@ class DepositLoanProductBloc
     final updatedLedgers =
         state.collectionLedgers.map((l) {
           if (l.accountNumber == event.ledger.accountNumber) {
-            return l.copyWith(loanBalance: event.newAmount);
+            return l.copyWith(loanableBalance: event.newAmount);
           }
           return l;
         }).toList();
@@ -180,32 +180,6 @@ class DepositLoanProductBloc
         break;
 
       case 1:
-        // if (data['amount'] == null ||
-        //     data['amount'].toString().trim().isEmpty) {
-        //   errors['amount'] = 'Please enter amount.';
-        // } else {
-        //   final fieldValue = data['amount'].toString().trim();
-
-        //   final parsedAmount = double.tryParse(fieldValue);
-        //   final loanAmount = 50000;
-
-        //   if (parsedAmount == null || parsedAmount <= 0) {
-        //     errors['amount'] = 'Please enter valid amount';
-        //   } else if (parsedAmount <= 10000) {
-        //     if (parsedAmount % 500 != 0) {
-        //       errors['amount'] = 'Amount must be multiplied by 500 /-';
-        //     } else if (parsedAmount > loanAmount) {
-        //       errors['amount'] = 'Amount must be less than $loanAmount /-';
-        //     }
-        //   } else {
-        //     if (parsedAmount % 1000 != 0) {
-        //       errors['amount'] = 'Amount must be multiplied by 1000 /-';
-        //     } else if (parsedAmount > loanAmount) {
-        //       errors['amount'] = 'Amount must be less than $loanAmount /-';
-        //     }
-        //   }
-        // }
-
         break;
 
       case 2:
