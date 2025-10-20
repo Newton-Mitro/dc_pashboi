@@ -1,4 +1,5 @@
-import 'package:pashboi/features/authenticated/my_loans/data/models/collateral_account_model.dart';
+import 'package:pashboi/features/authenticated/collection_ledgers/data/models/collection_ledger_model.dart';
+import 'package:pashboi/features/authenticated/my_loans/data/models/product_loan_collateral_account_model.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/collateral_info_entity.dart';
 
 class CollateralInfoModel extends CollateralInfoEntity {
@@ -14,7 +15,7 @@ class CollateralInfoModel extends CollateralInfoEntity {
       id: 0, // since API does not provide id, use 0 or UUID
       collateralAccounts:
           (json['CollateralAccounts'] as List<dynamic>)
-              .map((e) => CollateralAccountModel.fromJson(e))
+              .map((e) => CollectionLedgerModel.fromJson(e))
               .toList(),
       maximumLoanAmount: (json['MaximumLoanAmount'] as num).toDouble(),
       numberOfInstallment: json['NumberOfInstallment'] as int,
@@ -25,7 +26,7 @@ class CollateralInfoModel extends CollateralInfoEntity {
     return {
       "CollateralAccounts":
           collateralAccounts
-              .map((e) => (e as CollateralAccountModel).toJson())
+              .map((e) => (e as ProductLoanCollateralAccountModel).toJson())
               .toList(),
       "MaximumLoanAmount": maximumLoanAmount,
       "NumberOfInstallment": numberOfInstallment,

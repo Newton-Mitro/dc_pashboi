@@ -5,18 +5,22 @@ import 'package:pashboi/core/utils/failure_mapper.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/datasources/remote.datasource.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/against_loan_interest_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/collateral_info_entity.dart';
-import 'package:pashboi/features/authenticated/my_loans/domain/entities/instant_loan_eligibility_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/deposit_loan_eligibility_dto.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/eligible_collateral_accounts_dto.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/instant_loan_eligibility_dto.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_product_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_transaction_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/repositories/loan_repository.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/deposit_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_against_loan_interest_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_collateral_accounts_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_details_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_statement_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my_loans_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_loan_products_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
 
 class LoanRepositoryImpl implements LoanRepository {
   final LoanRemoteDataSource loanRemoteDataSource;
@@ -122,4 +126,63 @@ class LoanRepositoryImpl implements LoanRepository {
       return Left(FailureMapper.fromException(e));
     }
   }
+
+  @override
+  ResultFuture<String> submitInstantLoans(SubmitInstantLoansProps props) async {
+    try {
+      final result = await loanRemoteDataSource.fetchEligibleCollateralAccount(
+        props,
+      );
+      return Right(result);
+    } catch (e) {
+      return Left(FailureMapper.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<List<DepositLoanEligibilityDto>> fetchDepositLoan(
+    DepositLoanEligibilityProps props,
+  ) async {
+    try {
+      final models = await loanRemoteDataSource.fetchDepositLoanEligibility(
+        props,
+      );
+
+      final List<DepositLoanEligibilityDto> dtos =
+          models.map((model) {
+            return DepositLoanEligibilityDto(
+              productId: model.productId,
+              loanProductCode: model.loanProductCode,
+              loanProductName: model.loanProductName,
+              interestRate: model.interestRate,
+              interestType: model.interestType,
+              isEligible: model.isEligible,
+              eligibilityDetails:
+                  model.eligibilityDetails
+                      .map((detailModel) => detailModel.toEntity())
+                      .toList(),
+            );
+          }).toList();
+
+      return Right(dtos);
+    } catch (e) {
+      return Left(FailureMapper.fromException(e));
+    }
+  }
+
+  // @override
+  // ResultFuture<EligibleCollateralAccountDto> getEligibleCollateralAccount(
+  //   GetEligibleCollateralAccountProps props,
+  // ) async {
+  //   try {
+  //     final result = await loanRemoteDataSource
+  //         .fetchEligibleCollateralAccountDeposit(props);
+
+  //     final dto = result.toDto(0);
+
+  //     return Right(dto);
+  //   } catch (e) {
+  //     return Left(FailureMapper.fromException(e));
+  //   }
+  // }
 }

@@ -105,4 +105,6 @@ final class AuthRoutesName {
   static const String woooAprovelPage = "WoooAprovelPage";
 
   static const String instantLoanNotEligible = "instantLoanNotEligible";
+
+  static const String depositLoanApplicationPage = "depositLoanApplicationPage";
 }

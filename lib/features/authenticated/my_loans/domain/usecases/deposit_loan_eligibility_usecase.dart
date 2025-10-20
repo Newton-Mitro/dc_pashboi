@@ -1,11 +1,11 @@
 import 'package:pashboi/core/requests/base_request_props.dart';
 import 'package:pashboi/core/types/typedef.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
-import 'package:pashboi/features/authenticated/my_loans/domain/entities/instant_loan_eligibility_dto.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/deposit_loan_eligibility_dto.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/repositories/loan_repository.dart';
 
-class InstantLoanEligibilityProps extends BaseRequestProps {
-  const InstantLoanEligibilityProps({
+class DepositLoanEligibilityProps extends BaseRequestProps {
+  const DepositLoanEligibilityProps({
     required super.email,
     required super.userId,
     required super.rolePermissionId,
@@ -15,16 +15,17 @@ class InstantLoanEligibilityProps extends BaseRequestProps {
   });
 }
 
-class InstantLoanEligibilityUseCase
-    extends UseCase<InstantLoanEligibilityDTO, InstantLoanEligibilityProps> {
+class FetchDepositLoanUseCase
+    extends
+        UseCase<List<DepositLoanEligibilityDto>, DepositLoanEligibilityProps> {
   final LoanRepository loanRepository;
 
-  InstantLoanEligibilityUseCase({required this.loanRepository});
+  FetchDepositLoanUseCase({required this.loanRepository});
 
   @override
-  ResultFuture<InstantLoanEligibilityDTO> call(
-    InstantLoanEligibilityProps props,
+  ResultFuture<List<DepositLoanEligibilityDto>> call(
+    DepositLoanEligibilityProps props,
   ) async {
-    return loanRepository.instantLoanEligibility(props);
+    return loanRepository.fetchDepositLoan(props);
   }
 }

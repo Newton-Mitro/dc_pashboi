@@ -15,7 +15,7 @@ import 'package:pashboi/features/authenticated/family_and_friends/presentation/p
 import 'package:pashboi/features/authenticated/family_and_friends/presentation/pages/bloc/relationship_bloc/relationship_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/dependents_page/bloc/fetch_dependents_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/my_account_page/bloc/my_account_bloc.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/bloc/deposit_product_loan_bloc.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/change_password/bloc/change_password_bloc.dart';
 import 'package:pashboi/features/my_app/presentation/bloc/my_app_bloc.dart';
 import 'package:pashboi/features/onboarding/presentation/bloc/onboarding_page_bloc.dart';
@@ -56,7 +56,8 @@ void main() async {
         BlocProvider(create: (context) => sl<MyAccountBloc>()),
         BlocProvider(create: (context) => sl<ChangePasswordBloc>()),
         BlocProvider(create: (context) => sl<TermAndConditionBloc>()),
-        BlocProvider(create: (context) => sl<InstantLoanEligibilityBloc>()),
+        BlocProvider(create: (context) => sl<DepositProductLoanBloc>()),
+        // BlocProvider(create: (context) => sl<DepositLoanProductBloc>()),
       ],
       child: const MyApp(),
     ),

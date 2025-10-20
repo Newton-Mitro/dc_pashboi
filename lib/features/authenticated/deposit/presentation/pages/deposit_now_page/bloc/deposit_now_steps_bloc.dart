@@ -28,14 +28,15 @@ class DepositNowStepsBloc
     on<DepositNowGoToNextStep>(_onGoToNextStep);
     on<DepositNowGoToPreviousStep>(_onGoToPreviousStep);
     on<UpdateStepData>(_onUpdateStepData);
+
     on<SetCollectionLedgers>(_onSetCollectionLedgers);
     on<ToggleLedgerSelection>(_onToggleLedgerSelection);
-    on<ToggleSelectAllLedgers>(_onToggleSelectAllLedgers);
     on<UpdateLedgerAmount>(_onUpdateLedgerAmount);
+
+    on<ToggleSelectAllLedgers>(_onToggleSelectAllLedgers);
     on<ResetDepositNowFlow>(_onResetFlow);
     on<SelectCardAccount>(_onSelectCardAccount);
     on<SelectDebitCard>(_onSelectDebitCard);
-    // update lps amount
     on<UpdateLpsAmount>(_onUpdateLpsAmount);
     on<DepositNowValidateStep>(_onValidateStep);
     on<SubmitDepositNow>(_onSubmitDepositNow);

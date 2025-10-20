@@ -165,4 +165,11 @@ class ApiUrls {
 
   static const String fetchInstantLoanEligibility =
       "loans_v3/checkInstantLoanEligibility";
+  static const String submitInstantLoans = "loans_v2/submitInstantLoan";
+
+  static const String fetchDepositLoanEligibility =
+      "loans_v1/getEligibleLoanProducts";
+
+  static const String eligibleCollateralAccount =
+      "loans_v1/getEligibleCollateralAccounts";
 }

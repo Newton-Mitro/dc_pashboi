@@ -36,11 +36,15 @@ import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/ac
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/openable_accounts_page/bloc/openable_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/openable_accounts_page/openable_accounts_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_application_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/bloc/instant_loan_eligible_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_not_eligible/instant_loan_not_eligible.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/instant_loan_terms_condition_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loan_terms_condition_page/apply_for_product_loan_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/loan_statement_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/bloc/loan_statement_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/deposit_loan_application_page.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/attendance_calender.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/bloc/attendance_calender_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/todays_punch/bloc/today_punch_bloc.dart';
@@ -346,9 +350,6 @@ class AppRoutes {
 
       case AuthRoutesName.instantLoanTermsConditionPage:
         return _materialRoute(InstantLoanTermsAndConditionPage());
-
-      case AuthRoutesName.instantLoanApplicationPage:
-        return _materialRoute(InstantLoanApplicationPage());
 
       case AuthRoutesName.productLoanTermsConditionPage:
         return _materialRoute(ApplyForProductLoanPage());
@@ -748,9 +749,40 @@ class AppRoutes {
         );
 
       case AuthRoutesName.instantLoanNotEligible:
-        return _materialRoute(InstantLoanNotEligible());
-
+        final args = settings.arguments as Map<String, dynamic>;
+        return _materialRoute(
+          InstantLoanNotEligible(
+            eligibleConditions: args['eligibleConditions'],
+          ),
+        );
       // instantLoanNotEligible
+
+      case AuthRoutesName.instantLoanApplicationPage:
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => sl<InstantLoanEligibilityBloc>(),
+              ),
+              BlocProvider(create: (context) => sl<InstantLoanEligibleBloc>()),
+            ],
+            child: InstantLoanApplicationPage(),
+          ),
+        );
+
+      case AuthRoutesName.depositLoanApplicationPage:
+        final args = settings.arguments as Map<String, dynamic>;
+        return _materialRoute(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<DepositLoanProductBloc>()),
+              // BlocProvider(
+              //   // create: (context) => sl<EligibleCollateralAccountsBloc>(),
+              // ),
+            ],
+            child: DepositLoanApplicationPage(account: args['account']),
+          ),
+        );
 
       default:
         return _materialRoute(const AuthenticatedHome());

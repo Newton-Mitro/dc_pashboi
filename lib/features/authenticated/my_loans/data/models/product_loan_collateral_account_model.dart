@@ -1,7 +1,8 @@
-import 'package:pashboi/features/authenticated/my_loans/domain/entities/collateral_account_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 
-class CollateralAccountModel extends CollateralAccountEntity {
-  CollateralAccountModel({
+class ProductLoanCollateralAccountModel
+    extends ProductLoanCollectionAccountEntity {
+  ProductLoanCollateralAccountModel({
     required super.id,
     required super.accountType,
     required super.accountNumber,
@@ -12,8 +13,10 @@ class CollateralAccountModel extends CollateralAccountEntity {
     required super.withdrawableBalance,
   });
 
-  factory CollateralAccountModel.fromJson(Map<String, dynamic> json) {
-    return CollateralAccountModel(
+  factory ProductLoanCollateralAccountModel.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    return ProductLoanCollateralAccountModel(
       id: json['AccountId'] as int,
       accountType: (json['AccountType'] ?? '').toString(),
       accountNumber: (json['AccountNumber'] ?? '').toString(),

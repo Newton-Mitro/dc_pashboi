@@ -12,8 +12,8 @@ class SubmitDepositNowProps extends BaseRequestProps {
   final String cardNumber;
   final String depositDate;
   final int ledgerId;
-  final String cardPin;
   final double totalDepositAmount;
+  final String cardPin;
   final String transactionMethod;
   final String otpRegId;
   final String otpValue;

@@ -6,13 +6,18 @@ import 'package:pashboi/features/authenticated/my_loans/data/datasources/remote.
 import 'package:pashboi/features/authenticated/my_loans/data/repositories/loan_repository.impl.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/repositories/loan_repository.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/deposit_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_details_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_statement_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my_loans_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/bloc/instant_loan_eligible_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_details_page/bloc/loan_details_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/bloc/loan_statement_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/my_loans_page/bloc/my_loans_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/bloc/deposit_product_loan_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 
 void registerLoanModule() async {
   // Register Data Sources
@@ -45,6 +50,19 @@ void registerLoanModule() async {
     () => InstantLoanEligibilityUseCase(loanRepository: sl<LoanRepository>()),
   );
 
+  sl.registerLazySingleton<SubmitInstantLoansUseCase>(
+    () => SubmitInstantLoansUseCase(loanRepository: sl<LoanRepository>()),
+  );
+
+  sl.registerLazySingleton<FetchDepositLoanUseCase>(
+    () => FetchDepositLoanUseCase(loanRepository: sl<LoanRepository>()),
+  );
+
+  // sl.registerLazySingleton<GetEligibleCollateralAccountUseCase>(
+  //   () => GetEligibleCollateralAccountUseCase(
+  //     loanRepository: sl<LoanRepository>(),
+  //   ),
+  // );
   // Register Bloc
   sl.registerFactory<MyLoansBloc>(
     () => MyLoansBloc(
@@ -70,6 +88,27 @@ void registerLoanModule() async {
   sl.registerFactory<InstantLoanEligibilityBloc>(
     () => InstantLoanEligibilityBloc(
       instantLoanEligibilityUseCase: sl<InstantLoanEligibilityUseCase>(),
+      getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+    ),
+  );
+
+  sl.registerFactory<InstantLoanEligibleBloc>(
+    () => InstantLoanEligibleBloc(
+      submitInstantLoansUseCase: sl<SubmitInstantLoansUseCase>(),
+      getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+    ),
+  );
+
+  sl.registerFactory<DepositProductLoanBloc>(
+    () => DepositProductLoanBloc(
+      fetchDepositLoanUseCase: sl<FetchDepositLoanUseCase>(),
+      getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+    ),
+  );
+
+  sl.registerFactory<DepositLoanProductBloc>(
+    () => DepositLoanProductBloc(
+      // fetchDepositLoanUseCase: sl<FetchDepositLoanUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
     ),
   );

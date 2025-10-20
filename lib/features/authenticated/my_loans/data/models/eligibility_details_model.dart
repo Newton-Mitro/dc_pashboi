@@ -90,4 +90,35 @@ class EligibilityDetailModel extends EligibilityDetailEntity {
       "IsCertificateSubmitted": isCertificateSubmitted,
     };
   }
+
+  EligibilityDetailEntity toEntity() {
+    return EligibilityDetailEntity(
+      id: this.accountId,
+      accountId: this.accountId,
+      depositAccountNo: this.depositAccountNo,
+      personId: this.personId,
+      fullName: this.fullName,
+      personMembership: this.personMembership,
+      balance: this.balance,
+      withdrawableBalance: this.withdrawableBalance,
+      interestRate: this.interestRate,
+      isSuretyAccount: this.isSuretyAccount,
+      accTypeCode: this.accTypeCode,
+      accountTypeName: this.accountTypeName,
+      hasCertificate: this.hasCertificate,
+      suretyTypeCode: this.suretyTypeCode,
+      minimumInstallment: this.minimumInstallment,
+      isEligible: this.isEligible,
+      collareralEligible: this.collareralEligible,
+      maximumLoanAmount: this.maximumLoanAmount,
+      productInterestRate: this.productInterestRate,
+      numberOfInstallment: this.numberOfInstallment,
+      totalApplyLoan: this.totalApplyLoan,
+      loanableBalance: this.loanableBalance,
+      partialApplyLoan: this.partialApplyLoan,
+      isFamilyDefaulter: this.isFamilyDefaulter,
+      isSelfDefaulter: this.isSelfDefaulter,
+      isCertificateSubmitted: this.isCertificateSubmitted,
+    );
+  }
 }
