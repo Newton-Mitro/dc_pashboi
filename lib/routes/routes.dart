@@ -44,6 +44,7 @@ import 'package:pashboi/features/authenticated/my_loans/presentation/pages/produ
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/loan_statement_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/bloc/loan_statement_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/deposit_loan_application_page.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/attendance_calender.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/bloc/attendance_calender_bloc.dart';
@@ -776,9 +777,9 @@ class AppRoutes {
           MultiBlocProvider(
             providers: [
               BlocProvider(create: (context) => sl<DepositLoanProductBloc>()),
-              // BlocProvider(
-              //   // create: (context) => sl<EligibleCollateralAccountsBloc>(),
-              // ),
+              BlocProvider(
+                create: (context) => sl<ProductLoanCollectionAccountBloc>(),
+              ),
             ],
             child: DepositLoanApplicationPage(account: args['account']),
           ),

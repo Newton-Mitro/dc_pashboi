@@ -9,7 +9,7 @@ class ProductLoanEligibleCollateralAccountDto extends Entity<int> {
   final double totalApplyLoan;
 
   ProductLoanEligibleCollateralAccountDto({
-    required super.id,
+    super.id,
     required this.collateralAccounts,
     required this.maximumLoanAmount,
     required this.interestRate,

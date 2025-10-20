@@ -57,7 +57,6 @@ void main() async {
         BlocProvider(create: (context) => sl<ChangePasswordBloc>()),
         BlocProvider(create: (context) => sl<TermAndConditionBloc>()),
         BlocProvider(create: (context) => sl<DepositProductLoanBloc>()),
-        // BlocProvider(create: (context) => sl<DepositLoanProductBloc>()),
       ],
       child: const MyApp(),
     ),

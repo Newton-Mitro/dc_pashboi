@@ -8,6 +8,7 @@ import 'package:pashboi/features/authenticated/authenticated_shared/widgets/otp_
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/transfer_from_section/transfer_from_section.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/application_details.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/collateral_details.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
@@ -28,14 +29,14 @@ class DepositLoanApplicationPage extends StatefulWidget {
 
 class _DepositLoanApplicationPageState
     extends State<DepositLoanApplicationPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
+  @override
+  void initState() {
+    super.initState();
 
-  //   context.read<EligibleCollateralAccountsBloc>().add(
-  //     FetchEligibleCollateralAccountEvent(productCode: widget.account),
-  //   );
-  // }
+    context.read<ProductLoanCollectionAccountBloc>().add(
+      FetchProductLoanCollectionAccountEvent(widget.account),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,7 @@ class _DepositLoanApplicationPageState
             Expanded(
               child: SingleChildScrollView(padding: const EdgeInsets.all(12)),
             ),
+            // _buildForm(,width),
             _buildBottomButtons(width),
           ],
         ),
@@ -126,12 +128,7 @@ class _DepositLoanApplicationPageState
                         progressColor: context.theme.colorScheme.secondary,
                         foregroundColor: context.theme.colorScheme.onPrimary,
                         label: 'Hold & Press to Submit',
-                        onSubmit: () {
-                          // TODO: implement your submit logic here
-                          // context.read<DepositLoanProductBloc>().add(
-                          //   SubmitDepositLoan(),
-                          // );
-                        },
+                        onSubmit: () {},
                       );
                     },
                   ),
@@ -150,11 +147,6 @@ class _DepositLoanApplicationPageState
     return BlocBuilder<DepositLoanProductBloc, DepositLoanProductState>(
       builder: (context, state) {
         final steps = _buildSteps(state);
-
-        // context.read<DepositLoanProductBloc>().add(
-        //   SetCollectionLedgers(ledgers: ),
-        // );
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

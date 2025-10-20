@@ -6,11 +6,11 @@ import 'package:pashboi/features/authenticated/my_loans/data/datasources/remote.
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/against_loan_interest_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/collateral_info_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/deposit_loan_eligibility_dto.dart';
-import 'package:pashboi/features/authenticated/my_loans/domain/entities/eligible_collateral_accounts_dto.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/instant_loan_eligibility_dto.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_product_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_transaction_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_accounts_dto.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/repositories/loan_repository.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/deposit_loan_eligibility_usecase.dart';
@@ -20,6 +20,7 @@ import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_lo
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_statement_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my_loans_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_loan_products_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_product_loan_collateral%20_account_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
 
 class LoanRepositoryImpl implements LoanRepository {
@@ -170,19 +171,17 @@ class LoanRepositoryImpl implements LoanRepository {
     }
   }
 
-  // @override
-  // ResultFuture<EligibleCollateralAccountDto> getEligibleCollateralAccount(
-  //   GetEligibleCollateralAccountProps props,
-  // ) async {
-  //   try {
-  //     final result = await loanRemoteDataSource
-  //         .fetchEligibleCollateralAccountDeposit(props);
-
-  //     final dto = result.toDto(0);
-
-  //     return Right(dto);
-  //   } catch (e) {
-  //     return Left(FailureMapper.fromException(e));
-  //   }
-  // }
+  @override
+  ResultFuture<ProductLoanEligibleCollateralAccountDto>
+  fetchProductLoanCollateralAccount(
+    FetchProductLoanCollateralAccountProps props,
+  ) async {
+    try {
+      final result = await loanRemoteDataSource
+          .fetchProductLoanCollateralAccount(props);
+      return Right(result);
+    } catch (e) {
+      return Left(FailureMapper.fromException(e));
+    }
+  }
 }

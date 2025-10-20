@@ -13,6 +13,8 @@ import 'package:pashboi/features/authenticated/my_loans/data/models/instant_loan
 import 'package:pashboi/features/authenticated/my_loans/data/models/loan_account_model.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/loan_product_model.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/loan_transaction_model.dart';
+import 'package:pashboi/features/authenticated/my_loans/data/models/product_loan_collateral_account_model.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_accounts_dto.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/deposit_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_against_loan_interest_usecase.dart';
@@ -21,6 +23,7 @@ import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_lo
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_statement_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my_loans_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_loan_products_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_product_loan_collateral%20_account_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
 
 abstract class LoanRemoteDataSource {
@@ -51,9 +54,10 @@ abstract class LoanRemoteDataSource {
     DepositLoanEligibilityProps props,
   );
 
-  // Future<EligibleCollateralAccountModel> fetchEligibleCollateralAccountDeposit(
-  //   GetEligibleCollateralAccountProps props,
-  // );
+  Future<ProductLoanEligibleCollateralAccountDto>
+  fetchProductLoanCollateralAccount(
+    FetchProductLoanCollateralAccountProps props,
+  );
 }
 
 class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
@@ -502,67 +506,68 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
     }
   }
 
-  // @override
-  // Future<EligibleCollateralAccountModel> fetchEligibleCollateralAccountDeposit(
-  //   GetEligibleCollateralAccountProps props,
-  // ) async {
-  //   try {
-  //     final response = await apiService.post(
-  //       ApiUrls.eligibleCollateralAccount,
-  //       data: {
-  //         "ByUserId": props.userId,
-  //         "EmployeeCode": props.employeeCode,
-  //         "MobileNo": props.mobileNumber,
-  //         "MobileNumber": props.mobileNumber,
-  //         "PersonId": props.personId,
-  //         "RequestFrom": "MobileApp",
-  //         "RolePermissionId": props.rolePermissionId,
-  //         "UID": props.userId,
-  //         "UserName": props.email,
-  //         "ModuleCode": "50",
-  //         "ProductCode": props.productCode,
-  //       },
-  //     );
+  @override
+  Future<ProductLoanEligibleCollateralAccountDto>
+  fetchProductLoanCollateralAccount(
+    FetchProductLoanCollateralAccountProps props,
+  ) async {
+    try {
+      final response = await apiService.post(
+        ApiUrls.eligibleCollateralAccount,
+        data: {
+          "ByUserId": props.userId,
+          "EmployeeCode": props.employeeCode,
+          "MobileNo": props.mobileNumber,
+          "MobileNumber": props.mobileNumber,
+          "PersonId": props.personId,
+          "RequestFrom": "MobileApp",
+          "RolePermissionId": props.rolePermissionId,
+          "UID": props.userId,
+          "UserName": props.email,
+          "ModuleCode": "50",
+          "ProductCode": props.productCode,
+        },
+      );
 
-  //     if (response.statusCode == HttpStatus.ok) {
-  //       final data = response.data?['Data'];
-  //       final errorMessage = response.data?['Message'];
-  //       final statusMessage = response.data?['Status'];
+      if (response.statusCode == HttpStatus.ok) {
+        final data = response.data?['Data'];
+        final errorMessage = response.data?['Message'];
+        final statusMessage = response.data?['Status'];
 
-  //       if (data == null || data.isEmpty) {
-  //         if (statusMessage != null && statusMessage == "failed") {
-  //           throw ServerException(message: errorMessage ?? 'Request failed');
-  //         } else {
-  //           throw ServerException(message: 'Unexpected null or empty data');
-  //         }
-  //       }
+        if (data == null || data.isEmpty) {
+          if (statusMessage != null && statusMessage == "failed") {
+            throw ServerException(message: errorMessage ?? 'Request failed');
+          } else {
+            throw ServerException(message: 'Unexpected null or empty data');
+          }
+        }
 
-  //       final jsonData = jsonDecode(data);
+        final jsonData = jsonDecode(data);
 
-  //       final List<CollateralAccountModel> collateralAccounts =
-  //           (jsonData['CollateralAccounts'] as List)
-  //               .map((e) => CollateralAccountModel.fromJson(e))
-  //               .toList();
+        final List<ProductLoanCollateralAccountModel> collateralAccounts =
+            (jsonData['CollateralAccounts'] as List)
+                .map((e) => ProductLoanCollateralAccountModel.fromJson(e))
+                .toList();
 
-  //       final maximumLoanAmount = jsonData['MaximumLoanAmount'];
-  //       final interestRate = jsonData['InterestRate'];
-  //       final numberOfInstallment = jsonData['NumberOfInstallment'];
-  //       final totalApplyLoan = jsonData['TotalApplyLoan'];
+        final maximumLoanAmount = jsonData['MaximumLoanAmount'];
+        final interestRate = jsonData['InterestRate'];
+        final numberOfInstallment = jsonData['NumberOfInstallment'];
+        final totalApplyLoan = jsonData['TotalApplyLoan'];
 
-  //       return EligibleCollateralAccountModel(
-  //         maximumLoanAmount: maximumLoanAmount,
-  //         interestRate: interestRate,
-  //         totalApplyLoan: totalApplyLoan,
-  //         numberOfInstallment: numberOfInstallment,
-  //         collateralAccounts: collateralAccounts,
-  //       );
-  //     } else {
-  //       throw ServerException(
-  //         message: 'Server responded with status code: ${response.statusCode}',
-  //       );
-  //     }
-  //   } catch (e) {
-  //     rethrow;
-  //   }
-  // }
+        return ProductLoanEligibleCollateralAccountDto(
+          maximumLoanAmount: maximumLoanAmount,
+          interestRate: interestRate,
+          totalApplyLoan: totalApplyLoan,
+          numberOfInstallment: numberOfInstallment,
+          collateralAccounts: collateralAccounts,
+        );
+      } else {
+        throw ServerException(
+          message: 'Server responded with status code: ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
