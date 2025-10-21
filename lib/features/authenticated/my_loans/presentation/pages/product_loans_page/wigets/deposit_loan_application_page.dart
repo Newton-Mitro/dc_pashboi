@@ -69,9 +69,7 @@ class _DepositLoanApplicationPageState
                           state.productLoanEligibleCollateralAccountDto;
 
                       context.read<DepositLoanProductBloc>().add(
-                        SetCollectionLedgers(
-                          ledgers: accounts.collateralAccounts,
-                        ),
+                        SetLoanAccounts(ledgers: accounts.collateralAccounts),
                       );
                       return _buildForm(width);
                     }
@@ -181,6 +179,8 @@ class _DepositLoanApplicationPageState
       builder: (context, state) {
         final steps = _buildSteps(state);
 
+        print(steps);
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -268,13 +268,12 @@ class _DepositLoanApplicationPageState
           ledgers: state,
           onToggleSelect: (data) {
             context.read<DepositLoanProductBloc>().add(
-              ToggleLedgerSelection(data),
+              ToggleAccountSelection(data),
             );
           },
-
           onAmountChanged: (ledgers, newAmount) {
             context.read<DepositLoanProductBloc>().add(
-              UpdateLedgerAmount(ledger: ledgers, newAmount: newAmount),
+              UpdateLoanAccountAmount(ledger: ledgers, newAmount: newAmount),
             );
           },
           sectionError: state.validationErrors[state.currentStep]?['ledgers'],

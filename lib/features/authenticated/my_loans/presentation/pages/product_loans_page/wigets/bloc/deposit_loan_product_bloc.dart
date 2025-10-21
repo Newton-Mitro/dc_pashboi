@@ -24,16 +24,16 @@ class DepositLoanProductBloc
     on<UpdateStepData>(_onUpdateStepData);
     on<DepositProductLoanValidateStep>(_onValidateStep);
 
-    on<SetCollectionLedgers>(_onSetCollectionLedgers);
-    on<ToggleLedgerSelection>(_onToggleLedgerSelection);
-    on<UpdateLedgerAmount>(_onUpdateLedgerAmount);
+    on<SetLoanAccounts>(_onSetLoanAccounts);
+    on<ToggleAccountSelection>(_onToggleAccountSelection);
+    on<UpdateLoanAccountAmount>(_onUpdateLoanAmount);
   }
 
-  void _onSetCollectionLedgers(
-    SetCollectionLedgers event,
+  void _onSetLoanAccounts(
+    SetLoanAccounts event,
     Emitter<DepositLoanProductState> emit,
   ) {
-    final selectedLedgers =
+    final selectedLoanAccount =
         event.ledgers
             .map(
               (ledger) => ledger.copyWith(
@@ -49,43 +49,39 @@ class DepositLoanProductBloc
             )
             .toList();
 
-    print("Collection Ledgers: $selectedLedgers");
-
-    emit(state.copyWith(collectionLedgers: selectedLedgers));
+    emit(state.copyWith(selectedLoanAccounts: selectedLoanAccount));
   }
 
-  void _onToggleLedgerSelection(
-    ToggleLedgerSelection event,
+  void _onToggleAccountSelection(
+    ToggleAccountSelection event,
     Emitter<DepositLoanProductState> emit,
   ) {
-    late List<ProductLoanCollectionAccountEntity> updatedLedgers;
+    late List<ProductLoanCollectionAccountEntity> updatedAccounts;
 
-    updatedLedgers =
-        state.collectionLedgers.map((l) {
+    updatedAccounts =
+        state.loanAccounts.map((l) {
           if (l.accountNumber == event.ledger.accountNumber) {
             return l.copyWith(isSelected: !(l.isSelected!));
           }
           return l;
         }).toList();
 
-    print("Collection Ledgers: $updatedLedgers");
-
-    emit(state.copyWith(collectionLedgers: [...updatedLedgers]));
+    emit(state.copyWith(selectedLoanAccounts: [...updatedAccounts]));
   }
 
-  void _onUpdateLedgerAmount(
-    UpdateLedgerAmount event,
+  void _onUpdateLoanAmount(
+    UpdateLoanAccountAmount event,
     Emitter<DepositLoanProductState> emit,
   ) {
-    final updatedLedgers =
-        state.collectionLedgers.map((l) {
+    final updatedAccount =
+        state.loanAccounts.map((l) {
           if (l.accountNumber == event.ledger.accountNumber) {
             return l.copyWith(partialApplyLoan: event.newAmount);
           }
           return l;
         }).toList();
 
-    emit(state.copyWith(collectionLedgers: updatedLedgers));
+    emit(state.copyWith(selectedLoanAccounts: updatedAccount));
   }
 
   void _onValidateStep(
@@ -174,13 +170,29 @@ class DepositLoanProductBloc
 
   Map<String, dynamic> _validateInstantLoanSteps(int step) {
     final data = state.stepData[step] ?? {};
+    print(data);
     final errors = <String, dynamic>{};
 
     switch (step) {
       case 0:
-        // if (state.selectedAccount == null ||
-        //     state.selectedAccount!.number.isEmpty) {
-        //   errors['transferFromAccount'] = 'Select an account to transfer from';
+        final rawAmount = data['newAmount'];
+        double? amount;
+
+        if (rawAmount is String) {
+          amount = double.tryParse(rawAmount);
+        } else if (rawAmount is num) {
+          amount = rawAmount.toDouble();
+        }
+
+        if (amount == null || amount <= 0) {
+          errors['amount'] = 'Please enter valid amount';
+        } else if (amount % 1000 != 0) {
+          errors['amount'] = 'Amount must be multiplied by 1000 /-';
+        } else if (amount > 100000) {
+          errors['amount'] = 'Maximum loan amount is 1,00,000 ৳.';
+        }
+        // else if (amount > state.eligibleAmount) {
+        //   errors['amount'] = 'Loan amount exceeds eligible amount';
         // }
         break;
 

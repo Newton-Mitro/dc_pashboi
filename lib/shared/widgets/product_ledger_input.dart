@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 
 class ProductLedgerInput extends StatefulWidget {
   final ProductLoanCollectionAccountEntity ledger;
@@ -67,13 +65,13 @@ class _ProductLedgerInputState extends State<ProductLedgerInput> {
           final amount = double.tryParse(value) ?? 0.0;
           widget.onAmountChanged(widget.ledger, amount);
 
-          final l = widget.ledger;
+          // final l = widget.ledger;
 
-          if (amount > 0) {
-            context.read<DepositLoanProductBloc>().add(
-              UpdateLedgerAmount(ledger: widget.ledger, newAmount: amount),
-            );
-          }
+          // if (amount > 0) {
+          //   context.read<DepositLoanProductBloc>().add(
+          //     UpdateLedgerAmount(ledger: widget.ledger, newAmount: amount),
+          //   );
+          // }
         },
       ),
     );

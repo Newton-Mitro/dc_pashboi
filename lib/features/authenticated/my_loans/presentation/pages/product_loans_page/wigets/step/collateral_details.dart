@@ -50,7 +50,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
 
   /// Calculates the total loanable amount from selected accounts
   double get totalSelectedLoanAmount {
-    return widget.ledgers.collectionLedgers
+    return widget.ledgers.loanAccounts
         .where((ledger) => ledger.isSelected == true)
         .fold(0.0, (sum, ledger) => sum + (ledger.partialApplyLoan ?? 0));
   }
@@ -110,7 +110,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // children: [],
                   children: [
-                    ...widget.ledgers.collectionLedgers.map((stateLedger) {
+                    ...widget.ledgers.loanAccounts.map((stateLedger) {
                       return Container(
                         margin: const EdgeInsets.only(bottom: 24),
                         decoration: BoxDecoration(
@@ -156,7 +156,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                         icon: FontAwesomeIcons.coins,
                                         label: "Loanable Balance",
                                         value: TakaFormatter.format(
-                                          stateLedger.partialApplyLoan ?? 0,
+                                          stateLedger.loanableBalance ?? 0,
                                         ),
                                       ),
                                     ],
@@ -171,15 +171,9 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                               ],
                             ),
                             const SizedBox(height: 12),
-                            // ProductLedgerInput(
-                            //   ledger: stateLedger,
-                            //   isSelected: stateLedger.isSelected!,
-                            //   onAmountChanged: widget.onAmountChanged(
-                            //     stateLedger,
-                            //     value,
-                            //   ),
-                            // ),
+
                             AppTextInput(
+                              errorText: '',
                               label: "Apply Loan Amount",
                               prefixIcon: Icon(
                                 FontAwesomeIcons.coins,

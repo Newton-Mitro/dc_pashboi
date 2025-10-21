@@ -30,29 +30,32 @@ class UpdateStepData extends DepositLoanProductEvent {
   List<Object> get props => [step, data];
 }
 
-class SetCollectionLedgers extends DepositLoanProductEvent {
+class SetLoanAccounts extends DepositLoanProductEvent {
   final List<ProductLoanCollectionAccountEntity> ledgers;
 
-  const SetCollectionLedgers({required this.ledgers});
+  const SetLoanAccounts({required this.ledgers});
 
   @override
   List<Object> get props => [ledgers];
 }
 
-class ToggleLedgerSelection extends DepositLoanProductEvent {
+class ToggleAccountSelection extends DepositLoanProductEvent {
   final ProductLoanCollectionAccountEntity ledger;
 
-  const ToggleLedgerSelection(this.ledger);
+  const ToggleAccountSelection(this.ledger);
 
   @override
   List<Object> get props => [ledger];
 }
 
-class UpdateLedgerAmount extends DepositLoanProductEvent {
+class UpdateLoanAccountAmount extends DepositLoanProductEvent {
   final ProductLoanCollectionAccountEntity ledger;
   final double newAmount;
 
-  const UpdateLedgerAmount({required this.ledger, required this.newAmount});
+  const UpdateLoanAccountAmount({
+    required this.ledger,
+    required this.newAmount,
+  });
 
   @override
   List<Object> get props => [ledger, newAmount];
