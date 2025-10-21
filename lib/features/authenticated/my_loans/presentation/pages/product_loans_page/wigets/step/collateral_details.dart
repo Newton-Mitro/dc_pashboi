@@ -6,6 +6,8 @@ import 'package:pashboi/core/utils/taka_formatter.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/shared/widgets/app_text_input.dart';
+import 'package:pashboi/shared/widgets/ledger_input.dart';
+import 'package:pashboi/shared/widgets/product_ledger_input.dart';
 
 class CollateralDetails extends StatefulWidget {
   final String title;
@@ -47,15 +49,11 @@ class _CollateralDetailsState extends State<CollateralDetails> {
   }
 
   /// Calculates the total loanable amount from selected accounts
-  // double get totalAmount {
-  //   double total = 0;
-  //   for (int i = 0; i < widget.account.eligibilityDetails.length; i++) {
-  //     if (isConfirmedList[i]) {
-  //       total += widget.account.eligibilityDetails[i].loanableBalance ?? 0;
-  //     }
-  //   }
-  //   return total;
-  // }
+  double get totalSelectedLoanAmount {
+    return widget.ledgers.collectionLedgers
+        .where((ledger) => ledger.isSelected == true)
+        .fold(0.0, (sum, ledger) => sum + (ledger.partialApplyLoan ?? 0));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +110,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // children: [],
                   children: [
-                    ...widget.ledgers.collectionLedgers.map((entry) {
+                    ...widget.ledgers.collectionLedgers.map((stateLedger) {
                       return Container(
                         margin: const EdgeInsets.only(bottom: 24),
                         decoration: BoxDecoration(
@@ -139,45 +137,48 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                       _InfoItem(
                                         icon: FontAwesomeIcons.layerGroup,
                                         label: "Account Type",
-                                        value: entry.accountType ?? "N/A",
+                                        value: stateLedger.accountType ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.hashtag,
                                         label: "Account Number",
-                                        value: entry.accountNumber ?? "N/A",
+                                        value:
+                                            stateLedger.accountNumber ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.sackDollar,
                                         label: "Account Balance",
                                         value: TakaFormatter.format(
-                                          entry.totalBalance ?? 0,
+                                          stateLedger.totalBalance ?? 0,
                                         ),
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.coins,
                                         label: "Loanable Balance",
                                         value: TakaFormatter.format(
-                                          entry.loanableBalance ?? 0,
+                                          stateLedger.partialApplyLoan ?? 0,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Checkbox(
-                                  value: entry.isSelected,
+                                  value: stateLedger.isSelected,
                                   onChanged: (value) {
-                                    context.read<DepositLoanProductBloc>().add(
-                                      UpdateLedgerAmount(
-                                        newAmount: entry.loanableBalance,
-                                        ledger: entry,
-                                      ),
-                                    );
+                                    widget.onToggleSelect(stateLedger);
                                   },
                                 ),
                               ],
                             ),
-
                             const SizedBox(height: 12),
+                            // ProductLedgerInput(
+                            //   ledger: stateLedger,
+                            //   isSelected: stateLedger.isSelected!,
+                            //   onAmountChanged: widget.onAmountChanged(
+                            //     stateLedger,
+                            //     value,
+                            //   ),
+                            // ),
                             AppTextInput(
                               label: "Apply Loan Amount",
                               prefixIcon: Icon(
@@ -185,20 +186,12 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                 color: theme.colorScheme.onSurface,
                                 size: 18,
                               ),
-                              initialValue: entry.loanableBalance.toString(),
-                              enabled: true,
+                              initialValue:
+                                  stateLedger.partialApplyLoan.toString(),
+                              enabled: stateLedger.isSelected!,
                               onChanged: (value) {
-                                final parsedAmount = double.tryParse(value);
-                                if (parsedAmount != null) {
-                                  context.read<DepositLoanProductBloc>().add(
-                                    UpdateLedgerAmount(
-                                      newAmount: parsedAmount,
-                                      ledger: entry,
-                                    ),
-                                  );
-                                } else {
-                                  print('Invalid number: $value');
-                                }
+                                final amount = double.tryParse(value) ?? 0.0;
+                                widget.onAmountChanged(stateLedger, amount);
                               },
                             ),
                           ],
@@ -235,8 +228,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                   ),
                 ),
                 Text(
-                  '0',
-                  // TakaFormatter.format(totalAmount),
+                  TakaFormatter.format(totalSelectedLoanAmount),
                   style: TextStyle(
                     color: colorScheme.onSurface,
                     fontWeight: FontWeight.bold,

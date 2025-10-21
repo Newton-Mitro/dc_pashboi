@@ -67,7 +67,13 @@ class _DepositLoanApplicationPageState
                     if (state is ProductLoanCollectionAccountSuccess) {
                       final accounts =
                           state.productLoanEligibleCollateralAccountDto;
-                      return _buildForm(accounts.collateralAccounts, width);
+
+                      context.read<DepositLoanProductBloc>().add(
+                        SetCollectionLedgers(
+                          ledgers: accounts.collateralAccounts,
+                        ),
+                      );
+                      return _buildForm(width);
                     }
 
                     // Fallback in case state doesn't match any above
@@ -170,17 +176,10 @@ class _DepositLoanApplicationPageState
     );
   }
 
-  Widget _buildForm(
-    List<ProductLoanCollectionAccountEntity> account,
-    double width,
-  ) {
+  Widget _buildForm(double width) {
     return BlocBuilder<DepositLoanProductBloc, DepositLoanProductState>(
       builder: (context, state) {
         final steps = _buildSteps(state);
-
-        context.read<DepositLoanProductBloc>().add(
-          SetCollectionLedgers(ledgers: account),
-        );
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,9 +273,9 @@ class _DepositLoanApplicationPageState
           },
 
           onAmountChanged: (ledgers, newAmount) {
-            // context.read<DepositLoanProductBloc>().add(
-            //   UpdateLedgerAmount(ledger: ledgers, newAmount: newAmount),
-            // );
+            context.read<DepositLoanProductBloc>().add(
+              UpdateLedgerAmount(ledger: ledgers, newAmount: newAmount),
+            );
           },
           sectionError: state.validationErrors[state.currentStep]?['ledgers'],
           amountErrors: state.validationErrors[state.currentStep]?['amounts'],

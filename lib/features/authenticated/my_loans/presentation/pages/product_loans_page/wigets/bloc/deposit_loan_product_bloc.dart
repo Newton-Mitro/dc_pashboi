@@ -40,7 +40,7 @@ class DepositLoanProductBloc
                 accountNumber: ledger.accountNumber,
                 accountType: ledger.accountType,
                 totalBalance: ledger.totalBalance,
-                loanableBalance: ledger.loanableBalance,
+                loanableBalance: ledger.partialApplyLoan,
                 withdrawableBalance: ledger.withdrawableBalance,
                 partialApplyLoan: ledger.partialApplyLoan,
                 isEligible: ledger.isEligible,
@@ -48,6 +48,9 @@ class DepositLoanProductBloc
               ),
             )
             .toList();
+
+    print("Collection Ledgers: $selectedLedgers");
+
     emit(state.copyWith(collectionLedgers: selectedLedgers));
   }
 
@@ -65,6 +68,8 @@ class DepositLoanProductBloc
           return l;
         }).toList();
 
+    print("Collection Ledgers: $updatedLedgers");
+
     emit(state.copyWith(collectionLedgers: [...updatedLedgers]));
   }
 
@@ -75,7 +80,7 @@ class DepositLoanProductBloc
     final updatedLedgers =
         state.collectionLedgers.map((l) {
           if (l.accountNumber == event.ledger.accountNumber) {
-            return l.copyWith(loanableBalance: event.newAmount);
+            return l.copyWith(partialApplyLoan: event.newAmount);
           }
           return l;
         }).toList();
