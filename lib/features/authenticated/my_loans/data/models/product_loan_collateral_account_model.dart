@@ -22,7 +22,7 @@ class ProductLoanCollateralAccountModel
       accountNumber: (json['AccountNumber'] ?? '').toString(),
       totalBalance: (json['TotalBalance'] as num).toDouble(),
       loanableBalance: (json['LoanableBalance'] as num).toDouble(),
-      partialApplyLoan: (json['PartialApplyLoan'] as num).toDouble(),
+      partialApplyLoan: (json['PartialApplyLoan'] as num).toString(),
       isEligible: json['IsEligible'] as bool,
       withdrawableBalance: (json['WithdrawableBalance'] as num).toDouble(),
     );

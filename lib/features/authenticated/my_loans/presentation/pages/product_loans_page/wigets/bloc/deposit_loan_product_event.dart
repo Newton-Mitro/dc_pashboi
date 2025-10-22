@@ -50,7 +50,7 @@ class ToggleAccountSelection extends DepositLoanProductEvent {
 
 class UpdateLoanAccountAmount extends DepositLoanProductEvent {
   final ProductLoanCollectionAccountEntity ledger;
-  final double newAmount;
+  final String newAmount;
 
   const UpdateLoanAccountAmount({
     required this.ledger,

@@ -4,15 +4,16 @@ import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
+import 'package:pashboi/shared/widgets/app_text_input.dart';
 import 'package:pashboi/shared/widgets/product_ledger_input.dart';
 
 class CollateralDetails extends StatefulWidget {
   final String title;
-  // final DepositLoanProductState state;
+  final double totalAmount;
   final DepositLoanProductState ledgers;
   final void Function(ProductLoanCollectionAccountEntity) onToggleSelect;
   final void Function(ProductLoanCollectionAccountEntity) onUpdateAccounts;
-  final void Function(ProductLoanCollectionAccountEntity, double)
+  final void Function(ProductLoanCollectionAccountEntity, String)
   onAmountChanged;
   final String? sectionError;
   final Map<String, String>? amountErrors;
@@ -26,6 +27,7 @@ class CollateralDetails extends StatefulWidget {
     required this.onAmountChanged,
     required this.sectionError,
     required this.amountErrors,
+    required this.totalAmount,
   }) : super(key: key);
 
   @override
@@ -45,13 +47,6 @@ class _CollateralDetailsState extends State<CollateralDetails> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
-  }
-
-  /// Calculates the total loanable amount from selected accounts
-  double get totalSelectedLoanAmount {
-    return widget.ledgers.loanAccounts
-        .where((ledger) => ledger.isSelected == true)
-        .fold(0.0, (sum, ledger) => sum + (ledger.partialApplyLoan ?? 0.0));
   }
 
   @override
@@ -170,29 +165,28 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                               ],
                             ),
                             const SizedBox(height: 12),
-                            ProductLedgerInput(
-                              ledger: accounts,
-                              isSelected: accounts.isSelected!,
-                              onAmountChanged: widget.onAmountChanged,
-                              onUpdateAccounts: widget.onUpdateAccounts,
-                            ),
 
-                            // AppTextInput(
-                            //   errorText: '',
-                            //   label: "Apply Loan Amount",
-                            //   prefixIcon: Icon(
-                            //     FontAwesomeIcons.coins,
-                            //     color: theme.colorScheme.onSurface,
-                            //     size: 18,
-                            //   ),
-                            //   initialValue: accounts.partialApplyLoan,
-                            //   enabled: accounts.isSelected!,
-                            //   onChanged: (value) {
-                            //     // final amount = double.tryParse(value) ?? 0.0;
-                            //     widget.onAmountChanged(accounts, value);
-                            //     widget.onUpdateAccounts(accounts);
-                            //   },
+                            // ProductLedgerInput(
+                            //   ledger: accounts,
+                            //   isSelected: accounts.isSelected!,
+                            //   onAmountChanged: widget.onAmountChanged,
+                            //   onUpdateAccounts: widget.onUpdateAccounts,
                             // ),
+                            AppTextInput(
+                              errorText: '',
+                              label: "Apply Loan Amount",
+                              prefixIcon: Icon(
+                                FontAwesomeIcons.coins,
+                                color: theme.colorScheme.onSurface,
+                                size: 18,
+                              ),
+                              initialValue: accounts.partialApplyLoan,
+                              enabled: accounts.isSelected!,
+                              onChanged: (value) {
+                                widget.onAmountChanged(accounts, value);
+                                // widget.onUpdateAccounts(accounts);
+                              },
+                            ),
                           ],
                         ),
                       );
@@ -227,7 +221,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                   ),
                 ),
                 Text(
-                  TakaFormatter.format(totalSelectedLoanAmount),
+                  TakaFormatter.format(widget.totalAmount),
                   style: TextStyle(
                     color: colorScheme.onSurface,
                     fontWeight: FontWeight.bold,

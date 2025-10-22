@@ -5,7 +5,7 @@ class ProductLoanCollectionAccountEntity extends Entity<int> {
   final String accountNumber;
   final double totalBalance;
   final double loanableBalance;
-  final double partialApplyLoan;
+  final String partialApplyLoan;
   final bool isEligible;
   final double withdrawableBalance;
   final bool? isSelected;
@@ -28,7 +28,7 @@ class ProductLoanCollectionAccountEntity extends Entity<int> {
     String? accountNumber,
     double? totalBalance,
     double? loanableBalance,
-    double? partialApplyLoan,
+    String? partialApplyLoan,
     bool? isEligible,
     double? withdrawableBalance,
     bool? isSelected,

@@ -76,7 +76,7 @@ class DepositLoanProductBloc
     final updatedAccount =
         state.loanAccounts.map((l) {
           if (l.accountNumber == event.ledger.accountNumber) {
-            return l.copyWith(partialApplyLoan: event.newAmount);
+            return l.copyWith(partialApplyLoan: event.newAmount.toString());
           }
           return l;
         }).toList();
@@ -174,17 +174,17 @@ class DepositLoanProductBloc
     final errors = <String, dynamic>{};
     switch (step) {
       case 0:
-        final getAmount = data['loanAccount'];
-        final amount = getAmount.partialApplyLoan;
-        if (amount == null || amount <= 0) {
-          errors['amount'] = 'Please enter valid amount';
-        } else if (amount % 1000 != 0) {
-          errors['amount'] = 'Amount must be multiplied by 1000 /-';
-        } else if (amount > 100000) {
-          errors['amount'] = 'Maximum loan amount is 1,00,000 ৳.';
-        } else if (amount > getAmount.eligibleAmount) {
-          errors['amount'] = 'Loan amount exceeds eligible amount';
-        }
+        final getAmount = state.loanAccounts;
+
+        // if (amount == null || amount <= 0) {
+        //   errors['amount'] = 'Please enter valid amount';
+        // } else if (amount % 1000 != 0) {
+        //   errors['amount'] = 'Amount must be multiplied by 1000 /-';
+        // } else if (amount > 100000) {
+        //   errors['amount'] = 'Maximum loan amount is 1,00,000 ৳.';
+        // } else if (amount > getAmount.eligibleAmount) {
+        //   errors['amount'] = 'Loan amount exceeds eligible amount';
+        // }
         break;
       case 1:
         break;

@@ -48,6 +48,20 @@ class _DepositLoanApplicationPageState
   //       );
   // }
 
+  double calculateTotalSelectedLoanAmount(
+    List<ProductLoanCollectionAccountEntity> accounts,
+  ) {
+    return accounts
+        .where((ledger) => ledger.isSelected == true)
+        .fold(
+          0.0,
+          (sum, ledger) =>
+              sum +
+              (double.tryParse(ledger.partialApplyLoan?.toString() ?? '0') ??
+                  0.0),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -300,6 +314,7 @@ class _DepositLoanApplicationPageState
               ),
             );
           },
+          totalAmount: calculateTotalSelectedLoanAmount(state.loanAccounts),
           sectionError: state.validationErrors[state.currentStep]?['ledgers'],
           amountErrors: state.validationErrors[state.currentStep]?['amounts'],
         ),
