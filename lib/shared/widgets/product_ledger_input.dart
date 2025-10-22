@@ -5,12 +5,14 @@ class ProductLedgerInput extends StatefulWidget {
   final ProductLoanCollectionAccountEntity ledger;
   final bool isSelected;
   final Function(ProductLoanCollectionAccountEntity, double) onAmountChanged;
+  final Function(ProductLoanCollectionAccountEntity) onUpdateAccounts;
 
   const ProductLedgerInput({
     super.key,
     required this.ledger,
     required this.isSelected,
     required this.onAmountChanged,
+    required this.onUpdateAccounts,
   });
 
   @override
@@ -45,33 +47,26 @@ class _ProductLedgerInputState extends State<ProductLedgerInput> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 105,
-      height: 36,
+      width: double.infinity,
+      height: 40,
       child: TextFormField(
-        enabled: widget.isSelected && !widget.ledger.isEligible,
+        enabled: widget.isSelected,
         controller: _controller,
         decoration: InputDecoration(
-          labelText: "Amt",
+          labelText: "Apply Loan Amount ",
           border: OutlineInputBorder(),
           isDense: true,
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: 8,
-            vertical: 8,
+            horizontal: 18,
+            vertical: 18,
           ),
         ),
-        style: const TextStyle(fontSize: 13),
+        style: const TextStyle(fontSize: 15),
         keyboardType: TextInputType.number,
         onChanged: (value) {
           final amount = double.tryParse(value) ?? 0.0;
           widget.onAmountChanged(widget.ledger, amount);
-
-          // final l = widget.ledger;
-
-          // if (amount > 0) {
-          //   context.read<DepositLoanProductBloc>().add(
-          //     UpdateLedgerAmount(ledger: widget.ledger, newAmount: amount),
-          //   );
-          // }
+          widget.onUpdateAccounts(widget.ledger);
         },
       ),
     );

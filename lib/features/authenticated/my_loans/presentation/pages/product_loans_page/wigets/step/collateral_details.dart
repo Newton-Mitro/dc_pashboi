@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
-import 'package:pashboi/shared/widgets/app_text_input.dart';
-import 'package:pashboi/shared/widgets/ledger_input.dart';
 import 'package:pashboi/shared/widgets/product_ledger_input.dart';
 
 class CollateralDetails extends StatefulWidget {
@@ -14,6 +11,7 @@ class CollateralDetails extends StatefulWidget {
   // final DepositLoanProductState state;
   final DepositLoanProductState ledgers;
   final void Function(ProductLoanCollectionAccountEntity) onToggleSelect;
+  final void Function(ProductLoanCollectionAccountEntity) onUpdateAccounts;
   final void Function(ProductLoanCollectionAccountEntity, double)
   onAmountChanged;
   final String? sectionError;
@@ -24,6 +22,7 @@ class CollateralDetails extends StatefulWidget {
     required this.title,
     required this.ledgers,
     required this.onToggleSelect,
+    required this.onUpdateAccounts,
     required this.onAmountChanged,
     required this.sectionError,
     required this.amountErrors,
@@ -52,7 +51,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
   double get totalSelectedLoanAmount {
     return widget.ledgers.loanAccounts
         .where((ledger) => ledger.isSelected == true)
-        .fold(0.0, (sum, ledger) => sum + (ledger.partialApplyLoan ?? 0));
+        .fold(0.0, (sum, ledger) => sum + (ledger.partialApplyLoan ?? 0.0));
   }
 
   @override
@@ -110,7 +109,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   // children: [],
                   children: [
-                    ...widget.ledgers.loanAccounts.map((stateLedger) {
+                    ...widget.ledgers.loanAccounts.map((accounts) {
                       return Container(
                         margin: const EdgeInsets.only(bottom: 24),
                         decoration: BoxDecoration(
@@ -137,57 +136,63 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                       _InfoItem(
                                         icon: FontAwesomeIcons.layerGroup,
                                         label: "Account Type",
-                                        value: stateLedger.accountType ?? "N/A",
+                                        value: accounts.accountType ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.hashtag,
                                         label: "Account Number",
-                                        value:
-                                            stateLedger.accountNumber ?? "N/A",
+                                        value: accounts.accountNumber ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.sackDollar,
                                         label: "Account Balance",
                                         value: TakaFormatter.format(
-                                          stateLedger.totalBalance ?? 0,
+                                          accounts.totalBalance ?? 0,
                                         ),
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.coins,
                                         label: "Loanable Balance",
                                         value: TakaFormatter.format(
-                                          stateLedger.loanableBalance ?? 0,
+                                          accounts.loanableBalance ?? 0,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Checkbox(
-                                  value: stateLedger.isSelected,
+                                  value: accounts.isSelected,
                                   onChanged: (value) {
-                                    widget.onToggleSelect(stateLedger);
+                                    widget.onToggleSelect(accounts);
+                                    widget.onUpdateAccounts(accounts);
                                   },
                                 ),
                               ],
                             ),
                             const SizedBox(height: 12),
-
-                            AppTextInput(
-                              errorText: '',
-                              label: "Apply Loan Amount",
-                              prefixIcon: Icon(
-                                FontAwesomeIcons.coins,
-                                color: theme.colorScheme.onSurface,
-                                size: 18,
-                              ),
-                              initialValue:
-                                  stateLedger.partialApplyLoan.toString(),
-                              enabled: stateLedger.isSelected!,
-                              onChanged: (value) {
-                                final amount = double.tryParse(value) ?? 0.0;
-                                widget.onAmountChanged(stateLedger, amount);
-                              },
+                            ProductLedgerInput(
+                              ledger: accounts,
+                              isSelected: accounts.isSelected!,
+                              onAmountChanged: widget.onAmountChanged,
+                              onUpdateAccounts: widget.onUpdateAccounts,
                             ),
+
+                            // AppTextInput(
+                            //   errorText: '',
+                            //   label: "Apply Loan Amount",
+                            //   prefixIcon: Icon(
+                            //     FontAwesomeIcons.coins,
+                            //     color: theme.colorScheme.onSurface,
+                            //     size: 18,
+                            //   ),
+                            //   initialValue: accounts.partialApplyLoan,
+                            //   enabled: accounts.isSelected!,
+                            //   onChanged: (value) {
+                            //     // final amount = double.tryParse(value) ?? 0.0;
+                            //     widget.onAmountChanged(accounts, value);
+                            //     widget.onUpdateAccounts(accounts);
+                            //   },
+                            // ),
                           ],
                         ),
                       );

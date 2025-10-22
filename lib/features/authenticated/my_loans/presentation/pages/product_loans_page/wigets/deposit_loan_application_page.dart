@@ -38,6 +38,16 @@ class _DepositLoanApplicationPageState
     );
   }
 
+  // double get totalSelectedLoanAmount {
+  //   return widget.ledgers.loanAccounts
+  //       .where((ledger) => ledger.isSelected == true)
+  //       .fold(
+  //         0.0,
+  //         (sum, ledger) =>
+  //             sum + (double.tryParse(ledger.partialApplyLoan) ?? 0.0),
+  //       );
+  // }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -270,10 +280,24 @@ class _DepositLoanApplicationPageState
             context.read<DepositLoanProductBloc>().add(
               ToggleAccountSelection(data),
             );
+            context.read<DepositLoanProductBloc>().add(
+              UpdateStepData(
+                step: state.currentStep,
+                data: {'loanAccount': data},
+              ),
+            );
           },
           onAmountChanged: (ledgers, newAmount) {
             context.read<DepositLoanProductBloc>().add(
               UpdateLoanAccountAmount(ledger: ledgers, newAmount: newAmount),
+            );
+          },
+          onUpdateAccounts: (ledgers) {
+            context.read<DepositLoanProductBloc>().add(
+              UpdateStepData(
+                step: state.currentStep,
+                data: {'loanAccount': ledgers},
+              ),
             );
           },
           sectionError: state.validationErrors[state.currentStep]?['ledgers'],

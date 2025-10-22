@@ -40,7 +40,7 @@ class DepositLoanProductBloc
                 accountNumber: ledger.accountNumber,
                 accountType: ledger.accountType,
                 totalBalance: ledger.totalBalance,
-                loanableBalance: ledger.partialApplyLoan,
+                loanableBalance: ledger.loanableBalance,
                 withdrawableBalance: ledger.withdrawableBalance,
                 partialApplyLoan: ledger.partialApplyLoan,
                 isEligible: ledger.isEligible,
@@ -172,30 +172,20 @@ class DepositLoanProductBloc
     final data = state.stepData[step] ?? {};
     print(data);
     final errors = <String, dynamic>{};
-
     switch (step) {
       case 0:
-        final rawAmount = data['newAmount'];
-        double? amount;
-
-        if (rawAmount is String) {
-          amount = double.tryParse(rawAmount);
-        } else if (rawAmount is num) {
-          amount = rawAmount.toDouble();
-        }
-
+        final getAmount = data['loanAccount'];
+        final amount = getAmount.partialApplyLoan;
         if (amount == null || amount <= 0) {
           errors['amount'] = 'Please enter valid amount';
         } else if (amount % 1000 != 0) {
           errors['amount'] = 'Amount must be multiplied by 1000 /-';
         } else if (amount > 100000) {
           errors['amount'] = 'Maximum loan amount is 1,00,000 ৳.';
+        } else if (amount > getAmount.eligibleAmount) {
+          errors['amount'] = 'Loan amount exceeds eligible amount';
         }
-        // else if (amount > state.eligibleAmount) {
-        //   errors['amount'] = 'Loan amount exceeds eligible amount';
-        // }
         break;
-
       case 1:
         break;
 
