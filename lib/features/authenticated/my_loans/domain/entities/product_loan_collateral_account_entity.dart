@@ -8,6 +8,7 @@ class ProductLoanCollectionAccountEntity extends Entity<int> {
   final String partialApplyLoan;
   final bool isEligible;
   final double withdrawableBalance;
+  // final double maxLoanAmount;
   final bool? isSelected;
 
   ProductLoanCollectionAccountEntity({
@@ -19,6 +20,7 @@ class ProductLoanCollectionAccountEntity extends Entity<int> {
     required this.partialApplyLoan,
     required this.isEligible,
     required this.withdrawableBalance,
+    // required this.maxLoanAmount,
     this.isSelected,
   });
 
@@ -31,6 +33,7 @@ class ProductLoanCollectionAccountEntity extends Entity<int> {
     String? partialApplyLoan,
     bool? isEligible,
     double? withdrawableBalance,
+    // double? maxLoanAmount,
     bool? isSelected,
   }) {
     return ProductLoanCollectionAccountEntity(
@@ -42,6 +45,7 @@ class ProductLoanCollectionAccountEntity extends Entity<int> {
       partialApplyLoan: partialApplyLoan ?? this.partialApplyLoan,
       isEligible: isEligible ?? this.isEligible,
       withdrawableBalance: withdrawableBalance ?? this.withdrawableBalance,
+      // maxLoanAmount: maxLoanAmount ?? this.maxLoanAmount,
       isSelected: isSelected ?? this.isSelected,
     );
   }
@@ -56,6 +60,7 @@ class ProductLoanCollectionAccountEntity extends Entity<int> {
     partialApplyLoan,
     isEligible,
     withdrawableBalance,
+    // maxLoanAmount,
     isSelected,
   ];
 }

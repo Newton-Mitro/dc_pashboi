@@ -5,7 +5,6 @@ import 'package:pashboi/core/utils/taka_formatter.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/shared/widgets/app_text_input.dart';
-import 'package:pashboi/shared/widgets/product_ledger_input.dart';
 
 class CollateralDetails extends StatefulWidget {
   final String title;
@@ -26,7 +25,7 @@ class CollateralDetails extends StatefulWidget {
     required this.onUpdateAccounts,
     required this.onAmountChanged,
     required this.sectionError,
-    required this.amountErrors,
+    this.amountErrors = const {},
     required this.totalAmount,
   }) : super(key: key);
 
@@ -102,6 +101,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+
                   // children: [],
                   children: [
                     ...widget.ledgers.loanAccounts.map((accounts) {
@@ -118,6 +118,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // Text(accounts..toString()),
                             // Info Items and Checkbox Row
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,15 +166,15 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                               ],
                             ),
                             const SizedBox(height: 12),
-
-                            // ProductLedgerInput(
-                            //   ledger: accounts,
-                            //   isSelected: accounts.isSelected!,
-                            //   onAmountChanged: widget.onAmountChanged,
-                            //   onUpdateAccounts: widget.onUpdateAccounts,
-                            // ),
                             AppTextInput(
-                              errorText: '',
+                              errorText:
+                                  widget.amountErrors?[accounts.accountNumber
+                                              .toString()] !=
+                                          null
+                                      ? widget.amountErrors![accounts
+                                          .accountNumber
+                                          .toString()]!
+                                      : '',
                               label: "Apply Loan Amount",
                               prefixIcon: Icon(
                                 FontAwesomeIcons.coins,
@@ -199,8 +200,8 @@ class _CollateralDetailsState extends State<CollateralDetails> {
 
           // Footer with Total
           Container(
-            height: 45,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            height: 70, // Increased height to fit error + total
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(color: colorScheme.primary, width: 1.2),
@@ -211,21 +212,48 @@ class _CollateralDetailsState extends State<CollateralDetails> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Total Apply Loan Amount:",
-                  style: TextStyle(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
-                ),
-                Text(
-                  TakaFormatter.format(widget.totalAmount),
-                  style: TextStyle(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (widget.sectionError != null &&
+                          widget.sectionError!.isNotEmpty) ...[
+                        Text(
+                          widget.sectionError!,
+                          style: TextStyle(
+                            color: colorScheme.error,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                      ],
+                      Row(
+                        children: [
+                          Text(
+                            "Total Apply Loan Amount:",
+                            style: TextStyle(
+                              color: colorScheme.onSurface,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Spacer(), // Pushes the next widget to the right end
+                          Text(
+                            TakaFormatter.format(widget.totalAmount),
+                            style: TextStyle(
+                              color: colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                            textAlign: TextAlign.right, // Just to be explicit
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ],

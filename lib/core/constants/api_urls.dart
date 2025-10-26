@@ -172,4 +172,9 @@ class ApiUrls {
 
   static const String eligibleCollateralAccount =
       "loans_v1/getEligibleCollateralAccounts";
+
+  static const String fetchAgainstLoanInterest =
+      "loans_v1/getInterestOnAgainstLoan";
+
+  static const String submitLoansAgainstDepositProduct = "";
 }

@@ -22,6 +22,7 @@ import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_loan_products_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_product_loan_collateral%20_account_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_loan_against_deposit_product_usecase.dart';
 
 class LoanRepositoryImpl implements LoanRepository {
   final LoanRemoteDataSource loanRemoteDataSource;
@@ -179,6 +180,20 @@ class LoanRepositoryImpl implements LoanRepository {
     try {
       final result = await loanRemoteDataSource
           .fetchProductLoanCollateralAccount(props);
+      return Right(result);
+    } catch (e) {
+      return Left(FailureMapper.fromException(e));
+    }
+  }
+
+  @override
+  ResultFuture<String> submitLoanAgainstDepositProduct(
+    SubmitLoanAgainstDepositProductProps props,
+  ) async {
+    try {
+      final result = await loanRemoteDataSource.submitLoanAgainstDepositProduct(
+        props,
+      );
       return Right(result);
     } catch (e) {
       return Left(FailureMapper.fromException(e));

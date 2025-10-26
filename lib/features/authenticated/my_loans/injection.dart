@@ -7,6 +7,7 @@ import 'package:pashboi/features/authenticated/my_loans/data/repositories/loan_r
 import 'package:pashboi/features/authenticated/my_loans/domain/repositories/loan_repository.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/deposit_loan_eligibility_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_against_loan_interest_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_details_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_statement_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my_loans_usecase.dart';
@@ -20,6 +21,7 @@ import 'package:pashboi/features/authenticated/my_loans/presentation/pages/my_lo
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/bloc/deposit_product_loan_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/bloc/fetch_against_loan_interest_bloc.dart';
 
 void registerLoanModule() async {
   // Register Data Sources
@@ -64,6 +66,10 @@ void registerLoanModule() async {
     () => FetchProductLoanCollateralAccountUseCase(
       loanRepository: sl<LoanRepository>(),
     ),
+  );
+
+  sl.registerLazySingleton<FetchAgainstLoanInterestUseCase>(
+    () => FetchAgainstLoanInterestUseCase(loanRepository: sl<LoanRepository>()),
   );
   // Register Bloc
   sl.registerFactory<MyLoansBloc>(
@@ -119,6 +125,13 @@ void registerLoanModule() async {
     () => ProductLoanCollectionAccountBloc(
       fetchProductLoanCollateralAccountUseCase:
           sl<FetchProductLoanCollateralAccountUseCase>(),
+      getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+    ),
+  );
+
+  sl.registerFactory<FetchAgainstLoanInterestBloc>(
+    () => FetchAgainstLoanInterestBloc(
+      fetchAgainstLoanInterestUseCase: sl<FetchAgainstLoanInterestUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
     ),
   );

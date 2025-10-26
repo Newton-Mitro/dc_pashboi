@@ -6,6 +6,7 @@ class AgainstLoanInterestModel extends AgainstLoanInterestEntity {
     required super.eligibleLoanAmount,
     required super.maxLoanAmount,
     required super.minimumInstallment,
+    required super.interestRate,
     required super.isEligible,
   });
 
@@ -14,6 +15,7 @@ class AgainstLoanInterestModel extends AgainstLoanInterestEntity {
       id: 0,
       eligibleLoanAmount: (json['EligibleLoanAmount'] as num).toDouble(),
       maxLoanAmount: (json['MaxLoanAmount'] as num).toDouble(),
+      interestRate: (json['InterestRate'] as num).toDouble(),
       minimumInstallment: (json['MinimumInstallment'] ?? '').toString(),
       isEligible: json['IsEligible'] as bool,
     );
@@ -23,6 +25,7 @@ class AgainstLoanInterestModel extends AgainstLoanInterestEntity {
     return {
       "EligibleLoanAmount": eligibleLoanAmount,
       "MaxLoanAmount": maxLoanAmount,
+      "InterestRate": interestRate,
       "MinimumInstallment": minimumInstallment,
       "IsEligible": isEligible,
     };

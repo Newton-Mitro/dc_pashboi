@@ -25,6 +25,7 @@ import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_loan_products_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_product_loan_collateral%20_account_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_loan_against_deposit_product_usecase.dart';
 
 abstract class LoanRemoteDataSource {
   Future<List<LoanAccountModel>> fetchMyLoans(FetchMyLoansProps props);
@@ -57,6 +58,10 @@ abstract class LoanRemoteDataSource {
   Future<ProductLoanEligibleCollateralAccountDto>
   fetchProductLoanCollateralAccount(
     FetchProductLoanCollateralAccountProps props,
+  );
+
+  Future<String> submitLoanAgainstDepositProductDatasource(
+    SubmitLoanAgainstDepositProductProps props,
   );
 }
 
@@ -300,7 +305,7 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
   ) async {
     try {
       final response = await apiService.post(
-        ApiUrls.fetchEligibleCollateralAccounts,
+        ApiUrls.fetchAgainstLoanInterest,
         data: {
           "UserName": props.email,
           "UID": props.userId,
@@ -445,7 +450,6 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
     } catch (e) {
       rethrow;
     }
-    // return "success";
   }
   // submitInstantLoans
 
@@ -567,6 +571,57 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
         throw ServerException(
           message: 'Server responded with status code: ${response.statusCode}',
         );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> submitLoanAgainstDepositProductDatasource(
+    SubmitLoanAgainstDepositProductProps props,
+  ) async {
+    try {
+      final response = await apiService.post(
+        ApiUrls.submitInstantLoans,
+        data: {
+          "ByUserId": props.userId,
+          "EmployeeCode": props.employeeCode,
+          "MobileNo": props.mobileNumber,
+          "MobileNumber": props.mobileNumber,
+          "PersonId": props.personId,
+          "RequestFrom": "MobileApp",
+          "RolePermissionId": props.rolePermissionId,
+          "UID": props.userId,
+          "UserName": props.email,
+          "ModuleCode": "50",
+
+          "CollateralAccounts": props.collateralAccounts,
+          "LoanProductCode": props.loanProductCode,
+          "MaximumLoanAmount": props.maximumLoanAmount,
+          "InterestRate": props.interestRate,
+          "NumberOfInstallment": props.numberOfInstallment,
+          "TotalApplyLoan": props.totalApplyLoan,
+          "SecretKey": props.secretKey,
+          "CardNo": props.cardNo,
+          "OTPRegId": props.oTPRegId,
+          "OTPValue": props.oTPValue,
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        final dataString = response.data?['Data'];
+        final errorMessage = response.data?['Message'];
+        final statusMessage = response.data?['Status'];
+        if (dataString == null || dataString.isNotEmpty) {
+          if (statusMessage != null && statusMessage == "failed") {
+            throw ServerException(message: errorMessage);
+          } else {
+            return dataString;
+          }
+        }
+        throw ServerException(message: "Server Error");
+      } else {
+        throw ServerException(message: "Server Error");
       }
     } catch (e) {
       rethrow;

@@ -38,16 +38,6 @@ class _DepositLoanApplicationPageState
     );
   }
 
-  // double get totalSelectedLoanAmount {
-  //   return widget.ledgers.loanAccounts
-  //       .where((ledger) => ledger.isSelected == true)
-  //       .fold(
-  //         0.0,
-  //         (sum, ledger) =>
-  //             sum + (double.tryParse(ledger.partialApplyLoan) ?? 0.0),
-  //       );
-  // }
-
   double calculateTotalSelectedLoanAmount(
     List<ProductLoanCollectionAccountEntity> accounts,
   ) {
@@ -60,6 +50,18 @@ class _DepositLoanApplicationPageState
               (double.tryParse(ledger.partialApplyLoan?.toString() ?? '0') ??
                   0.0),
         );
+  }
+
+  String getSelectedAccountIds(
+    List<ProductLoanCollectionAccountEntity> ledgers,
+  ) {
+    final selectedIds =
+        ledgers
+            .where((ledger) => ledger.isSelected == true)
+            .map((ledger) => ledger.id.toString()) // ensure it's a string
+            .toList();
+
+    return selectedIds.join(',');
   }
 
   @override
@@ -89,13 +91,15 @@ class _DepositLoanApplicationPageState
                     }
 
                     if (state is ProductLoanCollectionAccountSuccess) {
-                      final accounts =
+                      final productLoan =
                           state.productLoanEligibleCollateralAccountDto;
 
                       context.read<DepositLoanProductBloc>().add(
-                        SetLoanAccounts(ledgers: accounts.collateralAccounts),
+                        SetLoanAccounts(
+                          ledgers: productLoan.collateralAccounts,
+                        ),
                       );
-                      return _buildForm(width);
+                      return _buildForm(width, state);
                     }
 
                     // Fallback in case state doesn't match any above
@@ -198,16 +202,18 @@ class _DepositLoanApplicationPageState
     );
   }
 
-  Widget _buildForm(double width) {
+  Widget _buildForm(
+    double width,
+    ProductLoanCollectionAccountSuccess productLoan,
+  ) {
     return BlocBuilder<DepositLoanProductBloc, DepositLoanProductState>(
       builder: (context, state) {
-        final steps = _buildSteps(state);
-
-        print(steps);
+        final steps = _buildSteps(state, productLoan);
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Text(widget.account),
             // Progress Stepper
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -283,7 +289,10 @@ class _DepositLoanApplicationPageState
     );
   }
 
-  List<StepItem> _buildSteps(DepositLoanProductState state) {
+  List<StepItem> _buildSteps(
+    DepositLoanProductState state,
+    ProductLoanCollectionAccountSuccess productLoan,
+  ) {
     return [
       StepItem(
         icon: FontAwesomeIcons.circleInfo,
@@ -314,16 +323,38 @@ class _DepositLoanApplicationPageState
               ),
             );
           },
-          totalAmount: calculateTotalSelectedLoanAmount(state.loanAccounts),
-          sectionError: state.validationErrors[state.currentStep]?['ledgers'],
+          // amountError:
+          //     state.validationErrors[state
+          //         .currentStep]?['amount_${widget.account}'],
           amountErrors: state.validationErrors[state.currentStep]?['amounts'],
+          sectionError:
+              state.validationErrors[state.currentStep]?['loanAccounts'] ?? '',
+          totalAmount: calculateTotalSelectedLoanAmount(state.loanAccounts),
+          // accountsErrors: state.validationErrors[state.currentStep]?['accounts'],
         ),
       ),
       StepItem(
         icon: FontAwesomeIcons.sackDollar,
         widget: ApplicationDetails(
           title: "Application Details",
-          // accountData: account,
+          totalAmount: calculateTotalSelectedLoanAmount(state.loanAccounts),
+          state: state,
+          accountData: productLoan,
+          accountIds: getSelectedAccountIds(state.loanAccounts),
+          selectInstallment: (selectItem) {
+            context.read<DepositLoanProductBloc>().add(
+              UpdateStepData(
+                step: state.currentStep,
+                data: {'installmentNo': selectItem},
+              ),
+            );
+          },
+          selectInstallmentError:
+              state.validationErrors[state.currentStep]?['installmentNo'],
+          selectInstallmentData:
+              state.stepData[state.currentStep]?['installmentNo'].toString() ??
+              '',
+          productCode: widget.account,
         ),
       ),
       StepItem(

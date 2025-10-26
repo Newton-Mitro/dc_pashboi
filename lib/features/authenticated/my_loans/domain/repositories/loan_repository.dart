@@ -7,6 +7,7 @@ import 'package:pashboi/features/authenticated/my_loans/domain/entities/collater
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_product_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_transaction_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/entities/submit_loan_against_deposit_product_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/deposit_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_against_loan_interest_usecase.dart';
@@ -17,6 +18,7 @@ import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_loan_products_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_product_loan_collateral%20_account_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_loan_against_deposit_product_usecase.dart';
 
 abstract class LoanRepository {
   ResultFuture<List<LoanAccountEntity>> fetchMyLoans(FetchMyLoansProps props);
@@ -48,5 +50,9 @@ abstract class LoanRepository {
   ResultFuture<ProductLoanEligibleCollateralAccountDto>
   fetchProductLoanCollateralAccount(
     FetchProductLoanCollateralAccountProps props,
+  );
+
+  ResultFuture<String> submitLoanAgainstDepositProduct(
+    SubmitLoanAgainstDepositProductProps props,
   );
 }

@@ -10,6 +10,7 @@ class ProductLoanCollateralAccountModel
     required super.loanableBalance,
     required super.partialApplyLoan,
     required super.isEligible,
+    // required super.maxLoanAmount,
     required super.withdrawableBalance,
   });
 
@@ -23,6 +24,7 @@ class ProductLoanCollateralAccountModel
       totalBalance: (json['TotalBalance'] as num).toDouble(),
       loanableBalance: (json['LoanableBalance'] as num).toDouble(),
       partialApplyLoan: (json['PartialApplyLoan'] as num).toString(),
+      // maxLoanAmount: (json['MaxLoanAmount'] as num).toDouble(),
       isEligible: json['IsEligible'] as bool,
       withdrawableBalance: (json['WithdrawableBalance'] as num).toDouble(),
     );
@@ -37,6 +39,7 @@ class ProductLoanCollateralAccountModel
       "LoanableBalance": loanableBalance,
       "PartialApplyLoan": partialApplyLoan,
       "IsEligible": isEligible,
+      // "MaxLoanAmount": maxLoanAmount,
       "WithdrawableBalance": withdrawableBalance,
     };
   }

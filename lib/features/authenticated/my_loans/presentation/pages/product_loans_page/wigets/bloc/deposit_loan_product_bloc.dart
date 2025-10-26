@@ -170,23 +170,79 @@ class DepositLoanProductBloc
 
   Map<String, dynamic> _validateInstantLoanSteps(int step) {
     final data = state.stepData[step] ?? {};
-    print(data);
     final errors = <String, dynamic>{};
     switch (step) {
       case 0:
-        final getAmount = state.loanAccounts;
+        final selectedAccounts =
+            state.loanAccounts
+                .where((account) => account.isSelected == true)
+                .toList();
 
-        // if (amount == null || amount <= 0) {
-        //   errors['amount'] = 'Please enter valid amount';
-        // } else if (amount % 1000 != 0) {
-        //   errors['amount'] = 'Amount must be multiplied by 1000 /-';
-        // } else if (amount > 100000) {
-        //   errors['amount'] = 'Maximum loan amount is 1,00,000 ৳.';
-        // } else if (amount > getAmount.eligibleAmount) {
-        //   errors['amount'] = 'Loan amount exceeds eligible amount';
-        // }
+        final selectedLedgers =
+            state.loanAccounts.where((l) => l.isSelected!).toList();
+        if (selectedLedgers.isEmpty) {
+          errors['loanAccounts'] = 'Please select at least one ledger Account';
+        } else {
+          final Map<String, String> amountErrors = {};
+
+          for (final account in selectedAccounts) {
+            final amount =
+                double.tryParse(account.partialApplyLoan.toString()) ?? 0;
+
+            final double eligibleAmount = account.loanableBalance;
+            final double maxLoanAmount = 1000000;
+
+            if (amount <= 0) {
+              amountErrors[account.accountNumber.toString()] =
+                  'Please enter a valid amount';
+            } else if (amount % 1000 != 0) {
+              amountErrors[account.accountNumber.toString()] =
+                  'Amount must be a multiple of 1000 ৳';
+            } else if (amount > maxLoanAmount) {
+              amountErrors[account.accountNumber.toString()] =
+                  'Maximum loan amount is 1,00,000 ৳';
+            } else if (amount > eligibleAmount) {
+              amountErrors[account.accountNumber.toString()] =
+                  'Loan amount exceeds eligible amount';
+            }
+          }
+          if (amountErrors.isNotEmpty) {
+            errors['amounts'] = amountErrors;
+          }
+        }
+
+        if (selectedAccounts.isEmpty) {
+          errors['loanAccounts'] =
+              'Please select at least one eligible account';
+        } else {
+          for (final account in selectedAccounts) {
+            final amount =
+                double.tryParse(account.partialApplyLoan.toString()) ?? 0;
+
+            final double eligibleAmount = account.loanableBalance;
+            const double maxLoanAmount = 100000;
+
+            if (amount <= 0) {
+              errors['amount_${account.accountNumber}'] =
+                  'Please enter a valid amount';
+            } else if (amount % 1000 != 0) {
+              errors['amount_${account.accountNumber}'] =
+                  'Amount must be a multiple of 1000 ৳';
+            } else if (amount > maxLoanAmount) {
+              errors['amount_${account.accountNumber}'] =
+                  'Maximum loan amount is 1,00,000 ৳';
+            } else if (amount > eligibleAmount) {
+              errors['amount_${account.accountNumber}'] =
+                  'Loan amount exceeds eligible amount';
+            }
+          }
+        }
         break;
       case 1:
+        if (data['installmentNo'] == null ||
+            data['installmentNo'].toString().isEmpty) {
+          errors['installmentNo'] = 'Please enter a installment no';
+        }
         break;
 
       case 2:

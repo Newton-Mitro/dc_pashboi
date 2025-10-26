@@ -148,6 +148,7 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      // Text(detail.accTypeCode),
                                       _buildRow(
                                         "Account No",
                                         detail.depositAccountNo,

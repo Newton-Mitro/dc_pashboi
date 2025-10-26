@@ -46,6 +46,7 @@ import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/deposit_loan_application_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/bloc/fetch_against_loan_interest_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/attendance_calender.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/bloc/attendance_calender_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/todays_punch/bloc/today_punch_bloc.dart';
@@ -779,6 +780,9 @@ class AppRoutes {
               BlocProvider(create: (context) => sl<DepositLoanProductBloc>()),
               BlocProvider(
                 create: (context) => sl<ProductLoanCollectionAccountBloc>(),
+              ),
+              BlocProvider(
+                create: (context) => sl<FetchAgainstLoanInterestBloc>(),
               ),
             ],
             child: DepositLoanApplicationPage(account: args['account']),

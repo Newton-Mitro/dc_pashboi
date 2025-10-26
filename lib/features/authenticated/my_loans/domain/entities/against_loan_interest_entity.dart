@@ -4,6 +4,7 @@ class AgainstLoanInterestEntity extends Entity<int> {
   final double eligibleLoanAmount;
   final double maxLoanAmount;
   final String minimumInstallment;
+  final double interestRate;
   final bool isEligible;
 
   AgainstLoanInterestEntity({
@@ -11,6 +12,7 @@ class AgainstLoanInterestEntity extends Entity<int> {
     required this.eligibleLoanAmount,
     required this.maxLoanAmount,
     required this.minimumInstallment,
+    required this.interestRate,
     required this.isEligible,
   });
 
