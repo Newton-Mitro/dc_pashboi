@@ -11,10 +11,12 @@ class SubmitLoanAgainstDepositProductProps extends BaseRequestProps {
   final double interestRate;
   final String numberOfInstallment;
   final double totalApplyLoan;
-  final double secretKey;
-  final double cardNo;
-  final double oTPRegId;
-  final double oTPValue;
+  final String secretKey;
+  final String cardNo;
+  final String nameOnCard;
+  final String accountNo;
+  final String oTPRegId;
+  final String oTPValue;
 
   const SubmitLoanAgainstDepositProductProps({
     required super.email,
@@ -31,6 +33,8 @@ class SubmitLoanAgainstDepositProductProps extends BaseRequestProps {
     required this.interestRate,
     required this.numberOfInstallment,
     required this.totalApplyLoan,
+    required this.nameOnCard,
+    required this.accountNo,
     required this.oTPRegId,
     required this.oTPValue,
   });

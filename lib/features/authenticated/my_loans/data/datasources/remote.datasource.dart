@@ -581,25 +581,38 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
     SubmitLoanAgainstDepositProductProps props,
   ) async {
     try {
+      // final collateralAccounts =
+      //     props.collateralAccounts.map((ledger) => ledger.toJson()).toList();
+
+      final collateralAccounts =
+          props.collateralAccounts
+              ?.map(
+                (ledger) =>
+                    ProductLoanCollateralAccountModel.fromEntity(
+                      ledger,
+                    ).toJson(),
+              )
+              .toList();
+
       final response = await apiService.post(
-        ApiUrls.submitInstantLoans,
+        ApiUrls.submitLoansAgainstDepositProduct,
         data: {
           "ByUserId": props.userId,
+          "UID": props.userId,
+          "RolePermissionId": props.rolePermissionId,
+          "PersonId": props.personId,
           "EmployeeCode": props.employeeCode,
           "MobileNo": props.mobileNumber,
           "MobileNumber": props.mobileNumber,
-          "PersonId": props.personId,
           "RequestFrom": "MobileApp",
-          "RolePermissionId": props.rolePermissionId,
-          "UID": props.userId,
           "UserName": props.email,
-          "ModuleCode": "50",
-
-          "CollateralAccounts": props.collateralAccounts,
           "LoanProductCode": props.loanProductCode,
+          "AccountNo": props.accountNo,
+          "NameOnCard": props.nameOnCard,
           "MaximumLoanAmount": props.maximumLoanAmount,
           "InterestRate": props.interestRate,
           "NumberOfInstallment": props.numberOfInstallment,
+          "CollateralAccounts": collateralAccounts,
           "TotalApplyLoan": props.totalApplyLoan,
           "SecretKey": props.secretKey,
           "CardNo": props.cardNo,

@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -6,6 +7,7 @@ import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/card_pin_verification_section/card_pin_verification_section.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/otp_verification_section/otp_verification_section.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/transfer_from_section/transfer_from_section.dart';
+import 'package:pashboi/features/authenticated/cards/presentation/pages/bloc/debit_card_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
@@ -124,82 +126,172 @@ class _DepositLoanApplicationPageState
           final isLastStep =
               state.currentStep == DepositLoanProductBloc.lastStep;
 
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Previous / Next buttons row
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    isFirstStep
-                        ? const SizedBox(width: 100)
-                        : AppPrimaryButton(
-                          horizontalPadding: 10,
-                          iconBefore: const Icon(FontAwesomeIcons.angleLeft),
-                          label: "Previous",
-                          onPressed: () {
-                            context.read<DepositLoanProductBloc>().add(
-                              DepositProductLoanGoToPreviousStep(),
-                            );
-                          },
-                        ),
-                    if (!isLastStep)
-                      AppPrimaryButton(
-                        horizontalPadding: 10,
-                        iconAfter: const Icon(FontAwesomeIcons.angleRight),
-                        label: "Next",
-                        onPressed: () {
-                          context.read<DepositLoanProductBloc>().add(
-                            DepositProductLoanGoToNextStep(),
-                          );
-                        },
+          return MultiBlocListener(
+            listeners: [
+              BlocListener<DebitCardBloc, DebitCardState>(
+                listener: (context, state) {
+                  if (state.successMessage != null) {
+                    context.read<DepositLoanProductBloc>().add(
+                      UpdateStepData(
+                        step: 3,
+                        data: {'OTPRegId': state.successMessage},
                       ),
-                    if (isLastStep)
-                      const SizedBox(width: 100), // to keep alignment
-                  ],
-                ),
-              ),
+                    );
+                    context.read<DepositLoanProductBloc>().add(
+                      DepositProductLoanGoToNextStep(),
+                    );
+                  }
 
-              // Submit button (only on last step)
-              if (isLastStep)
+                  if (state.error != null) {
+                    final snackBar = SnackBar(
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'Oops!',
+                        message: state.error!,
+                        contentType: ContentType.failure,
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(snackBar);
+                  }
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Column(),
+                      if (state.isLoading) const CircularProgressIndicator(),
+                    ],
+                  );
+                },
+              ),
+              BlocListener<DepositLoanProductBloc, DepositLoanProductState>(
+                listener: (context, state) {
+                  if (state.successMessage != null) {
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(
+                        SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: 'Done!',
+                            message: state.successMessage!,
+                            contentType: ContentType.success,
+                          ),
+                        ),
+                      );
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  }
+                  if (state.error != null) {
+                    final snackBar = SnackBar(
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'Oops!',
+                        message: state.error!,
+                        contentType: ContentType.failure,
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(snackBar);
+                  }
+                  // TODO: implement listener
+                },
+              ),
+            ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
-                    vertical: 10,
+                    vertical: 8,
                   ),
-                  child: BlocBuilder<
-                    DepositLoanProductBloc,
-                    DepositLoanProductState
-                  >(
-                    builder: (context, state) {
-                      return ProgressSubmitButton(
-                        width: width - 10, // match horizontal padding
-                        height: 100,
-                        enabled: !state.isLoading,
-                        backgroundColor: context.theme.colorScheme.primary,
-                        progressColor: context.theme.colorScheme.secondary,
-                        foregroundColor: context.theme.colorScheme.onPrimary,
-                        label: 'Hold & Press to Submit',
-                        onSubmit: () {
-                          // TODO: implement your submit logic here
-                          // context.read<DepositLoanProductBloc>().add(
-                          //   SubmitDepositLoan(),
-                          // );
-                        },
-                      );
-                    },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      isFirstStep
+                          ? const SizedBox(width: 100)
+                          : AppPrimaryButton(
+                            horizontalPadding: 10,
+                            iconBefore: const Icon(FontAwesomeIcons.angleLeft),
+                            label: "Previous",
+                            onPressed: () {
+                              context.read<DepositLoanProductBloc>().add(
+                                DepositProductLoanGoToPreviousStep(),
+                              );
+                            },
+                          ),
+                      if (!isLastStep)
+                        AppPrimaryButton(
+                          horizontalPadding: 10,
+                          iconAfter: const Icon(FontAwesomeIcons.angleRight),
+                          label: "Next",
+                          onPressed: () {
+                            if (state.currentStep == 3) {
+                              context.read<DepositLoanProductBloc>().add(
+                                DepositProductLoanValidateStep(3),
+                              );
+                              _verifyCardPIN(state);
+                              return;
+                            }
+                            context.read<DepositLoanProductBloc>().add(
+                              DepositProductLoanGoToNextStep(),
+                            );
+                          },
+                        ),
+                      if (isLastStep)
+                        const SizedBox(width: 100), // to keep alignment
+                    ],
                   ),
                 ),
-            ],
+
+                // Submit button (only on last step)
+                if (isLastStep)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
+                    child: BlocBuilder<
+                      DepositLoanProductBloc,
+                      DepositLoanProductState
+                    >(
+                      builder: (context, state) {
+                        return ProgressSubmitButton(
+                          width: width - 10, // match horizontal padding
+                          height: 100,
+                          enabled: !state.isLoading,
+                          backgroundColor: context.theme.colorScheme.primary,
+                          progressColor: context.theme.colorScheme.secondary,
+                          foregroundColor: context.theme.colorScheme.onPrimary,
+                          label: 'Hold & Press to Submit',
+                          onSubmit: () {
+                            _submitDepositLoanProduct(state);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ),
           );
         },
       ),
     );
+  }
+
+  void _submitDepositLoanProduct(DepositLoanProductState state) {
+    context.read<DepositLoanProductBloc>().add(SubmitDepositLoanProduct());
   }
 
   Widget _buildForm(
@@ -323,14 +415,10 @@ class _DepositLoanApplicationPageState
               ),
             );
           },
-          // amountError:
-          //     state.validationErrors[state
-          //         .currentStep]?['amount_${widget.account}'],
           amountErrors: state.validationErrors[state.currentStep]?['amounts'],
           sectionError:
               state.validationErrors[state.currentStep]?['loanAccounts'] ?? '',
           totalAmount: calculateTotalSelectedLoanAmount(state.loanAccounts),
-          // accountsErrors: state.validationErrors[state.currentStep]?['accounts'],
         ),
       ),
       StepItem(
@@ -349,11 +437,13 @@ class _DepositLoanApplicationPageState
               ),
             );
           },
+
           selectInstallmentError:
               state.validationErrors[state.currentStep]?['installmentNo'],
           selectInstallmentData:
               state.stepData[state.currentStep]?['installmentNo'].toString() ??
               '',
+
           productCode: widget.account,
         ),
       ),
@@ -374,6 +464,16 @@ class _DepositLoanApplicationPageState
             if (selectedAccount != null) {
               context.read<DepositLoanProductBloc>().add(
                 SelectCardAccount(selectedAccount),
+              );
+            }
+
+            if (selectedAccount != null) {
+              context.read<DepositLoanProductBloc>().add(
+                UpdateStepData(
+                  step: state.currentStep,
+                  data: {'selectedAccount': selectedAccount},
+                ),
+                // SelectCardAccount(selectedAccount),
               );
             }
           },
@@ -405,13 +505,32 @@ class _DepositLoanApplicationPageState
         icon: FontAwesomeIcons.key,
         widget: OtpVerificationSection(
           onOtpChanged: (String otp) {
-            // Update OTP logic here
+            context.read<DepositLoanProductBloc>().add(
+              UpdateStepData(step: state.currentStep, data: {'OTP': otp}),
+            );
           },
           resendOTP: () {
-            // Resend OTP logic here
+            _verifyCardPIN(state);
           },
+          // otp: state.stepData[state.currentStep]?['OTP'] ?? '',
         ),
       ),
     ];
+  }
+
+  void _verifyCardPIN(DepositLoanProductState depositLoanProductState) {
+    context.read<DebitCardBloc>().add(
+      DebitCardPinVerify(
+        accountNumber: depositLoanProductState.selectedAccount!.number,
+        cardNumber: depositLoanProductState.selectedCard!.cardNumber,
+        nameOnCard:
+            depositLoanProductState.selectedCard!.nameOnCard
+                .toLowerCase()
+                .trim(),
+        cardPIN:
+            depositLoanProductState.stepData[depositLoanProductState
+                .currentStep]?['cardPin'],
+      ),
+    );
   }
 }

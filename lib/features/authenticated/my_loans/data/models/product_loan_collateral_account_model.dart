@@ -10,7 +10,6 @@ class ProductLoanCollateralAccountModel
     required super.loanableBalance,
     required super.partialApplyLoan,
     required super.isEligible,
-    // required super.maxLoanAmount,
     required super.withdrawableBalance,
   });
 
@@ -18,15 +17,20 @@ class ProductLoanCollateralAccountModel
     Map<String, dynamic> json,
   ) {
     return ProductLoanCollateralAccountModel(
-      id: json['AccountId'] as int,
+      id:
+          json['AccountId'] is int
+              ? json['AccountId'] as int
+              : int.tryParse(json['AccountId'].toString()) ?? 0,
       accountType: (json['AccountType'] ?? '').toString(),
       accountNumber: (json['AccountNumber'] ?? '').toString(),
-      totalBalance: (json['TotalBalance'] as num).toDouble(),
-      loanableBalance: (json['LoanableBalance'] as num).toDouble(),
-      partialApplyLoan: (json['PartialApplyLoan'] as num).toString(),
-      // maxLoanAmount: (json['MaxLoanAmount'] as num).toDouble(),
-      isEligible: json['IsEligible'] as bool,
-      withdrawableBalance: (json['WithdrawableBalance'] as num).toDouble(),
+      totalBalance: (json['TotalBalance'] as num?)?.toDouble() ?? 0.0,
+      loanableBalance: (json['LoanableBalance'] as num?)?.toDouble() ?? 0.0,
+      partialApplyLoan: (json['PartialApplyLoan'] ?? '').toString(),
+      isEligible:
+          json['IsEligible'] == true ||
+          json['IsEligible']?.toString().toLowerCase() == 'true',
+      withdrawableBalance:
+          (json['WithdrawableBalance'] as num?)?.toDouble() ?? 0.0,
     );
   }
 
@@ -39,8 +43,30 @@ class ProductLoanCollateralAccountModel
       "LoanableBalance": loanableBalance,
       "PartialApplyLoan": partialApplyLoan,
       "IsEligible": isEligible,
-      // "MaxLoanAmount": maxLoanAmount,
       "WithdrawableBalance": withdrawableBalance,
     };
+  }
+
+  factory ProductLoanCollateralAccountModel.fromEntity(
+    ProductLoanCollectionAccountEntity entity,
+  ) {
+    return ProductLoanCollateralAccountModel(
+      id: entity.id,
+      accountType: entity.accountType,
+      accountNumber: entity.accountNumber,
+      totalBalance: entity.totalBalance,
+      loanableBalance: entity.loanableBalance,
+      partialApplyLoan: entity.partialApplyLoan,
+      isEligible: entity.isEligible,
+      withdrawableBalance: entity.withdrawableBalance,
+    );
+  }
+
+  static List<Map<String, dynamic>> listToJson(
+    List<ProductLoanCollectionAccountEntity> entities,
+  ) {
+    return entities
+        .map((e) => ProductLoanCollateralAccountModel.fromEntity(e).toJson())
+        .toList();
   }
 }

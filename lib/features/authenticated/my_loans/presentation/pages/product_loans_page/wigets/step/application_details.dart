@@ -65,6 +65,13 @@ class _ApplicationDetailsState extends State<ApplicationDetails> {
         accountIds: widget.accountIds,
       ),
     );
+
+    context.read<DepositLoanProductBloc>().add(
+      UpdateStepData(step: 1, data: {'installmentNo': widget.productCode}),
+    );
+    context.read<DepositLoanProductBloc>().add(
+      UpdateStepData(step: 1, data: {'productCode': widget.productCode}),
+    );
   }
 
   @override
@@ -94,6 +101,19 @@ class _ApplicationDetailsState extends State<ApplicationDetails> {
 
         if (state is FetchAgainstLoanInterestSuccess) {
           final productLoanInterest = state.againstLoanInterestEntity;
+
+          context.read<DepositLoanProductBloc>().add(
+            UpdateStepData(
+              step: 1,
+              data: {'MaximumLoanAmount': productLoanInterest.maxLoanAmount},
+            ),
+          );
+          context.read<DepositLoanProductBloc>().add(
+            UpdateStepData(
+              step: 1,
+              data: {'interest': productLoanInterest.interestRate},
+            ),
+          );
 
           return Container(
             height: MediaQuery.of(context).size.height * 0.65,

@@ -81,4 +81,4 @@ class SelectCardAccount extends DepositLoanProductEvent {
 
 class ResetInstantLoanFlow extends DepositLoanProductEvent {}
 
-class SubmitInstantLoan extends DepositLoanProductEvent {}
+class SubmitDepositLoanProduct extends DepositLoanProductEvent {}

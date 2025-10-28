@@ -176,5 +176,6 @@ class ApiUrls {
   static const String fetchAgainstLoanInterest =
       "loans_v1/getInterestOnAgainstLoan";
 
-  static const String submitLoansAgainstDepositProduct = "";
+  static const String submitLoansAgainstDepositProduct =
+      "loans_v1/submitLoanAgainstDepositProduct";
 }

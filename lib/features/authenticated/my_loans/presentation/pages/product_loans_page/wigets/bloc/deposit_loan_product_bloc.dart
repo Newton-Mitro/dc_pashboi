@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
+import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/deposit_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_loan_against_deposit_product_usecase.dart';
 part 'deposit_loan_product_event.dart';
 part 'deposit_loan_product_state.dart';
 
@@ -13,9 +18,13 @@ class DepositLoanProductBloc
   static const int lastStep = 4;
   static const int totalSteps = lastStep + 1;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final SubmitLoanAgainstDepositProductUseCase
+  submitLoanAgainstDepositProductUseCase;
 
-  DepositLoanProductBloc({required this.getAuthUserUseCase})
-    : super(DepositLoanProductState(currentStep: 0)) {
+  DepositLoanProductBloc({
+    required this.getAuthUserUseCase,
+    required this.submitLoanAgainstDepositProductUseCase,
+  }) : super(DepositLoanProductState(currentStep: 0)) {
     on<DepositProductLoanGoToNextStep>(_onGoToNextStep);
     on<DepositProductLoanGoToPreviousStep>(_onGoToPreviousStep);
     on<SelectCardAccount>(_onSelectCardAccount);
@@ -23,10 +32,10 @@ class DepositLoanProductBloc
     on<ResetInstantLoanFlow>(_onResetFlow);
     on<UpdateStepData>(_onUpdateStepData);
     on<DepositProductLoanValidateStep>(_onValidateStep);
-
     on<SetLoanAccounts>(_onSetLoanAccounts);
     on<ToggleAccountSelection>(_onToggleAccountSelection);
     on<UpdateLoanAccountAmount>(_onUpdateLoanAmount);
+    on<SubmitDepositLoanProduct>(_onSubmitDepositLoanApplication);
   }
 
   void _onSetLoanAccounts(
@@ -168,6 +177,65 @@ class DepositLoanProductBloc
     }
   }
 
+  void _onSubmitDepositLoanApplication(
+    SubmitDepositLoanProduct event,
+    Emitter<DepositLoanProductState> emit,
+  ) async {
+    final authUserResult = await getAuthUserUseCase.call(NoParams());
+
+    if (authUserResult.isLeft()) {
+      emit(state.copyWith(error: 'User not found', isLoading: false));
+      return;
+    }
+
+    final user = authUserResult.getOrElse(() => throw Exception()).user;
+
+    final selectedLedgers =
+        state.loanAccounts.where((l) => l.isSelected!).toList();
+
+    final totalAmount = selectedLedgers.fold<double>(0.0, (sum, ledger) {
+      double value = double.tryParse(ledger.partialApplyLoan) ?? 0.0;
+      return sum + value;
+    });
+
+    final numberOfInstallment = state.stepData[1]?['installmentNo'];
+    final interest = state.stepData[1]?['interest'];
+    final maximumLoanAmount = state.stepData[1]?['MaximumLoanAmount'];
+    final loanProductCode = state.stepData[1]?['productCode'];
+
+    final accountResult = await submitLoanAgainstDepositProductUseCase.call(
+      SubmitLoanAgainstDepositProductProps(
+        email: user.loginEmail,
+        userId: user.userId,
+        rolePermissionId: user.roleId,
+        personId: user.personId,
+        employeeCode: user.employeeCode,
+        mobileNumber: user.regMobile,
+        cardNo: state.selectedCard!.cardNumber,
+        collateralAccounts: selectedLedgers,
+        loanProductCode: loanProductCode,
+        maximumLoanAmount: maximumLoanAmount,
+        interestRate: interest,
+        numberOfInstallment: numberOfInstallment,
+        totalApplyLoan: totalAmount,
+        secretKey:
+            md5
+                .convert(utf8.encode(state.stepData[3]?['cardPin'].trim()))
+                .toString(),
+        accountNo: state.selectedAccount!.number.toString(),
+        nameOnCard: state.selectedCard!.nameOnCard.toLowerCase().trim(),
+        oTPRegId: state.stepData[3]?['OTPRegId'],
+        oTPValue: state.stepData[4]?['OTP'],
+      ),
+    );
+    accountResult.fold(
+      (failure) =>
+          emit(state.copyWith(error: failure.message, isLoading: false)),
+      (message) =>
+          emit(state.copyWith(successMessage: message, isLoading: false)),
+    );
+  }
+
   Map<String, dynamic> _validateInstantLoanSteps(int step) {
     final data = state.stepData[step] ?? {};
     final errors = <String, dynamic>{};
@@ -190,7 +258,7 @@ class DepositLoanProductBloc
                 double.tryParse(account.partialApplyLoan.toString()) ?? 0;
 
             final double eligibleAmount = account.loanableBalance;
-            final double maxLoanAmount = 1000000;
+            final double maxLoanAmount = 100000;
 
             if (amount <= 0) {
               amountErrors[account.accountNumber.toString()] =
@@ -200,7 +268,7 @@ class DepositLoanProductBloc
                   'Amount must be a multiple of 1000 ৳';
             } else if (amount > maxLoanAmount) {
               amountErrors[account.accountNumber.toString()] =
-                  'Maximum loan amount is 1,00,000 ৳';
+                  'Maximum loan amount is ${state.stepData[1]?['MaximumLoanAmount']} ৳';
             } else if (amount > eligibleAmount) {
               amountErrors[account.accountNumber.toString()] =
                   'Loan amount exceeds eligible amount';

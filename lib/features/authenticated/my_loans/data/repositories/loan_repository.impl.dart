@@ -191,9 +191,8 @@ class LoanRepositoryImpl implements LoanRepository {
     SubmitLoanAgainstDepositProductProps props,
   ) async {
     try {
-      final result = await loanRemoteDataSource.submitLoanAgainstDepositProduct(
-        props,
-      );
+      final result = await loanRemoteDataSource
+          .submitLoanAgainstDepositProductDatasource(props);
       return Right(result);
     } catch (e) {
       return Left(FailureMapper.fromException(e));
