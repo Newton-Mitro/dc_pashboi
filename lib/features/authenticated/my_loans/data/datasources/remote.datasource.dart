@@ -49,7 +49,7 @@ abstract class LoanRemoteDataSource {
     InstantLoanEligibilityProps props,
   );
 
-  Future<String> fetchEligibleCollateralAccount(SubmitInstantLoansProps props);
+  Future<String> submitInstantLoanApplication(SubmitInstantLoansProps props);
 
   Future<List<DepositLoanEligibilityModel>> fetchDepositLoanEligibility(
     DepositLoanEligibilityProps props,
@@ -405,7 +405,7 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
   }
 
   @override
-  Future<String> fetchEligibleCollateralAccount(
+  Future<String> submitInstantLoanApplication(
     SubmitInstantLoansProps props,
   ) async {
     try {
@@ -429,6 +429,7 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
           "AppliedAmount": props.appliedAmount,
           "OTPRegId": props.otpRegId,
           "OTPValue": props.otpValue,
+          "IsTopUp": props.isTopUp,
         },
       );
 
@@ -581,9 +582,6 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
     SubmitLoanAgainstDepositProductProps props,
   ) async {
     try {
-      // final collateralAccounts =
-      //     props.collateralAccounts.map((ledger) => ledger.toJson()).toList();
-
       final collateralAccounts =
           props.collateralAccounts
               ?.map(

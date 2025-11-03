@@ -5,8 +5,13 @@ import 'package:pashboi/shared/widgets/page_container.dart';
 
 class InstantLoanNotEligible extends StatefulWidget {
   final List<dynamic> eligibleConditions;
+  final VoidCallback? onChangeTopUp;
 
-  const InstantLoanNotEligible({super.key, required this.eligibleConditions});
+  const InstantLoanNotEligible({
+    super.key,
+    required this.eligibleConditions,
+    required this.onChangeTopUp,
+  });
 
   @override
   State<InstantLoanNotEligible> createState() => _InstantLoanNotEligibleState();
@@ -52,7 +57,6 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                           ],
                         ),
                       ),
-
                       Text(
                         "Eligibility Findings :-",
                         style: theme.textTheme.titleLarge?.copyWith(
@@ -61,7 +65,6 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                           color: context.theme.colorScheme.error,
                         ),
                       ),
-
                       ...widget.eligibleConditions.map((condition) {
                         final isEligible = condition.isEligibile;
 
@@ -115,39 +118,76 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                 ),
               ),
 
+              // 🔽 Bottom Buttons (Close + Top Up)
               Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: Center(
-                  child: TextButton.icon(
-                    icon: Icon(
-                      FontAwesomeIcons.arrowLeft,
-                      size: 14,
-                      color: theme.colorScheme.onPrimary,
-                    ),
-                    label: Text(
-                      "Close",
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: theme.colorScheme.onPrimary,
-                        fontWeight: FontWeight.w500,
+                padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // 🟥 Close Button
+                    Expanded(
+                      child: TextButton.icon(
+                        icon: Icon(
+                          FontAwesomeIcons.arrowLeft,
+                          size: 14,
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                        label: Text(
+                          "Close",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: theme.colorScheme.onPrimary,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          backgroundColor: theme.colorScheme.primary
+                              .withOpacity(0.5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Or any other logic
-                    },
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      backgroundColor: theme.colorScheme.primary.withOpacity(
-                        0.50,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+
+                    const SizedBox(width: 16),
+
+                    Expanded(
+                      child: TextButton.icon(
+                        icon: Icon(
+                          FontAwesomeIcons.arrowUpRightDots,
+                          size: 14,
+                          color: theme.colorScheme.onPrimary,
+                        ),
+                        label: Text(
+                          "Top Up",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: theme.colorScheme.onPrimary,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        onPressed: widget.onChangeTopUp,
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          backgroundColor: theme.colorScheme.secondary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],

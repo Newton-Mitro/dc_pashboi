@@ -119,16 +119,81 @@ class InstantLoanEligibleBloc
     }
   }
 
+  void _onSubmitInstantLoan(
+    SubmitInstantLoan event,
+    Emitter<InstantLoanEligibleState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+
+    try {
+      final authUserResult = await getAuthUserUseCase.call(NoParams());
+
+      if (authUserResult.isLeft()) {
+        emit(state.copyWith(error: 'User not found', isLoading: false));
+        return;
+      }
+
+      final user = authUserResult.getOrElse(() => throw Exception()).user;
+
+      final cardPinRaw = state.stepData[3]?['cardPin'];
+      final otpRegId = state.stepData[3]?['OTPRegId'];
+      final otpValue = state.stepData[4]?['OTP'];
+      final appliedAmount = state.stepData[1]?['amount'];
+
+      if (cardPinRaw == null ||
+          cardPinRaw is! String ||
+          cardPinRaw.trim().isEmpty) {
+        emit(state.copyWith(error: 'Invalid card PIN', isLoading: false));
+        return;
+      }
+
+      final cardPin = cardPinRaw.trim();
+
+      final isTopUp = state.stepData[0]?['isTopUp'];
+
+      final secretKey = md5.convert(utf8.encode(cardPin)).toString();
+
+      final accountResult = await submitInstantLoansUseCase.call(
+        SubmitInstantLoansProps(
+          email: user.loginEmail,
+          userId: user.userId,
+          rolePermissionId: user.roleId,
+          personId: user.personId,
+          employeeCode: user.employeeCode,
+          mobileNumber: user.regMobile,
+          nameOnCard: state.selectedCard!.nameOnCard.toLowerCase().trim(),
+          secretKey: secretKey,
+          otpRegId: otpRegId,
+          otpValue: otpValue,
+          cardNo: state.selectedCard!.cardNumber,
+          accountNo: state.selectedAccount!.number.toString(),
+          appliedAmount: appliedAmount,
+          isTopUp: isTopUp,
+        ),
+      );
+
+      accountResult.fold(
+        (failure) =>
+            emit(state.copyWith(error: failure.message, isLoading: false)),
+        (message) =>
+            emit(state.copyWith(successMessage: message, isLoading: false)),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          error: 'Failed to submit instant loan',
+          isLoading: false,
+        ),
+      );
+    }
+  }
+
   Map<String, dynamic> _validateInstantLoanSteps(int step) {
     final data = state.stepData[step] ?? {};
     final errors = <String, dynamic>{};
 
     switch (step) {
       case 0:
-        // if (state.selectedAccount == null ||
-        //     state.selectedAccount!.number.isEmpty) {
-        //   errors['transferFromAccount'] = 'Select an account to transfer from';
-        // }
         break;
 
       case 1:
@@ -187,70 +252,5 @@ class InstantLoanEligibleBloc
     }
 
     return errors;
-  }
-
-  void _onSubmitInstantLoan(
-    SubmitInstantLoan event,
-    Emitter<InstantLoanEligibleState> emit,
-  ) async {
-    emit(state.copyWith(isLoading: true));
-
-    try {
-      final authUserResult = await getAuthUserUseCase.call(NoParams());
-
-      if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
-        return;
-      }
-
-      final user = authUserResult.getOrElse(() => throw Exception()).user;
-
-      final cardPinRaw = state.stepData[3]?['cardPin'];
-      final otpRegId = state.stepData[3]?['OTPRegId'];
-      final otpValue = state.stepData[4]?['OTP'];
-      final appliedAmount = state.stepData[1]?['amount'];
-
-      if (cardPinRaw == null ||
-          cardPinRaw is! String ||
-          cardPinRaw.trim().isEmpty) {
-        emit(state.copyWith(error: 'Invalid card PIN', isLoading: false));
-        return;
-      }
-
-      final cardPin = cardPinRaw.trim();
-      final secretKey = md5.convert(utf8.encode(cardPin)).toString();
-
-      final accountResult = await submitInstantLoansUseCase.call(
-        SubmitInstantLoansProps(
-          email: user.loginEmail,
-          userId: user.userId,
-          rolePermissionId: user.roleId,
-          personId: user.personId,
-          employeeCode: user.employeeCode,
-          mobileNumber: user.regMobile,
-          nameOnCard: state.selectedCard!.nameOnCard.toLowerCase().trim(),
-          secretKey: secretKey,
-          otpRegId: otpRegId,
-          otpValue: otpValue,
-          cardNo: state.selectedCard!.cardNumber,
-          accountNo: state.selectedAccount!.number.toString(),
-          appliedAmount: appliedAmount,
-        ),
-      );
-
-      accountResult.fold(
-        (failure) =>
-            emit(state.copyWith(error: failure.message, isLoading: false)),
-        (message) =>
-            emit(state.copyWith(successMessage: message, isLoading: false)),
-      );
-    } catch (e) {
-      emit(
-        state.copyWith(
-          error: 'Failed to submit instant loan',
-          isLoading: false,
-        ),
-      );
-    }
   }
 }

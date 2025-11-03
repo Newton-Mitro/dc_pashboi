@@ -38,6 +38,7 @@ import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/op
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_application_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/bloc/instant_loan_eligible_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_not_eligible/instant_loan_not_eligible.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_success_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/instant_loan_terms_condition_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loan_terms_condition_page/apply_for_product_loan_page.dart';
@@ -46,6 +47,7 @@ import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/deposit_loan_application_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/product_loan_success_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/bloc/fetch_against_loan_interest_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/attendance_calender.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/bloc/attendance_calender_bloc.dart';
@@ -749,16 +751,6 @@ class AppRoutes {
             ),
           ),
         );
-
-      case AuthRoutesName.instantLoanNotEligible:
-        final args = settings.arguments as Map<String, dynamic>;
-        return _materialRoute(
-          InstantLoanNotEligible(
-            eligibleConditions: args['eligibleConditions'],
-          ),
-        );
-      // instantLoanNotEligible
-
       case AuthRoutesName.instantLoanApplicationPage:
         return _materialRoute(
           MultiBlocProvider(
@@ -771,6 +763,20 @@ class AppRoutes {
             child: InstantLoanApplicationPage(),
           ),
         );
+
+      case AuthRoutesName.instantLoanEligibleSuccessPage:
+        if (args is Map<String, String>) {
+          return _materialRoute(
+            InstantLoanSuccessPage(successMessage: args['message'] ?? ''),
+          );
+        }
+
+      case AuthRoutesName.depositLoanSuccessPage:
+        if (args is Map<String, String>) {
+          return _materialRoute(
+            ProductLoanSuccessPage(successMessage: args['message'] ?? ''),
+          );
+        }
 
       case AuthRoutesName.depositLoanApplicationPage:
         final args = settings.arguments as Map<String, dynamic>;

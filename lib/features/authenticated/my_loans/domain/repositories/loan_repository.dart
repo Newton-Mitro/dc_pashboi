@@ -7,7 +7,6 @@ import 'package:pashboi/features/authenticated/my_loans/domain/entities/collater
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_product_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/loan_transaction_entity.dart';
-import 'package:pashboi/features/authenticated/my_loans/domain/entities/submit_loan_against_deposit_product_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/check_instant_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/deposit_loan_eligibility_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_against_loan_interest_usecase.dart';

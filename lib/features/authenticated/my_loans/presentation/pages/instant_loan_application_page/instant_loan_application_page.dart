@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/instant_loan_eligible.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_not_eligible/instant_loan_not_eligible.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
-import 'package:pashboi/features/authenticated/my_loans/data/models/eligible_conditions_model.dart'; // Add this if not already
+import 'package:pashboi/features/authenticated/my_loans/data/models/eligible_conditions_model.dart';
 
 class InstantLoanApplicationPage extends StatefulWidget {
   const InstantLoanApplicationPage({super.key});
@@ -16,6 +15,8 @@ class InstantLoanApplicationPage extends StatefulWidget {
 
 class _InstantLoanApplicationPageState
     extends State<InstantLoanApplicationPage> {
+  bool isTopUp = false;
+
   @override
   void initState() {
     super.initState();
@@ -23,6 +24,12 @@ class _InstantLoanApplicationPageState
     context.read<InstantLoanEligibilityBloc>().add(
       FetchInstantLoanEligibilityEvent(),
     );
+  }
+
+  void _handleTopUpChange() {
+    setState(() {
+      isTopUp = true;
+    });
   }
 
   @override
@@ -39,24 +46,17 @@ class _InstantLoanApplicationPageState
               if (state is InstantLoanEligibilitySuccess) {
                 final data = state.instantLoanEligibilityDTO;
 
-                // Safely cast the eligibleConditions list
                 final List<EligibleConditionsModel> eligibleConditions =
                     (data.eligibleConditions as List)
                         .cast<EligibleConditionsModel>();
 
-                if (data.eligibilityMessage == "Not Eligible") {
-                  return InstantLoanNotEligible(
-                    eligibleConditions: eligibleConditions,
-                  );
-                } else {
-                  return InstantLoanEligible(
-                    eligibleConditions: eligibleConditions,
-                  );
-                }
+                return InstantLoanEligible(
+                  eligibleConditions: eligibleConditions,
+                );
               }
 
-              // Default fallback UI
-              return const SizedBox();
+              // Default or initial state
+              return const SizedBox.shrink();
             },
           ),
     );

@@ -13,6 +13,7 @@ import 'package:pashboi/features/authenticated/my_loans/presentation/pages/produ
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/application_details.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/collateral_details.dart';
+import 'package:pashboi/routes/auth_routes_name.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/progress_submit_button/progress_submit_button.dart';
@@ -169,25 +170,6 @@ class _DepositLoanApplicationPageState
               ),
               BlocListener<DepositLoanProductBloc, DepositLoanProductState>(
                 listener: (context, state) {
-                  if (state.successMessage != null) {
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(
-                        SnackBar(
-                          elevation: 0,
-                          behavior: SnackBarBehavior.floating,
-                          backgroundColor: Colors.transparent,
-                          content: AwesomeSnackbarContent(
-                            title: 'Done!',
-                            message: state.successMessage!,
-                            contentType: ContentType.success,
-                          ),
-                        ),
-                      );
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    }
-                  }
                   if (state.error != null) {
                     final snackBar = SnackBar(
                       elevation: 0,
@@ -203,6 +185,14 @@ class _DepositLoanApplicationPageState
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
                       ..showSnackBar(snackBar);
+                  }
+
+                  if (state.successMessage != null) {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      AuthRoutesName.depositLoanSuccessPage,
+                      arguments: {'message': state.successMessage!},
+                    );
                   }
                   // TODO: implement listener
                 },

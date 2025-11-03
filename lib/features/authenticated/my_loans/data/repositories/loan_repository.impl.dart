@@ -132,7 +132,7 @@ class LoanRepositoryImpl implements LoanRepository {
   @override
   ResultFuture<String> submitInstantLoans(SubmitInstantLoansProps props) async {
     try {
-      final result = await loanRemoteDataSource.fetchEligibleCollateralAccount(
+      final result = await loanRemoteDataSource.submitInstantLoanApplication(
         props,
       );
       return Right(result);

@@ -12,6 +12,7 @@ import 'package:pashboi/features/authenticated/my_loans/data/models/eligible_con
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/bloc/instant_loan_eligible_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/wigets/instant_loan_eligible_check.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/wigets/loan_information_and_amount.dart';
+import 'package:pashboi/routes/auth_routes_name.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/progress_submit_button/progress_submit_button.dart';
@@ -20,6 +21,7 @@ import 'package:progress_stepper/progress_stepper.dart';
 
 class InstantLoanEligible extends StatefulWidget {
   final List<EligibleConditionsModel> eligibleConditions;
+
   const InstantLoanEligible({super.key, required this.eligibleConditions});
 
   @override
@@ -28,37 +30,109 @@ class InstantLoanEligible extends StatefulWidget {
 
 class _InstantLoanEligibleState extends State<InstantLoanEligible> {
   @override
+  void initState() {
+    _checkTopUpCondition(widget.eligibleConditions);
+  }
+
+  bool instantLoanApply = false;
+  bool instantLoanApplyByTopUp = false;
+
+  void _checkTopUpCondition(List<EligibleConditionsModel> eligibleConditions) {
+    final allEligible = eligibleConditions.every((c) => c.isEligibile);
+    final ineligibleItems =
+        eligibleConditions.where((c) => !c.isEligibile).toList();
+    setState(() {
+      if (allEligible) {
+        instantLoanApply = true;
+        context.read<InstantLoanEligibleBloc>().add(
+          UpdateStepData(step: 0, data: {'isTopUp': false}),
+        );
+      } else {
+        if (ineligibleItems.length == 1 &&
+            ineligibleItems.first.itemName.trim().toLowerCase() ==
+                'previous "instant loan" repaid and closed'.toLowerCase()) {
+          instantLoanApplyByTopUp = true;
+
+          context.read<InstantLoanEligibleBloc>().add(
+            UpdateStepData(step: 0, data: {'isTopUp': true}),
+          );
+        } else {
+          instantLoanApplyByTopUp = false;
+          context.read<InstantLoanEligibleBloc>().add(
+            UpdateStepData(step: 0, data: {'isTopUp': false}),
+          );
+        }
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    return BlocListener<DebitCardBloc, DebitCardState>(
-      listener: (context, state) {
-        if (state.successMessage != null) {
-          context.read<InstantLoanEligibleBloc>().add(
-            UpdateStepData(step: 3, data: {'OTPRegId': state.successMessage}),
-          );
-          context.read<InstantLoanEligibleBloc>().add(
-            InstantLoanGoToNextStep(),
-          );
-        }
-        if (state.error != null) {
-          final snackBar = SnackBar(
-            elevation: 0,
-            behavior: SnackBarBehavior.floating,
-            backgroundColor: Colors.transparent,
-            content: AwesomeSnackbarContent(
-              title: 'Oops!',
-              message: state.error!,
-              contentType: ContentType.failure,
-            ),
-          );
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<DebitCardBloc, DebitCardState>(
+          listener: (context, state) {
+            if (state.successMessage != null) {
+              context.read<InstantLoanEligibleBloc>().add(
+                UpdateStepData(
+                  step: 3,
+                  data: {'OTPRegId': state.successMessage},
+                ),
+              );
+              context.read<InstantLoanEligibleBloc>().add(
+                InstantLoanGoToNextStep(),
+              );
+            }
+            if (state.error != null) {
+              final snackBar = SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: 'Oops!',
+                  message: state.error!,
+                  contentType: ContentType.failure,
+                ),
+              );
 
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(snackBar);
-        }
-        // TODO: implement listener
-      },
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(snackBar);
+            }
+            // TODO: implement listener
+          },
+        ),
+        BlocListener<InstantLoanEligibleBloc, InstantLoanEligibleState>(
+          listener: (context, state) {
+            if (state.error != null) {
+              final snackBar = SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: 'Oops!',
+                  message: state.error!,
+                  contentType: ContentType.failure,
+                ),
+              );
+
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(snackBar);
+            }
+
+            if (state.successMessage != null) {
+              Navigator.pushReplacementNamed(
+                context,
+                AuthRoutesName.instantLoanEligibleSuccessPage,
+                arguments: {'message': state.successMessage!},
+              );
+            }
+          },
+        ),
+      ],
       child: BlocBuilder<InstantLoanEligibleBloc, InstantLoanEligibleState>(
         builder: (context, state) {
           final steps = _buildSteps(state);
@@ -131,7 +205,14 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                                     iconAfter: const Icon(
                                       FontAwesomeIcons.angleRight,
                                     ),
-                                    label: "Next",
+                                    enabled:
+                                        instantLoanApplyByTopUp
+                                            ? instantLoanApplyByTopUp
+                                            : instantLoanApply,
+                                    label:
+                                        instantLoanApplyByTopUp
+                                            ? "Top Up"
+                                            : "Next",
                                     onPressed: () {
                                       if (state.currentStep == 3) {
                                         context
