@@ -398,9 +398,14 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
       StepItem(
         icon: FontAwesomeIcons.eye,
         widget: TransferPreviewSection(
-          transferAmount: double.parse(
-            state.stepData[2]?['transferAmount'] ?? '0',
-          ),
+          // transferAmount: double.parse(
+          //   state.stepData[2]?['transferAmount'] ?? 0.0,
+          // ),
+          transferAmount:
+              double.tryParse(
+                state.stepData[2]?['transferAmount']?.toString() ?? '0.0',
+              ) ??
+              0.0,
           receiverName: state.stepData[1]?['searchedAccountHolderName'] ?? '',
           receiverAccountNumber:
               state.stepData[1]?['searchAccountNumber'] ?? '',
