@@ -162,6 +162,32 @@ class InternalTransferStepsBloc
     }
   }
 
+  // String getFormattedAccountNumber(String? userInputAccountNumber) {
+  //   if (userInputAccountNumber == null || userInputAccountNumber.isEmpty) {
+  //     return "";
+  //   }
+
+  //   String input = userInputAccountNumber.trim();
+  //   String formatted = "";
+
+  //   if (input.contains('-')) {
+  //     List<String> parts = input.split('-');
+  //     String prefix = parts[0].toLowerCase();
+  //     String number = parts[1].trim().padLeft(7, '0');
+
+  //     if (prefix.contains('t')) {
+  //       formatted = 'T-$number';
+  //     } else if (prefix.contains('l')) {
+  //       formatted = 'L-$number';
+  //     } else if (prefix.contains('std')) {
+  //       formatted = 'STD-$number';
+  //     }
+  //   } else {
+  //     formatted = input.padLeft(7, '0');
+  //   }
+  //   return formatted;
+  // }
+
   Map<String, dynamic> _validateDepositNowSteps(int step) {
     final data = state.stepData[step] ?? {};
     final errors = <String, dynamic>{};
@@ -184,6 +210,23 @@ class InternalTransferStepsBloc
               'Search account holder name is required';
         }
         break;
+
+      // case 1:
+      //   final searchAcc = data['searchAccountNumber'];
+      //   final ownAcc = state.selectedAccount?.number;
+
+      //   if (searchAcc == null) {
+      //     errors['searchAccountNumber'] =
+      //         'Please enter a search account number';
+      //   } else {
+      //     final formattedSearch = getFormattedAccountNumber(searchAcc);
+      //     final formattedOwn = getFormattedAccountNumber(ownAcc);
+
+      //     if (formattedSearch == formattedOwn) {
+      //       errors['searchAccountNumber'] =
+      //           "You can't transfer to your own account.";
+      //     }
+      //   }
 
       case 2:
         if (data['transferAmount'] == null) {
