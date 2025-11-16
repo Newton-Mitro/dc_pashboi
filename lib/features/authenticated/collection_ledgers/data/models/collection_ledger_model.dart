@@ -30,31 +30,49 @@ class CollectionLedgerModel extends CollectionLedgerEntity {
 
   factory CollectionLedgerModel.fromJson(Map<String, dynamic> json) {
     return CollectionLedgerModel(
-      id: json['id'] ?? 0,
-      accountNumber: json['AccountNo'] as String,
-      accountName: json['AccountName'] as String,
-      ledgerName: json['AccountType'] as String,
-      accountTypeCode: json['AccountTypeCode'] as String,
+      id: parseInt(json['Id']),
+      accountNumber: json['AccountNo'] ?? '',
+      accountName: json['AccountName'] ?? '',
+      ledgerName: json['LedgerName'] ?? '',
+      accountTypeCode: json['AccountTypeCode'] ?? '',
       moduleCode: json['ModuleCode'] ?? '',
-      amount: (json['Amount'] as num).toDouble(),
-      depositAmount: (json['Amount'] as num).toDouble(),
-      accountId: json['AccountId'] as int,
-      ledgerId: json['LedgerId'] as int,
-      defaultAccount: json['IsDefaulter'] as bool,
-      subledger: json['IsSubLedger'] as bool,
-      multiplier: json['IsMultiplier'] as bool,
-      editable: json['IsNotEditable'] as bool,
-      lps: json['IsLps'] as bool,
-      plType: json['PlType'] as int,
-      loanBalance: (json['LoanBalance'] as num).toDouble(),
-      intrestRate: (json['InterestRate'] as num).toDouble(),
-      lastPaidDate: DateTime.parse(json['LastPaidDate'] as String),
-      refundBased: json['IsRefundBased'] as bool,
-      collectionType: json['LoanCollectionType'] as String,
-      accountFor: json['AccountFor'] as String,
-      isRefundBased: json['IsRefundBased'] as bool,
+      amount: parseInt(json['Amount']),
+      depositAmount: parseInt(json['DepositAmount'] ?? json['Amount']),
+      accountId: parseInt(json['AccountId']),
+      ledgerId: parseInt(json['LedgerId']),
+      defaultAccount: json['IsDefaulter'] ?? false,
+      subledger: json['IsSubLedger'] ?? false,
+      multiplier: json['IsMultiplier'] ?? false,
+      editable: json['IsNotEditable'] ?? false,
+      lps: json['IsLps'] ?? false,
+      plType: parseInt(json['PlType']),
+      loanBalance: parseInt(json['LoanBalance']),
+      intrestRate:
+          (json['InterestRate'] is num)
+              ? (json['InterestRate'] as num).toDouble()
+              : double.tryParse(json['InterestRate'] ?? "0") ?? 0.0,
+      lastPaidDate:
+          DateTime.tryParse(json['LastPaidDate'] ?? '') ?? DateTime(1970),
+      refundBased: json['IsRefundBased'] ?? false,
+      collectionType: json['LoanCollectionType'] ?? '',
+      accountFor: json['AccountFor'] ?? '',
+      isRefundBased: json['IsRefundBased'] ?? false,
       isSelected: false,
     );
+  }
+
+  static int parseInt(dynamic value) {
+    if (value == null) return 0;
+
+    if (value is int) return value;
+    if (value is double) return value.toInt();
+    if (value is num) return value.toInt();
+
+    if (value is String) {
+      return double.tryParse(value)?.toInt() ?? 0;
+    }
+
+    return 0;
   }
 
   @override

@@ -59,7 +59,7 @@ class ToggleSelectAllLedgers extends DepositNowStepsEvent {
 
 class UpdateLedgerAmount extends DepositNowStepsEvent {
   final CollectionLedgerEntity ledger;
-  final double newAmount;
+  final int newAmount;
 
   const UpdateLedgerAmount({required this.ledger, required this.newAmount});
 
@@ -69,7 +69,7 @@ class UpdateLedgerAmount extends DepositNowStepsEvent {
 
 class UpdateLpsAmount extends DepositNowStepsEvent {
   final String loanNumber;
-  final double newAmount;
+  final int newAmount;
 
   const UpdateLpsAmount({required this.loanNumber, required this.newAmount});
 

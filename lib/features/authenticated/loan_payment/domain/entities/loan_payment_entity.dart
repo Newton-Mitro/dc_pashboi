@@ -2,12 +2,12 @@ import 'package:pashboi/core/entities/entity.dart';
 
 class LoanPaymentEntity extends Entity<int> {
   final String loanNumber;
-  final double loanRefundAmount;
-  final double interestAmount;
-  final double loanFineAmount;
-  final double loanLpsAmount;
-  final double loanLpsRenewalFeeAmount;
-  final double shareFineAmount;
+  final int loanRefundAmount;
+  final int interestAmount;
+  final int loanFineAmount;
+  final int loanLpsAmount;
+  final int loanLpsRenewalFeeAmount;
+  final int shareFineAmount;
 
   LoanPaymentEntity({
     super.id,

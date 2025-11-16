@@ -6,7 +6,7 @@ import 'package:pashboi/features/authenticated/loan_payment/presentation/pages/b
 class LedgerInput extends StatefulWidget {
   final CollectionLedgerEntity ledger;
   final bool isSelected;
-  final Function(CollectionLedgerEntity, double) onAmountChanged;
+  final Function(CollectionLedgerEntity, int) onAmountChanged;
 
   const LedgerInput({
     super.key,
@@ -64,7 +64,7 @@ class _LedgerInputState extends State<LedgerInput> {
         style: const TextStyle(fontSize: 13),
         keyboardType: TextInputType.number,
         onChanged: (value) {
-          final amount = double.tryParse(value) ?? 0.0;
+          final amount = int.tryParse(value) ?? 0;
           widget.onAmountChanged(widget.ledger, amount);
 
           final l = widget.ledger;

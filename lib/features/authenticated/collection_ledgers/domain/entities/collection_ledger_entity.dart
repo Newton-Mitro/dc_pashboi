@@ -14,13 +14,13 @@ class CollectionLedgerEntity extends Entity<int> {
   final String collectionType;
   final bool defaultAccount;
 
-  final double amount;
-  final double depositAmount;
+  final int amount;
+  final int depositAmount;
 
   final bool multiplier;
   final bool editable;
 
-  final double loanBalance;
+  final int loanBalance;
   final bool lps;
   final double intrestRate;
   final DateTime lastPaidDate;
@@ -85,11 +85,11 @@ class CollectionLedgerEntity extends Entity<int> {
     int? plType,
     String? collectionType,
     bool? defaultAccount,
-    double? amount,
-    double? depositAmount,
+    int? amount,
+    int? depositAmount,
     bool? multiplier,
     bool? editable,
-    double? loanBalance,
+    int? loanBalance,
     bool? lps,
     double? intrestRate,
     DateTime? lastPaidDate,

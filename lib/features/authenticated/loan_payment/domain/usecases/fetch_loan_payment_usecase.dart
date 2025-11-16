@@ -8,8 +8,8 @@ class FetchLoanPaymentProps extends BaseRequestProps {
   final String loanNumber;
   final int interestDays;
   final double interestRate;
-  final double loanBalance;
-  final double loanRefundAmount;
+  final int loanBalance;
+  final int loanRefundAmount;
   final String moduleCode;
   final String? issuedDate;
   final String? lastPaidDate;

@@ -279,10 +279,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
     super.dispose();
   }
 
-  void _setCollectionLedgers(
-    DepositAccountEntity savingAccount,
-    double amount,
-  ) {
+  void _setCollectionLedgers(DepositAccountEntity savingAccount, int amount) {
     context.read<BankToDcTransferStepsBloc>().add(
       BankToDcTransferSetCollectionLedgers(
         ledger: CollectionLedgerEntity(
@@ -406,10 +403,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
               ),
             );
             if (state.selectedAccount != null && amount.isNotEmpty) {
-              _setCollectionLedgers(
-                state.selectedAccount!,
-                double.parse(amount),
-              );
+              _setCollectionLedgers(state.selectedAccount!, int.parse(amount));
             }
           },
           receiptFile: state.stepData[state.currentStep]?['receiptFile'],

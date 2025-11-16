@@ -22,7 +22,7 @@ class TransactionDetailsSection extends StatelessWidget {
   final List<CollectionLedgerEntity> ledgers;
   final void Function(CollectionLedgerEntity) onToggleSelect;
   final void Function(bool selectAll) onToggleSelectAll;
-  final void Function(CollectionLedgerEntity, double) onAmountChanged;
+  final void Function(CollectionLedgerEntity, int) onAmountChanged;
   final String? sectionError;
   final Map<String, String>? amountErrors;
 

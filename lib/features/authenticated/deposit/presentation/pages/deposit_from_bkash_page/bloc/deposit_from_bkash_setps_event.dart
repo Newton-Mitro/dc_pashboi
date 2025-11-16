@@ -63,7 +63,7 @@ class DepositFromBkashToggleSelectAllLedgers
 
 class DepositFromBkashUpdateLedgerAmount extends DepositFromBkashStepsEvent {
   final CollectionLedgerEntity ledger;
-  final double newAmount;
+  final int newAmount;
 
   const DepositFromBkashUpdateLedgerAmount({
     required this.ledger,
@@ -76,7 +76,7 @@ class DepositFromBkashUpdateLedgerAmount extends DepositFromBkashStepsEvent {
 
 class DepositFromBkashUpdateLpsAmount extends DepositFromBkashStepsEvent {
   final String loanNumber;
-  final double newAmount;
+  final int newAmount;
 
   const DepositFromBkashUpdateLpsAmount({
     required this.loanNumber,
