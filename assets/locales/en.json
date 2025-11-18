@@ -108,7 +108,7 @@
   "openable_accounts": "Openable Accounts",
   "accounts_menu_accounts_title": "Accounts",
   "accounts_menu_accounts_description": "View and manage your  accounts, balances, and transactions from here",
-  "accounts_menu_open_an_account_title": "Obenable Accounts",
+  "accounts_menu_open_an_account_title": "Openable Accounts",
   "accounts_menu_open_an_account_description": "Process to open a new account quickly and easily from here",
 
   "openable_accounts_page_title": "Openable Accounts",
@@ -302,5 +302,6 @@
   "schedule_deposit_info_page_accounts_to_deposit_section_title": "Accounts To Deposit",
   "schedule_deposit_info_page_total_deposit_amount_label": "Total Deposit Amount",
 
-  "account_opening_page_title": "Open"
+  "account_opening_page_title": "Open",
+    "employee_profile_details": "Employee Information"
 }
