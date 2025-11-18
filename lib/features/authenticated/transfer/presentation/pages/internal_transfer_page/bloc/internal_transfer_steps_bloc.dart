@@ -229,7 +229,7 @@ class InternalTransferStepsBloc
       //   }
 
       case 2:
-        if (data['transferAmount'] == null) {
+        if (data['transferAmount'] == '') {
           errors['transferAmount'] = 'Please enter transfer amount';
         }
 

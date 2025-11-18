@@ -243,7 +243,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
         (failure) async {
           final updatedAttempts = state.pinAttempts + 1;
 
-          if (updatedAttempts >= 4) {
+          if (updatedAttempts >= 3) {
             // Trigger card block event after 3 failures
             add(
               DebitCardBlock(

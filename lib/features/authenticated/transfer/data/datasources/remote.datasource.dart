@@ -8,6 +8,7 @@ import 'package:pashboi/core/utils/json_util.dart';
 import 'package:pashboi/features/authenticated/transfer/data/models/dc_bank_model.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/entities/dc_bank_entity.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/usecases/fetch_dc_accounts_usecase.dart';
+import 'package:pashboi/features/authenticated/transfer/domain/usecases/fetch_transfer_account_usecase.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/usecases/submit_fund_transfer_usecase.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/usecases/submit_transfer_bank_to_dc_usecase.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/usecases/submit_transfer_to_bkash_usecase.dart';
@@ -19,6 +20,7 @@ abstract class TransferRemoteDataSource {
   Future<List<DcBankEntity>> fetchDcBankAccounts(
     FetchDcBankAccountsProps props,
   );
+  Future<String> fetchTransferAccountLedgers(FetchTransferAccountProps props);
 }
 
 class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
@@ -242,6 +244,45 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
                 }).toList();
 
             return depositAccounts;
+          }
+        }
+        throw ServerException(message: "Server Error");
+      } else {
+        throw ServerException(message: "Server Error");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> fetchTransferAccountLedgers(
+    FetchTransferAccountProps props,
+  ) async {
+    try {
+      final response = await apiService.post(
+        ApiUrls.fetchTransferAccount,
+        data: {
+          "UserName": props.email,
+          "TransferToAcc": props.searchText,
+          "ModuleCode": props.moduleCode,
+          "MobileNumber": props.mobileNumber,
+          "RolePermission": props.rolePermissionId,
+          "ByUserId": props.userId,
+          "EmployeeCode": props.employeeCode,
+          "PersonId": props.personId,
+          "RequestFrom": "MobileApp",
+        },
+      );
+
+      if (response.statusCode == HttpStatus.ok) {
+        final dataString = response.data?['Data'];
+        final errorMessage = response.data?['Message'];
+        final statusMessage = response.data?['Status'];
+        if (dataString == null || dataString.isNotEmpty) {
+          if (statusMessage != null && statusMessage == "failed") {
+            throw ServerException(message: errorMessage);
+          } else {
+            return dataString;
           }
         }
         throw ServerException(message: "Server Error");

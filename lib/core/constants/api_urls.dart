@@ -178,4 +178,6 @@ class ApiUrls {
 
   static const String submitLoansAgainstDepositProduct =
       "loans_v1/submitLoanAgainstDepositProduct";
+
+  static const String fetchTransferAccount = "transfers_v2/verifyRecepient_v2";
 }

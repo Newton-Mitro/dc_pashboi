@@ -1,41 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pashboi/core/extensions/app_context.dart';
-import 'package:pashboi/core/extensions/string_casing_extension.dart';
-import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/beneficiaries_bloc/beneficiaries_bloc.dart';
-import 'package:pashboi/features/authenticated/collection_ledgers/presentation/bloc/collection_ledger_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/shared/widgets/app_dropdown_select.dart';
 import 'package:pashboi/shared/widgets/app_search_input.dart';
 import 'package:pashboi/shared/widgets/app_text_input.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pashboi/features/authenticated/transfer/presentation/pages/internal_transfer_page/bloc/internal_transfer_steps_bloc.dart';
+import 'package:pashboi/features/authenticated/transfer/presentation/pages/internal_transfer_page/sections/transfer_to_account_section/bloc/transfer_search_account_bloc.dart';
+import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/beneficiaries_bloc/beneficiaries_bloc.dart';
+import 'package:pashboi/features/authenticated/collection_ledgers/presentation/bloc/collection_ledger_bloc.dart';
 
 class TransferToAccountSection extends StatefulWidget {
   final String? sectionTitle;
+
   final String? searchAccountNumber;
   final String? searchAccountNumberError;
-  final String? searchedAccountHolderNameError;
+
   final String? beneficiaryAccountNumber;
+
   final String? searchedAccountHolderName;
-  final void Function(String? accountNumber) changeSearchAccountNumber;
+  final String? searchedAccountHolderNameError;
+
   final void Function(String? accountNumber) onChangeSearchAccountNumber;
+  final void Function(String? accountNumber) changeSearchAccountNumber;
   final void Function(String? beneficiaryAccountNumber)
   changeBeneficiaryAccountNumber;
   final void Function(String? accountHolderName)
   changeSearchedAccountHolderName;
 
   const TransferToAccountSection({
-    super.key,
+    Key? key,
+    this.sectionTitle,
     required this.searchAccountNumber,
-    required this.searchedAccountHolderName,
     required this.searchAccountNumberError,
-    required this.searchedAccountHolderNameError,
     required this.beneficiaryAccountNumber,
-    required this.sectionTitle,
-    required this.changeSearchAccountNumber,
+    required this.searchedAccountHolderName,
+    required this.searchedAccountHolderNameError,
     required this.onChangeSearchAccountNumber,
+    required this.changeSearchAccountNumber,
     required this.changeBeneficiaryAccountNumber,
     required this.changeSearchedAccountHolderName,
-  });
+  }) : super(key: key);
 
   @override
   State<TransferToAccountSection> createState() =>
@@ -43,6 +47,46 @@ class TransferToAccountSection extends StatefulWidget {
 }
 
 class _TransferToAccountSectionState extends State<TransferToAccountSection> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<TransferSearchAccountBloc, TransferSearchAccountState>(
+      listener: (context, state) {
+        if (state is TransferSearchAccountError) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
+          widget.changeSearchedAccountHolderName("");
+        } else if (state is TransferSearchAccountLoaded) {
+          // Update the UI with the loaded account holder name
+          widget.changeSearchedAccountHolderName(state.accountHolderName);
+
+          // Also propagate this into your internal-transfer step data
+          context.read<InternalTransferStepsBloc>().add(
+            InternalTransferUpdateStepData(
+              step: 2,
+              data: {'searchedAccountHolderName': state.accountHolderName},
+            ),
+          );
+        }
+      },
+      builder: (context, state) {
+        // Decide what name to show in the name field
+        String? displayedName = widget.searchedAccountHolderName;
+        if (state is TransferSearchAccountLoaded) {
+          displayedName = state.accountHolderName;
+        }
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildNomineeSelectionCard(context, displayedName),
+            const SizedBox(height: 25),
+          ],
+        );
+      },
+    );
+  }
+
   void _searchWithAccountNumber(String searchText) {
     if (searchText.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -51,59 +95,16 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
       return;
     }
 
-    context.read<CollectionLedgerBloc>().add(
-      FetchCollectionLedgersEvent(searchText: searchText, moduleCode: '16'),
+    context.read<TransferSearchAccountBloc>().add(
+      FetchTransferSearchAccountEvent(searchText: searchText, moduleCode: '16'),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<CollectionLedgerBloc, CollectionLedgerState>(
-      listener: (context, state) {
-        if (state is CollectionLedgerError) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
-          widget.changeSearchedAccountHolderName("");
-        }
-        if (state is CollectionLedgerLoaded) {
-          final ledgers = state.collectionAggregate.ledgers;
-
-          final searchText = widget.searchAccountNumber ?? '';
-          final onlyDigits = searchText.replaceAll(RegExp(r'\D'), '');
-
-          try {
-            final matchedLedger = ledgers.firstWhere(
-              (ledger) => ledger.accountNumber.trim().contains(onlyDigits),
-            );
-
-            widget.changeSearchAccountNumber(
-              matchedLedger.accountNumber.trim(),
-            );
-            widget.changeSearchedAccountHolderName(
-              state.collectionAggregate.accountHolderInfo.name
-                  .trim()
-                  .toTitleCase(),
-            );
-          } catch (_) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(const SnackBar(content: Text("Account not found")));
-          }
-        }
-      },
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildNomineeSelectionCard(context),
-          const SizedBox(height: 25),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNomineeSelectionCard(BuildContext context) {
-    final theme = context.theme;
+  Widget _buildNomineeSelectionCard(
+    BuildContext context,
+    String? displayedName,
+  ) {
+    final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
@@ -119,63 +120,61 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
             child: Column(
               children: [
                 BlocBuilder<BeneficiariesBloc, BeneficiariesState>(
-                  builder: (context, state) {
-                    if (state is BeneficiariesLoading) {
+                  builder: (context, bState) {
+                    if (bState is BeneficiariesLoading) {
                       return const Center(child: CircularProgressIndicator());
-                    }
-                    if (state is BeneficiariesError) {
-                      return Center(child: Text(state.message));
-                    }
-                    if (state is BeneficiariesLoaded) {
-                      var beneficiaries =
-                          state.beneficiaries
+                    } else if (bState is BeneficiariesError) {
+                      return Center(child: Text(bState.message));
+                    } else if (bState is BeneficiariesLoaded) {
+                      final beneficiaries =
+                          bState.beneficiaries
                               .where(
-                                (element) =>
-                                    element.accountNumber !=
+                                (e) =>
+                                    e.accountNumber !=
                                         widget.beneficiaryAccountNumber &&
-                                    element.accountNumber.contains('T'),
+                                    e.accountNumber.contains('T'),
                               )
                               .toList();
 
-                      if (beneficiaries.isEmpty) {
-                        return const SizedBox.shrink();
-                      } else {
-                        return AppDropdownSelect(
-                          value: widget.beneficiaryAccountNumber,
-                          items:
-                              beneficiaries
-                                  .map(
-                                    (e) => DropdownMenuItem<String>(
-                                      value: e.accountNumber,
-                                      child: Text(
-                                        "${e.name.trim().toTitleCase()} (${e.accountNumber.trim()})",
-                                      ),
+                      if (beneficiaries.isEmpty) return const SizedBox.shrink();
+
+                      return AppDropdownSelect(
+                        value: widget.beneficiaryAccountNumber,
+                        items:
+                            beneficiaries
+                                .map(
+                                  (e) => DropdownMenuItem<String>(
+                                    value: e.accountNumber,
+                                    child: Text(
+                                      "${e.name.trim()} (${e.accountNumber.trim()})",
                                     ),
-                                  )
-                                  .toList(),
-                          onChanged: (value) {
-                            widget.changeSearchAccountNumber(value);
-                            widget.changeBeneficiaryAccountNumber(value);
-                            _searchWithAccountNumber(value ?? '');
-                          },
-                          label: "Beneficiary",
-                        );
-                      }
+                                  ),
+                                )
+                                .toList(),
+                        onChanged: (value) {
+                          widget.changeSearchAccountNumber(value);
+                          widget.changeBeneficiaryAccountNumber(value);
+                          _searchWithAccountNumber(value ?? '');
+                        },
+                        label: "Beneficiary",
+                      );
+                    } else {
+                      return const SizedBox.shrink();
                     }
-                    return const SizedBox.shrink();
                   },
                 ),
                 const SizedBox(height: 10),
                 const Text("or"),
                 const SizedBox(height: 10),
                 BlocBuilder<CollectionLedgerBloc, CollectionLedgerState>(
-                  builder: (context, state) {
+                  builder: (context, cState) {
+                    bool isLoading = cState is CollectionLedgerLoading;
                     return AppSearchTextInput(
                       initialValue: widget.searchAccountNumber,
                       label: "Account Number",
                       isSearch: true,
                       errorText: widget.searchAccountNumberError,
-                      enabled: state is! CollectionLedgerLoading,
+                      enabled: !isLoading,
                       prefixIcon: Icon(
                         FontAwesomeIcons.piggyBank,
                         color: theme.colorScheme.onSurface,
@@ -191,7 +190,7 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
                 ),
                 const SizedBox(height: 16),
                 AppTextInput(
-                  initialValue: widget.searchedAccountHolderName,
+                  initialValue: displayedName,
                   label: "Account Holder Name",
                   errorText: widget.searchedAccountHolderNameError,
                   prefixIcon: Icon(
@@ -209,7 +208,7 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
   }
 
   Widget _buildHeader(BuildContext context, String title) {
-    final theme = context.theme;
+    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
