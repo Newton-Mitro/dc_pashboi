@@ -179,7 +179,7 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                                                 DateTime.tryParse(
                                                   data
                                                       .leaveInfo
-                                                      .lastApplicationDate!,
+                                                      .lastApplicationDate,
                                                 ),
                                               ),
                                             ),
@@ -270,7 +270,7 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                                     ),
                                   ],
                                 );
-                              }).toList(),
+                              }),
                             ],
                           ),
                         ),

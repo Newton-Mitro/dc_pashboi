@@ -52,7 +52,7 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Leave Approval")),
       body: PageContainer(
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           child: SingleChildScrollView(child: _buildForm()),
         ),
