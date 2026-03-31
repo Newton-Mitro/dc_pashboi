@@ -1,7 +1,6 @@
 {
   "app_name": "Pashboi",
   "organization_name": "Dhaka Credit",
-
   "onboarding_title_1": "Welcome to Pashboi",
   "onboarding_description_1": "Your trusted platform for managing accounts, making payments, applying for loans, and more. Stay connected to your financial world with ease and security. Join us today!",
   "onboarding_title_2": "Manage Your Accounts Anytime, Anywhere",
@@ -13,16 +12,13 @@
   "onboarding_next_button": "Next",
   "onboarding_previous_button": "Previous",
   "onboarding_get_started_button": "Get Started",
-
   "under_maintenance_page_title": "We are Under Maintenance",
   "under_maintenance_page_message": "We are currently upgrading our system to serve you better.\n\nPlease check back shortly!",
   "under_maintenance_page_button": "Exit",
-
   "logout_page_title": "Logout",
   "logout_page_message": "Are you sure you want to logout?",
   "logout_page_yes_button": "Logout",
   "logout_page_no_button": "Cancel",
-
   "landing_page_welcome_text": "Welcome to Pashboi",
   "landing_page_already_have_account_text": "Already have an account? ",
   "landing_page_login_instruction": "If you are a member of Dhaka Credit \nand already have a user account, \nthen login.",
@@ -32,7 +28,6 @@
   "landing_page_create_account_button": "Create User Account",
   "landing_page_product_and_service_instruction": "If you want to learn about our products and services, then visit",
   "landing_page_product_and_service_button": "Product & Service",
-
   "login_page_title": "Login",
   "login_page_user_name_label": "User Name",
   "login_page_password_label": "Password",
@@ -40,21 +35,17 @@
   "login_page_login_button": "Login",
   "login_page_dont_have_account_text": "Don't have an account?",
   "login_page_create_account_button": "Create Account",
-
   "terms_and_conditions_page_title": "Terms & Conditions",
   "terms_and_conditions_page_accept_button": "Accept",
   "terms_and_conditions_page_decline_button": "Decline",
-
   "mobile_verification_page_title": "Mobile Verification",
   "mobile_verification_page_mobile_number_label": "Mobile Number",
   "mobile_verification_page_send_otp_button": "Send OTP",
-
   "otp_verification_page_title": "OTP Verification",
   "otp_verification_page_instruction": "Please enter the OTP sent \nto your mobile number.",
   "otp_verification_page_reseend_otp_button": "Resend OTP",
   "otp_verification_page_verify_otp_button": "Verify OTP",
   "otp_verification_page_otp_expired_in_text": "OTP Expired in",
-
   "register_page_title": "Create User Account",
   "register_page_name_label": "Name",
   "register_page_email_label": "Email",
@@ -63,13 +54,11 @@
   "register_page_create_account_button": "Create Account",
   "register_page_already_have_account_text": "Already have an account?",
   "register_page_login_button": "Login",
-
   "reset_password_page_title": "Reset Password",
   "reset_password_page_mobile_number_label": "Registered Mobile Number",
   "reset_password_page_password_label": "Password",
   "reset_password_page_confirm_password_label": "Confirm Password",
   "reset_password_page_reset_password_button": "Reset Password",
-
   "public_bottom_nav_menu_savings": "Saving Policies",
   "public_bottom_nav_menu_savings_details": "Saving Policies Details",
   "public_bottom_nav_menu_loans": "Loan Policies",
@@ -78,7 +67,6 @@
   "public_bottom_nav_menu_notice_details": "Notice Details",
   "public_bottom_nav_menu_notices": "Notices",
   "public_bottom_nav_menu_service_centers": "Service Centers",
-
   "auth_bottom_nav_menu_title": "Navigation Menu",
   "auth_bottom_nav_menu_info": "Info",
   "auth_bottom_nav_menu_accounts": "Accounts",
@@ -92,38 +80,31 @@
   "auth_bottom_nav_menu_personnel": "Personnel",
   "auth_bottom_nav_menu_surety": "Surety",
   "auth_bottom_nav_menu_dependent": "Dependent",
-
   "info_menu_profile_title": "Profile",
   "info_menu_profile_description": "Your personal information  and manage your profile from here.",
   "info_menu_card_title": "Card’s",
   "info_menu_card_description": "View, manage, and request your  cards from here",
   "info_menu_agm_counter_title": "A.G.M Counter",
   "info_menu_agm_counter_description": "View and manage your AGM counter from here",
-
   "dependents_menu_dependents_title": "Dependents",
   "dependents_menu_dependents_description": "View and manage your dependents from here",
   "dependents_menu_add_dependents_title": "Add Dependents",
   "dependents_menu_add_dependents_description": "Add dependents to your family from here",
-
   "openable_accounts": "Openable Accounts",
   "accounts_menu_accounts_title": "Accounts",
   "accounts_menu_accounts_description": "View and manage your  accounts, balances, and transactions from here",
   "accounts_menu_open_an_account_title": "Openable Accounts",
   "accounts_menu_open_an_account_description": "Process to open a new account quickly and easily from here",
-
   "openable_accounts_page_title": "Openable Accounts",
   "openable_accounts_page_open_an_account_title": "Open an Account",
-
   "loan_menu_my_loans_title": "My Loans",
   "loan_menu_my_loans_description": "View details of your active loans,  outstanding balances",
   "loan_menu_apply_for_product_loan_title": "Apply for Product Loan",
   "loan_menu_apply_for_product_loan_description": "Apply for a product loan quickly and easily from here",
   "loan_menu_apply_for_instant_loan_title": "Apply for Instant Loan",
   "loan_menu_apply_for_instant_loan_description": "Apply for an instant loan quickly and easily from here",
-
   "surety_menu_given_sureties_title": "Given Sureties",
   "surety_menu_given_sureties_description": "View and manage your given sureties from here",
-
   "deposit_menu_deposit_now_title": "Deposit Now",
   "deposit_menu_deposit_now_description": "Make an instant deposit to your account using available  methods",
   "deposit_menu_deposit_latter_title": "Deposit Later",
@@ -134,7 +115,6 @@
   "deposit_menu_deposit_request_status_description": "Track the status of your deposit later requests and view related updates",
   "deposit_menu_ereceipt_title": "eReceipt",
   "deposit_menu_ereceipt_description": "Access and download electronic receipts for your transactions",
-
   "transfer_menu_transfer_to_bkash_title": "Transfer to bKash",
   "transfer_menu_transfer_to_bkash_description": "Send money directly from your account to a bKash wallet quickly and securely",
   "transfer_menu_transfer_within_dhaka_cradit_title": "Transfer Within Dhaka Credit",
@@ -143,23 +123,18 @@
   "transfer_menu_bank_to_dhaka_cradit_description": "Transfer money from an external bank account to your Dhaka Credit account",
   "transfer_menu_transfer_request_status_title": "Bank to DC Transfer Status",
   "transfer_menu_transfer_request_status_description": "Check the status and history of your recent bank to Dhaka Credit transfer requests",
-
   "withdraw_menu_withdraw_through_atm_title": "Withdraw through ATM",
   "withdraw_menu_withdraw_through_atm_description": "Initiate or manage cash withdrawals from your account using an ATM",
-
   "payment_menu_payments_title": "Payments",
   "payment_menu_payments_description": "Make payments for services from your account",
-
   "family_menu_family_&_relatives_title": "Family & Relative’s",
   "family_menu_family_&_relatives_description": "Your family members and relatives as a relation from here",
   "family_menu_add_family_or_relatives_title": "Add Family or Relative",
   "family_menu_add_family_or_relatives_description": "Add your family members and relatives as a relation from here",
-
   "beneficiary_menu_beneficiaries_title": "Beneficiaries",
   "beneficiary_menu_beneficiaries_description": "Place for all your dependent accounts.",
   "beneficiary_menu_add_beneficiaries_title": "Add Beneficiary",
   "beneficiary_menu_add_beneficiaries_description": "Place for all your dependent accounts.",
-
   "personnel_menu_employee_profile_title": "Employee's Profile",
   "personnel_menu_employee_profile_description": "Employee's Profile",
   "personnel_menu_leave_application_title": "Leave Application",
@@ -180,9 +155,7 @@
   "personnel_menu_working_out_of_office_history_description": "View your history of approved or denied working out of office applications",
   "personnel_menu_todays_punch_title": "Today's Punch",
   "personnel_menu_todays_punch_description": "Record your in and out times for attendance on the current day",
-
   "emergency_contact": "Emergency Contact",
-
   "side_menu_title_for_about_us": "About Us",
   "side_menu_title_for_founder_profile": "Founder Profile",
   "side_menu_title_for_mission_and_vision": "Mission & Vision",
@@ -194,13 +167,11 @@
   "side_menu_title_for_development_credits_details": "Development Credits Details",
   "side_menu_title_for_services_policy_details": "Service Policy Details",
   "side_menu_title_for_project_policy_details": "Project Policy Details",
-
   "change_password_title": "Change Password",
   "change_password_current_password_input_label": "Current Password",
   "change_password_new_password_input_label": "New Password",
   "change_password_confirm_password_input_label": "Confirm Password",
   "change_password_submit_button_text": "Hold & Press to Submit",
-
   "account_statement_page_title": "Account Statement",
   "account_statement_page_from_date": "Form Date",
   "account_statement_page_to_date": "To Date",
@@ -209,11 +180,9 @@
   "account_statement_page_cash_in": "Cash In",
   "account_statement_page_cash_out": "Cash Out",
   "account_statement_page_download_pdf_button_text": "Download PDF",
-
   "my_accounts_page_title": "My Accounts",
   "my_accounts_page_account_balance_graph": "Account Balance Graph",
   "my_accounts_page_deposit_account_label": "Deposit Account",
-
   "account_details_page_title": "Account Details",
   "account_details_page_balance": "Balance",
   "account_details_page_withdrawable": "Withdrawable",
@@ -221,11 +190,10 @@
   "account_details_page_nominee": "Nominee's",
   "account_details_page_last_deposit_date": "Last Deposit Date",
   "account_details_page_view_statement_button_text": "View Statement",
-
   "my_loans_page_title": "My Loans",
   "my_loans_page_account_balance_graph": "Loan Graph",
   "my_loans_page_loan_account_label": "Loan Account",
-
+  "terms_and_conditions_page_retry_button": "Retry",
   "loan_details_page_title": "Loan Details",
   "loan_details_page_issued_loan": "Issued Loan",
   "loan_details_page_loan_remaining": "Loan Remaining",
@@ -237,7 +205,6 @@
   "loan_details_page_installments": "Installments",
   "loan_details_page_defaulter_reason": "Defaulter Reason",
   "loan_details_page_view_loan_statement": "View Loan Statement",
-
   "loan_statement_page_title": "Loan Statement",
   "loan_statement_page_from_date": "From Date",
   "loan_statement_page_to_date": "To Date",
@@ -246,24 +213,19 @@
   "loan_statement_page_loan_issued": "Loan Issued",
   "loan_statement_page_loan_repaid": "Loan Repaid",
   "loan_statement_page_download_pdf_button_text": "Download PDF",
-
   "add_family_and_relative_page_title": "Add Family & Relative",
   "add_family_and_relative_page_account_number_input_label": "Account Number",
   "add_family_and_relative_page_member_name_input_label": "Member Name",
   "add_family_and_relative_page_relationship_input_label": "Relationship",
   "add_family_and_relative_page_submit_button_text": "Hold & Press to Submit",
-
   "add_beneficiary_page_title": "Add Beneficiary",
   "add_beneficiary_page_account_number_input_label": "Account Number",
   "add_beneficiary_page_account_holder_name": "Account Holder Name",
   "add_beneficiary_page_submit_button_text": "Hold & Press to Submit",
-
   "beneficiaries_page_title": "Beneficiaries",
-
   "tool_profile_menu": "Profile",
   "tool_change_password_menu": "Change Password",
   "tool_logout_menu": "Logout",
-
   "profile_pae_title": "User Profile",
   "profile_pae_date_of_birth": "Date Of Birth",
   "profile_pae_blood_group": "Blood Group",
@@ -271,19 +233,14 @@
   "profile_pae_mobile_number": "Mobile Number",
   "profile_pae_present_address": "Present Address",
   "profile_pae_permanent_address": "Permanent Address",
-
   "dependents_page_title": "Dependents",
-
   "dependents_accounts_page_title": "Dependent's Accounts",
-
   "add_operating_account_page_title": "Add Operating Account",
   "add_operating_account_page_dependents_input_label": "Dependents",
   "add_operating_account_page_dependents_accounts_input_label": "Dependent's Accounts",
   "add_operating_account_page_mobile_number_input_label": "Mobile Number (OTP will be sent)",
   "add_operating_account_page_submit_button_text": "Hold & Press to Submit",
-
   "bank_to_dc_deposits_page_title": "Bank to DC Deposit Status",
-
   "bank_to_dc_deposit_info_page_title": "Bank to DC Deposit Info",
   "bank_to_dc_deposit_info_page_request_id_label": "Request ID",
   "bank_to_dc_deposit_info_page_type_label": "Type",
@@ -291,9 +248,7 @@
   "bank_to_dc_deposit_info_page_schedule_info_section_title": "Request Information",
   "bank_to_dc_deposit_info_page_accounts_to_deposit_section_title": "Accounts To Deposit",
   "bank_to_dc_deposit_info_page_total_deposit_amount_label": "Total Deposit Amount",
-
   "schedule_deposits_page_title": "Deposit Later Status",
-
   "schedule_deposit_info_page_title": "Deposit Later Info",
   "schedule_deposit_info_page_request_id_label": "Request ID",
   "schedule_deposit_info_page_type_label": "Type",
@@ -301,7 +256,6 @@
   "schedule_deposit_info_page_schedule_info_section_title": "Schedule Information",
   "schedule_deposit_info_page_accounts_to_deposit_section_title": "Accounts To Deposit",
   "schedule_deposit_info_page_total_deposit_amount_label": "Total Deposit Amount",
-
   "account_opening_page_title": "Open",
-    "employee_profile_details": "Employee Information"
+  "employee_profile_details": "Employee Information"
 }

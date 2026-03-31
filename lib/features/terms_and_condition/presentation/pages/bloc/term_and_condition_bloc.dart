@@ -36,19 +36,8 @@ class TermAndConditionBloc
   ) async {
     emit(TermAndConditionLoading());
 
-    final user = await _getAuthenticatedUser(emit);
-    if (user == null) return;
-
     final result = await fetchTermAndConditionUseCase.call(
-      FetchTermAndConditionProps(
-        email: user.loginEmail,
-        userId: user.userId,
-        rolePermissionId: user.roleId,
-        personId: user.personId,
-        employeeCode: user.employeeCode,
-        mobileNumber: user.regMobile,
-        contentName: event.contentName,
-      ),
+      FetchTermAndConditionProps(contentName: event.contentName),
     );
 
     result.fold(

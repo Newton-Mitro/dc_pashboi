@@ -1,7 +1,6 @@
 {
   "app_name": "পাশবই",
   "organization_name": "ঢাকা ক্রেডিট",
-
   "onboarding_title_1": "পাশবই-এ স্বাগতম",
   "onboarding_description_1": "অ্যাকাউন্ট ব্যবস্থাপনা, পেমেন্ট, ঋণ আবেদন এবং আরও অনেক কিছুর জন্য আপনার নির্ভরযোগ্য প্ল্যাটফর্ম। নিরাপদে এবং সহজেই আপনার আর্থিক জগতে সংযুক্ত থাকুন। আজই যোগ দিন!",
   "onboarding_title_2": "যেকোনো সময়, যেকোনো জায়গা থেকে আপনার অ্যাকাউন্ট পরিচালনা করুন",
@@ -13,16 +12,13 @@
   "onboarding_next_button": "পরবর্তী",
   "onboarding_previous_button": "পূর্ববর্তী",
   "onboarding_get_started_button": "শুরু করুন",
-
   "under_maintenance_page_title": "রক্ষণাবেক্ষণের কাজ চলছে",
   "under_maintenance_page_message": "আপনাকে আরও ভালোভাবে সেবা দিতে আমরা আমাদের সিস্টেম আপগ্রেড করছি।\n\nদয়া করে কিছুক্ষণ পর আবার চেষ্টা করুন!",
   "under_maintenance_page_button": "প্রস্থান",
-
   "logout_page_title": "লগআউট",
   "logout_page_message": "আপনি কি লগআউট করতে চান?",
   "logout_page_yes_button": "লগআউট",
   "logout_page_no_button": "বাতিল",
-
   "landing_page_welcome_text": "পাশবই-এ স্বাগতম",
   "landing_page_already_have_account_text": "ইতিমধ্যে অ্যাকাউন্ট রয়েছে?",
   "landing_page_login_instruction": "আপনি যদি ঢাকা ক্রেডিট-এর সদস্য হন \nএবং ইতোমধ্যে একটি ইউজার অ্যাকাউন্ট থাকে, \nতাহলে লগইন করুন।",
@@ -32,7 +28,6 @@
   "landing_page_create_account_button": "ইউজার অ্যাকাউন্ট তৈরি করুন",
   "landing_page_product_and_service_instruction": "আমাদের পণ্য ও সেবাসমূহ সম্পর্কে জানতে চাইলে ভিজিট করুন",
   "landing_page_product_and_service_button": "পণ্য ও সেবা",
-
   "login_page_title": "লগইন",
   "login_page_user_name_label": "ইউজার নাম",
   "login_page_password_label": "পাসওয়ার্ড",
@@ -40,21 +35,17 @@
   "login_page_login_button": "লগইন",
   "login_page_dont_have_account_text": "অ্যাকাউন্ট নেই?",
   "login_page_create_account_button": "অ্যাকাউন্ট তৈরি করুন",
-
   "terms_and_conditions_page_title": "শর্তাবলি",
   "terms_and_conditions_page_accept_button": "গ্রহণ করুন",
   "terms_and_conditions_page_decline_button": "প্রত্যাখ্যান করুন",
-
   "mobile_verification_page_title": "মোবাইল যাচাইকরণ",
   "mobile_verification_page_mobile_number_label": "মোবাইল নম্বর",
   "mobile_verification_page_send_otp_button": "OTP পাঠান",
-
   "otp_verification_page_title": "OTP যাচাইকরণ",
   "otp_verification_page_instruction": "আপনার মোবাইল নম্বরে পাঠানো OTP দিন।",
   "otp_verification_page_reseend_otp_button": "OTP পুনরায় পাঠান",
   "otp_verification_page_verify_otp_button": "OTP যাচাই করুন",
   "otp_verification_page_otp_expired_in_text": "OTP মেয়াদ শেষ হবে",
-
   "register_page_title": "ইউজার অ্যাকাউন্ট তৈরি করুন",
   "register_page_name_label": "নাম",
   "register_page_email_label": "ইমেইল",
@@ -63,13 +54,11 @@
   "register_page_create_account_button": "অ্যাকাউন্ট তৈরি করুন",
   "register_page_already_have_account_text": "ইতিমধ্যে অ্যাকাউন্ট রয়েছে?",
   "register_page_login_button": "লগইন",
-
   "reset_password_page_title": "পাসওয়ার্ড পুনরুদ্ধার",
   "reset_password_page_mobile_number_label": "নিবন্ধিত মোবাইল নম্বর",
   "reset_password_page_password_label": "পাসওয়ার্ড",
   "reset_password_page_confirm_password_label": "পাসওয়ার্ড নিশ্চিত করুন",
   "reset_password_page_reset_password_button": "পাসওয়ার্ড রিসেট করুন",
-
   "public_bottom_nav_menu_savings": "সঞ্চয় নীতিমালা",
   "public_bottom_nav_menu_savings_details": "সঞ্চয় নীতিমালা বিস্তারিত",
   "public_bottom_nav_menu_loans": "ঋণ নীতিমালা",
@@ -78,7 +67,6 @@
   "public_bottom_nav_menu_notice_details": "নোটিশ বিস্তারিত",
   "public_bottom_nav_menu_notices": "নোটিশ",
   "public_bottom_nav_menu_service_centers": "সার্ভিস সেন্টার",
-
   "auth_bottom_nav_menu_title": "নেভিগেশন মেনু",
   "auth_bottom_nav_menu_info": "তথ্য",
   "auth_bottom_nav_menu_accounts": "অ্যাকাউন্ট",
@@ -92,37 +80,30 @@
   "auth_bottom_nav_menu_personnel": "কর্মী",
   "auth_bottom_nav_menu_surety": "জামানত",
   "auth_bottom_nav_menu_dependent": "নির্ভরশীল",
-
   "info_menu_profile_title": "প্রোফাইল",
   "info_menu_profile_description": "আপনার ব্যক্তিগত তথ্য ও পরিবর্তন করুন",
   "info_menu_card_title": "কার্ডসমূহ",
   "info_menu_card_description": "এখান থেকে আপনার কার্ডসমূহ দেখুন, ম্যানেজ করুন ও অনুরোধ করুন",
   "info_menu_agm_counter_title": "এ.জি.এম কাউন্টার",
   "info_menu_agm_counter_description": "এখান থেকে আপনার এ.জি.এম কাউন্টার দেখুন ও পরিচালনা করুন",
-
   "dependents_menu_dependents_title": "নির্ভরশীল",
   "dependents_menu_dependents_description": "আপনার নির্ভরশীল দেখুন ও পরিচালনা করুন",
   "dependents_menu_add_dependents_title": "নির্ভরশীলদের  একাউন্ট যোগ করুন",
   "dependents_menu_add_dependents_description": "এখান থেকে আপনার পরিবারের নির্ভরশীলদের একাউন্ট যোগ করুন",
-
   "accounts_menu_accounts_title": "অ্যাকাউন্টসমূহ",
   "accounts_menu_accounts_description": "আপনার অ্যাকাউন্ট, ব্যালেন্স ও লেনদেন এখান থেকে দেখুন ও পরিচালনা করুন",
   "accounts_menu_open_an_account_title": "খোলা যাবে এমন অ্যাকাউন্টসমূহ",
   "accounts_menu_open_an_account_description": "এখান থেকে সহজেই একটি নতুন অ্যাকাউন্ট খোলার প্রক্রিয়া সম্পন্ন করুন",
-
   "openable_accounts_page_title": "খোলা যাবে এমন অ্যাকাউন্টসমূহ",
   "openable_accounts_page_open_an_account_title": "নতুন অ্যাকাউন্ট খুলুন",
-
   "loan_menu_my_loans_title": "আমার ঋণসমূহ",
   "loan_menu_my_loans_description": "আপনার সক্রিয় ঋণ ও বকেয়া পরিশোধের বিবরণ দেখুন",
   "loan_menu_apply_for_product_loan_title": "পণ্য ঋণ অনুরোধ করুন",
   "loan_menu_apply_for_product_loan_description": "এখান থেকে সহজেই পণ্য ঋণ অনুরোধ করুন",
   "loan_menu_apply_for_instant_loan_title": "তাৎক্ষণিক ঋণ অনুরোধ করুন",
   "loan_menu_apply_for_instant_loan_description": "এখান থেকে সহজেই তাৎক্ষণিক ঋণ অনুরোধ করুন",
-
   "surety_menu_given_sureties_title": "প্রদত্ত জামিনসমূহ",
   "surety_menu_given_sureties_description": "আপনার প্রদত্ত জামিনসমূহ দেখুন ও পরিচালনা করুন",
-
   "deposit_menu_deposit_now_title": "এখনই জমা দিন",
   "deposit_menu_deposit_now_description": "বিদ্যমান মাধ্যম ব্যবহার করে আপনার অ্যাকাউন্টে তাৎক্ষণিক জমা করুন",
   "deposit_menu_deposit_latter_title": "পরে জমা দিন",
@@ -131,7 +112,6 @@
   "deposit_menu_deposit_from_bkash_description": "আপনার বিকাশ ওয়ালেট থেকে সরাসরি আপনার অ্যাকাউন্টে সহজে অর্থ জমা করুন",
   "deposit_menu_deposit_request_status_title": "পরে জমা দেওয়ার অবস্থা",
   "deposit_menu_deposit_request_status_description": "আপনার পরে জমা দেওয়ার অবস্থা ট্র্যাক করুন ও সংশ্লিষ্ট আপডেট দেখুন",
-
   "transfer_menu_transfer_to_bkash_title": "বিকাশে হস্তান্তর",
   "transfer_menu_transfer_to_bkash_description": "আপনার অ্যাকাউন্ট থেকে বিকাশ ওয়ালেটে সরাসরি দ্রুত ও নিরাপদে অর্থ পাঠান",
   "transfer_menu_transfer_within_dhaka_cradit_title": "ঢাকা ক্রেডিটে অভ্যন্তরীণ হস্তান্তর",
@@ -140,23 +120,18 @@
   "transfer_menu_bank_to_dhaka_cradit_description": "বহিরাগত ব্যাংক অ্যাকাউন্ট থেকে আপনার ঢাকা ক্রেডিট অ্যাকাউন্টে অর্থ স্থানান্তর করুন",
   "transfer_menu_transfer_request_status_title": "ব্যাংক থেকে ডি.সি. হস্তান্তর অবস্থা",
   "transfer_menu_transfer_request_status_description": "সম্প্রতি করা ব্যাংক থেকে ডি.সি. হস্তান্তর অবস্থা ট্র্যাক ও ইতিহাস দেখুন",
-
   "withdraw_menu_withdraw_through_atm_title": "এটিএমের মাধ্যমে উত্তোলন",
   "withdraw_menu_withdraw_through_atm_description": "আপনার অ্যাকাউন্ট থেকে এটিএম ব্যবহার করে নগদ উত্তোলন শুরু করুন অথবা পরিচালনা করুন",
-
   "payment_menu_payments_title": "পেমেন্ট",
   "payment_menu_payments_description": "আপনার অ্যাকাউন্ট থেকে সেবার জন্য পেমেন্ট করুন",
-
   "family_menu_family_&_relatives_title": "পরিবার ও আত্মীয়স্বজন",
   "family_menu_family_&_relatives_description": "এখান থেকে আপনার পরিবার ও আত্মীয়দের সম্পর্ক হিসেবে সংযুক্ত করুন",
   "family_menu_add_family_or_relatives_title": "পরিবার বা আত্মীয় যুক্ত করুন",
   "family_menu_add_family_or_relatives_description": "আপনার পরিবার ও আত্মীয়দের সম্পর্ক হিসেবে এখানে যুক্ত করুন",
-
   "beneficiary_menu_beneficiaries_title": "লাভভোগী",
   "beneficiary_menu_beneficiaries_description": "আপনার সমস্ত অবলম্বিতদের জন্য নির্ধারিত স্থান।",
   "beneficiary_menu_add_beneficiaries_title": "লাভভোগী যুক্ত করুন",
   "beneficiary_menu_add_beneficiaries_description": "আপনার সমস্ত অবলম্বিতদের জন্য নির্ধারিত স্থান।",
-
   "personnel_menu_employee_profile_title": "কর্মচারীর প্রোফাইল",
   "personnel_menu_employee_profile_description": "কর্মচারীর প্রোফাইল",
   "personnel_menu_leave_application_title": "ছুটির আবেদন",
@@ -177,9 +152,7 @@
   "personnel_menu_working_out_of_office_history_description": "আপনার অনুমোদিত বা বাতিলকৃত অফিসের বাইরে কাজের ইতিহাস দেখুন",
   "personnel_menu_todays_punch_title": "আজকের পাঞ্চ",
   "personnel_menu_todays_punch_description": "আজকের দিনে আপনার উপস্থিতির সময় রেকর্ড করুন",
-
   "emergency_contact": "জরুরি যোগাযোগ",
-
   "side_menu_title_for_about_us": "আমাদের সম্পর্কে",
   "side_menu_title_for_founder_profile": "প্রতিষ্ঠাতার প্রোফাইল",
   "side_menu_title_for_mission_and_vision": "মিশন ও ভিশন",
@@ -191,13 +164,11 @@
   "side_menu_title_for_services_policy_details": "সেবা নীতিমালা বিস্তারিত",
   "side_menu_title_for_project_policy_details": "প্রকল্প নীতিমালা বিস্তারিত",
   "side_menu_title_for_services_details": "সেবা বিস্তারিত",
-
   "change_password_title": "পাসওয়ার্ড পরিবর্তন",
   "change_password_current_password_input_label": "বর্তমান পাসওয়ার্ড",
   "change_password_new_password_input_label": "নতুন পাসওয়ার্ড",
   "change_password_confirm_password_input_label": "পাসওয়ার্ড নিশ্চিত করুন",
   "change_password_submit_button_text": "পাসওয়ার্ড পরিবর্তন করতে \nটিপুন এবং ধরে রাখুন",
-
   "account_statement_page_title": "অ্যাকাউন্ট স্টেটমেন্ট",
   "account_statement_page_from_date": "তারিখ থেকে",
   "account_statement_page_to_date": "তারিখ পর্যন্ত",
@@ -206,11 +177,9 @@
   "account_statement_page_cash_in": "জমা",
   "account_statement_page_cash_out": "উত্তোলন",
   "account_statement_page_download_pdf_button_text": "পিডিএফ ডাউনলোড করুন",
-
   "my_accounts_page_title": "আমার অ্যাকাউন্ট",
   "my_accounts_page_account_balance_graph": "অ্যাকাউন্টের গ্রাফ",
   "my_accounts_page_deposit_account_label": "আমানত হিসাব",
-
   "account_details_page_title": "অ্যাকাউন্টের বিবরণ",
   "account_details_page_balance": "ব্যালেন্স",
   "account_details_page_withdrawable": "উত্তোলনযোগ্য",
@@ -218,11 +187,10 @@
   "account_details_page_nominee": "মনোনীত ব্যক্তি",
   "account_details_page_last_deposit_date": "সর্বশেষ জমার তারিখ",
   "account_details_page_view_statement_button_text": "অ্যাকাউন্ট স্টেটমেন্ট দেখুন",
-
   "my_loans_page_title": "আমার ঋণ",
   "my_loans_page_account_balance_graph": "ঋণ গ্রাফ",
   "my_loans_page_loan_account_label": "ঋণ হিসাব",
-
+  "terms_and_conditions_page_retry_button": "পুনরায় চেষ্টা করুন",
   "loan_details_page_title": "ঋণ বিবরণ",
   "loan_details_page_issued_loan": "ইস্যুকৃত ঋণ",
   "loan_details_page_loan_remaining": "অবশিষ্ট ঋণ",
@@ -234,7 +202,6 @@
   "loan_details_page_installments": "কিস্তির সংখ্যা",
   "loan_details_page_defaulter_reason": "বাকি থাকা/ডিফল্ট করার কারণ",
   "loan_details_page_view_loan_statement": "ঋণ স্টেটমেন্ট দেখুন",
-
   "loan_statement_page_title": "ঋণ স্টেটমেন্ট",
   "loan_statement_page_from_date": "তারিখ থেকে",
   "loan_statement_page_to_date": "তারিখ পর্যন্ত",
@@ -243,24 +210,19 @@
   "loan_statement_page_loan_issued": "ঋণ প্রদান করা হয়েছে",
   "loan_statement_page_loan_repaid": "ঋণ পরিশোধ করা হয়েছে",
   "loan_statement_page_download_pdf_button_text": "পিডিএফ ডাউনলোড করুন",
-
   "add_family_and_relative_page_title": "পরিবার বা আত্মীয় যুক্ত করুন",
   "add_family_and_relative_page_account_number_input_label": "অ্যাকাউন্ট নম্বর",
   "add_family_and_relative_page_member_name_input_label": "সদস্যের নাম",
   "add_family_and_relative_page_relationship_input_label": "সম্পর্ক",
   "add_family_and_relative_page_submit_button_text": "পরিবার এবং আত্মীয়স্বজন যোগ করতে \nটিপুন এবং ধরে রাখুন",
-
   "add_beneficiary_page_title": "লাভভোগী যুক্ত করুন",
   "add_beneficiary_page_account_number_input_label": "অ্যাকাউন্ট নম্বর",
   "add_beneficiary_page_account_holder_name": "অ্যাকাউন্ট ধারকের নাম",
   "add_beneficiary_page_submit_button_text": "সুবিধাভোগী যোগ করতে \nটিপুন এবং ধরে রাখুন",
-
   "beneficiaries_page_title": "সুবিধাভোগী",
-
   "tool_profile_menu": "প্রোফাইল",
   "tool_change_password_menu": "পাসওয়ার্ড পরিবর্তন করুন",
   "tool_logout_menu": "লগআউট",
-
   "profile_pae_title": "ব্যবহারকারীর প্রোফাইল",
   "profile_pae_date_of_birth": "জন্ম তারিখ",
   "profile_pae_blood_group": "রক্তের গ্রুপ",
@@ -268,19 +230,14 @@
   "profile_pae_mobile_number": "মোবাইল নম্বর",
   "profile_pae_present_address": "বর্তমান ঠিকানা",
   "profile_pae_permanent_address": "স্থায়ী ঠিকানা",
-
   "dependents_page_title": "নির্ভরশীল সদস্যগুলি",
-
   "dependents_accounts_page_title": "নির্ভরশীলদের অ্যাকাউন্ট",
-
   "add_operating_account_page_title": "অপারেটিং অ্যাকাউন্ট যোগ করুন",
   "add_operating_account_page_dependents_input_label": "নির্ভরশীল",
   "add_operating_account_page_dependents_accounts_input_label": "নির্ভরশীলদের অ্যাকাউন্ট",
   "add_operating_account_page_mobile_number_input_label": "মোবাইল নম্বর (ওটিপি পাঠানো হবে)",
   "add_operating_account_page_submit_button_text": "অপারেটিং অ্যাকাউন্ট যোগ করতে \nটিপে ধরে রাখুন",
-
   "bank_to_dc_deposits_page_title": "ব্যাংক থেকে ডি.সি. হস্তান্তর অবস্থা",
-
   "bank_to_dc_deposit_info_page_title": "ব্যাংক থেকে ডি.সি. হস্তান্তর অবস্থা তথ্য",
   "bank_to_dc_deposit_info_page_request_id_label": "অনুরোধ আইডি",
   "bank_to_dc_deposit_info_page_type_label": "প্রকার",
@@ -288,9 +245,7 @@
   "bank_to_dc_deposit_info_page_schedule_info_section_title": "অনুরোধ তথ্য",
   "bank_to_dc_deposit_info_page_accounts_to_deposit_section_title": "জমাদানের অ্যাকাউন্ট",
   "bank_to_dc_deposit_info_page_total_deposit_amount_label": "মোট জমা পরিমাণ",
-
   "schedule_deposits_page_title": "পরে জমা দেওয়ার অবস্থা",
-
   "schedule_deposit_info_page_title": "পরে জমা দেওয়ার অবস্থা তথ্য",
   "schedule_deposit_info_page_request_id_label": "অনুরোধ আইডি",
   "schedule_deposit_info_page_type_label": "প্রকার",
@@ -298,7 +253,6 @@
   "schedule_deposit_info_page_schedule_info_section_title": "জমাদানের তথ্য",
   "schedule_deposit_info_page_accounts_to_deposit_section_title": "জমাদানের অ্যাকাউন্ট",
   "schedule_deposit_info_page_total_deposit_amount_label": "মোট জমা পরিমাণ",
-
   "account_opening_page_title": "অ্যাকাউন্ট খুলুন",
   "employee_profile_details": "কর্মচারীর তথ্য"
 }

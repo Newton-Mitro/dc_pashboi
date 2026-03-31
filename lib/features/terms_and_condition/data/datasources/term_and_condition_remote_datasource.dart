@@ -25,14 +25,7 @@ class TermAndConditionRemoteDataSourceImpl
           "ApplicationName": "MFS",
           "ContentName": props.contentName,
           "Application": "PassBook",
-          "UserName": props.email,
-          "UID": props.userId,
-          "MobileNumber": props.mobileNumber,
-          "MobileNo": props.mobileNumber,
-          "RolePermissionId": props.rolePermissionId,
-          "ByUserId": props.userId,
-          "EmployeeCode": props.employeeCode,
-          "PersonId": props.personId,
+
           "RequestFrom": "MobileApp",
         },
       );
