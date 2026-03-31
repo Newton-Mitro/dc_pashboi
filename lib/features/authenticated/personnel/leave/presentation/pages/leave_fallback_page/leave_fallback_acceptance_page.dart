@@ -22,7 +22,7 @@ class _LeaveFallbackAcceptancePageState
     return Scaffold(
       appBar: AppBar(title: const Text("Fallback Acceptance")),
       body: PageContainer(
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
 
           child: SingleChildScrollView(child: _buildForm()),
@@ -31,6 +31,7 @@ class _LeaveFallbackAcceptancePageState
     );
   }
 
+  @override
   void initState() {
     super.initState();
     context.read<FallbackRequestBloc>().add(FetchFallbackRequests());

@@ -263,7 +263,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
                               title: 'Oops!',
-                              message: state.message!,
+                              message: state.message,
                               contentType: ContentType.failure,
                             ),
                           );
@@ -280,7 +280,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
                               title: 'Done!',
-                              message: state.message!,
+                              message: state.message,
                               contentType: ContentType.success,
                             ),
                           );

@@ -110,7 +110,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Leave History Details")),
       body: PageContainer(
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           child: SingleChildScrollView(
             child: Padding(
@@ -399,7 +399,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                       backgroundColor: Colors.transparent,
                                       content: AwesomeSnackbarContent(
                                         title: 'Oops!',
-                                        message: state.message!,
+                                        message: state.message,
                                         contentType: ContentType.failure,
                                       ),
                                     );
@@ -416,7 +416,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                       backgroundColor: Colors.transparent,
                                       content: AwesomeSnackbarContent(
                                         title: 'Done!',
-                                        message: state.message!,
+                                        message: state.message,
                                         contentType: ContentType.success,
                                       ),
                                     );

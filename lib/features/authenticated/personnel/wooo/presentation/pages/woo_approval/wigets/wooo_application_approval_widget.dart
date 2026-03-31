@@ -58,7 +58,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                 prefixIcon: const Icon(FontAwesomeIcons.clock),
                 keyboardType: TextInputType.number,
                 controller: selectedWoooType,
-                enabled: isEditable!,
+                enabled: isEditable,
               ),
 
               if (activeTabIndex == 1)
@@ -66,7 +66,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                   label: "==From Date==",
                   onDateChanged: onFromDateChanged,
                   selectedDate: fromDate,
-                  enabled: isEditable!,
+                  enabled: isEditable,
                 ),
 
               if (activeTabIndex != 1)
@@ -88,7 +88,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                   label: "==To Date==",
                   onDateChanged: onToDateChanged,
                   selectedDate: toDate,
-                  enabled: isEditable!,
+                  enabled: isEditable,
                 ),
 
               if (activeTabIndex == 0)
@@ -97,7 +97,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                   prefixIcon: const Icon(FontAwesomeIcons.clock),
                   keyboardType: TextInputType.number,
                   controller: totalHoursController,
-                  enabled: isEditable!,
+                  enabled: isEditable,
                 ),
 
               if (activeTabIndex == 1)
@@ -106,18 +106,18 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                   prefixIcon: const Icon(FontAwesomeIcons.clock),
                   keyboardType: TextInputType.number,
                   controller: totalDaysController,
-                  enabled: isEditable!,
+                  enabled: isEditable,
                 ),
 
               AppDatePicker(
                 label: "==Rejoin Date==",
                 onDateChanged: (_) {},
                 selectedDate: rejoiningDate,
-                enabled: isEditable!,
+                enabled: isEditable,
               ),
 
               TextFormField(
-                enabled: isEditable!,
+                enabled: isEditable,
                 controller: reasonController,
                 maxLines: null,
                 minLines: 2,

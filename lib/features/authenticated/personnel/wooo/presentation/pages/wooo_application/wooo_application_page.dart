@@ -198,7 +198,7 @@ class _WoooApplicationPageState extends State<WoooApplicationPage>
                       backgroundColor: Colors.transparent,
                       content: AwesomeSnackbarContent(
                         title: 'Oops!',
-                        message: state.message!,
+                        message: state.message,
                         contentType: ContentType.failure,
                       ),
                     );
