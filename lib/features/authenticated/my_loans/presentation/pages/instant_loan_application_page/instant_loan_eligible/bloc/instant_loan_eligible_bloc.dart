@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -204,22 +205,14 @@ class InstantLoanEligibleBloc
           final fieldValue = data['amount'].toString().trim();
 
           final parsedAmount = double.tryParse(fieldValue);
-          final loanAmount = 50000;
+          final loanAmount = data['loanAmount'];
 
           if (parsedAmount == null || parsedAmount <= 0) {
             errors['amount'] = 'Please enter valid amount';
-          } else if (parsedAmount <= 10000) {
-            if (parsedAmount % 500 != 0) {
-              errors['amount'] = 'Amount must be multiplied by 500 /-';
-            } else if (parsedAmount > loanAmount) {
-              errors['amount'] = 'Amount must be less than $loanAmount /-';
-            }
-          } else {
-            if (parsedAmount % 1000 != 0) {
-              errors['amount'] = 'Amount must be multiplied by 1000 /-';
-            } else if (parsedAmount > loanAmount) {
-              errors['amount'] = 'Amount must be less than $loanAmount /-';
-            }
+          } else if (parsedAmount % 1000 != 0) {
+            errors['amount'] = 'Amount must be multiple of 1000 /-';
+          } else if (parsedAmount > loanAmount) {
+            errors['amount'] = 'Amount must be less than $loanAmount /-';
           }
         }
 

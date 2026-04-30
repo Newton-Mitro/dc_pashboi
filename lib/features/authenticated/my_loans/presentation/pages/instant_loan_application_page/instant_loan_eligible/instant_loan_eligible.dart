@@ -335,7 +335,13 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
           eligibleConditions: widget.eligibleConditions,
           onAmountChanged: (amount) {
             context.read<InstantLoanEligibleBloc>().add(
-              UpdateStepData(step: state.currentStep, data: {'amount': amount}),
+              UpdateStepData(
+                step: state.currentStep,
+                data: {
+                  'amount': amount,
+                  'loanAmount': widget.eligibleConditions[0].loanAmount,
+                },
+              ),
             );
           },
           amountError: state.validationErrors[state.currentStep]?['amount'],
