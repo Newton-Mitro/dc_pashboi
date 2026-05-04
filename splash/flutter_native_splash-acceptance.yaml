@@ -1,16 +1,16 @@
 flutter_native_splash:
   color: "#c8d8fa"
   color_dark: "#07142e"
-  image: assets/images/brand/app_logo.png
-  image_dark: assets/images/brand/app_logo_dark.png
-  branding: assets/images/brand/developer_brand_dark.png
-  branding_dark: assets/images/brand/developer_brand.png
+  image: assets/images/brand/passbook.png
+  image_dark: assets/images/brand/passbook_dark.png
+  branding: assets/images/brand/developer_brand.png
+  branding_dark: assets/images/brand/developer_brand_dark.png
   branding_bottom_padding: 24
 
   android_12:
-    image: assets/images/brand/app_logo.png
+    image: assets/images/brand/passbook.png
     icon_background_color: "#c8d8fa"
-    image_dark: assets/images/brand/app_logo_dark.png
+    image_dark: assets/images/brand/passbook_dark.png
     icon_background_color_dark: "#07142e"
-    branding: assets/images/brand/developer_brand_dark.png
-    branding_dark: assets/images/brand/developer_brand.png
+    branding: assets/images/brand/developer_brand.png
+    branding_dark: assets/images/brand/developer_brand_dark.png

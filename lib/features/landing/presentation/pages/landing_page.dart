@@ -179,10 +179,10 @@ class _LandingPageState extends State<LandingPage> {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 26.0),
                           child: Text(
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: context.theme.colorScheme.onSurface,
                               decoration: TextDecoration.underline,
