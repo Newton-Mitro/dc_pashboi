@@ -70,6 +70,24 @@ class DarkBlueOceanColors extends AppColors {
   @override
   Color get onErrorContainer => const Color(0xFFFFCDD2);
 
+  @override
+  Color get success => Color(0xFF5CB31E);
+  @override
+  Color get onSuccess => Colors.white;
+  @override
+  Color get successContainer => Color(0xFFDEF9DC);
+  @override
+  Color get onSuccessContainer => Color(0xFF0B410C);
+
+  @override
+  Color get warning => Color(0xFFB3771E);
+  @override
+  Color get onWarning => Colors.white;
+  @override
+  Color get warningContainer => Color(0xFFF9EBDC);
+  @override
+  Color get onWarningContainer => Color(0xFF41320B);
+
   // Background & Surface
   @override
   Color get background => const Color.fromARGB(255, 0, 6, 15); // darker navy background

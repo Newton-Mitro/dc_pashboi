@@ -5,6 +5,7 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/terms_and_condition/presentation/pages/bloc/term_and_condition_bloc.dart';
 import 'package:pashboi/routes/auth_routes_name.dart';
+import 'package:pashboi/shared/widgets/buttons/app_success_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/buttons/app_error_button.dart';
 import 'package:pashboi/shared/widgets/buttons/app_warning_button.dart';
@@ -99,7 +100,7 @@ class _ApplyForProductLoanPageState extends State<ApplyForProductLoanPage> {
                             ),
                             horizontalPadding: 0,
                           ),
-                          AppWarningButton(
+                          AppSuccessButton(
                             label: Locales.string(
                               context,
                               'terms_and_conditions_page_accept_button',

@@ -284,7 +284,7 @@ class _InfoItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18, color: theme.colorScheme.primary),
+        Icon(icon, size: 18, color: theme.colorScheme.onSurface),
         const SizedBox(width: 8),
         Expanded(
           child: Column(

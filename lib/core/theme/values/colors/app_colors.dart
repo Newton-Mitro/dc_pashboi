@@ -39,6 +39,18 @@ abstract class AppColors {
   Color get errorContainer;
   Color get onErrorContainer;
 
+  // Success colors
+  Color get success;
+  Color get onSuccess;
+  Color get successContainer;
+  Color get onSuccessContainer;
+
+  // Warning colors
+  Color get warning;
+  Color get onWarning;
+  Color get warningContainer;
+  Color get onWarningContainer;
+
   // Background & Surface
   Color get background;
   Color get onBackground;

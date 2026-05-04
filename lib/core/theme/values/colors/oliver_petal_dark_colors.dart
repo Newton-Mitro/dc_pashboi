@@ -94,6 +94,24 @@ class OliverPetalDarkColors implements AppColors {
   @override
   Color get onErrorContainer => Color(0xFFFFDAD4);
 
+  @override
+  Color get success => Color(0xFF5CB31E);
+  @override
+  Color get onSuccess => Colors.white;
+  @override
+  Color get successContainer => Color(0xFFDEF9DC);
+  @override
+  Color get onSuccessContainer => Color(0xFF0B410C);
+
+  @override
+  Color get warning => Color(0xFFB3771E);
+  @override
+  Color get onWarning => Colors.white;
+  @override
+  Color get warningContainer => Color(0xFFF9EBDC);
+  @override
+  Color get onWarningContainer => Color(0xFF41320B);
+
   // 🌑 DARK THEME ADJUSTMENTS BELOW
 
   @override
