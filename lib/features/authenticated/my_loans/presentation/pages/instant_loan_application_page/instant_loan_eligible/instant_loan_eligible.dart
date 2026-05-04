@@ -270,6 +270,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
         progressColor: context.theme.colorScheme.secondary,
         foregroundColor: context.theme.colorScheme.onPrimary,
         label: 'Hold & Press to Submit',
+
         onSubmit: () {
           _submitInstantLoan(state); // Add your submit logic here
         },
@@ -278,7 +279,9 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
   }
 
   void _submitInstantLoan(InstantLoanEligibleState state) {
-    context.read<InstantLoanEligibleBloc>().add(SubmitInstantLoan());
+    context.read<InstantLoanEligibleBloc>().add(
+      SubmitInstantLoan(widget.eligibleConditions[0].eligibleLoanProductCode),
+    );
   }
 
   Widget _buildProgressStepper(
@@ -368,6 +371,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
               );
             }
           },
+
           accountHolderName:
               state.selectedCard?.nameOnCard.toTitleCase().trim(),
           selectedCardNumber: state.selectedCard?.cardNumber,

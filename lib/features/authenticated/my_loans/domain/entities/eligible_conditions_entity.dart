@@ -7,6 +7,7 @@ class EligibleConditionsEntity extends Entity<int> {
   final double loaneeValue;
   final double loanAmount;
   final String savingsAccNo;
+  final String eligibleLoanProductCode;
   final String loanMemberType;
   final String loanAmountRules;
   final bool isTopUpEligible;
@@ -16,6 +17,7 @@ class EligibleConditionsEntity extends Entity<int> {
     required this.itemName,
     required this.isEligibile,
     required this.itemValue,
+    required this.eligibleLoanProductCode,
     required this.loaneeValue,
     required this.loanAmount,
     required this.savingsAccNo,
@@ -32,6 +34,7 @@ class EligibleConditionsEntity extends Entity<int> {
     itemValue,
     loaneeValue,
     loanAmount,
+    eligibleLoanProductCode,
     savingsAccNo,
     loanMemberType,
     loanAmountRules,

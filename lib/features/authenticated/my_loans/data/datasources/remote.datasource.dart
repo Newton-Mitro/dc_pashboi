@@ -421,7 +421,7 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
           "RolePermissionId": props.rolePermissionId,
           "UID": props.userId,
           "UserName": props.email,
-          "ModuleCode": "50",
+          "ModuleCode": props.moduleCode,
           "NameOnCard": props.nameOnCard,
           "SecretKey": props.secretKey,
           "CardNo": props.cardNo,

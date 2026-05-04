@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -157,6 +156,7 @@ class InstantLoanEligibleBloc
       final accountResult = await submitInstantLoansUseCase.call(
         SubmitInstantLoansProps(
           email: user.loginEmail,
+          moduleCode: event.moduleCode,
           userId: user.userId,
           rolePermissionId: user.roleId,
           personId: user.personId,
@@ -238,8 +238,6 @@ class InstantLoanEligibleBloc
           errors['confirmation'] = 'You must confirm to proceed';
         }
         break;
-
-      // No validation needed for final review/step 5
       default:
         break;
     }

@@ -12,6 +12,7 @@ class SubmitInstantLoansProps extends BaseRequestProps {
   final String accountNo;
   final String appliedAmount;
   final bool isTopUp;
+  final String moduleCode;
 
   const SubmitInstantLoansProps({
     required super.email,
@@ -28,6 +29,7 @@ class SubmitInstantLoansProps extends BaseRequestProps {
     required this.otpRegId,
     required this.otpValue,
     required this.isTopUp,
+    required this.moduleCode,
   });
 }
 
