@@ -33,7 +33,7 @@ class CollectionLedgerModel extends CollectionLedgerEntity {
       id: parseInt(json['Id']),
       accountNumber: json['AccountNo'] ?? '',
       accountName: json['AccountName'] ?? '',
-      ledgerName: json['LedgerName'] ?? '',
+      ledgerName: json['AccountType'] ?? '',
       accountTypeCode: json['AccountTypeCode'] ?? '',
       moduleCode: json['ModuleCode'] ?? '',
       amount: parseInt(json['Amount']),
