@@ -142,7 +142,7 @@ class _DepositNowPageState extends State<DepositNowPage> {
               depositNowStepsState.currentStep == DepositNowStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Deposit Now')),
+            appBar: AppBar(title: Text(Locales.string(context, 'deposit_now'))),
             body: Stack(
               children: [
                 PageContainer(
@@ -357,7 +357,7 @@ class _DepositNowPageState extends State<DepositNowPage> {
       StepItem(
         icon: FontAwesomeIcons.magnifyingGlassChart,
         widget: DepositForSection(
-          sectionTitle: "Deposit For",
+          sectionTitle: Locales.string(context, 'deposit_for'),
           searchAccountNumber:
               state.stepData[state.currentStep]?['searchAccountNumber'],
           searchAccountNumberError:

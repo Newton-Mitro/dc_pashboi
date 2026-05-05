@@ -339,5 +339,14 @@
   "instant_loan_eligible_condition_check": "Instant Loan Eligible Condition Check",
   "top_up": "Top Up -> Next",
   "loan_information": "Loan Information",
-  "enter_between_eligible_amount": "Enter Between Eligible Amount"
+  "enter_between_eligible_amount": "Enter Between Eligible Amount",
+
+  "deposit_now": "Deposit Now",
+  "deposit_for": "Deposit For",
+  "beneficiary": "Beneficiary",
+  "or": "Or",
+  "accounts_to_deposit": "Accounts To Deposit",
+  "amount": "Amount",
+  "total_deposit_amount": "Total Deposit Amount",
+  "priview_of_deposit": "Priview Of Deposit"
 }

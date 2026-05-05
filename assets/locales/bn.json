@@ -336,5 +336,14 @@
   "instant_loan_eligible_condition_check": "ইনস্ট্যান্ট ঋণ যোগ্যতা যাচাই",
   "top_up": "টপ আপ -> পরবর্তী",
   "loan_information": "ঋণের তথ্য",
-  "enter_between_eligible_amount": "যোগ্য পরিমাণের মধ্যে লিখুন"
+  "enter_between_eligible_amount": "যোগ্য পরিমাণের মধ্যে লিখুন",
+
+  "deposit_now": "এখন জমা দিন",
+  "deposit_for": "যার জন্য জমা",
+  "beneficiary": "বেনিফিশিয়ারি",
+  "or": "অথবা",
+  "accounts_to_deposit": "যে অ্যাকাউন্টে জমা হবে",
+  "amount": "পরিমাণ",
+  "total_deposit_amount": "মোট জমার পরিমাণ",
+  "priview_of_deposit": "জমার প্রিভিউ"
 }
