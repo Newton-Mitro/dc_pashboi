@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -93,7 +94,11 @@ class _TransferFromSectionState extends State<TransferFromSection> {
                     ),
                     child: Center(
                       child: Text(
-                        widget.sectionTitle ?? "Money Will Be Transferred From",
+                        widget.sectionTitle ??
+                            Locales.string(
+                              context,
+                              'money_will_be_transferred_from',
+                            ),
                         style: TextStyle(
                           color: colorScheme.onPrimary,
                           fontSize: 15,
@@ -110,7 +115,7 @@ class _TransferFromSectionState extends State<TransferFromSection> {
                       children: [
                         const SizedBox(height: 5),
                         AppDropdownSelect(
-                          label: "Account Number",
+                          label: Locales.string(context, 'account_number'),
                           value: widget.accountNumber,
                           errorText: widget.accountError,
                           enabled: cardAccounts.isNotEmpty,
@@ -150,7 +155,7 @@ class _TransferFromSectionState extends State<TransferFromSection> {
                         AppTextInput(
                           initialValue: widget.selectedCardNumber,
                           enabled: false,
-                          label: "Card Number",
+                          label: Locales.string(context, 'card_number'),
                           prefixIcon: Icon(
                             FontAwesomeIcons.creditCard,
                             color: colorScheme.onSurface,
@@ -160,7 +165,7 @@ class _TransferFromSectionState extends State<TransferFromSection> {
                         AppTextInput(
                           initialValue: widget.accountTypeName,
                           enabled: false,
-                          label: "Account Type",
+                          label: Locales.string(context, 'account_type'),
                           prefixIcon: Icon(
                             FontAwesomeIcons.tag,
                             color: colorScheme.onSurface,
@@ -170,7 +175,7 @@ class _TransferFromSectionState extends State<TransferFromSection> {
                         AppTextInput(
                           initialValue: widget.accountBalance.toString(),
                           enabled: false,
-                          label: "Available Balance",
+                          label: Locales.string(context, 'available_balance'),
                           prefixIcon: Icon(
                             FontAwesomeIcons.coins,
                             color: colorScheme.onSurface,
@@ -180,7 +185,10 @@ class _TransferFromSectionState extends State<TransferFromSection> {
                         AppTextInput(
                           initialValue: widget.accountWithdrawable.toString(),
                           enabled: false,
-                          label: "Withdrawable Balance",
+                          label: Locales.string(
+                            context,
+                            'withdrawable_balance',
+                          ),
                           prefixIcon: Icon(
                             FontAwesomeIcons.coins,
                             color: colorScheme.onSurface,

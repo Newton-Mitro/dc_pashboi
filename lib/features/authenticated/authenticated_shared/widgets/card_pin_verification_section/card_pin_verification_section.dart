@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/shared/widgets/app_text_input.dart';
@@ -51,7 +52,7 @@ class CardPinVerificationSection extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "Verify Card PIN",
+                    Locales.string(context, 'verify_card_pin'),
                     style: TextStyle(
                       color: colorScheme.onPrimary,
                       fontSize: 15,
@@ -69,7 +70,7 @@ class CardPinVerificationSection extends StatelessWidget {
                       initialValue: cardNumber,
                       enabled: false,
                       errorText: cardNumberError,
-                      label: "Card Number",
+                      label: Locales.string(context, 'card_number'),
                       prefixIcon: Icon(
                         FontAwesomeIcons.creditCard,
                         color: colorScheme.onSurface,
@@ -78,7 +79,7 @@ class CardPinVerificationSection extends StatelessWidget {
                     const SizedBox(height: 10),
                     AppTextInput(
                       initialValue: cardPin,
-                      label: "Card PIN",
+                      label: Locales.string(context, 'card_pin'),
                       errorText: cardPinError,
                       prefixIcon: Icon(
                         FontAwesomeIcons.lock,

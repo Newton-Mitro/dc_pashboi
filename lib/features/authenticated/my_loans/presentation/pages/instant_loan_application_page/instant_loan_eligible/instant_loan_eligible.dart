@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
@@ -191,7 +192,10 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context
                                           .read<InstantLoanEligibleBloc>()
@@ -211,8 +215,11 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                                             : instantLoanApply,
                                     label:
                                         instantLoanApplyByTopUp
-                                            ? "Top Up"
-                                            : "Next",
+                                            ? Locales.string(context, 'top_up')
+                                            : Locales.string(
+                                              context,
+                                              'next_button_text',
+                                            ),
                                     onPressed: () {
                                       if (state.currentStep == 3) {
                                         context
@@ -354,7 +361,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
       StepItem(
         icon: FontAwesomeIcons.moneyBillTransfer,
         widget: TransferFromSection(
-          sectionTitle: "Transfer To",
+          sectionTitle: Locales.string(context, 'transfer_to'),
           accountNumber: state.selectedAccount?.number,
           accountError:
               state.validationErrors[state.currentStep]?['transferFromAccount'],

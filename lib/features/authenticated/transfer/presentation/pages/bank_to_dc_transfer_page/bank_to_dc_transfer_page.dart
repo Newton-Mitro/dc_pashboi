@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/transfer_from_section/transfer_from_section.dart';
@@ -211,7 +212,10 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context
                                           .read<BankToDcTransferStepsBloc>()
@@ -227,7 +231,10 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                                     iconAfter: const Icon(
                                       FontAwesomeIcons.angleRight,
                                     ),
-                                    label: "Next",
+                                    label: Locales.string(
+                                      context,
+                                      'next_button_text',
+                                    ),
                                     onPressed: () {
                                       if (depositLaterStepsState.currentStep ==
                                           4) {

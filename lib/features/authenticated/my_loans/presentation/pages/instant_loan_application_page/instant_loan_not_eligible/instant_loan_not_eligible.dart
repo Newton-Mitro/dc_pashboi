@@ -101,7 +101,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                                 child: Text(
                                   condition.itemName,
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.onBackground,
+                                    color: theme.colorScheme.onSurface,
                                     fontWeight:
                                         isEligible
                                             ? FontWeight.w500
@@ -112,7 +112,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                             ],
                           ),
                         );
-                      }).toList(),
+                      }),
                     ],
                   ),
                 ),

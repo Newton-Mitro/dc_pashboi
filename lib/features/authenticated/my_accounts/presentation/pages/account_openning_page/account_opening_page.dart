@@ -224,7 +224,10 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context
                                           .read<AccountOpeningStepsBloc>()
@@ -240,7 +243,10 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                                     iconAfter: const Icon(
                                       FontAwesomeIcons.angleRight,
                                     ),
-                                    label: "Next",
+                                    label: Locales.string(
+                                      context,
+                                      'next_button_text',
+                                    ),
                                     onPressed: () {
                                       if (accountOpeningStepsState
                                               .currentStep ==

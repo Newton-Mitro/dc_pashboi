@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/bkash_icon.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/deposit_for_section/deposit_for_section.dart';
@@ -203,7 +204,10 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context
                                           .read<DepositFromBkashStepsBloc>()

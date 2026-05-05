@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/instant_loan_eligible.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
@@ -35,7 +36,9 @@ class _InstantLoanApplicationPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Instant Loan Application')),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'instant_loan_application')),
+      ),
       body:
           BlocBuilder<InstantLoanEligibilityBloc, InstantLoanEligibilityState>(
             builder: (context, state) {
@@ -47,8 +50,7 @@ class _InstantLoanApplicationPageState
                 final data = state.instantLoanEligibilityDTO;
 
                 final List<EligibleConditionsModel> eligibleConditions =
-                    (data.eligibleConditions as List)
-                        .cast<EligibleConditionsModel>();
+                    (data.eligibleConditions).cast<EligibleConditionsModel>();
 
                 return InstantLoanEligible(
                   eligibleConditions: eligibleConditions,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/bloc/deposit_product_loan_bloc.dart';
@@ -31,9 +32,9 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
     final iconColor = context.theme.colorScheme.onPrimary;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Product Loans')),
+      appBar: AppBar(title: Text(Locales.string(context, 'product_loans'))),
       body: PageContainer(
-        child: Container(
+        child: SizedBox(
           height: double.infinity,
           child: BlocBuilder<DepositProductLoanBloc, DepositProductLoanState>(
             builder: (context, state) {
@@ -119,7 +120,10 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
                             children: [
                               Center(
                                 child: Text(
-                                  "Account Details",
+                                  Locales.string(
+                                    context,
+                                    'loan_account_details',
+                                  ),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -150,33 +154,48 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
                                     children: [
                                       // Text(detail.accTypeCode),
                                       _buildRow(
-                                        "Account No",
+                                        Locales.string(
+                                          context,
+                                          'account_number',
+                                        ),
                                         detail.depositAccountNo,
                                       ),
                                       const Divider(),
                                       _buildRow(
-                                        "Findings",
+                                        Locales.string(context, 'findings'),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children:
                                               [
                                                 _buildFindingItem(
-                                                  "Collateral covered",
+                                                  Locales.string(
+                                                    context,
+                                                    'collateral_covered',
+                                                  ),
                                                   detail.collareralEligible,
                                                 ),
                                                 if (detail.hasCertificate)
                                                   _buildFindingItem(
-                                                    "Certificate Submitted",
+                                                    Locales.string(
+                                                      context,
+                                                      'certificate_submitted',
+                                                    ),
                                                     detail
                                                         .isCertificateSubmitted,
                                                   ),
                                                 _buildFindingItem(
-                                                  "Family loan regular",
+                                                  Locales.string(
+                                                    context,
+                                                    'family_loan_regular',
+                                                  ),
                                                   !detail.isFamilyDefaulter,
                                                 ),
                                                 _buildFindingItem(
-                                                  "Self loan regular",
+                                                  Locales.string(
+                                                    context,
+                                                    'self_loan_regular',
+                                                  ),
                                                   !detail.isSelfDefaulter,
                                                 ),
                                               ].expand((widget) sync* {
@@ -186,17 +205,20 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
                                         ),
                                       ),
                                       const Divider(),
-                                      _buildRow("Eligible", detail.isEligible),
+                                      _buildRow(
+                                        Locales.string(context, 'eligible'),
+                                        detail.isEligible,
+                                      ),
                                     ],
                                   ),
                                 );
-                              }).toList(),
+                              }),
 
                               const SizedBox(height: 10),
 
                               // getEligibleCollateralAccounts
                               AppPrimaryButton(
-                                label: "Apply",
+                                label: Locales.string(context, 'apply'),
                                 enabled: account.isEligible,
                                 onPressed: () {
                                   Navigator.pushNamed(

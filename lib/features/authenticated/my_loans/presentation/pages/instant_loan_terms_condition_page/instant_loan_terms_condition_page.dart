@@ -8,7 +8,6 @@ import 'package:pashboi/routes/auth_routes_name.dart';
 import 'package:pashboi/shared/widgets/buttons/app_success_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/buttons/app_error_button.dart';
-import 'package:pashboi/shared/widgets/buttons/app_warning_button.dart';
 
 class InstantLoanTermsAndConditionPage extends StatefulWidget {
   const InstantLoanTermsAndConditionPage({super.key});

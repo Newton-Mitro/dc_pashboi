@@ -454,6 +454,7 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
   }
   // submitInstantLoans
 
+  @override
   Future<List<DepositLoanEligibilityModel>> fetchDepositLoanEligibility(
     DepositLoanEligibilityProps props,
   ) async {
@@ -578,13 +579,14 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
     }
   }
 
+  @override
   Future<String> submitLoanAgainstDepositProductDatasource(
     SubmitLoanAgainstDepositProductProps props,
   ) async {
     try {
       final collateralAccounts =
           props.collateralAccounts
-              ?.map(
+              .map(
                 (ledger) =>
                     ProductLoanCollateralAccountModel.fromEntity(
                       ledger,

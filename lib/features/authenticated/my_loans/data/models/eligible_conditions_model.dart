@@ -2,40 +2,28 @@ import 'package:pashboi/features/authenticated/my_loans/domain/entities/eligible
 
 class EligibleConditionsModel extends EligibleConditionsEntity {
   EligibleConditionsModel({
-    required int id,
-    required String itemName,
-    required bool isEligibile,
-    required double itemValue,
-    required double loaneeValue,
-    required double loanAmount,
-    required String savingsAccNo,
-    required String eligibleLoanProductCode,
-    required String loanMemberType,
-    required String loanAmountRules,
-    required bool isTopUpEligible,
-  }) : super(
-         id: id,
-         itemName: itemName,
-         isEligibile: isEligibile,
-         itemValue: itemValue,
-         loaneeValue: loaneeValue,
-         loanAmount: loanAmount,
-         eligibleLoanProductCode: eligibleLoanProductCode,
-         savingsAccNo: savingsAccNo,
-         loanMemberType: loanMemberType,
-         loanAmountRules: loanAmountRules,
-         isTopUpEligible: isTopUpEligible,
-       );
+    required int super.id,
+    required super.itemName,
+    required super.isEligibile,
+    required super.itemValue,
+    required super.loaneeValue,
+    required super.loanAmount,
+    required super.savingsAccNo,
+    required super.eligibleLoanProductCode,
+    required super.loanMemberType,
+    required super.loanAmountRules,
+    required super.isTopUpEligible,
+  });
 
   factory EligibleConditionsModel.fromJson(Map<String, dynamic> json) {
-    double _toDouble(dynamic value) {
+    double toDouble(dynamic value) {
       if (value == null) return 0.0;
       if (value is double) return value;
       if (value is int) return value.toDouble();
       return double.tryParse(value.toString()) ?? 0.0;
     }
 
-    bool _toBool(dynamic value) {
+    bool toBool(dynamic value) {
       if (value == null) return false;
       if (value is bool) return value;
       if (value is int) return value == 1;
@@ -49,19 +37,19 @@ class EligibleConditionsModel extends EligibleConditionsEntity {
       id: json['id'] ?? 0,
 
       itemName: json['ItemName']?.toString() ?? '',
-      isEligibile: _toBool(json['IsEligibile']),
-      itemValue: _toDouble(json['ItemValue']),
-      loaneeValue: _toDouble(json['LoaneeValue']),
-      loanAmount: _toDouble(json['LoanAmount']),
+      isEligibile: toBool(json['IsEligibile']),
+      itemValue: toDouble(json['ItemValue']),
+      loaneeValue: toDouble(json['LoaneeValue']),
+      loanAmount: toDouble(json['LoanAmount']),
 
       eligibleLoanProductCode:
-      json['EligibleLoanProductCode']?.toString() ?? '',
+          json['EligibleLoanProductCode']?.toString() ?? '',
 
       savingsAccNo: json['SavingsAccNo']?.toString() ?? '',
       loanMemberType: json['LoanMemberType']?.toString() ?? '',
       loanAmountRules: json['LoanAmountRules']?.toString() ?? '',
 
-      isTopUpEligible: _toBool(json['IsTopUpEligible']),
+      isTopUpEligible: toBool(json['IsTopUpEligible']),
     );
   }
 

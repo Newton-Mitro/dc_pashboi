@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/beneficiaries_bloc/beneficiaries_bloc.dart';
@@ -197,7 +198,10 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context.read<WithdrawlQrStepsBloc>().add(
                                         WithdrawlQrGoToPreviousStep(),
@@ -211,7 +215,10 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                                     iconAfter: const Icon(
                                       FontAwesomeIcons.angleRight,
                                     ),
-                                    label: "Next",
+                                    label: Locales.string(
+                                      context,
+                                      'next_button_text',
+                                    ),
                                     onPressed: () {
                                       if (depositLaterStepsState.currentStep ==
                                           2) {

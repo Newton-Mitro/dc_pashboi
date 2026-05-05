@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 
@@ -33,7 +34,10 @@ class _InstantLoanEligibleCheckState extends State<InstantLoanEligibleCheck> {
             ),
             child: Center(
               child: Text(
-                "Instant Loan Eligible Condition Check",
+                Locales.string(
+                  context,
+                  'instant_loan_eligible_condition_check',
+                ),
                 style: TextStyle(
                   color: context.theme.colorScheme.onPrimary,
                   fontSize: 16,
@@ -79,7 +83,7 @@ class _InstantLoanEligibleCheckState extends State<InstantLoanEligibleCheck> {
                     child: Text(
                       condition.itemName,
                       style: context.theme.textTheme.bodyMedium?.copyWith(
-                        color: context.theme.colorScheme.onBackground,
+                        color: context.theme.colorScheme.onSurface,
                         fontWeight:
                             isEligible ? FontWeight.w500 : FontWeight.w400,
                       ),
@@ -88,7 +92,7 @@ class _InstantLoanEligibleCheckState extends State<InstantLoanEligibleCheck> {
                 ],
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     );

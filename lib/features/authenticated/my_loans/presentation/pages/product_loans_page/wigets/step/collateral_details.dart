@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
@@ -131,24 +132,36 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                     children: [
                                       _InfoItem(
                                         icon: FontAwesomeIcons.layerGroup,
-                                        label: "Account Type",
+                                        label: Locales.string(
+                                          context,
+                                          'account_type',
+                                        ),
                                         value: accounts.accountType ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.hashtag,
-                                        label: "Account Number",
+                                        label: Locales.string(
+                                          context,
+                                          'account_number',
+                                        ),
                                         value: accounts.accountNumber ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.sackDollar,
-                                        label: "Account Balance",
+                                        label: Locales.string(
+                                          context,
+                                          'account_balance',
+                                        ),
                                         value: TakaFormatter.format(
                                           accounts.totalBalance ?? 0,
                                         ),
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.coins,
-                                        label: "Loanable Balance",
+                                        label: Locales.string(
+                                          context,
+                                          'loanable_balance',
+                                        ),
                                         value: TakaFormatter.format(
                                           accounts.loanableBalance ?? 0,
                                         ),
@@ -175,7 +188,10 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                           .accountNumber
                                           .toString()]!
                                       : '',
-                              label: "Apply Loan Amount",
+                              label: Locales.string(
+                                context,
+                                'apply_loan_amount',
+                              ),
                               prefixIcon: Icon(
                                 FontAwesomeIcons.coins,
                                 color: theme.colorScheme.onSurface,
@@ -234,7 +250,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                       Row(
                         children: [
                           Text(
-                            "Total Apply Loan Amount:",
+                            Locales.string(context, 'total_apply_loan_amount'),
                             style: TextStyle(
                               color: colorScheme.onSurface,
                               fontWeight: FontWeight.w600,

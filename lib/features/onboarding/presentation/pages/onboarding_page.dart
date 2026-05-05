@@ -121,7 +121,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         AppPrimaryButton(
                           label: Locales.string(
                             context,
-                            'onboarding_previous_button',
+                            'previous_button_text',
                           ),
                           onPressed: () {
                             _pageController.previousPage(
@@ -172,10 +172,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             horizontalPadding: 0,
                           )
                           : AppPrimaryButton(
-                            label: Locales.string(
-                              context,
-                              'onboarding_next_button',
-                            ),
+                            label: Locales.string(context, 'next_button_text'),
                             onPressed: () {
                               _pageController.nextPage(
                                 duration: const Duration(milliseconds: 300),
