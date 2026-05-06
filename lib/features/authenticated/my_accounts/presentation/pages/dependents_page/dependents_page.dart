@@ -47,7 +47,7 @@ class DependentsPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'You don’t have any dependents yet.',
+                          Locales.string(context, 'empty_dependents'),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 13,

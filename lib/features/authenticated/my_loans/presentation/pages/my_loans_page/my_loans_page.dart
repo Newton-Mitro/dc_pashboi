@@ -51,7 +51,7 @@ class MyLoansPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'You do not have any loan accounts.',
+                          Locales.string(context, 'no_loan_accounts'),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,

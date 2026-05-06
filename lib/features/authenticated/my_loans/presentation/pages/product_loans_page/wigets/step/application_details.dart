@@ -21,7 +21,7 @@ class ApplicationDetails extends StatefulWidget {
   final String? selectInstallmentError;
 
   const ApplicationDetails({
-    Key? key,
+    super.key,
     required this.title,
     required this.totalAmount,
     required this.accountData,
@@ -31,7 +31,7 @@ class ApplicationDetails extends StatefulWidget {
     required this.state,
     required this.selectInstallmentData,
     required this.selectInstallmentError,
-  }) : super(key: key);
+  });
 
   @override
   State<ApplicationDetails> createState() => _ApplicationDetailsState();

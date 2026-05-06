@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/core/utils/my_date_utils.dart';
@@ -48,81 +49,89 @@ class SuerityDetails extends StatelessWidget {
 
     addItem(
       icon: Icons.confirmation_num,
-      label: 'Loan ID',
+      label: Locales.string(context, "loan_id"),
       value: surety.loanNumber,
     );
     addItem(
       icon: Icons.date_range,
-      label: 'Loan Open Date',
+      label: Locales.string(context, "loan_open_date"),
       value: surety.loanOpenDate,
       isDate: true,
     );
     addItem(
       icon: Icons.account_circle,
-      label: 'Account',
+      label: Locales.string(context, "account"),
       value: surety.suretyAccountNumber,
     );
     addItem(
       icon: Icons.person,
-      label: 'Name',
+      label: Locales.string(context, "name"),
       value: surety.accountHolderName.toTitleCase(),
     );
-    addItem(icon: Icons.phone, label: 'Mobile', value: surety.mobileNumber);
+    addItem(
+      icon: Icons.phone,
+      label: Locales.string(context, "mobile"),
+      value: surety.mobileNumber,
+    );
     addItem(
       icon: Icons.shield,
-      label: 'Collateral',
+      label: Locales.string(context, "collateral"),
       value: surety.collateralType,
     );
     addItem(
       icon: Icons.monetization_on,
-      label: 'Loan Amount',
+      label: Locales.string(context, "loan_amount"),
       value: surety.loanAmount,
     );
     addItem(
       icon: Icons.balance,
-      label: 'Loan Balance',
+      label: Locales.string(context, "loan_balance"),
       value: surety.loanBalance,
     );
     addItem(
       icon: Icons.lock,
-      label: 'Surety Amount',
+      label: Locales.string(context, "surety_amount"),
       value: surety.suretyAmount,
     );
     addItem(
       icon: Icons.lock_open,
-      label: 'Surety Released',
+      label: Locales.string(context, "surety_release_amount"),
       value: surety.suretyReleaseAmount,
     );
     addItem(
       icon: Icons.date_range,
-      label: 'Start Date',
+      label: Locales.string(context, "start_date"),
       value: surety.loanStartDate,
       isDate: true,
     );
     addItem(
       icon: Icons.calendar_today,
-      label: 'End Date',
+      label: Locales.string(context, "end_date"),
       value: surety.loanEndDate,
       isDate: true,
     );
     addItem(
       icon: Icons.event_available,
-      label: 'Last Paid Date',
+      label: Locales.string(context, "last_paid_date"),
       value: surety.lastPaidDate,
       isDate: true,
     );
     addItem(
       icon: Icons.report_problem,
-      label: 'Defaulter',
+      label: Locales.string(context, "defaulter"),
       value: surety.defaulter,
       isBool: true,
     );
     addItem(
       icon: Icons.note,
-      label: 'Default Details',
+      label: Locales.string(context, "defaulter_details"),
       value: surety.defaulterReason,
     );
-    addItem(icon: Icons.info, label: 'Status', value: surety.status);
+    addItem(
+      icon: Icons.info,
+      label: Locales.string(context, "surety_status"),
+      value: surety.status,
+    );
 
     return Column(children: items);
   }

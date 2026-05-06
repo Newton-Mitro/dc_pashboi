@@ -4,7 +4,7 @@ import 'package:pashboi/core/theme/values/colors/app_colors.dart';
 class DarkBlueOceanColors extends AppColors {
   // Primary Colors
   @override
-  Color get primary => const Color.fromARGB(255, 2, 26, 61); // updated dark navy
+  Color get primary => const Color.fromARGB(255, 4, 33, 77); // updated dark navy
   @override
   Color get primaryVariant => const Color(0xFF00122E); // slightly darker variant
   @override

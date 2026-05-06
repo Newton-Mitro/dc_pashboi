@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pashboi/core/errors/failures.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -14,11 +15,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
   final LogoutUseCase logoutUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AuthBloc({
     required this.loginUseCase,
     required this.getAuthUserUseCase,
     required this.logoutUseCase,
+    required this.appLocalizationService,
   }) : super(AuthInitial()) {
     on<LoginRequested>(_onLogin);
     on<LogoutRequested>(_onLogout);
@@ -30,13 +33,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final errors = <String, String>{};
 
     if (event.username.trim().isEmpty) {
-      errors['email'] = 'Username is required';
+      errors['email'] = appLocalizationService.t('email_required');
     } else if (!_isValidEmail(event.username)) {
-      errors['email'] = 'Enter a valid email address';
+      errors['email'] = appLocalizationService.t('valid_email_required');
     }
 
     if (event.password.trim().isEmpty) {
-      errors['password'] = 'Password is required';
+      errors['password'] = appLocalizationService.t('password_required');
     }
 
     if (errors.isNotEmpty) {

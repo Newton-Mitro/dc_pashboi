@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:intl/intl.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
@@ -64,7 +65,7 @@ class DepositLaterPreviewSection extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "Deposit Later Preview",
+                      Locales.string(context, 'deposit_later_preview'),
                       style: TextStyle(
                         color: colorScheme.onPrimary,
                         fontSize: 16,
@@ -85,7 +86,9 @@ class DepositLaterPreviewSection extends StatelessWidget {
                         children: [
                           // ✅ Show Deposit Schedule Before Ledgers
                           if (scheduleDates.isNotEmpty) ...[
-                            const SectionTitle("Schedule For Deposit"),
+                            SectionTitle(
+                              Locales.string(context, 'schedule_for_deposit'),
+                            ),
                             Wrap(
                               spacing: 6,
                               runSpacing: 6,
@@ -129,7 +132,9 @@ class DepositLaterPreviewSection extends StatelessWidget {
                           ],
 
                           // ✅ Show Ledgers
-                          const SectionTitle("Selected Ledgers"),
+                          SectionTitle(
+                            Locales.string(context, 'selected_ledgers'),
+                          ),
                           for (final ledger in collectionLedgers)
                             if (ledger.isSelected)
                               InfoRow(collectionLedgerEntity: ledger),
@@ -164,7 +169,7 @@ class DepositLaterPreviewSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total Deposit Amount:",
+                    Locales.string(context, 'total_deposit_amount'),
                     style: TextStyle(
                       color: colorScheme.onSurface,
                       fontWeight: FontWeight.w600,

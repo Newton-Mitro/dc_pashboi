@@ -51,7 +51,7 @@ class _DepositLoanApplicationPageState
           0.0,
           (sum, ledger) =>
               sum +
-              (double.tryParse(ledger.partialApplyLoan?.toString() ?? '0') ??
+              (double.tryParse(ledger.partialApplyLoan.toString() ?? '0') ??
                   0.0),
         );
   }

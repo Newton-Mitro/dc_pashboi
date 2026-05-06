@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/local_storage/local_storage.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
@@ -71,6 +72,7 @@ void registerAuthModule() async {
       loginUseCase: sl<LoginUseCase>(),
       logoutUseCase: sl<LogoutUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 

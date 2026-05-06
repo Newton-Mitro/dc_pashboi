@@ -1,5 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/logging/logger_service.dart';
 import 'package:pashboi/core/services/logging/logger_service_impl.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
@@ -17,6 +19,9 @@ import 'package:pashboi/core/theme/services/theme_service_impl.dart';
 import 'services/network/api_service.dart';
 
 final sl = GetIt.instance;
+
+// Global navigator key (important)
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> registerCoreServices() async {
   // final sharedPreferences = await SharedPreferences.getInstance();
@@ -36,6 +41,9 @@ Future<void> registerCoreServices() async {
 
   // ✅ Logging Service
   sl.registerLazySingleton<LoggerService>(() => LoggerServiceImpl());
+  sl.registerLazySingleton<AppLocalizationService>(
+    () => AppLocalizationService(navigatorKey),
+  );
   sl.registerLazySingleton<LocaleService>(
     () => LocaleServiceImpl(sl<LocalStorage>()),
   );

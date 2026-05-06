@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/entities/wooo_type_entities.dart';
 import 'package:pashboi/shared/widgets/app_date_picker.dart';
@@ -63,7 +64,7 @@ class WoooApplicationWidget extends StatelessWidget {
                       .toList(),
               onChanged: onWoooTypeChanged,
               enabled: true,
-              label: "Leave Type",
+              label: Locales.string(context, "leave_type"),
             ),
 
             const SizedBox(height: 12),
@@ -71,14 +72,14 @@ class WoooApplicationWidget extends StatelessWidget {
             // From Date/Time Picker
             if (activeTabIndex == 1)
               AppDatePicker(
-                label: "==From Date==",
+                label: Locales.string(context, "from_date"),
                 onDateChanged: onFromDateChanged,
                 selectedDate: fromDate,
               ),
 
             if (activeTabIndex != 1)
               AppDateTimePicker(
-                label: "==From Date Time==",
+                label: Locales.string(context, "from_date_and_time"),
                 selectedDateTime: fromDate,
                 onDateTimeChanged: onFromDateChanged,
               ),
@@ -88,14 +89,14 @@ class WoooApplicationWidget extends StatelessWidget {
             // To Date/Time Picker
             if (activeTabIndex != 1)
               AppDateTimePicker(
-                label: "==To Date Time==",
+                label: Locales.string(context, "to_date_and_time"),
                 selectedDateTime: toDate,
                 onDateTimeChanged: onToDateChanged,
               ),
 
             if (activeTabIndex == 1)
               AppDatePicker(
-                label: "==To Date==",
+                label: Locales.string(context, "to_date"),
                 onDateChanged: onToDateChanged,
                 selectedDate: toDate,
               ),
@@ -105,7 +106,7 @@ class WoooApplicationWidget extends StatelessWidget {
             // Total Hours or Days
             if (activeTabIndex == 0)
               AppTextInput(
-                label: "Total Hours",
+                label: Locales.string(context, "total_hours"),
                 prefixIcon: const Icon(FontAwesomeIcons.clock),
                 keyboardType: TextInputType.number,
                 controller: totalHoursController,
@@ -114,7 +115,7 @@ class WoooApplicationWidget extends StatelessWidget {
 
             if (activeTabIndex == 1)
               AppTextInput(
-                label: "Total Days",
+                label: Locales.string(context, "total_days"),
                 prefixIcon: const Icon(FontAwesomeIcons.clock),
                 keyboardType: TextInputType.number,
                 controller: totalDaysController,
@@ -125,7 +126,7 @@ class WoooApplicationWidget extends StatelessWidget {
 
             // Rejoin Date
             AppDatePicker(
-              label: "==Rejoin Date==",
+              label: Locales.string(context, "rejoin_date"),
               onDateChanged: (_) {},
               selectedDate: rejoiningDate,
               enabled: false,
@@ -138,8 +139,8 @@ class WoooApplicationWidget extends StatelessWidget {
               maxLines: null,
               minLines: 2,
               keyboardType: TextInputType.multiline,
-              decoration: const InputDecoration(
-                labelText: 'Reason for Leave',
+              decoration: InputDecoration(
+                labelText: Locales.string(context, "reason_for_leave"),
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.edit_note),
               ),

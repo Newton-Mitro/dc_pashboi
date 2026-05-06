@@ -8,7 +8,6 @@ import 'package:pashboi/routes/public_routes_name.dart';
 import 'package:pashboi/shared/widgets/buttons/app_success_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/buttons/app_error_button.dart';
-import 'package:pashboi/shared/widgets/buttons/app_warning_button.dart';
 
 class TermsAndConditionsPage extends StatefulWidget {
   const TermsAndConditionsPage({super.key});

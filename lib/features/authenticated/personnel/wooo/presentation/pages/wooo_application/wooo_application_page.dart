@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_application/bloc/wooo_type_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_application/widget/bloc/submit_wooo_application_bloc.dart';
@@ -79,10 +80,13 @@ class _WoooApplicationPageState extends State<WoooApplicationPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Working Out Of Office"),
+        title: Text(Locales.string(context, "working_out_of_office")),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [Tab(text: "For Hours"), Tab(text: "For Days")],
+          tabs: [
+            Tab(text: Locales.string(context, "for_hours")),
+            Tab(text: Locales.string(context, "for_days")),
+          ],
           labelColor: context.theme.colorScheme.onPrimary,
           indicatorColor: Colors.white,
         ),
@@ -231,7 +235,7 @@ class _WoooApplicationPageState extends State<WoooApplicationPage>
                   // TODO: implement listener
                 },
                 child: AppPrimaryButton(
-                  label: "Submit",
+                  label: Locales.string(context, "submit"),
                   onPressed: () {
                     context.read<SubmitWoooApplicationBloc>().add(
                       SubmitWoooApplication(

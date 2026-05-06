@@ -146,7 +146,9 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
               DepositFromBkashStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: Text('Deposit From bKash')),
+            appBar: AppBar(
+              title: Text(Locales.string(context, 'deposit_from_bkash')),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -222,7 +224,12 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                                   FontAwesomeIcons.angleRight,
                                 ),
                                 label:
-                                    isLastStep ? "Proceed with bKash" : "Next",
+                                    isLastStep
+                                        ? Locales.string(
+                                          context,
+                                          'proceed_with_bkash',
+                                        )
+                                        : "Next",
                                 onPressed: () {
                                   if (isLastStep) {
                                     _submitDepositFromBkash();
@@ -296,7 +303,7 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
       StepItem(
         icon: FontAwesomeIcons.magnifyingGlassChart,
         widget: DepositForSection(
-          sectionTitle: "Deposit For",
+          sectionTitle: Locales.string(context, 'deposit_for'),
           searchAccountNumber:
               state.stepData[state.currentStep]?['searchAccountNumber'],
           searchAccountNumberError:

@@ -145,7 +145,11 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
               DepositLaterStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Deposit Later')),
+            appBar: AppBar(
+              title: Text(
+                Locales.string(context, 'schedule_for_deposit_later'),
+              ),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -347,7 +351,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
       StepItem(
         icon: FontAwesomeIcons.magnifyingGlassChart,
         widget: DepositForSection(
-          sectionTitle: "Deposit For",
+          sectionTitle: Locales.string(context, 'deposit_for'),
           searchAccountNumber:
               state.stepData[state.currentStep]?['searchAccountNumber'],
           searchAccountNumberError:
@@ -424,7 +428,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
       StepItem(
         icon: FontAwesomeIcons.calendarDays,
         widget: ScheduleSection(
-          sectionTitle: 'Make Schedule',
+          sectionTitle: Locales.string(context, 'make_schedule'),
           monthlyDepositDate:
               state.stepData[state.currentStep]?['monthlyDepositDate'],
           monthlyDepositDateError:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
 
@@ -48,7 +49,7 @@ class TransferPreviewSection extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                "Transfer Preview",
+                Locales.string(context, 'transfer_preview'),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: colorScheme.onPrimary,

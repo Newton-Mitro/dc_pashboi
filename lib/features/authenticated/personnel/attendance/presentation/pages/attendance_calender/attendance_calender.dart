@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:intl/intl.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/domain/entities/get_attendance_entities.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/bloc/attendance_calender_bloc.dart';
@@ -139,7 +140,9 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Attendance Calendar")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, "attendance_calendar")),
+      ),
       body: BlocListener<AttendanceCalenderBloc, AttendanceCalenderState>(
         listener: (context, state) {
           if (state is AttendanceCalenderError) {
@@ -245,8 +248,10 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                           valueListenable: _selectedEvents,
                           builder: (context, value, _) {
                             if (value.isEmpty) {
-                              return const Center(
-                                child: Text('No attendance record'),
+                              return Center(
+                                child: Text(
+                                  Locales.string(context, "no_record_selected"),
+                                ),
                               );
                             }
                             return ListView.builder(
@@ -262,24 +267,28 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                                       shape: BoxShape.circle,
                                     ),
                                   ),
-                                  title: Text('Status: ${event.remarks}'),
+                                  title: Text(
+                                    '${Locales.string(context, "status")}: ${event.remarks}',
+                                  ),
                                   subtitle: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'In:  ${extractTime(event.punchIn)}',
+                                        '${Locales.string(context, "punch_in")}:  ${extractTime(event.punchIn)}',
                                       ),
                                       Text(
-                                        'Out:  ${extractTime(event.punchOut)}',
+                                        '${Locales.string(context, "punch_out")}:  ${extractTime(event.punchOut)}',
                                       ),
                                       Text(
-                                        'Punch Area: ${event.punchArea ?? "--"}',
+                                        '${Locales.string(context, "punch_area")}: ${event.punchArea ?? "--"}',
                                       ),
                                       Text(
-                                        'Branch: ${event.branchName ?? "--"}',
+                                        '${Locales.string(context, "branch")}: ${event.branchName ?? "--"}',
                                       ),
-                                      Text('Remarks: ${event.remarks}'),
+                                      Text(
+                                        '${Locales.string(context, "remarks")}: ${event.remarks}',
+                                      ),
                                     ],
                                   ),
                                 );

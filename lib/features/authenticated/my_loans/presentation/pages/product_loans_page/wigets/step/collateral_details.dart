@@ -19,7 +19,7 @@ class CollateralDetails extends StatefulWidget {
   final Map<String, String>? amountErrors;
 
   const CollateralDetails({
-    Key? key,
+    super.key,
     required this.title,
     required this.ledgers,
     required this.onToggleSelect,
@@ -28,7 +28,7 @@ class CollateralDetails extends StatefulWidget {
     required this.sectionError,
     this.amountErrors = const {},
     required this.totalAmount,
-  }) : super(key: key);
+  });
 
   @override
   State<CollateralDetails> createState() => _CollateralDetailsState();
@@ -207,7 +207,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                           ],
                         ),
                       );
-                    }).toList(),
+                    }),
                   ],
                 ),
               ),
@@ -287,11 +287,10 @@ class _InfoItem extends StatelessWidget {
   final String value;
 
   const _InfoItem({
-    Key? key,
     required this.icon,
     required this.label,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

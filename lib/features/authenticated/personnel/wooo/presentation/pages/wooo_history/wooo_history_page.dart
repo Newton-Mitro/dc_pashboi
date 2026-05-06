@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/my_date_utils.dart';
@@ -38,7 +39,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
     }
   }
 
-   @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Subscribe to route observer
@@ -61,7 +62,9 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Working Out Of Office")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, "working_out_of_office_history")),
+      ),
       body: PageContainer(
         child: Column(
           children: [
@@ -76,7 +79,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                         child: AppDatePicker(
                           selectedDate: _startDate,
                           onDateChanged: (d) => setState(() => _startDate = d),
-                          label: "Start Date",
+                          label: Locales.string(context, "start_date"),
                           errorText: '',
                           firstDate: null,
                           enabled: true,
@@ -86,7 +89,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                         child: AppDatePicker(
                           selectedDate: _endDate,
                           onDateChanged: (d) => setState(() => _endDate = d),
-                          label: "End Date",
+                          label: Locales.string(context, "end_date"),
                           errorText: '',
                           firstDate: null,
                           enabled: true,
@@ -96,7 +99,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                   ),
                   const SizedBox(height: 8),
                   AppPrimaryButton(
-                    label: "Search",
+                    label: Locales.string(context, "search"),
                     onPressed: _fetchWoooHistory,
                   ),
                 ],
@@ -124,7 +127,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                   if (state is GetWoooDataSuccess) {
                     final requestList = state.WoooData;
                     if (requestList.isEmpty) {
-                      return const Center(
+                      return Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -135,7 +138,10 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                             ),
                             SizedBox(height: 16),
                             Text(
-                              'No records found for the selected date range.',
+                              Locales.string(
+                                context,
+                                "no_working_out_of_office_info",
+                              ),
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 16),
                             ),
@@ -245,13 +251,18 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                                                   FontAwesomeIcons.edit,
                                                   size: 15,
                                                 ),
-                                                color: Theme.of(context).colorScheme.onPrimary,
+                                                color:
+                                                    Theme.of(
+                                                      context,
+                                                    ).colorScheme.onPrimary,
                                                 onPressed: () {
                                                   Navigator.pushNamed(
                                                     context,
-                                                    AuthRoutesName.woooDataHistoryDetailsPage,
+                                                    AuthRoutesName
+                                                        .woooDataHistoryDetailsPage,
                                                     arguments: {
-                                                      'wooodataHistory': request,
+                                                      'wooodataHistory':
+                                                          request,
                                                       'isEditable': true,
                                                     },
                                                   );

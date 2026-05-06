@@ -63,7 +63,7 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          'You do not have any deposit accounts.',
+                          Locales.string(context, 'no_deposit_accounts'),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/my_date_utils.dart';
@@ -41,7 +42,7 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Leave History")),
+      appBar: AppBar(title: Text(Locales.string(context, "leave_history"))),
       body: PageContainer(
         child: Column(
           children: [
@@ -59,7 +60,7 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
                             selectedDate: _startDate,
                             onDateChanged:
                                 (d) => setState(() => _startDate = d),
-                            label: "Start Date",
+                            label: Locales.string(context, "from_date"),
                             errorText: '',
                             firstDate: null,
                             enabled: true,
@@ -70,7 +71,7 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
                           child: AppDatePicker(
                             selectedDate: _endDate,
                             onDateChanged: (d) => setState(() => _endDate = d),
-                            label: "End Date",
+                            label: Locales.string(context, "end_date"),
                             errorText: '',
                             firstDate: null,
                             enabled: true,
@@ -81,7 +82,7 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
                   ),
                   const SizedBox(height: 8),
                   AppPrimaryButton(
-                    label: "Search",
+                    label: Locales.string(context, "search"),
                     onPressed: _fetchLeaveApprovals,
                   ),
                 ],
@@ -110,7 +111,7 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
                     final requestList = state.requests;
 
                     if (requestList.isEmpty) {
-                      return const Center(
+                      return Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -121,7 +122,7 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
                             ),
                             SizedBox(height: 16),
                             Text(
-                              'There are currently no pending fallback requests',
+                              Locales.string(context, "no_leave_requests"),
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 16),
                             ),
@@ -174,10 +175,10 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
                                             ),
                                             const SizedBox(height: 4),
                                             Text(
-                                              "From: ${MyDateUtils.formatDate(DateTime.tryParse(request.fromDate.toString()))}",
+                                              "${Locales.string(context, "from_date")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.fromDate.toString()))}",
                                             ),
                                             Text(
-                                              "To: ${MyDateUtils.formatDate(DateTime.tryParse(request.toDate.toString()))}",
+                                              "${Locales.string(context, "end_date")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.toDate.toString()))}",
                                             ),
                                           ],
                                         ),

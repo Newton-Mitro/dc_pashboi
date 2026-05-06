@@ -141,7 +141,9 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
               WithdrawlQrStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Generate Withdrawal QR')),
+            appBar: AppBar(
+              title: Text(Locales.string(context, 'generate_withdrawal_qr')),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -331,7 +333,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
       StepItem(
         icon: FontAwesomeIcons.coins,
         widget: TransferAmountSection(
-          sectionTitle: 'Withdrawal Amount',
+          sectionTitle: Locales.string(context, 'withdrawal_amount'),
           transferAmount: state.stepData[state.currentStep]?['withdrawAmount'],
           transferAmountError:
               state.validationErrors[state.currentStep]?['withdrawAmount'],

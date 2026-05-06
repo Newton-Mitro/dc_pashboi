@@ -155,7 +155,11 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
               BankToDcTransferStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Bank To DC Transfer Request')),
+            appBar: AppBar(
+              title: Text(
+                Locales.string(context, 'bank_to_dc_transfer_request'),
+              ),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -341,7 +345,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
       StepItem(
         icon: FontAwesomeIcons.receipt,
         widget: TransferFromSection(
-          sectionTitle: "Card and Account",
+          sectionTitle: Locales.string(context, 'card_and_account'),
           accountNumber: state.selectedAccount?.number,
           accountError:
               state.validationErrors[state.currentStep]?['transferFromAccount'],
@@ -378,7 +382,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
       StepItem(
         icon: FontAwesomeIcons.buildingColumns,
         widget: BankTransferInfoSection(
-          sectionTitle: 'Proof of Bank Transfer',
+          sectionTitle: Locales.string(context, 'proof_of_bank_transfer'),
           bankSelectionError:
               state.validationErrors[state.currentStep]?['bank'],
           selectedBankAccount: state.selectedBankAccount,

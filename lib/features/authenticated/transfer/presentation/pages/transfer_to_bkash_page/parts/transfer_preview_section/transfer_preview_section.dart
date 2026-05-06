@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
 
@@ -52,7 +53,7 @@ class TransferPreviewSection extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "Transfer Preview",
+                    Locales.string(context, 'transfer_preview'),
                     style: textTheme.titleMedium?.copyWith(
                       color: colorScheme.onPrimary,
                       fontWeight: FontWeight.bold,
@@ -73,7 +74,7 @@ class TransferPreviewSection extends StatelessWidget {
                       children: [
                         _labelValueGroup(
                           context,
-                          label: "Sender Account",
+                          label: Locales.string(context, 'sender_account'),
                           primary: senderName,
                           secondary: senderAccount,
                         ),
@@ -83,7 +84,7 @@ class TransferPreviewSection extends StatelessWidget {
                         ),
                         _labelValueGroup(
                           context,
-                          label: "bKash Wallet",
+                          label: Locales.string(context, 'bkash_wallet'),
                           primary: "+880-$bkashNumber",
                         ),
                         Divider(
@@ -92,7 +93,7 @@ class TransferPreviewSection extends StatelessWidget {
                         ),
                         _labelValueGroup(
                           context,
-                          label: "Transfer Amount",
+                          label: Locales.string(context, 'transfer_amount'),
                           primary: TakaFormatter.format(
                             double.parse(transferAmount),
                           ),

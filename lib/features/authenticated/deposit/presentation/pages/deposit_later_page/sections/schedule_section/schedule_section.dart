@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/shared/widgets/app_dropdown_select.dart';
@@ -63,7 +64,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
         children: [
           // Monthly Deposit Date dropdown
           AppDropdownSelect(
-            label: "Monthly Deposit Date",
+            label: Locales.string(context, 'monthly_deposit_date'),
             value: widget.monthlyDepositDate,
             prefixIcon: FontAwesomeIcons.calendarDay,
             errorText: widget.monthlyDepositDateError,
@@ -83,7 +84,7 @@ class _ScheduleSectionState extends State<ScheduleSection> {
 
           // Number of Months dropdown
           AppDropdownSelect(
-            label: "Number of Months",
+            label: Locales.string(context, 'number_of_months'),
             value: widget.numberOfMonth,
             errorText: widget.numberOfMonthError,
             prefixIcon: FontAwesomeIcons.arrowDown19,

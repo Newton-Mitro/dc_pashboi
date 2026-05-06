@@ -57,7 +57,7 @@ class _BeneficiariesPageState extends State<BeneficiariesPage> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'You don’t have any beneficiary added yet.',
+                          Locales.string(context, 'empty_beneficiaries'),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 13,

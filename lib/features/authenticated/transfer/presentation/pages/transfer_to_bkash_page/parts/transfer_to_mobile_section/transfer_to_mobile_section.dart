@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/cards/presentation/pages/bloc/debit_card_bloc.dart';
 import 'package:pashboi/shared/widgets/prefixed_mobile_number_input.dart';
@@ -61,7 +62,7 @@ class _TransferToMobileSectionState extends State<TransferToMobileSection> {
                 ),
                 child: Center(
                   child: Text(
-                    "To bKash Account",
+                    Locales.string(context, 'to_bkash_account'),
                     style: TextStyle(
                       color: colorScheme.onPrimary,
                       fontSize: 15,
@@ -83,7 +84,7 @@ class _TransferToMobileSectionState extends State<TransferToMobileSection> {
                         Expanded(
                           child: PrefixedMobileNumberInput(
                             initialValue: widget.transferToMobile,
-                            label: "bKash Number",
+                            label: Locales.string(context, 'bkash_number'),
                             prefixIcon: const Icon(Icons.phone),
                             prefix: _prefix,
                             onChanged: widget.onTransferToMobileChanged,

@@ -143,7 +143,9 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
               TransferToBkashStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Transfer To bKash')),
+            appBar: AppBar(
+              title: Text(Locales.string(context, 'transfer_to_bkash')),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -354,7 +356,7 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
       StepItem(
         icon: FontAwesomeIcons.coins,
         widget: TransferAmountSection(
-          sectionTitle: "Transfer Amount",
+          sectionTitle: Locales.string(context, 'transfer_amount'),
           transferAmount:
               state.stepData[state.currentStep]?['transferAmount'].toString() ??
               '',

@@ -143,7 +143,11 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
               InternalTransferStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Transfer Within Dhaka Credit')),
+            appBar: AppBar(
+              title: Text(
+                Locales.string(context, 'transfer_within_dhaka_credit'),
+              ),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -337,7 +341,7 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
       StepItem(
         icon: FontAwesomeIcons.magnifyingGlassChart,
         widget: TransferToAccountSection(
-          sectionTitle: "Transfer To Account",
+          sectionTitle: Locales.string(context, 'transfer_to_account'),
           searchAccountNumber:
               state.stepData[state.currentStep]?['searchAccountNumber'],
           searchAccountNumberError:
@@ -386,7 +390,7 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
       StepItem(
         icon: FontAwesomeIcons.coins,
         widget: TransferAmountSection(
-          sectionTitle: "Transfer Amount",
+          sectionTitle: Locales.string(context, 'transfer_amount'),
           transferAmount:
               state.stepData[state.currentStep]?['transferAmount'] ?? '0',
           transferAmountError:

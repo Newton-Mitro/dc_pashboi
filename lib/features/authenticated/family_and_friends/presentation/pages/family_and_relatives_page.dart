@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
@@ -26,7 +27,9 @@ class _FamilyAndRelativesPageState extends State<FamilyAndRelativesPage> {
     final theme = context.theme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Family and Relatives')),
+      appBar: AppBar(
+        title: Text(Locales.string(context, "family_and_relatives")),
+      ),
       body: PageContainer(
         child: SafeArea(
           child: BlocBuilder<FamilyAndRelativesBloc, FamilyAndRelativesState>(
@@ -63,7 +66,7 @@ class _FamilyAndRelativesPageState extends State<FamilyAndRelativesPage> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'You don’t have any family or relative added yet.',
+                          Locales.string(context, "empty_family_and_relatives"),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 13,
