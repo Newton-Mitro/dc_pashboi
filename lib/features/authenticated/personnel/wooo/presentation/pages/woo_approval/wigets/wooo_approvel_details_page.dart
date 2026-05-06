@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/entities/wooo_data_entities.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/wigets/bloc/submit_wooo_approval_bloc.dart';
@@ -108,10 +109,13 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("WOOO Approval Details"),
+          title: Text(Locales.string(context, "woo_approval_details")),
           bottom: TabBar(
             controller: _tabController,
-            tabs: const [Tab(text: "For Hours"), Tab(text: "For Days")],
+            tabs: [
+              Tab(text: Locales.string(context, "for_hours")),
+              Tab(text: Locales.string(context, "for_days")),
+            ],
             labelColor: context.theme.colorScheme.onPrimary,
             indicatorColor: Colors.white,
           ),
@@ -228,7 +232,7 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
                     }
                   },
                   child: AppPrimaryButton(
-                    label: "Submit",
+                    label: Locales.string(context, "submit"),
                     onPressed: () {
                       context.read<SubmitWoooApprovalBloc>().add(
                         SubmitWoooApplicationEvent(

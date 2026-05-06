@@ -138,7 +138,7 @@
   "personnel_menu_leave_application_description": "ছুটির ধরন ও তারিখ নির্ধারণ করে আনুষ্ঠানিকভাবে আবেদন জমা দিন",
   "personnel_menu_fallback_acceptance_title": "ফলব্যাক গ্রহণ",
   "personnel_menu_fallback_acceptance_description": "প্রাপ্যতা ও প্রতিষ্ঠানের নীতির ভিত্তিতে ফলব্যাক ছুটি গ্রহণ বা প্রত্যাখ্যান করুন",
-  "personnel_menu_leave_approval_title": "ছুটি অনুমোদন",
+  "leave_approval": "ছুটি অনুমোদন",
   "personnel_menu_leave_approval_description": "কর্মীদের অপেক্ষমাণ ছুটির অনুরোধ পর্যালোচনা করে অনুমোদন বা প্রত্যাখ্যান করুন",
   "personnel_menu_leave_history_title": "ছুটির ইতিহাস",
   "personnel_menu_leave_history_description": "আপনার অনুমোদিত বা বাতিলকৃত ছুটির ইতিহাস দেখুন ও পরিচালনা করুন",
@@ -422,6 +422,8 @@
   "leave_application": "ছুটির আবেদন",
   "fallback_employee_id": "ফলব্যাক কর্মচারী আইডি",
   "fallback_employee_name": "ফলব্যাক কর্মচারীর নাম",
+  "start_time": "শুরুর সময়",
+  "end_time": "শেষ সময়",
   "from_date": "শুরুর তারিখ",
   "from_date_and_time": "শুরুর তারিখ ও সময়",
   "to_date": "শেষ তারিখ",
@@ -430,6 +432,7 @@
   "rejoin_date": "পুনরায় যোগদানের তারিখ",
   "reason_for_leave": "ছুটির কারণ",
   "application_status": "আবেদনের অবস্থা",
+  "fallback_approval_remarks": "ফলব্যাক অনুমোদনের মন্তব্য",
 
   "fallback_acceptance": "ফলব্যাক গ্রহণ",
   "no_fallback_requests": "বর্তমানে কোনো ফলব্যাক অনুরোধ নেই।",
@@ -462,6 +465,13 @@
 
   "no_deposit_accounts": "আপনার কোনো জমা অ্যাকাউন্ট নেই",
   "no_loan_accounts": "আপনার কোনো ঋণ অ্যাকাউন্ট নেই",
+
+  "leave_approval_details": "ছুটির অনুমোদনের বিস্তারিত",
+
+  "working_out_of_office_approval": "অফিসের বাইরে কাজের অনুমোদন",
+
+  "fallback_acceptance_details": "ফলব্যাক গ্রহণের বিস্তারিত",
+  "woo_approval_details": "অফিসের বাইরে কাজের অনুমোদনের বিস্তারিত",
 
   "email_required": "ইমেইল আবশ্যক",
   "valid_email_required": "বৈধ ইমেইল আবশ্যক",

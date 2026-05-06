@@ -141,7 +141,7 @@
   "personnel_menu_leave_application_description": "Submit a formal request for leave, specifying the dates and type of leave",
   "personnel_menu_fallback_acceptance_title": "Fallback Acceptance",
   "personnel_menu_fallback_acceptance_description": "Approve or decline fallback leave requests based on availability and company policy",
-  "personnel_menu_leave_approval_title": "Leave Approval",
+  "leave_approval": "Leave Approval",
   "personnel_menu_leave_approval_description": "Review and approve or reject pending leave requests from employees",
   "personnel_menu_leave_history_title": "Leave History",
   "personnel_menu_leave_history_description": "View and manage a history of your approved or denied leave applications",
@@ -428,6 +428,8 @@
   "leave_application": "Leave Application",
   "fallback_employee_id": "Fallback Employee ID",
   "fallback_employee_name": "Fallback Employee Name",
+  "start_time": "Start Time",
+  "end_time": "End Time",
   "from_date": "From Date",
   "from_date_and_time": "From Date & Time",
   "to_date": "To Date",
@@ -436,6 +438,7 @@
   "rejoin_date": "Rejoin Date",
   "reason_for_leave": "Reason For Leave",
   "application_status": "Application Status",
+  "fallback_approval_remarks": "Fallback Approval Remarks",
 
   "fallback_acceptance": "Fallback Acceptance",
   "no_fallback_requests": "There are currently no fallback requests.",
@@ -468,6 +471,13 @@
 
   "no_deposit_accounts": "You don't have any deposit accounts",
   "no_loan_accounts": "You don't have any loan accounts",
+
+  "leave_approval_details": "Leave Approval Details",
+
+  "working_out_of_office_approval": "Working Out of Office Approval",
+
+  "fallback_acceptance_details": "Fallback Acceptance Details",
+  "woo_approval_details": "WOO Approval Details",
 
   "email_required": "Email is required",
   "valid_email_required": "Valid email is required",
