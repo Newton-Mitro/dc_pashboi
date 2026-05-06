@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class DarkAbyssColors extends AppColors {
-  static const Color _primary = Color.fromARGB(255, 29, 36, 48);
+  static const Color _primary = Color.fromARGB(255, 43, 52, 68);
 
   @override
   Color get primary => _primary;
