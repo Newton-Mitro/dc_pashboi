@@ -392,7 +392,7 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
         widget: TransferAmountSection(
           sectionTitle: Locales.string(context, 'transfer_amount'),
           transferAmount:
-              state.stepData[state.currentStep]?['transferAmount'] ?? '0',
+              state.stepData[state.currentStep]?['transferAmount'] ?? '',
           transferAmountError:
               state.validationErrors[state.currentStep]?['transferAmount'],
           onTransferAmountChanged: (amount) {

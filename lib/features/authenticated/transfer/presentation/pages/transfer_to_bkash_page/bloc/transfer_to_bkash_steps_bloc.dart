@@ -173,7 +173,8 @@ class TransferToBkashStepsBloc
         break;
 
       case 1:
-        if (data['transferToMobile'] == null) {
+        if (data['transferToMobile'] == null ||
+            data['transferToMobile'].isEmpty) {
           errors['transferToMobile'] = 'Please enter transfer to mobile';
         }
 

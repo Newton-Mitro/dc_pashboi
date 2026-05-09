@@ -44,14 +44,9 @@ class BankToDcTransferStepsBloc
     on<BankToDcTransferGoToPreviousStep>(_onGoToPreviousStep);
     on<BankToDcTransferUpdateStepData>(_onUpdateStepData);
     on<BankToDcTransferSetCollectionLedgers>(_onSetCollectionLedgers);
-    // on<BankToDcTransferToggleLedgerSelection>(_onToggleLedgerSelection);
-    // on<BankToDcTransferToggleSelectAllLedgers>(_onToggleSelectAllLedgers);
-    // on<BankToDcTransferUpdateLedgerAmount>(_onUpdateLedgerAmount);
     on<BankToDcTransferSelectBankAccount>(_onSelectBankAccount);
     on<BankToDcTransferSelectCardAccount>(_onSelectCardAccount);
     on<BankToDcTransferSelectDebitCard>(_onSelectDebitCard);
-    // update lps amount
-    // on<BankToDcTransferUpdateLpsAmount>(_onUpdateLpsAmount);
     on<BankToDcTransferValidateStep>(_onValidateStep);
     on<BankToDcTransferSubmit>(_onSubmitDepositNow);
   }
@@ -101,81 +96,6 @@ class BankToDcTransferStepsBloc
     emit(state.copyWith(stepData: updatedStepData));
   }
 
-  // void _onToggleLedgerSelection(
-  //   BankToDcTransferToggleLedgerSelection event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   late List<CollectionLedgerEntity> updatedLedgers;
-
-  //   if (event.ledger.subledger) {
-  //     updatedLedgers =
-  //         state.collectionLedgers.map((l) {
-  //           if (l.accountNumber == event.ledger.accountNumber) {
-  //             return l.copyWith(isSelected: !(event.ledger.isSelected));
-  //           }
-  //           return l;
-  //         }).toList();
-  //   } else if (event.ledger.plType == 2 || event.ledger.plType == 1) {
-  //     updatedLedgers =
-  //         state.collectionLedgers.map((l) {
-  //           if (l.accountNumber == event.ledger.accountNumber &&
-  //               !event.ledger.isSelected) {
-  //             return l.copyWith(isSelected: true);
-  //           } else if (l.accountNumber == event.ledger.accountNumber &&
-  //               event.ledger.ledgerId == l.ledgerId) {
-  //             return l.copyWith(isSelected: false);
-  //           }
-  //           return l;
-  //         }).toList();
-  //   } else {
-  //     updatedLedgers =
-  //         state.collectionLedgers.map((l) {
-  //           if (l.accountId == event.ledger.accountId &&
-  //               l.accountNumber == event.ledger.accountNumber &&
-  //               l.ledgerId == event.ledger.ledgerId) {
-  //             return l.copyWith(isSelected: !(l.isSelected));
-  //           }
-  //           return l;
-  //         }).toList();
-  //   }
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
-  // void _onToggleSelectAllLedgers(
-  //   BankToDcTransferToggleSelectAllLedgers event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   final updatedLedgers =
-  //       state.collectionLedgers
-  //           .map((l) => l.copyWith(isSelected: event.selectAll))
-  //           .toList();
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
-  // void _onUpdateLedgerAmount(
-  //   BankToDcTransferUpdateLedgerAmount event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   if (!event.ledger.subledger &&
-  //       event.ledger.plType == 2 &&
-  //       event.ledger.lps) {
-  //     return;
-  //   }
-  //   final updatedLedgers =
-  //       state.collectionLedgers.map((l) {
-  //         if (l.accountId == event.ledger.accountId &&
-  //             l.accountNumber == event.ledger.accountNumber &&
-  //             l.ledgerId == event.ledger.ledgerId) {
-  //           return l.copyWith(depositAmount: event.newAmount);
-  //         }
-  //         return l;
-  //       }).toList();
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
   void _onSelectBankAccount(
     BankToDcTransferSelectBankAccount event,
     Emitter<BankToDcTransferStepsState> emit,
@@ -197,22 +117,6 @@ class BankToDcTransferStepsBloc
     emit(state.copyWith(selectedCard: event.selectedCard));
   }
 
-  // void _onUpdateLpsAmount(
-  //   BankToDcTransferUpdateLpsAmount event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   final updatedLedgers =
-  //       state.collectionLedgers.map((l) {
-  //         if (l.collectionType.trim() == 'LoanLpsAmount' &&
-  //             l.accountNumber == event.loanNumber) {
-  //           return l.copyWith(depositAmount: event.newAmount);
-  //         }
-  //         return l;
-  //       }).toList();
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
   void _onValidateStep(
     BankToDcTransferValidateStep event,
     Emitter<BankToDcTransferStepsState> emit,
@@ -230,9 +134,7 @@ class BankToDcTransferStepsBloc
   }
 
   Future<String> fileToBase64(File file) async {
-    // Read file as bytes
     final bytes = await file.readAsBytes();
-    // Encode bytes to base64 string
     return base64Encode(bytes);
   }
 
@@ -346,7 +248,6 @@ class BankToDcTransferStepsBloc
         if (selectedLedgers.isEmpty) {
           errors['ledgers'] = 'Please select at least one ledger to deposit';
         } else {
-          // Map ledgerId to error message for invalid deposit amounts
           final Map<String, String> amountErrors = {};
 
           for (final ledger in selectedLedgers) {
@@ -370,21 +271,6 @@ class BankToDcTransferStepsBloc
 
           if (amountErrors.isNotEmpty) {
             errors['amounts'] = amountErrors;
-          } else {
-            final totalDeposit = selectedLedgers.fold<double>(
-              0,
-              (sum, ledger) => sum + (ledger.depositAmount),
-            );
-
-            final totalWithdrawable =
-                state.selectedAccount != null
-                    ? state.selectedAccount!.withdrawableBalance
-                    : 0;
-
-            if (totalDeposit > totalWithdrawable) {
-              errors['ledgers'] =
-                  "You don't have enough balance to deposit this amount";
-            }
           }
         }
         break;
@@ -403,7 +289,6 @@ class BankToDcTransferStepsBloc
         }
         break;
 
-      // No validation needed for final review/step 5
       default:
         break;
     }

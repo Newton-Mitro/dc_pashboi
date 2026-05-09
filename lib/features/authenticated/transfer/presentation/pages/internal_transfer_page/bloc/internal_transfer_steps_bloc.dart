@@ -14,7 +14,6 @@ part 'internal_transfer_steps_state.dart';
 
 class InternalTransferStepsBloc
     extends Bloc<InternalTransferStepsEvent, InternalTransferStepsState> {
-  // Define step range constants
   static const int firstStep = 0;
   static const int lastStep = 5;
   static const int totalSteps = lastStep + 1;
@@ -30,7 +29,6 @@ class InternalTransferStepsBloc
     on<InternalTransferUpdateStepData>(_onUpdateStepData);
     on<InternalTransferSelectCardAccount>(_onSelectCardAccount);
     on<InternalTransferSelectDebitCard>(_onSelectDebitCard);
-    // update lps amount
     on<InternalTransferValidateStep>(_onValidateStep);
     on<InternalTransferSubmit>(_onSubmitFundTransfer);
   }
@@ -162,32 +160,6 @@ class InternalTransferStepsBloc
     }
   }
 
-  // String getFormattedAccountNumber(String? userInputAccountNumber) {
-  //   if (userInputAccountNumber == null || userInputAccountNumber.isEmpty) {
-  //     return "";
-  //   }
-
-  //   String input = userInputAccountNumber.trim();
-  //   String formatted = "";
-
-  //   if (input.contains('-')) {
-  //     List<String> parts = input.split('-');
-  //     String prefix = parts[0].toLowerCase();
-  //     String number = parts[1].trim().padLeft(7, '0');
-
-  //     if (prefix.contains('t')) {
-  //       formatted = 'T-$number';
-  //     } else if (prefix.contains('l')) {
-  //       formatted = 'L-$number';
-  //     } else if (prefix.contains('std')) {
-  //       formatted = 'STD-$number';
-  //     }
-  //   } else {
-  //     formatted = input.padLeft(7, '0');
-  //   }
-  //   return formatted;
-  // }
-
   Map<String, dynamic> _validateDepositNowSteps(int step) {
     final data = state.stepData[step] ?? {};
     final errors = <String, dynamic>{};
@@ -229,7 +201,7 @@ class InternalTransferStepsBloc
       //   }
 
       case 2:
-        if (data['transferAmount'] == '') {
+        if (data['transferAmount'] == '' || data['transferAmount'] == null) {
           errors['transferAmount'] = 'Please enter transfer amount';
         }
 
@@ -249,7 +221,6 @@ class InternalTransferStepsBloc
         }
         break;
 
-      // No validation needed for final review/step 5
       default:
         break;
     }
