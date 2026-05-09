@@ -389,6 +389,9 @@
   "attach_bank_transfer_receipt": "ব্যাংক ট্রান্সফারের রসিদ সংযুক্ত করুন",
   "tap_to_upload_receipt_image": "রসিদের ছবি আপলোড করতে ট্যাপ করুন",
 
+  "generate_withdrawal_qr": "উত্তোলনের কিউআর তৈরি করুন",
+  "withdrawal_amount": "উত্তোলনের পরিমাণ",
+
   "family_and_relatives": "পরিবার ও আত্মীয়স্বজন",
   "given_sureties": "প্রদত্ত জামিন",
   "loan_id": "ঋণ আইডি",

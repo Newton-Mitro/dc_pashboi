@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pashboi/features/auth/domain/usecases/verify_mobile_number_usecase.dart';
-
 part 'mobile_number_verification_event.dart';
 part 'mobile_number_verification_state.dart';
 
