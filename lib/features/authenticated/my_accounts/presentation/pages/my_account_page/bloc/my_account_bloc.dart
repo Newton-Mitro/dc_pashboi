@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/deposit_account_entity.dart';
@@ -11,10 +12,12 @@ part 'my_account_state.dart';
 class MyAccountBloc extends Bloc<MyAccountEvent, MyAccountState> {
   final GetMyAccountsUseCase getMyAccountsUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   MyAccountBloc({
     required this.getMyAccountsUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(MyAccountInitial()) {
     on<FetchMyAccountEvent>(_onFetchMyAccount);
   }

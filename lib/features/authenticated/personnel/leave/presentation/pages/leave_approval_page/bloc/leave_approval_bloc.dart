@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/entities/leave_application_entites.dart';
@@ -11,10 +12,12 @@ part 'leave_approval_state.dart';
 class LeaveApprovalBloc extends Bloc<LeaveApprovalEvent, LeaveApprovalState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final LeaveApprovalUseCase getLeaveApprovalUseCase;
+  final AppLocalizationService appLocalizationService;
 
   LeaveApprovalBloc({
     required this.getAuthUserUseCase,
     required this.getLeaveApprovalUseCase,
+    required this.appLocalizationService,
   }) : super(LeaveApprovalInitial()) {
     on<FetchLeaveApprovals>(_fetchLeaveApprovals);
   }

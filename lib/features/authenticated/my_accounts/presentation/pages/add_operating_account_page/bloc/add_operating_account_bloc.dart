@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/usecases/add_operating_account_usecase.dart';
@@ -11,10 +12,12 @@ class AddOperatingAccountBloc
     extends Bloc<AddOperatingAccountEvent, AddOperatingAccountState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final AddOperatingAccountUseCase addOperatingAccountUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AddOperatingAccountBloc({
     required this.getAuthUserUseCase,
     required this.addOperatingAccountUseCase,
+    required this.appLocalizationService,
   }) : super(AddOperatingAccountInitial()) {
     on<AddOperatingAccountEvent>(_onSubmit);
   }

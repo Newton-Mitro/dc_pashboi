@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/domain/entities/employee_details_entity.dart';
@@ -12,10 +13,12 @@ class EmployeesProfileBloc
     extends Bloc<EmployeesProfileEvent, EmployeesProfileState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final EmployeeDetailsUseCase employeeDetailsUseCase;
+  final AppLocalizationService appLocalizationService;
 
   EmployeesProfileBloc({
     required this.employeeDetailsUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(const EmployeesProfileInitial()) {
     on<FetchEmployeeDetailsEvent>(_onFetchEmployeeDetails);
   }

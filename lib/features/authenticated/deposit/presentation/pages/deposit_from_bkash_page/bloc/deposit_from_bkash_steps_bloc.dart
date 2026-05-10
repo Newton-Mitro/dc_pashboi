@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/collection_ledgers/domain/entities/collection_ledger_entity.dart';
@@ -16,10 +17,12 @@ class DepositFromBkashStepsBloc
   static const int totalSteps = lastStep + 1;
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitDepositFromBkashUseCase submitDepositFromBkashUseCase;
+  final AppLocalizationService appLocalizationService;
 
   DepositFromBkashStepsBloc({
     required this.getAuthUserUseCase,
     required this.submitDepositFromBkashUseCase,
+    required this.appLocalizationService,
   }) : super(const DepositFromBkashStepsState(currentStep: 0)) {
     on<DepositFromBkashGoToNextStep>(_onGoToNextStep);
     on<DepositFromBkashGoToPreviousStep>(_onGoToPreviousStep);

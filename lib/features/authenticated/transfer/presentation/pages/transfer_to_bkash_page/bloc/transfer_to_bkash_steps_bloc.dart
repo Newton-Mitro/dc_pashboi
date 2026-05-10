@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -19,10 +20,12 @@ class TransferToBkashStepsBloc
   static const int totalSteps = lastStep + 1;
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitTransferToBkashUseCase submitTransferToBkashUseCase;
+  final AppLocalizationService appLocalizationService;
 
   TransferToBkashStepsBloc({
     required this.getAuthUserUseCase,
     required this.submitTransferToBkashUseCase,
+    required this.appLocalizationService,
   }) : super(const TransferToBkashStepsState(currentStep: 0)) {
     on<TransferToBkashGoToNextStep>(_onGoToNextStep);
     on<TransferToBkashGoToPreviousStep>(_onGoToPreviousStep);

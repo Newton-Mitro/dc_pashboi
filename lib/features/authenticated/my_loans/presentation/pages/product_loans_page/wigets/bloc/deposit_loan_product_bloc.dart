@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -20,10 +21,12 @@ class DepositLoanProductBloc
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitLoanAgainstDepositProductUseCase
   submitLoanAgainstDepositProductUseCase;
+  final AppLocalizationService appLocalizationService;
 
   DepositLoanProductBloc({
     required this.getAuthUserUseCase,
     required this.submitLoanAgainstDepositProductUseCase,
+    required this.appLocalizationService,
   }) : super(DepositLoanProductState(currentStep: 0)) {
     on<DepositProductLoanGoToNextStep>(_onGoToNextStep);
     on<DepositProductLoanGoToPreviousStep>(_onGoToPreviousStep);

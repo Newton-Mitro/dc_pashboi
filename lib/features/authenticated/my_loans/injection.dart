@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -83,6 +84,7 @@ void registerLoanModule() async {
     () => MyLoansBloc(
       fetchMyLoansUseCase: sl<FetchMyLoansUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -90,6 +92,7 @@ void registerLoanModule() async {
     () => LoanDetsilsBloc(
       fetchLoanDetailsUseCase: sl<FetchLoanDetailsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -97,6 +100,7 @@ void registerLoanModule() async {
     () => LoanStatementBloc(
       fetchLoanStatementUseCase: sl<FetchLoanStatementUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -104,6 +108,7 @@ void registerLoanModule() async {
     () => InstantLoanEligibilityBloc(
       instantLoanEligibilityUseCase: sl<InstantLoanEligibilityUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -111,6 +116,7 @@ void registerLoanModule() async {
     () => InstantLoanEligibleBloc(
       submitInstantLoansUseCase: sl<SubmitInstantLoansUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -118,6 +124,7 @@ void registerLoanModule() async {
     () => DepositProductLoanBloc(
       fetchDepositLoanUseCase: sl<FetchDepositLoanUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -126,6 +133,7 @@ void registerLoanModule() async {
       submitLoanAgainstDepositProductUseCase:
           sl<SubmitLoanAgainstDepositProductUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -134,6 +142,7 @@ void registerLoanModule() async {
       fetchProductLoanCollateralAccountUseCase:
           sl<FetchProductLoanCollateralAccountUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -141,6 +150,7 @@ void registerLoanModule() async {
     () => FetchAgainstLoanInterestBloc(
       fetchAgainstLoanInterestUseCase: sl<FetchAgainstLoanInterestUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

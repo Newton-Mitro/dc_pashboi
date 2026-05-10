@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/auth/presentation/pages/login_page.dart';
 import 'package:pashboi/features/auth/presentation/pages/registration_page.dart';
@@ -451,6 +452,7 @@ class AppRoutes {
                 (context) => SubmitLeaveApprovalBloc(
                   getAuthUserUseCase: sl<GetAuthUserUseCase>(),
                   submitLeaveApprovalUseCase: sl<SubmitLeaveApprovalUseCase>(),
+                  appLocalizationService: sl<AppLocalizationService>(),
                 ),
             child: LeaveApprovalDetailsPage(data: args?['leaveApproval']),
           ),
@@ -464,6 +466,7 @@ class AppRoutes {
                 (context) => AcceptedFallbackRequestBloc(
                   acceptedFallbackRequestUseCase: sl<AcceptedFallbackUseCase>(),
                   getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+                  appLocalizationService: sl<AppLocalizationService>(),
                 ),
             child: LeaveFallbackPage(data: args['fallbackRequest']),
           ),
@@ -476,6 +479,7 @@ class AppRoutes {
                 (context) => LeaveHistoryBloc(
                   leaveHistoryRequestUseCase: sl<LeaveHistoryRequestUseCase>(),
                   getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+                  appLocalizationService: sl<AppLocalizationService>(),
                 ),
             child: LeaveHistoryPage(),
           ),

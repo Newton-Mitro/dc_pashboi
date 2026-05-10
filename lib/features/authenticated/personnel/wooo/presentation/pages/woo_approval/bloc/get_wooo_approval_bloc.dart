@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/entities/wooo_data_entities.dart';
@@ -12,9 +13,12 @@ class GetWoooApprovalBloc
     extends Bloc<FetchWoooApprovalDataEvent, GetWoooApprovalState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final GetWoooApprovalUsecase getWoooApprovalUsecase;
+  final AppLocalizationService appLocalizationService;
+
   GetWoooApprovalBloc({
     required this.getAuthUserUseCase,
     required this.getWoooApprovalUsecase,
+    required this.appLocalizationService,
   }) : super(GetWoooApprovalInitial()) {
     on<FetchWoooApprovalDataEvent>(_onfatchWoooApproval);
   }

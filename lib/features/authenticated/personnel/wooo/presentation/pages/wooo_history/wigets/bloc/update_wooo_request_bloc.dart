@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/usecase/update_wooo_usecase.dart';
@@ -11,9 +12,12 @@ class UpdateWoooRequestBloc
     extends Bloc<UpdateWoooApplication, UpdateWoooRequestState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final UpdateWoooUseCase updateWoooUseCase;
+  final AppLocalizationService appLocalizationService;
+
   UpdateWoooRequestBloc({
     required this.getAuthUserUseCase,
     required this.updateWoooUseCase,
+    required this.appLocalizationService,
   }) : super(UpdateWoooRequestInitial()) {
     on<UpdateWoooApplication>(_updateWoooRequest);
   }

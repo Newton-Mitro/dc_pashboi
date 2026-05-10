@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/entities/wooo_type_entities.dart';
@@ -11,10 +12,12 @@ part 'wooo_type_state.dart';
 class WoooTypeBloc extends Bloc<WoooTypeEvent, WoooTypeState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final WoooTypeUseCase woooTypeUseCase;
+  final AppLocalizationService appLocalizationService;
 
   WoooTypeBloc({
     required this.getAuthUserUseCase,
     required this.woooTypeUseCase,
+    required this.appLocalizationService,
   }) : super(WoooTypeInitial()) {
     on<FetchWoooTypeEvent>(_onFetchWoooType);
   }

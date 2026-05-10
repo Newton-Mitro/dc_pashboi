@@ -77,7 +77,10 @@ void registerAuthModule() async {
   );
 
   sl.registerFactory<RegistrationPageBloc>(
-    () => RegistrationPageBloc(registrationUseCase: sl<RegistrationUseCase>()),
+    () => RegistrationPageBloc(
+      registrationUseCase: sl<RegistrationUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
+    ),
   );
 
   sl.registerFactory<AuthenticatedHomeBloc>(() => AuthenticatedHomeBloc());
@@ -85,17 +88,22 @@ void registerAuthModule() async {
   sl.registerFactory<VerifyMobileNumberBloc>(
     () => VerifyMobileNumberBloc(
       verifyMobileNumberUseCase: sl<VerifyMobileNumberUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
   sl.registerFactory<OtpVerificationBloc>(
-    () => OtpVerificationBloc(verifyOtpUseCase: sl<VerifyOtpUseCase>()),
+    () => OtpVerificationBloc(
+      verifyOtpUseCase: sl<VerifyOtpUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
+    ),
   );
 
   sl.registerFactory<ResetPasswordBloc>(
     () => ResetPasswordBloc(
       resetPasswordUseCase: sl<ResetPasswordUseCase>(),
       getRegisteredMobileUseCase: sl<GetRegisteredMobileUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

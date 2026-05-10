@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -14,11 +15,13 @@ class BeneficiariesBloc extends Bloc<BeneficiariesEvent, BeneficiariesState> {
   final FetchBeneficiariesUseCase fetchBeneficiariesUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
   final RemoveBeneficiaryUseCase removeBeneficiaryUseCase;
+  final AppLocalizationService appLocalizationService;
 
   BeneficiariesBloc({
     required this.fetchBeneficiariesUseCase,
     required this.getAuthUserUseCase,
     required this.removeBeneficiaryUseCase,
+    required this.appLocalizationService,
   }) : super(const BeneficiariesInitial()) {
     on<FetchBeneficiaries>(_onFetchBeneficiaries);
     on<DeleteBeneficiary>(_onDeleteBeneficiary);

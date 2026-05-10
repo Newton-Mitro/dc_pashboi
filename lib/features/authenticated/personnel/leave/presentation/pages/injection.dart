@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -89,6 +90,7 @@ void registerLeaveTypeModule() {
     () => LeaveTypeBloc(
       leaveTypeUseCase: sl<LeaveTypeUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -96,6 +98,7 @@ void registerLeaveTypeModule() {
     () => SearchEmployeeBloc(
       searchEmployeeUseCase: sl<SearchEmployeeUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -103,6 +106,7 @@ void registerLeaveTypeModule() {
     () => LeaveApplicationBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitLeaveApplicationUseCase: sl<SubmitLeaveApplicationUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -110,6 +114,7 @@ void registerLeaveTypeModule() {
     () => LeaveTypeBalanceBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       leaveTypeBalanceUseCase: sl<LeaveTypeBalanceUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -117,6 +122,7 @@ void registerLeaveTypeModule() {
     () => FallbackRequestBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       fallbackRequestUseCase: sl<FallbackRequestUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -124,6 +130,7 @@ void registerLeaveTypeModule() {
     () => AcceptedFallbackRequestBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       acceptedFallbackRequestUseCase: sl<AcceptedFallbackUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -131,6 +138,7 @@ void registerLeaveTypeModule() {
     () => LeaveApprovalBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       getLeaveApprovalUseCase: sl<LeaveApprovalUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -138,6 +146,7 @@ void registerLeaveTypeModule() {
     () => SubmitLeaveApprovalBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitLeaveApprovalUseCase: sl<SubmitLeaveApprovalUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -145,6 +154,7 @@ void registerLeaveTypeModule() {
     () => LeaveHistoryBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       leaveHistoryRequestUseCase: sl<LeaveHistoryRequestUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -153,6 +163,7 @@ void registerLeaveTypeModule() {
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       updateLeaveApplicationRequestUseCase:
           sl<UpdateLeaveApplicationRequestUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

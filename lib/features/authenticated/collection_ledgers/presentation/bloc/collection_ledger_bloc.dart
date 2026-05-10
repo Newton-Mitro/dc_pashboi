@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -13,10 +14,12 @@ class CollectionLedgerBloc
     extends Bloc<CollectionLedgerEvent, CollectionLedgerState> {
   final FetchCollectionLedgersUseCase fetchCollectionLedgersUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   CollectionLedgerBloc({
     required this.fetchCollectionLedgersUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(CollectionLedgerInitial()) {
     on<FetchCollectionLedgersEvent>(_onFetchCollectionLedgers);
   }

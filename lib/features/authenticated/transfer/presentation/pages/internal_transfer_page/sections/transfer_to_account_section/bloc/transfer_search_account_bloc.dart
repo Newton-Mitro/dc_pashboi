@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -11,9 +12,12 @@ class TransferSearchAccountBloc
     extends Bloc<TransferSearchAccountEvent, TransferSearchAccountState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchTransferAccountUseCase fetchTransferAccountUseCase;
+  final AppLocalizationService appLocalizationService;
+
   TransferSearchAccountBloc({
     required this.fetchTransferAccountUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(TransferSearchAccountInitial()) {
     on<FetchTransferSearchAccountEvent>(_onTransferSearchAccount);
   }

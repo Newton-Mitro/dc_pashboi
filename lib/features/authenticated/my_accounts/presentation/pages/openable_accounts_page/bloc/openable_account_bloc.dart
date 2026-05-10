@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/openable_account_entity.dart';
@@ -12,10 +13,12 @@ class OpenableAccountBloc
     extends Bloc<OpenableAccountEvent, OpenableAccountState> {
   final FetchOpenableAccountsUseCase fetchOpenableAccountsUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   OpenableAccountBloc({
     required this.fetchOpenableAccountsUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(OpenableAccountInitial()) {
     on<FetchOpenableAccountsEvent>(_onFetchOpenableAccounts);
   }

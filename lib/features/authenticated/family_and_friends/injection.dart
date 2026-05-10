@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -60,6 +61,7 @@ void registerFamilyAndFriendsModule() async {
     () => FamilyAndRelativesBloc(
       getFamilyAndFriendsUseCase: sl<GetFamilyAndFriendsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -67,6 +69,7 @@ void registerFamilyAndFriendsModule() async {
     () => RelationshipBloc(
       fetchRelationshipsUseCase: sl<FetchRelationshipsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -74,6 +77,7 @@ void registerFamilyAndFriendsModule() async {
     () => AddFamilyAndRelativeBloc(
       addFamilyAndFriendUseCase: sl<AddFamilyAndFriendUsecase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

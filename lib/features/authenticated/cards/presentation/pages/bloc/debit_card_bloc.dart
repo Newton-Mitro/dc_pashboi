@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -23,6 +24,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
   final LockTheCardUseCase lockTheCardUseCase;
   final VerifyCardPinUseCase verifyCardPinUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   late UserEntity? user;
 
@@ -33,6 +35,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
     required this.lockTheCardUseCase,
     required this.verifyCardPinUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(const DebitCardState()) {
     on<DebitCardLoad>(_onLoad);
     on<DebitCardIssue>(_onIssue);

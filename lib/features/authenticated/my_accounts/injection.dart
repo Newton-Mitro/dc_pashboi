@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -120,6 +121,7 @@ void registerMyAccountsModule() async {
     () => AccountOpeningStepsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       openDepositAccountUseCase: sl<OpenDepositAccountUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -127,6 +129,7 @@ void registerMyAccountsModule() async {
     () => MyAccountBloc(
       getMyAccountsUseCase: sl<GetMyAccountsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -134,6 +137,7 @@ void registerMyAccountsModule() async {
     () => AccountDetailsBloc(
       getAccountDetailsUseCase: sl<GetAccountDetailsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -141,6 +145,7 @@ void registerMyAccountsModule() async {
     () => AccountStatementBloc(
       getAccountStatementUseCase: sl<GetAccountStatementUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -148,6 +153,7 @@ void registerMyAccountsModule() async {
     () => FetchDependentsBloc(
       fetchDependentsUseCase: sl<FetchDependentsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -155,6 +161,7 @@ void registerMyAccountsModule() async {
     () => FetchOperatingAccountsBloc(
       fetchOperatingAccountUseCase: sl<FetchOperatingAccountsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -162,6 +169,7 @@ void registerMyAccountsModule() async {
     () => AddOperatingAccountBloc(
       addOperatingAccountUseCase: sl<AddOperatingAccountUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -169,6 +177,7 @@ void registerMyAccountsModule() async {
     () => OpenableAccountBloc(
       fetchOpenableAccountsUseCase: sl<FetchOpenableAccountsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -176,6 +185,7 @@ void registerMyAccountsModule() async {
     () => TenureBloc(
       fetchAccountTenuresUseCase: sl<FetchAccountTenuresUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -183,6 +193,7 @@ void registerMyAccountsModule() async {
     () => TenureAmountBloc(
       fetchAccountTenureAmountsUseCase: sl<FetchAccountTenureAmountsUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -13,10 +14,12 @@ class PaymentServiceBloc
     extends Bloc<PaymentServiceEvent, PaymentServiceState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchPaymentServicesUseCase fetchPaymentServicesUseCase;
+  final AppLocalizationService appLocalizationService;
 
   PaymentServiceBloc({
     required this.getAuthUserUseCase,
     required this.fetchPaymentServicesUseCase,
+    required this.appLocalizationService,
   }) : super(PaymentServiceInitial()) {
     on<FetchPaymentServicesEvent>(_onLoadServices);
   }

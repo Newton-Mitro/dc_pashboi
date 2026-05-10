@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -34,6 +35,7 @@ void registerAGMCounterModule() async {
     () => AgmCounterBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       fetchAgmCounterInfoUseCase: sl<FetchAGMCounterInfoUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

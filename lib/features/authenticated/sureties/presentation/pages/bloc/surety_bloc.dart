@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -14,10 +15,13 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
   final FetchGivenSuretiesUseCase fetchGivenSuretiesUseCase;
   final FetchLoanSuretiesUseCase fetchLoanSuretiesUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
+
   SuretyBloc({
     required this.fetchGivenSuretiesUseCase,
     required this.fetchLoanSuretiesUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(SuretyInitial()) {
     on<FetchGivenSuretiesEvent>(_fetchGivenSureties);
     on<FetchLoanSuretiesEvent>(_fetchLoanSureties);

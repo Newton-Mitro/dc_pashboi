@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/submit_leave_approvel_usecase.dart';
@@ -11,10 +12,12 @@ class SubmitLeaveApprovalBloc
     extends Bloc<SubmitLeaveApprovalEvent, SubmitLeaveApprovalState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitLeaveApprovalUseCase submitLeaveApprovalUseCase;
+  final AppLocalizationService appLocalizationService;
 
   SubmitLeaveApprovalBloc({
     required this.getAuthUserUseCase,
     required this.submitLeaveApprovalUseCase,
+    required this.appLocalizationService,
   }) : super(SubmitLeaveApprovalInitial()) {
     on<SubmitLeaveApprovals>(_submitLeaveApproval);
   }

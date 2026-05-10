@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -22,10 +23,12 @@ class BankToDcTransferStepsBloc
   static const int totalSteps = lastStep + 1;
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitTransferBankToDcUseCase submitTransferBankToDcUseCase;
+  final AppLocalizationService appLocalizationService;
 
   BankToDcTransferStepsBloc({
     required this.getAuthUserUseCase,
     required this.submitTransferBankToDcUseCase,
+    required this.appLocalizationService,
   }) : super(
          BankToDcTransferStepsState(
            currentStep: 0,

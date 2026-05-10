@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pashboi/core/errors/failures.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_registered_mobile_usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/reset_password_usecase.dart';
@@ -14,10 +15,12 @@ part 'reset_password_state.dart';
 class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
   final ResetPasswordUseCase resetPasswordUseCase;
   final GetRegisteredMobileUseCase getRegisteredMobileUseCase;
+  final AppLocalizationService appLocalizationService;
 
   ResetPasswordBloc({
     required this.resetPasswordUseCase,
     required this.getRegisteredMobileUseCase,
+    required this.appLocalizationService,
   }) : super(ResetPasswordInitial()) {
     on<ResetPasswordRequested>(_onResetPasswordRequested);
     on<GetRegisteredMobileRequested>(_onGetRegisteredMobileRequested);

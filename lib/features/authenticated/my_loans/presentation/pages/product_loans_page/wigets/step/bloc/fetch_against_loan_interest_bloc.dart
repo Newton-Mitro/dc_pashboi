@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/against_loan_interest_entity.dart';
@@ -12,9 +13,12 @@ class FetchAgainstLoanInterestBloc
     extends Bloc<FetchAgainstLoanInterestEvent, FetchAgainstLoanInterestState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchAgainstLoanInterestUseCase fetchAgainstLoanInterestUseCase;
+  final AppLocalizationService appLocalizationService;
+
   FetchAgainstLoanInterestBloc({
     required this.getAuthUserUseCase,
     required this.fetchAgainstLoanInterestUseCase,
+    required this.appLocalizationService,
   }) : super(FetchAgainstLoanInterestInitial()) {
     on<FetchAgainstLoanInterest>(_onFetchAgainstLoanInterestEvent);
   }

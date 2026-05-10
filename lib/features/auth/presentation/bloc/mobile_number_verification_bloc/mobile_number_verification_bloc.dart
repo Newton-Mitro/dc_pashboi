@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/features/auth/domain/usecases/verify_mobile_number_usecase.dart';
 part 'mobile_number_verification_event.dart';
 part 'mobile_number_verification_state.dart';
@@ -7,9 +8,12 @@ part 'mobile_number_verification_state.dart';
 class VerifyMobileNumberBloc
     extends Bloc<VerifyMobileNumberEvent, VerifyMobileNumberState> {
   final VerifyMobileNumberUseCase verifyMobileNumberUseCase;
+  final AppLocalizationService appLocalizationService;
 
-  VerifyMobileNumberBloc({required this.verifyMobileNumberUseCase})
-    : super(VerifyMobileNumberInitial()) {
+  VerifyMobileNumberBloc({
+    required this.verifyMobileNumberUseCase,
+    required this.appLocalizationService,
+  }) : super(VerifyMobileNumberInitial()) {
     on<SubmitMobileNumber>(_onSubmitMobileNumber);
   }
 

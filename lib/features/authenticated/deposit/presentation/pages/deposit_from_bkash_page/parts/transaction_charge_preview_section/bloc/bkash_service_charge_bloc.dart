@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/deposit/domain/usecases/fetch_bkash_service_charge_usecase.dart';
@@ -11,10 +12,12 @@ class BkashServiceChargeBloc
     extends Bloc<BkashServiceChargeEvent, BkashServiceChargeState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchBkashServiceChargeUseCase fetchBkashServiceChargeUseCase;
+  final AppLocalizationService appLocalizationService;
 
   BkashServiceChargeBloc({
     required this.getAuthUserUseCase,
     required this.fetchBkashServiceChargeUseCase,
+    required this.appLocalizationService,
   }) : super(BkashServiceChargeInitial()) {
     on<FetchBkashServiceChargeEvent>(_onFetchBkashServiceCharge);
   }

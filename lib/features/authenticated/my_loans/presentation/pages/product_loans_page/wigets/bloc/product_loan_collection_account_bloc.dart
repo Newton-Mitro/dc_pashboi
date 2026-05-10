@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_accounts_dto.dart';
@@ -17,9 +18,12 @@ class ProductLoanCollectionAccountBloc
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchProductLoanCollateralAccountUseCase
   fetchProductLoanCollateralAccountUseCase;
+  final AppLocalizationService appLocalizationService;
+
   ProductLoanCollectionAccountBloc({
     required this.getAuthUserUseCase,
     required this.fetchProductLoanCollateralAccountUseCase,
+    required this.appLocalizationService,
   }) : super(ProductLoanCollectionAccountInitial()) {
     on<FetchProductLoanCollectionAccountEvent>(
       _onFetchProductLoanCollectionAccountEvent,

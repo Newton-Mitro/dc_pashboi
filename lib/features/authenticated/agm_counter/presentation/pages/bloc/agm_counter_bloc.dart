@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -12,10 +13,12 @@ part 'agm_counter_state.dart';
 class AgmCounterBloc extends Bloc<AgmCounterEvent, AgmCounterState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchAGMCounterInfoUseCase fetchAgmCounterInfoUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AgmCounterBloc({
     required this.getAuthUserUseCase,
     required this.fetchAgmCounterInfoUseCase,
+    required this.appLocalizationService,
   }) : super(AgmCounterInitial()) {
     on<FetchAgmCounterInfoEvent>(_onFetchAgmCounterInfo);
   }

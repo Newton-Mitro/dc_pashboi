@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/data/model/get_leave_type_blance_dto.dart';
@@ -11,10 +12,12 @@ class LeaveTypeBalanceBloc
     extends Bloc<LeaveTypeBalanceEvent, LeaveTypeBalanceState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final LeaveTypeBalanceUseCase leaveTypeBalanceUseCase;
+  final AppLocalizationService appLocalizationService;
 
   LeaveTypeBalanceBloc({
     required this.getAuthUserUseCase,
     required this.leaveTypeBalanceUseCase,
+    required this.appLocalizationService,
   }) : super(LeaveTypeBalanceInitial()) {
     on<FetchLeaveTypeBalanceEvent>(_onFetchLeaveTypeBalance);
   }

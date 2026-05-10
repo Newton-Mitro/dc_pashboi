@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -13,9 +14,12 @@ class FetchOperatingAccountsBloc
     extends Bloc<FetchOperatingAccountsEvent, FetchOperatingAccountsState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchOperatingAccountsUseCase fetchOperatingAccountUseCase;
+  final AppLocalizationService appLocalizationService;
+
   FetchOperatingAccountsBloc({
     required this.getAuthUserUseCase,
     required this.fetchOperatingAccountUseCase,
+    required this.appLocalizationService,
   }) : super(FetchOperatingAccountsInitial()) {
     on<FetchOperatingAccountsEvent>((event, emit) async {
       emit(FetchOperatingAccountsLoading());
