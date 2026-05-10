@@ -60,7 +60,11 @@ class BkashServiceChargeBloc
             emit(BkashServiceChargeLoaded(serviceCharge: serviceCharge)),
       );
     } catch (_) {
-      emit(BkashServiceChargeError('Failed to load service charge'));
+      emit(
+        BkashServiceChargeError(
+          appLocalizationService.t('failed_to_loan_service_charge'),
+        ),
+      );
     }
   }
 }

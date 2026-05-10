@@ -32,8 +32,8 @@ class CollectionLedgerBloc
 
     if (searchText.isEmpty) {
       emit(
-        const CollectionLedgerValidationError({
-          'searchText': 'Please enter account number',
+        CollectionLedgerValidationError({
+          'searchText': appLocalizationService.t('please_enter_account_number'),
         }),
       );
       return;
@@ -74,7 +74,11 @@ class CollectionLedgerBloc
         (ledgers) => emit(CollectionLedgerLoaded(ledgers)),
       );
     } catch (e) {
-      emit(CollectionLedgerError('Failed to load collection ledgers'));
+      emit(
+        CollectionLedgerError(
+          appLocalizationService.t('failed_to_load_collection_ledgers'),
+        ),
+      );
     }
   }
 }

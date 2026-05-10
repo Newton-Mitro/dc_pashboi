@@ -478,5 +478,31 @@
 
   "email_required": "ইমেইল আবশ্যক",
   "valid_email_required": "বৈধ ইমেইল আবশ্যক",
-  "password_required": "পাসওয়ার্ড আবশ্যক"
+  "password_required": "পাসওয়ার্ড আবশ্যক",
+
+  "failed_to_load_user_info": "ব্যবহারকারীর তথ্য লোড করতে ব্যর্থ হয়েছে",
+  "please_enter_beneficiary_name": "অনুগ্রহ করে উপকারভোগীর নাম লিখুন",
+  "please_enter_account_number": "অনুগ্রহ করে অ্যাকাউন্ট নম্বর লিখুন",
+  "failed_to_load_debit_card": "ডেবিট কার্ড লোড করতে ব্যর্থ হয়েছে",
+  "card_issued_successfully": "কার্ড সফলভাবে ইস্যু করা হয়েছে",
+  "card_issue_failed": "কার্ড ইস্যু করতে ব্যর্থ হয়েছে",
+  "card_reissued_successfully": "কার্ড সফলভাবে পুনরায় ইস্যু করা হয়েছে",
+  "card_reissue_failed": "কার্ড পুনরায় ইস্যু করতে ব্যর্থ হয়েছে",
+  "card_blocked_successfully": "কার্ড সফলভাবে ব্লক করা হয়েছে",
+  "failed_to_block_card": "কার্ড ব্লক করতে ব্যর্থ হয়েছে",
+  "card_blocked_after_3_incorrect_pin_attempts": "৩ বার ভুল পিন প্রবেশের পর কার্ড ব্লক করা হয়েছে",
+  "pin_verification_failed": "পিন যাচাইকরণ ব্যর্থ হয়েছে",
+  "incorrect_pin_attempt": "ভুল পিন প্রচেষ্টা",
+  "of_3": "৩ এর মধ্যে।",
+  "failed_to_load_collection_ledgers": "সংগ্রহ লেজার লোড করতে ব্যর্থ হয়েছে",
+  "failed_to_loan_service_charge": "ঋণ সার্ভিস চার্জ লোড করতে ব্যর্থ হয়েছে",
+  "failed_to_submit_deposit_now": "তাৎক্ষণিক জমা সাবমিট করতে ব্যর্থ হয়েছে",
+  "account_holder_name_is_required": "অ্যাকাউন্টধারীর নাম আবশ্যক",
+  "please_select_at_least_one_account": "অনুগ্রহ করে অন্তত একটি অ্যাকাউন্ট নির্বাচন করুন",
+  "deposit_amount_must_be_greater_than_zero": "জমার পরিমাণ শূন্যের বেশি হতে হবে",
+  "deposit_amount_cannot_be_less_than": "জমার পরিমাণ এর কম হতে পারবে না",
+  "deposit_amount_must_be_a_multiple_of": "জমার পরিমাণ এর গুণিতক হতে হবে",
+  "deposit_amount_cannot_be_greater_than": "জমার পরিমাণ এর বেশি হতে পারবে না",
+  "please_enter_transfer_to_mobile_number": "অনুগ্রহ করে যেই মোবাইল নম্বরে ট্রান্সফার করবেন তা লিখুন",
+  "please_enter_your_mobile_number": "অনুগ্রহ করে আপনার মোবাইল নম্বর লিখুন"
 }

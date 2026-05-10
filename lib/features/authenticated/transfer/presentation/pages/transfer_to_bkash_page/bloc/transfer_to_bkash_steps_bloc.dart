@@ -178,7 +178,9 @@ class TransferToBkashStepsBloc
       case 1:
         if (data['transferToMobile'] == null ||
             data['transferToMobile'].isEmpty) {
-          errors['transferToMobile'] = 'Please enter transfer to mobile';
+          errors['transferToMobile'] = appLocalizationService.t(
+            'please_enter_transfer_to_mobile_number',
+          );
         }
 
         break;

@@ -222,7 +222,12 @@ class DepositFromBkashStepsBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -259,7 +264,10 @@ class DepositFromBkashStepsBloc
       );
     } catch (_) {
       emit(
-        state.copyWith(error: 'Failed to submit deposit now', isLoading: false),
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_submit_deposit_now'),
+          isLoading: false,
+        ),
       );
     }
   }
@@ -271,12 +279,14 @@ class DepositFromBkashStepsBloc
     switch (step) {
       case 0:
         if (data['searchAccountNumber'] == null) {
-          errors['searchAccountNumber'] =
-              'Please enter a search account number';
+          errors['searchAccountNumber'] = appLocalizationService.t(
+            'please_enter_account_number',
+          );
         }
         if (data['searchedAccountHolderName'] == null) {
-          errors['searchedAccountHolderName'] =
-              'Search account holder name is required';
+          errors['searchedAccountHolderName'] = appLocalizationService.t(
+            'account_holder_name_is_required',
+          );
         }
         break;
 
@@ -284,27 +294,38 @@ class DepositFromBkashStepsBloc
         final selectedLedgers =
             state.collectionLedgers.where((l) => l.isSelected).toList();
         if (selectedLedgers.isEmpty) {
-          errors['ledgers'] = 'Please select at least one ledger to deposit';
+          errors['ledgers'] = appLocalizationService.t(
+            'please_select_at_least_one_account',
+          );
         } else {
           // Map ledgerId to error message for invalid deposit amounts
           final Map<String, String> amountErrors = {};
 
           for (final ledger in selectedLedgers) {
             if (ledger.depositAmount <= 0) {
-              amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be greater than zero';
+              amountErrors[ledger.ledgerId.toString()] = appLocalizationService
+                  .t('deposit_amount_must_be_greater_than_zero');
             } else if (!ledger.subledger &&
                 ledger.depositAmount < ledger.amount) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be less than the ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amount_cannot_be_less_than',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.multiplier &&
                 ledger.depositAmount % ledger.amount != 0) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be a multiple of ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amount_must_be_a_multiple_of',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.plType == 2 &&
                 ledger.depositAmount > ledger.loanBalance) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be greater than the ${ledger.loanBalance}';
+                  appLocalizationService.t(
+                    'deposit_amount_cannot_be_greater_than',
+                  ) +
+                  ledger.loanBalance.toString();
             }
           }
 

@@ -41,11 +41,15 @@ class AddBeneficiaryBloc
     final errors = <String, String>{};
 
     if (event.beneficiaryName.trim().isEmpty) {
-      errors['beneficiaryName'] = 'Please enter beneficiary name';
+      errors['beneficiaryName'] = appLocalizationService.t(
+        'please_enter_beneficiary_name',
+      );
     }
 
     if (event.accountNumber.trim().isEmpty) {
-      errors['accountNumber'] = 'Please enter account number';
+      errors['accountNumber'] = appLocalizationService.t(
+        'please_enter_account_number',
+      );
     }
 
     if (errors.isNotEmpty) {
