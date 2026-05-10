@@ -28,7 +28,8 @@ class AgmCounterBloc extends Bloc<AgmCounterEvent, AgmCounterState> {
   ) async {
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
-      emit(const AgmCounterInfoError('Failed to load user information'));
+      final message = appLocalizationService.t('failed_to_load_user_info');
+      emit(AgmCounterInfoError(message));
       return null;
     }, (success) => success.user);
   }

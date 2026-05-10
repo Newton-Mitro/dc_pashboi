@@ -30,7 +30,11 @@ class SubmitLeaveApprovalBloc
     try {
       final user = await getAuthUserUseCase(NoParams());
       final userEntity = user.fold((failure) {
-        emit(SubmitLeaveApprovalError('Failed to load user information'));
+        emit(
+          SubmitLeaveApprovalError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return null;
       }, (success) => success.user);
 

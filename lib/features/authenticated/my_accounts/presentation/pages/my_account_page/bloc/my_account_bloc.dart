@@ -32,7 +32,9 @@ class MyAccountBloc extends Bloc<MyAccountEvent, MyAccountState> {
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(MyAccountError('Failed to load user information'));
+        emit(
+          MyAccountError(appLocalizationService.t('failed_to_load_user_info')),
+        );
         return;
       }
 

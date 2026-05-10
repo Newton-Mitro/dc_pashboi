@@ -33,7 +33,11 @@ class OpenableAccountBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(OpenableAccountError('Failed to load user information'));
+        emit(
+          OpenableAccountError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return;
       }
 

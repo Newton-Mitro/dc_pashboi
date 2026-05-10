@@ -41,7 +41,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(
           state.copyWith(
             isLoading: false,
-            error: 'Failed to load user information',
+            error: appLocalizationService.t('failed_to_load_user_info'),
           ),
         );
       },
@@ -90,7 +90,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(
           state.copyWith(
             isLoading: false,
-            error: 'Failed to load user information',
+            error: appLocalizationService.t('failed_to_load_user_info'),
           ),
         );
       },

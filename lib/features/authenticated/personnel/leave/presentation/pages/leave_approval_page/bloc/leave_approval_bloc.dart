@@ -30,7 +30,11 @@ class LeaveApprovalBloc extends Bloc<LeaveApprovalEvent, LeaveApprovalState> {
     try {
       final user = await getAuthUserUseCase(NoParams());
       final userEntity = user.fold((failure) {
-        emit(LeaveApprovalError('Failed to load user information'));
+        emit(
+          LeaveApprovalError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return null;
       }, (success) => success.user);
 

@@ -481,5 +481,7 @@
 
   "email_required": "Email is required",
   "valid_email_required": "Valid email is required",
-  "password_required": "Password is required"
+  "password_required": "Password is required",
+
+  "failed_to_load_user_info": "Failed to load user information"
 }

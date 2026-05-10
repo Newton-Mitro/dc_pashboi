@@ -42,8 +42,11 @@ class TransferSearchAccountBloc
 
       UserEntity? user;
       authUser.fold(
-        (failure) =>
-            emit(TransferSearchAccountError('Failed to load user information')),
+        (failure) => emit(
+          TransferSearchAccountError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        ),
         (success) => user = success.user,
       );
 

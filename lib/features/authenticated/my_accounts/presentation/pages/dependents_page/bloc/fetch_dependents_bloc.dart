@@ -34,7 +34,11 @@ class FetchDependentsBloc
 
       return authResult.fold(
         (failure) {
-          emit(FetchDependentsError('Failed to load user information'));
+          emit(
+            FetchDependentsError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
         },
         (authUserData) async {
           final user = authUserData.user;

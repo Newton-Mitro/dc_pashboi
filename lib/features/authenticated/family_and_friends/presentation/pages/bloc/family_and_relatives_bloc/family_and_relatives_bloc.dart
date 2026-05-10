@@ -30,7 +30,11 @@ class FamilyAndRelativesBloc
     final authUser = await getAuthUserUseCase.call(NoParams());
 
     return authUser.fold((failure) {
-      emit(const FamilyAndRelativesFailure('Failed to load user information'));
+      emit(
+        FamilyAndRelativesFailure(
+          appLocalizationService.t('failed_to_load_user_info'),
+        ),
+      );
       return null;
     }, (success) => success.user);
   }

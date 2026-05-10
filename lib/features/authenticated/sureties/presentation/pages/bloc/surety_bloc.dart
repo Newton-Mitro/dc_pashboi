@@ -38,7 +38,9 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
 
       authUser.fold(
         (left) {
-          emit(SuretyError('Failed to load user information'));
+          emit(
+            SuretyError(appLocalizationService.t('failed_to_load_user_info')),
+          );
         },
         (right) {
           user = right.user;
@@ -85,7 +87,9 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
 
       authUser.fold(
         (left) {
-          emit(SuretyError('Failed to load user information'));
+          emit(
+            SuretyError(appLocalizationService.t('failed_to_load_user_info')),
+          );
         },
         (right) {
           user = right.user;

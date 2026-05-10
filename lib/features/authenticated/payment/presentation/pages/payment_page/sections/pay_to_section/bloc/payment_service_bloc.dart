@@ -55,7 +55,11 @@ class PaymentServiceBloc
   ) async {
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
-      emit(const PaymentServiceError('Failed to load user information'));
+      emit(
+        PaymentServiceError(
+          appLocalizationService.t('failed_to_load_user_info'),
+        ),
+      );
       return null;
     }, (success) => success.user);
   }

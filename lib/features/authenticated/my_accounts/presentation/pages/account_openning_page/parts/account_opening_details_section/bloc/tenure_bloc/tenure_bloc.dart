@@ -32,7 +32,7 @@ class TenureBloc extends Bloc<TenureEvent, TenureState> {
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(TenureError('Failed to load user information'));
+        emit(TenureError(appLocalizationService.t('failed_to_load_user_info')));
         return;
       }
 

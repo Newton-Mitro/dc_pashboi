@@ -31,7 +31,11 @@ class AttendanceCalenderBloc
       final userResult = await getAuthUserUseCase(NoParams());
 
       final userEntity = userResult.fold((failure) {
-        emit(AttendanceCalenderError('Failed to load user information'));
+        emit(
+          AttendanceCalenderError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return null;
       }, (success) => success.user);
 

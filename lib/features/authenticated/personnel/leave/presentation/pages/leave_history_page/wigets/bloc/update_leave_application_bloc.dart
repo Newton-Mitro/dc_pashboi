@@ -30,7 +30,9 @@ class UpdateLeaveApplicationBloc
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
       emit(
-        const UpdateLeaveApplicationError('Failed to load user information'),
+        UpdateLeaveApplicationError(
+          appLocalizationService.t('failed_to_load_user_info'),
+        ),
       );
       return null;
     }, (success) => success.user);

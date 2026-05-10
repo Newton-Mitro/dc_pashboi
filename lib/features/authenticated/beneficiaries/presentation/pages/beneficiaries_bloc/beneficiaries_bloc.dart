@@ -32,7 +32,8 @@ class BeneficiariesBloc extends Bloc<BeneficiariesEvent, BeneficiariesState> {
   ) async {
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
-      emit(const BeneficiariesError('Failed to load user information'));
+      final message = appLocalizationService.t('failed_to_load_user_info');
+      emit(BeneficiariesError(message));
       return null;
     }, (success) => success.user);
   }

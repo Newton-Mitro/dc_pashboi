@@ -46,8 +46,11 @@ class CollectionLedgerBloc
 
       UserEntity? user;
       authUser.fold(
-        (failure) =>
-            emit(CollectionLedgerError('Failed to load user information')),
+        (failure) => emit(
+          CollectionLedgerError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        ),
         (success) => user = success.user,
       );
 

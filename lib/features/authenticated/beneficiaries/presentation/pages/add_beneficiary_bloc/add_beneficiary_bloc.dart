@@ -28,7 +28,8 @@ class AddBeneficiaryBloc
   ) async {
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
-      emit(const AddBeneficiaryFailure('Failed to load user information'));
+      final message = appLocalizationService.t('failed_to_load_user_info');
+      emit(AddBeneficiaryFailure(message));
       return null;
     }, (success) => success.user);
   }

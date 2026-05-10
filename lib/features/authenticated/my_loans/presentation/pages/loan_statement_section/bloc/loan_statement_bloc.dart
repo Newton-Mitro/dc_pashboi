@@ -29,7 +29,11 @@ class LoanStatementBloc extends Bloc<LoanStatementEvent, LoanStatementState> {
 
         authUser.fold(
           (left) {
-            emit(LoanStatementError('Failed to load user information'));
+            emit(
+              LoanStatementError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
+            );
           },
           (right) {
             user = right.user;

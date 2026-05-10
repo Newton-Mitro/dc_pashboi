@@ -28,7 +28,11 @@ class RelationshipBloc extends Bloc<RelationshipEvent, RelationshipState> {
 
         authUser.fold(
           (left) {
-            emit(RelationshipError('Failed to load user information'));
+            emit(
+              RelationshipError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
+            );
           },
           (right) {
             user = right.user;

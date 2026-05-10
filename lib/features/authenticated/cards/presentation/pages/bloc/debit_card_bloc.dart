@@ -49,8 +49,11 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
     UserEntity? userEntity;
 
     authResult.fold(
-      (failure) =>
-          emit(state.copyWith(error: 'Failed to load user information')),
+      (failure) => emit(
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_load_user_info'),
+        ),
+      ),
       (authData) => userEntity = authData.user,
     );
 

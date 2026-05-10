@@ -30,7 +30,11 @@ class LeaveHistoryBloc extends Bloc<LeaveHistoryEvent, LeaveHistoryState> {
     try {
       final user = await getAuthUserUseCase(NoParams());
       final userEntity = user.fold((failure) {
-        emit(LeaveHistoryError('Failed to load user information'));
+        emit(
+          LeaveHistoryError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return null;
       }, (success) => success.user);
 

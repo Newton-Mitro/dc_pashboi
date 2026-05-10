@@ -31,7 +31,11 @@ class FallbackRequestBloc
     try {
       final user = await getAuthUserUseCase(NoParams());
       final userEntity = user.fold((failure) {
-        emit(FallbackRequestError('Failed to load user information'));
+        emit(
+          FallbackRequestError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return null;
       }, (success) => success.user);
 

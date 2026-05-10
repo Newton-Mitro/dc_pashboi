@@ -29,7 +29,9 @@ class AcceptedFallbackRequestBloc
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
       emit(
-        const AcceptedFallbackRequestError('Failed to load user information'),
+        AcceptedFallbackRequestError(
+          appLocalizationService.t('failed_to_load_user_info'),
+        ),
       );
       return null;
     }, (success) => success.user);

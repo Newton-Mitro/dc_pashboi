@@ -30,7 +30,11 @@ class AccountStatementBloc
 
         authUser.fold(
           (left) {
-            emit(AccountStatementError('Failed to load user information'));
+            emit(
+              AccountStatementError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
+            );
           },
           (right) {
             user = right.user;

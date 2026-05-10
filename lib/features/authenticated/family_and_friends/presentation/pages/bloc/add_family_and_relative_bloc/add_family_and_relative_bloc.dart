@@ -56,7 +56,11 @@ class AddFamilyAndRelativeBloc
 
       authUser.fold(
         (left) {
-          emit(AddFamilyAndRelativeFailure('Failed to load user information'));
+          emit(
+            AddFamilyAndRelativeFailure(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
         },
         (right) {
           user = right.user;

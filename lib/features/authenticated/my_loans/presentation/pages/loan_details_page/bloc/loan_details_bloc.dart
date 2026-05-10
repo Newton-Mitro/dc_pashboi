@@ -29,7 +29,11 @@ class LoanDetsilsBloc extends Bloc<LoanDetsilsEvent, LoanDetailsState> {
 
         authUser.fold(
           (left) {
-            emit(LoanDetailsError('Failed to load user information'));
+            emit(
+              LoanDetailsError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
+            );
           },
           (right) {
             user = right.user;

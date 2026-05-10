@@ -31,7 +31,9 @@ class FetchOperatingAccountsBloc
         authUser.fold(
           (left) {
             emit(
-              FetchOperatingAccountsError('Failed to load user information'),
+              FetchOperatingAccountsError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
             );
           },
           (right) {
