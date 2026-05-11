@@ -29,11 +29,15 @@ class AddOperatingAccountBloc
     final Map<String, String> errors = {};
 
     if (event.accountHolderId == 0) {
-      errors['dependents'] = 'Please select dependent';
+      errors['dependents'] = appLocalizationService.t(
+        'please_select_dependent',
+      );
     }
 
     if (event.accountHolderInfoId == 0) {
-      errors['dependentsAccounts'] = 'Please select dependent account';
+      errors['dependentsAccounts'] = appLocalizationService.t(
+        'please_select_dependent_account',
+      );
     }
 
     if (errors.isNotEmpty) {
@@ -48,7 +52,11 @@ class AddOperatingAccountBloc
 
       await authResult.fold(
         (failure) async {
-          emit(AddOperatingAccountError('Failed to load user info'));
+          emit(
+            AddOperatingAccountError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
         },
         (authUserData) async {
           final user = authUserData.user;

@@ -91,7 +91,9 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
   void _searchWithAccountNumber(String searchText) {
     if (searchText.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter account number")),
+        SnackBar(
+          content: Text(Locales.string(context, 'please_enter_account_number')),
+        ),
       );
       return;
     }

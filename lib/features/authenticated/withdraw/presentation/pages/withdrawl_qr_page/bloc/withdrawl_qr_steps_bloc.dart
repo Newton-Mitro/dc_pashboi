@@ -124,7 +124,12 @@ class WithdrawlQrStepsBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -158,7 +163,12 @@ class WithdrawlQrStepsBloc
             emit(state.copyWith(successMessage: message, isLoading: false)),
       );
     } catch (_) {
-      emit(state.copyWith(error: 'Failed to generate QR', isLoading: false));
+      emit(
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_generate_qr'),
+          isLoading: false,
+        ),
+      );
     }
   }
 
@@ -170,7 +180,9 @@ class WithdrawlQrStepsBloc
       case 0:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
@@ -184,27 +196,39 @@ class WithdrawlQrStepsBloc
                 : 0;
 
         if (withdrawAmount == null) {
-          errors['withdrawAmount'] = 'Enter withdraw amount';
+          errors['withdrawAmount'] = appLocalizationService.t(
+            'enter_withdraw_amount',
+          );
         } else if (withdrawAmount < 500) {
-          errors['withdrawAmount'] = 'Minimum withdraw amount is 500';
+          errors['withdrawAmount'] = appLocalizationService.t(
+            'minimum_withdraw_amount_is_500',
+          );
         } else if (withdrawAmount % 500 != 0) {
-          errors['withdrawAmount'] = 'Amount must be a multiple of 500';
+          errors['withdrawAmount'] = appLocalizationService.t(
+            'amount_must_be_a_multiple_of_500',
+          );
         } else if (withdrawAmount > totalWithdrawable) {
-          errors['withdrawAmount'] = 'Amount exceeds withdrawable balance';
+          errors['withdrawAmount'] = appLocalizationService.t(
+            'amount_exceeds_withdrawable_balance',
+          );
         }
         break;
 
       case 2:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t('pin_must_be_4_digits');
         }
         break;
 
       case 3:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 

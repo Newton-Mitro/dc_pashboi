@@ -30,8 +30,8 @@ class TransferSearchAccountBloc
 
     if (searchText.isEmpty) {
       emit(
-        const TransferSearchAccountValidationError({
-          'searchText': 'Please enter account number',
+        TransferSearchAccountValidationError({
+          'searchText': appLocalizationService.t('please_enter_account_number'),
         }),
       );
       return;
@@ -70,7 +70,11 @@ class TransferSearchAccountBloc
         (data) => emit(TransferSearchAccountLoaded(data.toString())),
       );
     } catch (e) {
-      emit(TransferSearchAccountError('Failed to load collection ledgers'));
+      emit(
+        TransferSearchAccountError(
+          appLocalizationService.t('failed_to_load_collection_ledgers'),
+        ),
+      );
     }
   }
 }

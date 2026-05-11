@@ -48,7 +48,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
       );
 
       if (user == null) {
-        emit(SuretyError('User not found'));
+        emit(SuretyError(appLocalizationService.t('failed_to_load_user_info')));
         return;
       }
 
@@ -72,7 +72,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
         },
       );
     } catch (e) {
-      emit(SuretyError('Failed to load debit card'));
+      emit(SuretyError(appLocalizationService.t('failed_to_load_debit_card')));
     }
   }
 
@@ -97,7 +97,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
       );
 
       if (user == null) {
-        emit(SuretyError('User not found'));
+        emit(SuretyError(appLocalizationService.t('failed_to_load_user_info')));
         return;
       }
 
@@ -122,7 +122,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
         },
       );
     } catch (e) {
-      emit(SuretyError('Failed to load debit card'));
+      emit(SuretyError(appLocalizationService.t('failed_to_load_debit_card')));
     }
   }
 }

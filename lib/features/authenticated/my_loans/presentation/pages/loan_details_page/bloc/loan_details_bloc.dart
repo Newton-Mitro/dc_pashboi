@@ -41,7 +41,11 @@ class LoanDetsilsBloc extends Bloc<LoanDetsilsEvent, LoanDetailsState> {
         );
 
         if (user == null) {
-          emit(LoanDetailsError('User not found'));
+          emit(
+            LoanDetailsError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -66,7 +70,11 @@ class LoanDetsilsBloc extends Bloc<LoanDetsilsEvent, LoanDetailsState> {
           },
         );
       } catch (e) {
-        emit(LoanDetailsError('Failed to load debit card'));
+        emit(
+          LoanDetailsError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

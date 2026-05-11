@@ -120,7 +120,12 @@ class PaymentStepsBloc extends Bloc<PaymentStepsEvent, PaymentStepsState> {
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -146,7 +151,10 @@ class PaymentStepsBloc extends Bloc<PaymentStepsEvent, PaymentStepsState> {
       );
     } catch (_) {
       emit(
-        state.copyWith(error: 'Failed to submit deposit now', isLoading: false),
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_submit_deposit_now'),
+          isLoading: false,
+        ),
       );
     }
   }
@@ -159,7 +167,9 @@ class PaymentStepsBloc extends Bloc<PaymentStepsEvent, PaymentStepsState> {
       case 0:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
@@ -171,15 +181,19 @@ class PaymentStepsBloc extends Bloc<PaymentStepsEvent, PaymentStepsState> {
 
       case 4:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t('pin_must_be_4_digits');
         }
         break;
 
       case 5:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 

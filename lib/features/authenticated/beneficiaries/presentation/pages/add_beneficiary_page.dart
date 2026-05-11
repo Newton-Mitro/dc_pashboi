@@ -246,10 +246,7 @@ class _AddBeneficiaryPageState extends State<AddBeneficiaryPage> {
                     backgroundColor: theme.colorScheme.primary,
                     progressColor: theme.colorScheme.secondary,
                     foregroundColor: theme.colorScheme.onPrimary,
-                    label: Locales.string(
-                      context,
-                      'add_beneficiary_page_submit_button_text',
-                    ),
+                    label: Locales.string(context, 'press_and_hold_to_submit'),
                     enabled: !isLoading,
                     onSubmit: isLoading ? null : _submit,
                   ),

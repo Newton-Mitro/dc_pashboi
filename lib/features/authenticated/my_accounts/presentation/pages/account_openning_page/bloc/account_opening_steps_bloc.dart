@@ -186,7 +186,12 @@ class AccountOpeningStepsBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -219,7 +224,10 @@ class AccountOpeningStepsBloc
       );
     } catch (_) {
       emit(
-        state.copyWith(error: 'Failed to submit deposit now', isLoading: false),
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_submit_deposit_now'),
+          isLoading: false,
+        ),
       );
     }
   }
@@ -232,98 +240,56 @@ class AccountOpeningStepsBloc
       case 0:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
       case 1:
-        // if (data['searchAccountNumber'] == null) {
-        //   errors['searchAccountNumber'] =
-        //       'Please enter a search account number';
-        // }
-        // if (data['searchedAccountHolderName'] == null) {
-        //   errors['searchedAccountHolderName'] =
-        //       'Search account holder name is required';
-        // }
         break;
 
       case 2:
-        // final selectedLedgers =
-        //     state.nominees.where((l) => l.isSelected).toList();
-        // if (selectedLedgers.isEmpty) {
-        //   errors['ledgers'] = 'Please select at least one ledger to deposit';
-        // } else {
-        //   // Map ledgerId to error message for invalid deposit amounts
-        //   final Map<String, String> amountErrors = {};
-
-        //   for (final ledger in selectedLedgers) {
-        //     if (ledger.depositAmount <= 0) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount must be greater than zero';
-        //     } else if (!ledger.subledger &&
-        //         ledger.depositAmount < ledger.amount) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount cannot be less than the ${ledger.amount}';
-        //     } else if (ledger.multiplier &&
-        //         ledger.depositAmount % ledger.amount != 0) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount must be a multiple of ${ledger.amount}';
-        //     } else if (ledger.plType == 2 &&
-        //         ledger.depositAmount > ledger.loanBalance) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount cannot be greater than the ${ledger.loanBalance}';
-        //     }
-        //   }
-
-        //   if (amountErrors.isNotEmpty) {
-        //     errors['amounts'] = amountErrors;
-        //   } else {
-        //     final totalDeposit = selectedLedgers.fold<double>(
-        //       0,
-        //       (sum, ledger) => sum + (ledger.depositAmount),
-        //     );
-
-        //     final totalWithdrawable =
-        //         state.selectedAccount != null
-        //             ? state.selectedAccount!.withdrawableBalance
-        //             : 0;
-
-        //     if (totalDeposit > totalWithdrawable) {
-        //       errors['ledgers'] =
-        //           "You don't have enough balance to deposit this amount";
-        //     }
-        //   }
-        // }
         break;
 
       case 3:
         final nominees = state.nominees;
         if (nominees.isEmpty) {
-          errors['nominees'] = 'Please add at least one nominee';
+          errors['nominees'] = appLocalizationService.t(
+            'please_add_at_least_one_nominee',
+          );
         } else {
           final totalShare = nominees.fold<double>(
             0,
             (sum, nominee) => sum + (nominee.percentage),
           );
           if (totalShare > 100) {
-            errors['nominees'] = 'Total nominee share cannot exceed 100%';
+            errors['nominees'] = appLocalizationService.t(
+              'total_nominee_share_cannot_exceed_100',
+            );
           } else if (totalShare < 100) {
-            errors['nominees'] = 'Total nominee share must be exactly 100%';
+            errors['nominees'] = appLocalizationService.t(
+              'total_nominee_share_must_be_exactly_100',
+            );
           }
         }
         break;
 
       case 5:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t('pin_must_be_4_digits');
         }
         break;
 
       case 6:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 

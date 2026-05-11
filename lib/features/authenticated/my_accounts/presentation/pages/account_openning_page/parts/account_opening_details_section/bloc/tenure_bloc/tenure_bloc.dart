@@ -55,7 +55,7 @@ class TenureBloc extends Bloc<TenureEvent, TenureState> {
         (tenures) => emit(TenureSuccess(tenures)),
       );
     } catch (_) {
-      emit(TenureError('Failed to load tenures'));
+      emit(TenureError(appLocalizationService.t('failed_to_load_tenures')));
     }
   }
 }

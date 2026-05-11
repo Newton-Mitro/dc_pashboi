@@ -59,7 +59,11 @@ class OpenableAccountBloc
         (accounts) => emit(OpenableAccountSuccess(accounts)),
       );
     } catch (_) {
-      emit(OpenableAccountError('Failed to load debit card'));
+      emit(
+        OpenableAccountError(
+          appLocalizationService.t('failed_to_load_debit_card'),
+        ),
+      );
     }
   }
 }

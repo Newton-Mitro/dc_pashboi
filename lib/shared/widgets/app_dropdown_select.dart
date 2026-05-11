@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 
 class AppDropdownSelect<T> extends StatelessWidget {
@@ -39,7 +40,7 @@ class AppDropdownSelect<T> extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               Text(
-                "Select $label",
+                "${Locales.string(context, 'select')}  $label",
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
@@ -152,7 +153,10 @@ class AppDropdownSelect<T> extends StatelessWidget {
     final selectedItem = items.firstWhere(
       (element) => element.value == value,
       orElse:
-          () => DropdownMenuItem<T>(value: null, child: Text("Select $label")),
+          () => DropdownMenuItem<T>(
+            value: null,
+            child: Text("${Locales.string(context, 'select')} $label"),
+          ),
     );
 
     return Column(

@@ -42,7 +42,11 @@ class FetchOperatingAccountsBloc
         );
 
         if (user == null) {
-          emit(FetchOperatingAccountsError('User not found'));
+          emit(
+            FetchOperatingAccountsError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -67,7 +71,11 @@ class FetchOperatingAccountsBloc
           },
         );
       } catch (e) {
-        emit(FetchOperatingAccountsError('Failed to load debit card'));
+        emit(
+          FetchOperatingAccountsError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

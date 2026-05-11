@@ -58,7 +58,11 @@ class DcBankAccountBloc extends Bloc<DcBankAccountEvent, DcBankAccountState> {
         (accounts) => emit(DcBankAccountLoaded(accounts)),
       );
     } catch (_) {
-      emit(DcBankAccountError('Failed to load DC bank accounts'));
+      emit(
+        DcBankAccountError(
+          appLocalizationService.t('failed_to_load_bank_accounts'),
+        ),
+      );
     }
   }
 }

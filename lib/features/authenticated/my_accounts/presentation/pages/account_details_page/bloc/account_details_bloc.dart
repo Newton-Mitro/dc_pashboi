@@ -42,7 +42,11 @@ class AccountDetailsBloc
         );
 
         if (user == null) {
-          emit(AccountDetailsError('User not found'));
+          emit(
+            AccountDetailsError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -67,7 +71,11 @@ class AccountDetailsBloc
           },
         );
       } catch (e) {
-        emit(AccountDetailsError('Failed to load debit card'));
+        emit(
+          AccountDetailsError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

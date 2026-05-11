@@ -151,7 +151,12 @@ class BankToDcTransferStepsBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -208,7 +213,10 @@ class BankToDcTransferStepsBloc
       );
     } catch (_) {
       emit(
-        state.copyWith(error: 'Failed to submit deposit now', isLoading: false),
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_submit_deposit_now'),
+          isLoading: false,
+        ),
       );
     }
   }
@@ -229,19 +237,27 @@ class BankToDcTransferStepsBloc
       case 0:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
       case 1:
         if (data['amount'] == null) {
-          errors['amount'] = 'Please enter deposit amount';
+          errors['amount'] = appLocalizationService.t(
+            'please_enter_deposit_amount',
+          );
         }
         if (state.selectedBankAccount.bankAccNumber.isEmpty) {
-          errors['bank'] = 'Please select a bank account';
+          errors['bank'] = appLocalizationService.t(
+            'please_select_a_bank_account',
+          );
         }
         if (data['receiptFile'] == null) {
-          errors['receiptFile'] = 'Please attach a transaction receipt';
+          errors['receiptFile'] = appLocalizationService.t(
+            'please_attach_a_transaction_receipt',
+          );
         }
         break;
 
@@ -249,26 +265,37 @@ class BankToDcTransferStepsBloc
         final selectedLedgers =
             state.collectionLedgers.where((l) => l.isSelected).toList();
         if (selectedLedgers.isEmpty) {
-          errors['ledgers'] = 'Please select at least one ledger to deposit';
+          errors['ledgers'] = appLocalizationService.t(
+            'please_select_at_least_one_account',
+          );
         } else {
           final Map<String, String> amountErrors = {};
 
           for (final ledger in selectedLedgers) {
             if (ledger.depositAmount <= 0) {
-              amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be greater than zero';
+              amountErrors[ledger.ledgerId.toString()] = appLocalizationService
+                  .t('deposit_amount_must_be_greater_than_zero');
             } else if (!ledger.subledger &&
                 ledger.depositAmount < ledger.amount) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be less than the ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amunt_cannot_be_less_than_the',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.multiplier &&
                 ledger.depositAmount % ledger.amount != 0) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be a multiple of ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amount_must_be_a_multiple_of',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.plType == 2 &&
                 ledger.depositAmount > ledger.loanBalance) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be greater than the ${ledger.loanBalance}';
+                  appLocalizationService.t(
+                    'deposit_amount_cannot_be_greater_than',
+                  ) +
+                  ledger.loanBalance.toString();
             }
           }
 
@@ -280,15 +307,19 @@ class BankToDcTransferStepsBloc
 
       case 4:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t('pin_must_be_4_digits');
         }
         break;
 
       case 5:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 

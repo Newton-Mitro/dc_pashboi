@@ -41,7 +41,11 @@ class LoanStatementBloc extends Bloc<LoanStatementEvent, LoanStatementState> {
         );
 
         if (user == null) {
-          emit(LoanStatementError('User not found'));
+          emit(
+            LoanStatementError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -68,7 +72,11 @@ class LoanStatementBloc extends Bloc<LoanStatementEvent, LoanStatementState> {
           },
         );
       } catch (e) {
-        emit(LoanStatementError('Failed to load debit card'));
+        emit(
+          LoanStatementError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

@@ -50,7 +50,9 @@ class _DepositForSectionState extends State<DepositForSection> {
   void _searchWithAccountNumber(String searchText) {
     if (searchText.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter account number")),
+        SnackBar(
+          content: Text(Locales.string(context, 'please_enter_account_number')),
+        ),
       );
       return;
     }

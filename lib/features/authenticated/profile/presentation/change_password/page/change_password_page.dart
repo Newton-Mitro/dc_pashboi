@@ -225,10 +225,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     backgroundColor: context.theme.colorScheme.primary,
                     progressColor: context.theme.colorScheme.secondary,
                     foregroundColor: context.theme.colorScheme.onPrimary,
-                    label: Locales.string(
-                      context,
-                      'change_password_submit_button_text',
-                    ),
+                    label: Locales.string(context, 'press_and_hold_to_submit'),
                     onSubmit: _submit,
                   ),
                 ],

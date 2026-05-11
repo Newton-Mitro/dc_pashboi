@@ -6,8 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/auth/presentation/bloc/mobile_number_verification_bloc/mobile_number_verification_bloc.dart';
 import 'package:pashboi/routes/public_routes_name.dart';
-import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
+import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/prefixed_mobile_number_input.dart';
 
 class MobileVerificationPage extends StatefulWidget {
@@ -26,23 +26,29 @@ class MobileVerificationPage extends StatefulWidget {
 
 class _MobileVerificationPageState extends State<MobileVerificationPage> {
   final String _prefix = '+880-';
+
   String _mobileNumber = '';
+  String? mobileError;
 
   void _sendOtp() {
-    final fullNumber = _mobileNumber;
-    final rawNumber = fullNumber.replaceFirst(_prefix, '');
+    final rawNumber = _mobileNumber.replaceFirst(_prefix, '').trim();
 
     if (rawNumber.isEmpty) {
-      _showSnackBar(
-        title: 'Info',
-        message: 'Please enter your mobile number',
-        type: ContentType.failure,
-      );
+      setState(() {
+        mobileError = Locales.string(
+          context,
+          'please_enter_your_mobile_number',
+        );
+      });
       return;
     }
 
+    setState(() {
+      mobileError = null;
+    });
+
     context.read<VerifyMobileNumberBloc>().add(
-      SubmitMobileNumber(mobileNumber: fullNumber, isRegistered: true),
+      SubmitMobileNumber(mobileNumber: _mobileNumber, isRegistered: true),
     );
   }
 
@@ -51,18 +57,22 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
     required String message,
     required ContentType type,
   }) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        elevation: 0,
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        content: AwesomeSnackbarContent(
-          title: title,
-          message: message,
-          contentType: type,
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: title,
+            message: message,
+            contentType: type,
+          ),
         ),
-      ),
-    );
+      );
   }
 
   @override
@@ -71,13 +81,15 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
       listener: (context, state) {
         if (state is VerifyMobileNumberFailure) {
           _showSnackBar(
-            title: 'Failed',
+            title: Locales.string(context, 'failed'),
             message: state.error,
             type: ContentType.failure,
           );
-        } else if (state is VerifyMobileNumberSuccess) {
+        }
+
+        if (state is VerifyMobileNumberSuccess) {
           _showSnackBar(
-            title: 'Success',
+            title: Locales.string(context, 'success'),
             message: state.message,
             type: ContentType.success,
           );
@@ -100,57 +112,50 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
             padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 36),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
                   children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Icon(
-                        FontAwesomeIcons.mobileScreenButton,
-                        size: 80,
-                      ),
-                    ),
+                    const Icon(FontAwesomeIcons.mobileScreenButton, size: 80),
                     const SizedBox(height: 16),
                     Text(
                       Locales.string(context, "mobile_verification_page_title"),
-                      style: TextStyle(
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
+
+                const SizedBox(height: 24),
+
+                PrefixedMobileNumberInput(
+                  errorText: mobileError,
+                  label: Locales.string(
+                    context,
+                    "mobile_verification_page_mobile_number_label",
+                  ),
+                  prefixIcon: const Icon(Icons.phone),
+                  prefix: _prefix,
+                  onChanged: (value) {
+                    setState(() {
+                      _mobileNumber = value;
+                      mobileError = null;
+                    });
+                  },
+                ),
+
                 const SizedBox(height: 20),
 
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: PrefixedMobileNumberInput(
-                        label: Locales.string(
-                          context,
-                          "mobile_verification_page_mobile_number_label",
-                        ),
-                        prefixIcon: const Icon(Icons.phone),
-                        prefix: _prefix,
-                        onChanged: (value) {
-                          setState(() {
-                            _mobileNumber = value;
-                          });
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
                 BlocBuilder<VerifyMobileNumberBloc, VerifyMobileNumberState>(
                   builder: (context, state) {
                     final isLoading = state is VerifyMobileNumberLoading;
+
                     return AppPrimaryButton(
                       label:
                           isLoading
-                              ? 'Sending...'
+                              ? Locales.string(context, 'sending')
                               : Locales.string(
                                 context,
                                 "mobile_verification_page_send_otp_button",

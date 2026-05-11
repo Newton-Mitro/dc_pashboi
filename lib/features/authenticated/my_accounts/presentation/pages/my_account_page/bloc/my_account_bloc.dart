@@ -60,7 +60,7 @@ class MyAccountBloc extends Bloc<MyAccountEvent, MyAccountState> {
         (accounts) => emit(MyAccountSuccess(accounts)),
       );
     } catch (_) {
-      emit(MyAccountError('Failed to load accounts'));
+      emit(MyAccountError(appLocalizationService.t('failed_to_load_accounts')));
     }
   }
 }

@@ -34,15 +34,21 @@ class AddFamilyAndRelativeBloc
     final Map<String, String> errors = {};
 
     if (event.searchAccountNumber.isEmpty) {
-      errors['searchAccountNumber'] = 'Please enter search account number';
+      errors['searchAccountNumber'] = appLocalizationService.t(
+        'please_enter_account_number',
+      );
     }
 
     if (relationTypeCode.isEmpty) {
-      errors['relationTypeCode'] = 'Please enter relationship';
+      errors['relationTypeCode'] = appLocalizationService.t(
+        'please_enter_relationship',
+      );
     }
 
     if (childPersonId == 0) {
-      errors['memberName'] = "Please search with a valid account number";
+      errors['memberName'] = appLocalizationService.t(
+        'please_search_with_a_valid_account_number',
+      );
     }
 
     if (errors.isNotEmpty) {
@@ -68,7 +74,11 @@ class AddFamilyAndRelativeBloc
       );
 
       if (user == null) {
-        emit(AddFamilyAndRelativeFailure('User not found'));
+        emit(
+          AddFamilyAndRelativeFailure(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return;
       }
 
@@ -94,7 +104,11 @@ class AddFamilyAndRelativeBloc
         },
       );
     } catch (e) {
-      emit(AddFamilyAndRelativeFailure('Failed to load debit card'));
+      emit(
+        AddFamilyAndRelativeFailure(
+          appLocalizationService.t('failed_to_load_debit_card'),
+        ),
+      );
     }
   }
 }

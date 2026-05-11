@@ -40,7 +40,11 @@ class RelationshipBloc extends Bloc<RelationshipEvent, RelationshipState> {
         );
 
         if (user == null) {
-          emit(RelationshipError('User not found'));
+          emit(
+            RelationshipError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -65,7 +69,11 @@ class RelationshipBloc extends Bloc<RelationshipEvent, RelationshipState> {
           },
         );
       } catch (e) {
-        emit(RelationshipError('Failed to load debit card'));
+        emit(
+          RelationshipError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

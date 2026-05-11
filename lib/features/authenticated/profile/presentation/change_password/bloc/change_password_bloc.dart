@@ -33,16 +33,24 @@ class ChangePasswordBloc
     final errors = <String, String>{};
 
     if (event.currentPassword.trim().isEmpty) {
-      errors['currentPassword'] = 'Current password is required';
+      errors['currentPassword'] = appLocalizationService.t(
+        'current_password_is_required',
+      );
     }
     if (event.newPassword.trim().isEmpty) {
-      errors['newPassword'] = 'New password is required';
+      errors['newPassword'] = appLocalizationService.t(
+        'new_password_is_required',
+      );
     }
     if (event.confirmPassword.trim().isEmpty) {
-      errors['confirmPassword'] = 'Confirm password is required';
+      errors['confirmPassword'] = appLocalizationService.t(
+        'confirm_password_is_required',
+      );
     }
     if (event.newPassword != event.confirmPassword) {
-      errors['confirmPassword'] = 'Passwords do not match';
+      errors['confirmPassword'] = appLocalizationService.t(
+        'password_do_not_match',
+      );
     }
     if (errors.isNotEmpty) {
       emit(ChangePasswordValidationError(errors));

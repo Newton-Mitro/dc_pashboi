@@ -47,7 +47,12 @@ class LeaveApplicationBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -91,7 +96,7 @@ class LeaveApplicationBloc
     } catch (e) {
       emit(
         state.copyWith(
-          error: 'Failed to submit leave application',
+          error: appLocalizationService.t('failed_to_submit_leave_application'),
           isLoading: false,
         ),
       );
