@@ -32,7 +32,11 @@ class OtpVerificationBloc
 
       result.fold(
         (failure) => emit(OtpVerificationFailure(failure.message)),
-        (_) => emit(OtpVerificationSuccess("OTP Verified Successfully")),
+        (_) => emit(
+          OtpVerificationSuccess(
+            appLocalizationService.t('otp_verified_successfully'),
+          ),
+        ),
       );
     });
   }

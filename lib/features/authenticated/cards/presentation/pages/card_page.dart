@@ -80,7 +80,10 @@ class CardPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 16),
                             child: AppPrimaryButton(
-                              label: "Apply For Re-Issue",
+                              label: Locales.string(
+                                context,
+                                "apply_for_reissue",
+                              ),
                               enabled: true,
                               onPressed: () {
                                 context.read<DebitCardBloc>().add(
@@ -100,7 +103,7 @@ class CardPage extends StatelessWidget {
 
                   return Center(
                     child: AppPrimaryButton(
-                      label: "Issue a Card",
+                      label: Locales.string(context, "issue_a_card"),
                       enabled: true,
                       onPressed: () {
                         context.read<DebitCardBloc>().add(

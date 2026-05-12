@@ -530,5 +530,16 @@
   "minimum_withdraw_amount_is_500": "সর্বনিম্ন উত্তোলনের পরিমাণ ৫০০",
   "amount_must_be_a_multiple_of_500": "পরিমাণ অবশ্যই ৫০০ এর গুণিতক হতে হবে",
   "amount_exceeds_withdrawable_balance": "পরিমাণ উত্তোলনযোগ্য ব্যালেন্স অতিক্রম করেছে",
-  "select": "নির্বাচন করুন"
+  "select": "নির্বাচন করুন",
+  "otp_verified_successfully": "ওটিপি সফলভাবে যাচাই করা হয়েছে",
+  "mobile_number_is_required": "মোবাইল নম্বর আবশ্যক",
+  "enter_valid_mobile_number": "সঠিক মোবাইল নম্বর লিখুন",
+  "password_must_be_at_least_6_characters": "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে",
+  "no_internet_connection": "ইন্টারনেট সংযোগ নেই। অনুগ্রহ করে আপনার নেটওয়ার্ক সেটিংস পরীক্ষা করুন।",
+  "oops": "ওহ না!",
+  "network_error": "নেটওয়ার্ক ত্রুটি",
+  "open_settings": "সেটিংস খুলুন",
+  "please_enter_6_digit_otp": "অনুগ্রহ করে ৬ সংখ্যার ওটিপি লিখুন",
+  "update_required": "আপডেট প্রয়োজন",
+  "update_now": "এখনই আপডেট করুন"
 }

@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Oops!',
+                    title: Locales.string(context, 'oops'),
                     message: state.message,
                     contentType: ContentType.failure,
                   ),

@@ -34,15 +34,17 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
     final errors = <String, String>{};
 
     if (event.mobileNumber.trim().isEmpty) {
-      errors['mobile'] = 'Mobile number is required';
+      errors['mobile'] = appLocalizationService.t('mobile_number_is_required');
     } else if (!_isValidMobileNumber(event.mobileNumber)) {
-      errors['mobile'] = 'Enter a valid mobile number';
+      errors['mobile'] = appLocalizationService.t('enter_valid_mobile_number');
     }
 
     if (event.password.trim().isEmpty) {
-      errors['password'] = 'Password is required';
+      errors['password'] = appLocalizationService.t('password_required');
     } else if (event.password.length < 6) {
-      errors['password'] = 'Password must be at least 6 characters';
+      errors['password'] = appLocalizationService.t(
+        'password_must_be_at_least_6_characters',
+      );
     }
 
     if (errors.isNotEmpty) {

@@ -129,7 +129,7 @@ class _BeneficiariesPageState extends State<BeneficiariesPage> {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
-                                  "Beneficiary",
+                                  Locales.string(context, "beneficiary"),
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.normal,

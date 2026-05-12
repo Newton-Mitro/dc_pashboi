@@ -530,5 +530,20 @@
   "minimum_withdraw_amount_is_500": "Minimum withdraw amount is 500",
   "amount_must_be_a_multiple_of_500": "Amount must be a multiple of 500",
   "amount_exceeds_withdrawable_balance": "Amount exceeds withdrawable balance",
-  "select": "Select"
+  "select": "Select",
+  "otp_verified_successfully": "OTP verified successfully",
+  "mobile_number_is_required": "Mobile number is required",
+  "enter_valid_mobile_number": "Enter valid mobile number",
+  "password_must_be_at_least_6_characters": "Password must be at least 6 characters",
+  "no_internet_connection": "No internet connection. Please check your network settings.",
+  "oops": "Oh Snap!",
+  "network_error": "Network error",
+  "open_settings": "Open Settings",
+  "please_enter_6_digit_otp": "Please enter 6 digit OTP",
+  "update_required": "Update Required",
+  "update_now": "Update Now",
+
+  "beneficiary_added_successfully": "Beneficiary added successfully",
+  "apply_for_reissue": "Apply for Re-Issue",
+  "issue_a_card": "Issue a Card"
 }

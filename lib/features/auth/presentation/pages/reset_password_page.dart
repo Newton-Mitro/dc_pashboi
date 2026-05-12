@@ -49,7 +49,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
     if (password != confirmPassword) {
       _showSnackBar(
-        title: 'Oops!',
+        title: Locales.string(context, 'oops'),
         message: Locales.string(context, 'password_mismatch'),
         isError: true,
       );
@@ -98,13 +98,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           listener: (context, state) {
             if (state is ResetPasswordFailure) {
               _showSnackBar(
-                title: 'Oops!',
+                title: Locales.string(context, 'oops'),
                 message: state.message,
                 isError: true,
               );
             } else if (state is ResetPasswordSuccess) {
               _showSnackBar(
-                title: 'Success',
+                title: Locales.string(context, 'success'),
                 message: Locales.string(context, 'reset_password_success'),
               );
               Future.delayed(

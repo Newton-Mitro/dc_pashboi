@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
+import 'package:pashboi/shared/widgets/language_switch/bloc/language_switch_bloc.dart';
 
 class AppDropdownSelect<T> extends StatelessWidget {
   final T? value;
@@ -39,13 +41,28 @@ class AppDropdownSelect<T> extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(height: 10),
-              Text(
-                "${Locales.string(context, 'select')}  $label",
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: context.theme.colorScheme.onSurface,
-                ),
+              BlocBuilder<LanguageSwitchBloc, LanguageSwitchState>(
+                builder: (context, state) {
+                  if (state.language == 'bn') {
+                    return Text(
+                      "$label ${Locales.string(context, 'select')}",
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: context.theme.colorScheme.onSurface,
+                      ),
+                    );
+                  } else {
+                    return Text(
+                      "${Locales.string(context, 'select')} $label",
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.bold,
+                        color: context.theme.colorScheme.onSurface,
+                      ),
+                    );
+                  }
+                },
               ),
               SizedBox(height: 3),
               // 👇 The top horizontal line
@@ -155,7 +172,15 @@ class AppDropdownSelect<T> extends StatelessWidget {
       orElse:
           () => DropdownMenuItem<T>(
             value: null,
-            child: Text("${Locales.string(context, 'select')} $label"),
+            child: BlocBuilder<LanguageSwitchBloc, LanguageSwitchState>(
+              builder: (context, state) {
+                if (state.language == 'bn') {
+                  return Text("$label ${Locales.string(context, 'select')}");
+                } else {
+                  return Text("${Locales.string(context, 'select')} $label");
+                }
+              },
+            ),
           ),
     );
 

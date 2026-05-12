@@ -94,7 +94,7 @@ class _AddBeneficiaryPageState extends State<AddBeneficiaryPage> {
 
               if (state is AddBeneficiaryFailure) {
                 _showSnackBar(
-                  title: "Oops",
+                  title: Locales.string(context, "oops"),
                   message: state.error,
                   contentType: ContentType.failure,
                 );
@@ -102,8 +102,11 @@ class _AddBeneficiaryPageState extends State<AddBeneficiaryPage> {
 
               if (state is AddBeneficiarySuccess) {
                 _showSnackBar(
-                  title: "Success",
-                  message: "Beneficiary added successfully",
+                  title: Locales.string(context, "success"),
+                  message: Locales.string(
+                    context,
+                    "beneficiary_added_successfully",
+                  ),
                   contentType: ContentType.success,
                 );
 
@@ -143,7 +146,7 @@ class _AddBeneficiaryPageState extends State<AddBeneficiaryPage> {
 
               if (state is CollectionLedgerError) {
                 _showSnackBar(
-                  title: "Oops",
+                  title: Locales.string(context, "oops"),
                   message: state.message,
                   contentType: ContentType.failure,
                 );

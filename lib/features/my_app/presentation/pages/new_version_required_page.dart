@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/app_logo.dart';
@@ -32,8 +33,7 @@ class NewVersionRequiredPage extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Text(
-                    // Locales.string(context, 'new_version_required_title'),
-                    'Update Required',
+                    Locales.string(context, 'update_required'),
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -68,10 +68,7 @@ class NewVersionRequiredPage extends StatelessWidget {
                       foregroundColor: context.theme.colorScheme.onPrimary,
                     ),
                     onPressed: _launchUpdateUrl,
-                    child: Text(
-                      // Locales.string(context, 'new_version_required_button'),
-                      'Update Now',
-                    ),
+                    child: Text(Locales.string(context, 'update_now')),
                   ),
                 ],
               ),
