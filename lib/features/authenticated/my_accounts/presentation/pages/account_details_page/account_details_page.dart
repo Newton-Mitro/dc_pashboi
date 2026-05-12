@@ -104,7 +104,6 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         body: PageContainer(
           child: BlocBuilder<AccountDetailsBloc, AccountDetailsState>(
             builder: (context, state) {
-              print("Account_Info:$state");
               if (state is AccountDetailsLoading ||
                   state is AccountDetailsInitial) {
                 return const Center(child: CircularProgressIndicator());

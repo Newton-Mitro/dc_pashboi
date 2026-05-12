@@ -511,7 +511,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
             backgroundColor: context.theme.colorScheme.primary,
             progressColor: context.theme.colorScheme.secondary,
             foregroundColor: context.theme.colorScheme.onPrimary,
-            label: 'Hold & Press to Submit',
+            label: Locales.string(context, "press_and_hold_to_submit"),
             onSubmit: () {
               _submitBankToDcTransfer(state);
             },

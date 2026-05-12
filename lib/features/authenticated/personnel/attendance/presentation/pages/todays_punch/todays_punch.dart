@@ -17,14 +17,12 @@ class TodaysPunch extends StatefulWidget {
 class _TodaysPunchState extends State<TodaysPunch> {
   String extractTime(String? dateTimeString) {
     if (dateTimeString == null || dateTimeString.trim().isEmpty) {
-      debugPrint("Date string is null or empty");
       return "--";
     }
     try {
       final dateTime = DateTime.parse(dateTimeString);
       return DateFormat.jm().format(dateTime);
     } catch (e) {
-      debugPrint("Date parsing error: $e");
       return "--";
     }
   }

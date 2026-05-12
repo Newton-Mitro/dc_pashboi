@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class WithdrawQrSuccessPage extends StatelessWidget {
 
             // 🚀 CTA Button
             AppPrimaryButton(
-              label: "Back To Home",
+              label: Locales.string(context, 'back_to_home'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

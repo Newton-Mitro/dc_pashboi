@@ -86,7 +86,10 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                     }
                     if (state is FamilyAndRelativesFailure) {
                       return Text(
-                        "Failed to load family members",
+                        Locales.string(
+                          context,
+                          'failed_to_load_family_or_relative',
+                        ),
                         style: TextStyle(
                           color: context.theme.colorScheme.error,
                         ),

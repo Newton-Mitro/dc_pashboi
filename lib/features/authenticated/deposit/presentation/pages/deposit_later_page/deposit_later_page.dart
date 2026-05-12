@@ -93,7 +93,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -113,7 +113,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -128,7 +128,12 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
               Navigator.pushReplacementNamed(
                 context,
                 AuthRoutesName.depositLaterSuccessPage,
-                arguments: {'message': "Deposit scheduled successful"},
+                arguments: {
+                  'message': Locales.string(
+                    context,
+                    'deposit_scheduled_successfully',
+                  ),
+                },
               );
             }
           },
@@ -512,7 +517,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
             backgroundColor: context.theme.colorScheme.primary,
             progressColor: context.theme.colorScheme.secondary,
             foregroundColor: context.theme.colorScheme.onPrimary,
-            label: 'Hold & Press to Submit',
+            label: Locales.string(context, "press_and_hold_to_submit"),
             onSubmit: () {
               _submitDepositLater(state);
             },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/payment/domain/entities/service_entity.dart';
@@ -66,7 +67,7 @@ class _PayToSectionState extends State<PayToSection> {
             ),
             child: Center(
               child: Text(
-                "Pay To",
+                Locales.string(context, 'pay_to'),
                 style: TextStyle(
                   color: colorScheme.onPrimary,
                   fontSize: 15,
@@ -126,7 +127,7 @@ class _PayToSectionState extends State<PayToSection> {
 
                       // ✅ Service Name Dropdown
                       AppDropdownSelect(
-                        label: 'Service Name',
+                        label: Locales.string(context, 'service_name'),
                         value: widget.selectedServiceId,
                         items: serviceItems,
                         onChanged: (val) {
@@ -145,7 +146,7 @@ class _PayToSectionState extends State<PayToSection> {
 
                       // ✅ Notify Person Dropdown
                       AppDropdownSelect(
-                        label: 'Notify Person',
+                        label: Locales.string(context, 'notify_person'),
                         value: widget.notifyPerson,
                         items: notifyPersonItems,
                         onChanged: widget.onNotifyPersonChanged,

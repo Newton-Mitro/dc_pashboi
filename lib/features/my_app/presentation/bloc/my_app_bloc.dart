@@ -16,8 +16,6 @@ class AppStatusBloc extends Bloc<AppStatusEvent, AppStatusState> {
         FetchAppStatusPrams(version: 63),
       );
 
-      print(result);
-
       result.fold((failure) => emit(AppStatusError(failure.message)), (status) {
         if (status.isMaintenance == true) {
           emit(UnderMaintenance(status.maintenanceMessage));

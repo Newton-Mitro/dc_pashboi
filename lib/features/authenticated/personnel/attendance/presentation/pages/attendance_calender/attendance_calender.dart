@@ -151,7 +151,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
               behavior: SnackBarBehavior.floating,
               backgroundColor: Colors.transparent,
               content: AwesomeSnackbarContent(
-                title: 'Oops!',
+                title: Locales.string(context, "oops"),
                 message: state.message ?? "Something went wrong",
                 contentType: ContentType.failure,
               ),
@@ -301,7 +301,9 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                   );
                 }
 
-                return const Center(child: Text("No data available"));
+                return Center(
+                  child: Text(Locales.string(context, "no_data_available")),
+                );
               },
             ),
           ),

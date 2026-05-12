@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/theme/values/colors/dark_blue_ocean_colors.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
@@ -37,7 +38,7 @@ class TransferToBkashSuccessPage extends StatelessWidget {
 
             // ✅ Main title
             Text(
-              "Transaction Successful!",
+              Locales.string(context, 'transaction_successful'),
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -59,8 +60,7 @@ class TransferToBkashSuccessPage extends StatelessWidget {
 
             // 🚀 CTA Button
             AppPrimaryButton(
-              label: "Back To Home",
-              // label: Locales.string(context, 'login_page_login_button'),
+              label: Locales.string(context, 'back_to_home'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

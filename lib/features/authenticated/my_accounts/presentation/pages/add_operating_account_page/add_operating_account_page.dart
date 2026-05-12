@@ -53,8 +53,11 @@ class _AddOperatingAccountPageState extends State<AddOperatingAccountPage> {
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Oops!',
-                    message: "Operating account added successfully",
+                    title: Locales.string(context, 'oops'),
+                    message: Locales.string(
+                      context,
+                      'operating_account_added_successfully',
+                    ),
                     contentType: ContentType.success,
                   ),
                 );
@@ -73,7 +76,7 @@ class _AddOperatingAccountPageState extends State<AddOperatingAccountPage> {
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Oops!',
+                    title: Locales.string(context, 'oops'),
                     message: state.message,
                     contentType: ContentType.failure,
                   ),

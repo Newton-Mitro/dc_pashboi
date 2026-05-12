@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
@@ -11,7 +12,9 @@ class InstantLoanSuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = context.theme.colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text("Instant Loan Success")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'instant_loan_success')),
+      ),
       body: PageContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +59,7 @@ class InstantLoanSuccessPage extends StatelessWidget {
 
             // 🚀 CTA Button
             AppPrimaryButton(
-              label: "Back To Home",
+              label: Locales.string(context, 'back_to_home'),
               // label: Locales.string(context, 'login_page_login_button'),
               onPressed: () {
                 Navigator.of(context).pop();

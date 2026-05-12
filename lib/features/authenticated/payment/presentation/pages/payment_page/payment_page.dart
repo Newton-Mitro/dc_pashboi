@@ -148,7 +148,7 @@ class _PaymentPageState extends State<PaymentPage> {
               depositLaterStepsState.currentStep == PaymentStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Payment')),
+            appBar: AppBar(title: Text(Locales.string(context, "payment"))),
             body: Stack(
               children: [
                 PageContainer(
@@ -423,7 +423,7 @@ class _PaymentPageState extends State<PaymentPage> {
             backgroundColor: context.theme.colorScheme.primary,
             progressColor: context.theme.colorScheme.secondary,
             foregroundColor: context.theme.colorScheme.onPrimary,
-            label: 'Hold & Press to Submit',
+            label: Locales.string(context, "press_and_hold_to_submit"),
             onSubmit: () {
               _submitPayment(state);
             },

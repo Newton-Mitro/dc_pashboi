@@ -98,7 +98,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -118,7 +118,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -136,7 +136,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.successMessage!,
                   contentType: ContentType.success,
                 ),

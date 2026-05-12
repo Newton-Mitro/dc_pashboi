@@ -80,7 +80,7 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, "oops"),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -122,7 +122,7 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, "oops"),
                   message: state.message,
                   contentType: ContentType.failure,
                 ),
@@ -229,7 +229,10 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                                           context,
                                           'proceed_with_bkash',
                                         )
-                                        : "Next",
+                                        : Locales.string(
+                                          context,
+                                          "next_button_text",
+                                        ),
                                 onPressed: () {
                                   if (isLastStep) {
                                     _submitDepositFromBkash();

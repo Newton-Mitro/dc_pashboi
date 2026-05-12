@@ -92,7 +92,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -113,7 +113,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -276,7 +276,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
         backgroundColor: context.theme.colorScheme.primary,
         progressColor: context.theme.colorScheme.secondary,
         foregroundColor: context.theme.colorScheme.onPrimary,
-        label: 'Hold & Press to Submit',
+        label: Locales.string(context, "press_and_hold_to_submit"),
 
         onSubmit: () {
           _submitInstantLoan(state); // Add your submit logic here
