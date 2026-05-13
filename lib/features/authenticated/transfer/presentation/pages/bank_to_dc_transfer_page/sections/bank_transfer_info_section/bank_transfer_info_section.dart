@@ -74,7 +74,11 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildHeader(context, widget.sectionTitle ?? "Bank Transfer Info"),
+          _buildHeader(
+            context,
+            widget.sectionTitle ??
+                Locales.string(context, 'bank_transfer_ifnormation'),
+          ),
           _buildFormBody(context),
         ],
       ),
@@ -162,13 +166,6 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
                     ),
                     const SizedBox(height: 16),
 
-                    // AppTextInput(
-                    //   label: "Transaction ID",
-                    //   prefixIcon: const Icon(Icons.confirmation_number),
-                    //   initialValue: widget.transactionId,
-                    //   onChanged: widget.onTransactionIdChange,
-                    // ),
-                    // const SizedBox(height: 16),
                     AppTextInput(
                       label: Locales.string(context, 'deposit_amount'),
                       errorText: widget.amountError,
@@ -213,14 +210,6 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
                         ),
                       ),
                     ),
-                    // const SizedBox(height: 16),
-
-                    // AppTextInput(
-                    //   label: "Remarks",
-                    //   prefixIcon: const Icon(Icons.edit_note),
-                    //   initialValue: widget.remarks,
-                    //   onChanged: widget.onRemarksChange,
-                    // ),
                   ],
                 ),
               ),

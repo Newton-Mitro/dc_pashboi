@@ -91,7 +91,7 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
@@ -111,7 +111,7 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),

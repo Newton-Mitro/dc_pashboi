@@ -29,11 +29,7 @@ class LeaveApplicationBloc
   ) {
     final updatedData = Map<String, dynamic>.from(state.leaveApplicationData)
       ..addAll(event.data);
-
     var newState = state.copyWith(leaveApplicationData: updatedData);
-
-    print(newState);
-
     emit(newState);
   }
 

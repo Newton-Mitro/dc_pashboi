@@ -63,7 +63,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.message,
                   contentType: ContentType.failure,
                 ),
@@ -80,8 +80,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               behavior: SnackBarBehavior.floating,
               backgroundColor: Colors.transparent,
               content: AwesomeSnackbarContent(
-                title: 'Success',
-                message: "Password changed successfully, Please login again.",
+                title: Locales.string(context, 'success'),
+                message: Locales.string(
+                  context,
+                  'password_cahanged_successfully',
+                ),
                 contentType: ContentType.success,
               ),
             );

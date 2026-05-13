@@ -50,10 +50,10 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
   @override
   void initState() {
     super.initState();
-    _leaveTypeController.text = widget.data.leaveType ?? '';
-    _employeeNameController.text = widget.data.employeeName ?? '';
-    _totalDaysController.text = widget.data.totalLeaveDays.toString() ?? '';
-    _reasonController.text = widget.data.remarks ?? '';
+    _leaveTypeController.text = widget.data.leaveType;
+    _employeeNameController.text = widget.data.employeeName;
+    _totalDaysController.text = widget.data.totalLeaveDays.toString();
+    _reasonController.text = widget.data.remarks;
     _startDate = widget.data.fromDate;
     _endDate = widget.data.toDate;
     _rejoinDate =
@@ -216,7 +216,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               behavior: SnackBarBehavior.floating,
                               backgroundColor: Colors.transparent,
                               content: AwesomeSnackbarContent(
-                                title: 'Oops!',
+                                title: Locales.string(context, "oops"),
                                 message: state.message,
                                 contentType: ContentType.failure,
                               ),
@@ -233,7 +233,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               behavior: SnackBarBehavior.floating,
                               backgroundColor: Colors.transparent,
                               content: AwesomeSnackbarContent(
-                                title: 'Done!',
+                                title: Locales.string(context, "success"),
                                 message: state.message,
                                 contentType: ContentType.success,
                               ),

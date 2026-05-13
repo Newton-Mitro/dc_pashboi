@@ -55,9 +55,9 @@ class _LeaveFallbackAcceptancePageState
               if (state is FallbackRequestError) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height * 0.9,
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      'An error occurred',
+                      Locales.string(context, "an_error_occurred"),
                       style: TextStyle(color: Colors.red),
                       textAlign: TextAlign.center,
                     ),
@@ -110,10 +110,10 @@ class _LeaveFallbackAcceptancePageState
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            "From: ${requestList[index].fromDate.toLocal().toString().split(' ')[0]}",
+                            "${Locales.string(context, "from")}: ${requestList[index].fromDate.toLocal().toString().split(' ')[0]}",
                           ),
                           Text(
-                            "To: ${requestList[index].toDate.toLocal().toString().split(' ')[0]}",
+                            "${Locales.string(context, "to")}: ${requestList[index].toDate.toLocal().toString().split(' ')[0]}",
                           ),
                         ],
                       ),

@@ -15,7 +15,9 @@ class TransferToBkashSuccessPage extends StatelessWidget {
     final colorScheme = context.theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Transfer To bKash Success")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'transfer_to_bkash_success')),
+      ),
       body: PageContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

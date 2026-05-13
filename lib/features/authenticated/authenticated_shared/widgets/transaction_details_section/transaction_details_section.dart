@@ -45,7 +45,6 @@ class TransactionDetailsSection extends StatelessWidget {
               loanNumber: state.loanPayment.loanNumber,
             ),
           );
-          print(state.loanPayment.loanLpsAmount);
         }
       },
       child: Container(

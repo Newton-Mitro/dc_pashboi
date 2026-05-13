@@ -97,7 +97,7 @@ class _WooApprovalPageState extends State<WooApprovalPage> {
                   if (state is GetWoooApprovalError) {
                     return Center(
                       child: Text(
-                        'An error occurred',
+                        Locales.string(context, "an_error_occurred"),
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,
                       ),
@@ -106,7 +106,7 @@ class _WooApprovalPageState extends State<WooApprovalPage> {
                   if (state is GetWoooApprovalSuccess) {
                     final requestList = state.WoooData;
                     if (requestList.isEmpty) {
-                      return const Center(
+                      return Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -117,7 +117,7 @@ class _WooApprovalPageState extends State<WooApprovalPage> {
                             ),
                             SizedBox(height: 16),
                             Text(
-                              'No records found for the selected date range.',
+                              Locales.string(context, "no_records_found"),
                               textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 16),
                             ),

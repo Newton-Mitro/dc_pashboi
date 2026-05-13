@@ -152,7 +152,7 @@ class WoooApplicationUpdateWidget extends StatelessWidget {
               ),
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
-                  return 'Please enter a reason';
+                  return Locales.string(context, 'please_enter_a_reason');
                 }
                 return null;
               },

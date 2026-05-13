@@ -115,7 +115,7 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
               if (state is LeaveApprovalError) {
                 return Center(
                   child: Text(
-                    state.message ?? 'An error occurred',
+                    state.message,
                     style: const TextStyle(color: Colors.red),
                   ),
                 );

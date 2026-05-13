@@ -15,7 +15,7 @@ class InternalTransferSuccessPage extends StatelessWidget {
     final colorScheme = context.theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Transfer Success")),
+      appBar: AppBar(title: Text(Locales.string(context, 'transfer_success'))),
       body: PageContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

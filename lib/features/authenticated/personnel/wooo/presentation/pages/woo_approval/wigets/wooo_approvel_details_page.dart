@@ -74,7 +74,7 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
     fromDate = _parseDate(history.fromDate);
     toDate = _parseDate(history.toDate);
     rejoiningDate = _parseDate(history.rejoiningDate);
-    reasonController.text = history.reason ?? '';
+    reasonController.text = history.reason;
   }
 
   @override
@@ -200,7 +200,7 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: Colors.transparent,
                         content: AwesomeSnackbarContent(
-                          title: 'Oops!',
+                          title: Locales.string(context, "oops"),
                           message: state.message,
                           contentType: ContentType.failure,
                         ),
@@ -216,9 +216,11 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: Colors.transparent,
                         content: AwesomeSnackbarContent(
-                          title: 'Done!',
-                          message:
-                              "Working Out of Office application Approval successfully",
+                          title: Locales.string(context, "success"),
+                          message: Locales.string(
+                            context,
+                            "wooo_application_submitted",
+                          ),
                           contentType: ContentType.success,
                         ),
                       );

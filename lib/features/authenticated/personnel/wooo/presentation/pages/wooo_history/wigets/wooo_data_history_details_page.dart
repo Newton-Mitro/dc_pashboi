@@ -115,7 +115,10 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
         title: Text(Locales.string(context, "working_out_of_office")),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [Tab(text: "For Hours"), Tab(text: "For Days")],
+          tabs: [
+            Tab(text: Locales.string(context, 'for_hours')),
+            Tab(text: Locales.string(context, 'for_days')),
+          ],
           labelColor: context.theme.colorScheme.onPrimary,
           indicatorColor: Colors.white,
         ),
@@ -226,7 +229,7 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: Colors.transparent,
                         content: AwesomeSnackbarContent(
-                          title: 'Oops!',
+                          title: Locales.string(context, "oops"),
                           message: state.message,
                           contentType: ContentType.failure,
                         ),
@@ -242,9 +245,11 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: Colors.transparent,
                         content: AwesomeSnackbarContent(
-                          title: 'Done!',
-                          message:
-                              "Working Out of Office application  Update successfully",
+                          title: Locales.string(context, "success"),
+                          message: Locales.string(
+                            context,
+                            "working_out_of_office_application_submitted_successfully",
+                          ),
                           contentType: ContentType.success,
                         ),
                       );

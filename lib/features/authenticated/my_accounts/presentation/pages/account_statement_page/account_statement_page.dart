@@ -31,8 +31,6 @@ class _AccountStatementPageState extends State<AccountStatementPage> {
 
   @override
   void initState() {
-    print(widget.accountDetails.number.trim());
-
     super.initState();
     endDate = DateTime.now();
     startDate = DateTime(endDate.year, endDate.month - 3, endDate.day);

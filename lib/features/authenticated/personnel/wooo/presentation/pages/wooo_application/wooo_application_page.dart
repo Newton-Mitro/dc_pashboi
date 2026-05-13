@@ -201,7 +201,7 @@ class _WoooApplicationPageState extends State<WoooApplicationPage>
                       behavior: SnackBarBehavior.floating,
                       backgroundColor: Colors.transparent,
                       content: AwesomeSnackbarContent(
-                        title: 'Oops!',
+                        title: Locales.string(context, 'oops'),
                         message: state.message,
                         contentType: ContentType.failure,
                       ),
@@ -218,9 +218,11 @@ class _WoooApplicationPageState extends State<WoooApplicationPage>
                       behavior: SnackBarBehavior.floating,
                       backgroundColor: Colors.transparent,
                       content: AwesomeSnackbarContent(
-                        title: 'Done!',
-                        message:
-                            "Working Out of Office application apply successfully",
+                        title: Locales.string(context, 'success'),
+                        message: Locales.string(
+                          context,
+                          'working_out_of_office_application_submitted_successfully',
+                        ),
                         contentType: ContentType.success,
                       ),
                     );

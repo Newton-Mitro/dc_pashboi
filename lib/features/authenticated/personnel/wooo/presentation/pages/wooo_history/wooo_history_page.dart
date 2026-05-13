@@ -117,7 +117,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                   if (state is GetWoooDataError) {
                     return Center(
                       child: Text(
-                        'An error occurred',
+                        Locales.string(context, "an_error_occurred"),
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,
                       ),
@@ -198,10 +198,10 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                                               ),
                                               const SizedBox(height: 4),
                                               Text(
-                                                "From: ${MyDateUtils.formatDate(DateTime.tryParse(request.fromDate.toString()))}",
+                                                "${Locales.string(context, "from")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.fromDate.toString()))}",
                                               ),
                                               Text(
-                                                "To: ${MyDateUtils.formatDate(DateTime.tryParse(request.toDate.toString()))}",
+                                                "${Locales.string(context, "to")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.toDate.toString()))}",
                                               ),
                                             ],
                                           ),

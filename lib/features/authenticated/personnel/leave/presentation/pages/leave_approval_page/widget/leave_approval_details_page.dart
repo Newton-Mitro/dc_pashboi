@@ -39,11 +39,11 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
   @override
   void initState() {
     super.initState();
-    _leaveTypeController.text = widget.data.leaveType ?? '';
-    _employeeNameController.text = widget.data.fallbackPersonName ?? '';
-    _totalDaysController.text = widget.data.totalLeaveDays.toString() ?? '';
-    _applicationStatusController.text = widget.data.currentStage ?? '';
-    _reasonController.text = widget.data.remarks ?? '';
+    _leaveTypeController.text = widget.data.leaveType;
+    _employeeNameController.text = widget.data.fallbackPersonName;
+    _totalDaysController.text = widget.data.totalLeaveDays.toString();
+    _applicationStatusController.text = widget.data.currentStage;
+    _reasonController.text = widget.data.remarks;
     _startDate = widget.data.fromDate;
     _endDate = widget.data.toDate;
 
@@ -75,7 +75,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
-          return 'Please enter a value';
+          return Locales.string(context, "please_enter_a_value");
         }
         return null;
       },
@@ -268,7 +268,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
-                              title: 'Oops!',
+                              title: Locales.string(context, "oops"),
                               message: state.message,
                               contentType: ContentType.failure,
                             ),
@@ -285,7 +285,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
-                              title: 'Done!',
+                              title: Locales.string(context, "success"),
                               message: state.message,
                               contentType: ContentType.success,
                             ),

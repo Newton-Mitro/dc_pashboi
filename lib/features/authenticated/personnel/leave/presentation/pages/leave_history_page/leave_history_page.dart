@@ -100,7 +100,7 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
                   if (state is LeaveHistoryError) {
                     return Center(
                       child: Text(
-                        'An error occurred',
+                        Locales.string(context, "an_error_occurred"),
                         style: TextStyle(color: Colors.red),
                         textAlign: TextAlign.center,
                       ),

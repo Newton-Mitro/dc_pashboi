@@ -117,7 +117,10 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, widget.sectionTitle ?? "Search Account"),
+          _buildHeader(
+            context,
+            widget.sectionTitle ?? Locales.string(context, 'search_account'),
+          ),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

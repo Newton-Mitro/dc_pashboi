@@ -46,8 +46,6 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
 
   final TextEditingController _fallbackEmployeeCode = TextEditingController();
 
-  TimeOfDay? _startTimeController;
-  TimeOfDay? _endTimeController;
   late DateTime startDate;
   late DateTime endDate;
   late DateTime rejoinDate;
@@ -60,12 +58,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
     endDate = widget.data.toDate;
     rejoinDate = DateTime.parse(widget.data.rejoiningDate);
     selectedLeaveType = widget.data.leaveTypeCode;
-    _accountSearchController.text = widget.data.fallbackEmployeeCode ?? '';
-    _accountHolderController.text = widget.data.fallbackPersonName ?? '';
-    _applicationStatusController.text = widget.data.currentStage ?? '';
-    _descriptionController.text = widget.data.remarks ?? '';
-    _startTimeController = TimeOfDay.fromDateTime(startDate);
-    _endTimeController = TimeOfDay.fromDateTime(endDate);
+    _accountSearchController.text = widget.data.fallbackEmployeeCode;
+    _accountHolderController.text = widget.data.fallbackPersonName;
+    _applicationStatusController.text = widget.data.currentStage;
+    _descriptionController.text = widget.data.remarks;
     _updateTotalDays();
     context.read<LeaveTypeBloc>().add(FetchLeaveTypeEvent());
   }
@@ -251,12 +247,18 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                   final String fallbackName =
                                       employees.isNotEmpty
                                           ? employees.first.fullName
-                                          : 'No Employee Found';
+                                          : Locales.string(
+                                            context,
+                                            "no_employee_found",
+                                          );
 
                                   final String fallbackEmpCode =
                                       employees.isNotEmpty
                                           ? employees.first.employeeCode
-                                          : 'No Employee Found';
+                                          : Locales.string(
+                                            context,
+                                            "no_employee_found",
+                                          );
 
                                   _fallbackEmployeeCode.text = fallbackEmpCode;
                                   _accountHolderController.text = fallbackName;
@@ -425,7 +427,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                       behavior: SnackBarBehavior.floating,
                                       backgroundColor: Colors.transparent,
                                       content: AwesomeSnackbarContent(
-                                        title: 'Oops!',
+                                        title: Locales.string(context, "oops"),
                                         message: state.message,
                                         contentType: ContentType.failure,
                                       ),
@@ -442,7 +444,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                       behavior: SnackBarBehavior.floating,
                                       backgroundColor: Colors.transparent,
                                       content: AwesomeSnackbarContent(
-                                        title: 'Done!',
+                                        title: Locales.string(
+                                          context,
+                                          "success",
+                                        ),
                                         message: state.message,
                                         contentType: ContentType.success,
                                       ),

@@ -15,7 +15,9 @@ class BankToDcTransferSuccessPage extends StatelessWidget {
     final colorScheme = context.theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Bank To DC Transfer Success")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'bank_to_dc_transfer_success')),
+      ),
       body: PageContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
