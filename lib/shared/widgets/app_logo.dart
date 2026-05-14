@@ -31,13 +31,25 @@ class AppLogoState extends State<AppLogo> with SingleTickerProviderStateMixin {
               width: widget.width,
             ),
             widget.showOrganizationName
-                ? Text(
-                  Locales.string(context, 'organization_name'),
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: context.theme.colorScheme.onSurface,
-                    fontWeight: FontWeight.bold,
-                  ),
+                ? Column(
+                  children: [
+                    Text(
+                      Locales.string(context, 'organization_name'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: context.theme.colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      Locales.string(context, 'orgainzation_short_name'),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: context.theme.colorScheme.onSurface,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 )
                 : const SizedBox.shrink(),
           ],

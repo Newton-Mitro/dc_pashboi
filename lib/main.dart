@@ -17,6 +17,7 @@ import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/de
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/my_account_page/bloc/my_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/bloc/deposit_product_loan_bloc.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/change_password/bloc/change_password_bloc.dart';
+import 'package:pashboi/features/landing/presentation/bloc/advertisement_bloc.dart';
 import 'package:pashboi/features/my_app/presentation/bloc/my_app_bloc.dart';
 import 'package:pashboi/features/onboarding/presentation/bloc/onboarding_page_bloc.dart';
 import 'package:pashboi/features/terms_and_condition/presentation/pages/bloc/term_and_condition_bloc.dart';
@@ -57,6 +58,7 @@ void main() async {
         BlocProvider(create: (_) => sl<ChangePasswordBloc>()),
         BlocProvider(create: (_) => sl<TermAndConditionBloc>()),
         BlocProvider(create: (_) => sl<DepositProductLoanBloc>()),
+        BlocProvider(create: (_) => sl<AdvertisementBloc>()),
       ],
       child: const MyApp(),
     ),

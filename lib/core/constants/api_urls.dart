@@ -110,6 +110,8 @@ class ApiUrls {
 
   static const String getDevTeams = 'getDevTeams';
 
+  static const String getAds = 'GetLoanAdsUrl';
+
   static const String getEmployeeDetails =
       'professionals_v1/getEmployeeDetails';
 

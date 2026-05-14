@@ -1,12 +1,15 @@
 extension StringCasingExtension on String {
+  String toCapitalized() {
+    if (isEmpty) return this;
+    return '${this[0].toUpperCase()}${substring(1)}';
+  }
+
   String toTitleCase() {
-    if (trim().isEmpty) return '';
-    return toLowerCase()
-        .split(' ')
-        .map((word) {
-          if (word.isEmpty) return '';
-          return word[0].toUpperCase() + word.substring(1);
-        })
+    return split(' ')
+        .map(
+          (word) =>
+              word.isNotEmpty ? word[0].toUpperCase() + word.substring(1) : '',
+        )
         .join(' ');
   }
 }

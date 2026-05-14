@@ -11,7 +11,8 @@ class NewVersionRequiredPage extends StatelessWidget {
   const NewVersionRequiredPage({super.key, required this.message});
 
   Future<void> _launchUpdateUrl() async {
-    const url = 'https://your-app-update-link.com'; // Replace with real link
+    const url =
+        'https://play.google.com/store/apps/details?id=com.dhakacredit.cccul'; // Replace with real link
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
     }
