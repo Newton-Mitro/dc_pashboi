@@ -588,5 +588,6 @@
   "transfer_to_bkash_success": "Transfer to bKash success",
   "otqr_generated_successfully": "OTQR generated successfully",
   "share_qr_code": "Share QR Code",
-  "withdrawl_qr_generated": "Withdrawl QR Generated"
+  "withdrawl_qr_generated": "Withdrawl QR Generated",
+  "deposit_now_success": "Deposit now success"
 }

@@ -125,7 +125,7 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
             if (state.successMessage?.isNotEmpty ?? false) {
               Navigator.pushReplacementNamed(
                 context,
-                AuthRoutesName.transferToBkashSuccessPage,
+                AuthRoutesName.internalTransferSuccessPage,
                 arguments: {'message': state.successMessage!},
               );
             }

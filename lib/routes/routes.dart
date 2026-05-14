@@ -103,6 +103,7 @@ import 'package:pashboi/features/authenticated/transfer/presentation/pages/bank_
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/bank_to_dc_transfer_page/sections/bank_transfer_info_section/bloc/dc_bank_account_bloc.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/internal_transfer_page/bloc/internal_transfer_steps_bloc.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/internal_transfer_page/internal_transfer_page.dart';
+import 'package:pashboi/features/authenticated/transfer/presentation/pages/internal_transfer_page/sections/internal_transfer_success_page.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/internal_transfer_page/sections/transfer_to_account_section/bloc/transfer_search_account_bloc.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/transfer_to_bkash_page/bloc/transfer_to_bkash_steps_bloc.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/transfer_to_bkash_page/transfer_to_bkash_page.dart';
@@ -593,6 +594,13 @@ class AppRoutes {
         if (args is Map && args['message'] != null) {
           return _materialRoute(
             TransferToBkashSuccessPage(successMessage: args['message'] ?? ''),
+          );
+        }
+
+      case AuthRoutesName.internalTransferSuccessPage:
+        if (args is Map && args['message'] != null) {
+          return _materialRoute(
+            InternalTransferSuccessPage(successMessage: args['message'] ?? ''),
           );
         }
 

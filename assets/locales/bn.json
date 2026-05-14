@@ -588,5 +588,6 @@
   "transfer_to_bkash_success": "bKash এ ট্রান্সফার সফল হয়েছে",
   "otqr_generated_successfully": "OTQR সফলভাবে তৈরি হয়েছে",
   "share_qr_code": "QR কোড শেয়ার করুন",
-  "withdrawl_qr_generated": "উত্তোলন QR তৈরি হয়েছে"
+  "withdrawl_qr_generated": "উত্তোলন QR তৈরি হয়েছে",
+  "deposit_now_success": "এখনই জমা সফল হয়েছে"
 }
