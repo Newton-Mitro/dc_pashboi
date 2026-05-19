@@ -256,7 +256,7 @@ class _OtpVerificationSectionState extends State<OtpVerificationSection> {
                     else
                       Column(
                         children: [
-                          const Text("Don't receive the OTP?"),
+                          Text(Locales.string(context, 'dont_received_otp')),
                           TextButton(
                             onPressed: () {
                               for (final c in _otpControllers) {

@@ -81,6 +81,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
       listeners: [
         BlocListener<DebitCardBloc, DebitCardState>(
           listener: (context, state) {
+            print(state);
             if (state.successMessage != null) {
               context.read<AccountOpeningStepsBloc>().add(
                 AccountOpeningUpdateStepData(

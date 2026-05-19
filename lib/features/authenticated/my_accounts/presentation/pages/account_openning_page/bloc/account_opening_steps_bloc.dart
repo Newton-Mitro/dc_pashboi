@@ -247,6 +247,9 @@ class AccountOpeningStepsBloc
         break;
 
       case 1:
+        if (data['accountForText'] != null) {
+          errors['accountForText'] = 'Please enter account for text';
+        }
         break;
 
       case 2:

@@ -2,6 +2,7 @@
   "app_name": "Pashboi",
   "organization_name": "The Christian Co-operative Credit Union",
   "orgainzation_short_name": "CCCUL (Dhaka Credit)",
+  "version": "Version",
   "onboarding_title_1": "Welcome to Pashboi",
   "onboarding_description_1": "Your trusted platform for managing accounts, making payments, applying for loans, and more. Stay connected to your financial world with ease and security. Join us today!",
   "onboarding_title_2": "Manage Your Accounts Anytime, Anywhere",
@@ -589,5 +590,6 @@
   "otqr_generated_successfully": "OTQR generated successfully",
   "share_qr_code": "Share QR Code",
   "withdrawl_qr_generated": "Withdrawl QR Generated",
-  "deposit_now_success": "Deposit now success"
+  "deposit_now_success": "Deposit now success",
+  "dont_received_otp": "Don't received OTP?"
 }
