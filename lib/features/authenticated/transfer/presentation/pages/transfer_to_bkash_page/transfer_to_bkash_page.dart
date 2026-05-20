@@ -97,6 +97,7 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -117,6 +118,7 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

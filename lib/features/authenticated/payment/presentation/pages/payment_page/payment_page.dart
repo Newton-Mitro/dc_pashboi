@@ -94,6 +94,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -114,6 +115,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -132,6 +134,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

@@ -98,6 +98,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -119,6 +120,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

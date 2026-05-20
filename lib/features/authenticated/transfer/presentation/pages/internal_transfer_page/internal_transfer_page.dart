@@ -97,6 +97,7 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -117,6 +118,7 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

@@ -86,6 +86,7 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -128,6 +129,7 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

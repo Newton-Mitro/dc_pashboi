@@ -105,6 +105,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -125,6 +126,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -143,6 +145,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -277,12 +280,12 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                     if (state.isLoading) {
                       return Container(
                         color: Colors.black.withOpacity(0.4),
-                        child: const Center(child: CircularProgressIndicator()),
+                        child: Center(child: CircularProgressIndicator()),
                       );
                     } else if (state.error != null) {
-                      return const SizedBox.shrink();
+                      return SizedBox.shrink();
                     }
-                    return const SizedBox.shrink();
+                    return SizedBox.shrink();
                   },
                 ),
               ],

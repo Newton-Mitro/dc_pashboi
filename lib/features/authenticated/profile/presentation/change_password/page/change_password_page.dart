@@ -69,6 +69,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

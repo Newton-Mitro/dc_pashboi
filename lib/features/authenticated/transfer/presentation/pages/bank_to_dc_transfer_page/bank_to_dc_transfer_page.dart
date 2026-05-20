@@ -109,6 +109,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -129,6 +130,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

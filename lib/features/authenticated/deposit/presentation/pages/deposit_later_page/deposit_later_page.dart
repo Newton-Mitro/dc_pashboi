@@ -110,6 +110,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -133,6 +134,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);

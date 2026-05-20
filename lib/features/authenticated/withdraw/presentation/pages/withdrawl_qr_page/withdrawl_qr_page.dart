@@ -95,6 +95,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -115,6 +116,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
