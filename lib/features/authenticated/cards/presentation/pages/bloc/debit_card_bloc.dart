@@ -289,13 +289,15 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
               ),
             );
           } else {
+            final errorMessage =
+                '${appLocalizationService.t('incorrect_pin_attempt')} '
+                '$updatedAttempts '
+                '${appLocalizationService.t('of_3')}';
+
             emit(
               state.copyWith(
                 isLoading: false,
-                error:
-                    appLocalizationService.t('incorrect_pin') +
-                    updatedAttempts.toString() +
-                    appLocalizationService.t('of_3'),
+                error: errorMessage,
                 successMessage: null,
                 pinAttempts: updatedAttempts,
               ),

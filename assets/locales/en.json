@@ -26,7 +26,7 @@
   "landing_page_login_instruction": "If you are a member of Dhaka Credit \nand already have a user account, \nthen login.",
   "landing_page_login_button": "Login",
   "landing_page_dont_have_account_text": "Don't have an account? ",
-  "landing_page_create_account_instruction": "If you are a member and registered for \nonline service but don't have a user account, \nthen create user account now.",
+  "landing_page_create_account_instruction": "If you are a member and registered for \nonline service but don't have a user \naccount, then create user account now.",
   "landing_page_create_account_button": "Create User Account",
   "landing_page_product_and_service_instruction": "If you want to learn about our products and services, then visit",
   "landing_page_product_and_service_button": "Products & Services",

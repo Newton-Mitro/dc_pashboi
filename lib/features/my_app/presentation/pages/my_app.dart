@@ -12,6 +12,8 @@ import 'package:pashboi/routes/routes.dart';
 import 'package:pashboi/shared/widgets/language_switch/bloc/language_switch_bloc.dart';
 import 'package:pashboi/shared/widgets/theme_selector/bloc/theme_selector_bloc.dart';
 
+import '../../../../core/extensions/global_key.dart';
+
 final RouteObserver<ModalRoute<void>> routeObserver =
     RouteObserver<ModalRoute<void>>();
 
@@ -43,6 +45,7 @@ class _MyAppState extends State<MyApp> {
                     return MaterialApp(
                       debugShowCheckedModeBanner: false,
                       navigatorKey: navigatorKey,
+                      scaffoldMessengerKey: rootScaffoldMessengerKey,
                       navigatorObservers: [routeObserver],
                       theme: themeState.themeData,
                       supportedLocales: const [
