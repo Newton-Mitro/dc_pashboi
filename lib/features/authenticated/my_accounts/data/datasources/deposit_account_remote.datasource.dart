@@ -211,6 +211,7 @@ class DepositAccountRemoteDataSourceImpl
         "MobileNo": props.mobileNumber,
         "RequestFrom": "MobileApp",
       };
+
       var jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
@@ -340,31 +341,20 @@ class DepositAccountRemoteDataSourceImpl
   Future<String> openDepositAccount(OpenDepositAccountParams props) async {
     try {
       var requestBody = {
-        "AccountHolders": [
-          {
-            "AccountHolderId": 29960,
-            "IsOrganization": false,
-            "MembershipNumber": "",
-            "SavingsACNumber": "T-0037417",
-          },
-        ],
-        "Nominees": [
-          {"NomineePercentage": 100, "PersonId": 52155},
-        ],
-        "AccountOperators": [
-          {"AccountHolderId": 37425, "AccountOperatorId": 37425},
-        ],
-        "Introducers": [],
-        "DMSProductCode": "20",
-        "ApplicationNo": "",
-        "BranchCode": "00",
-        "AccountFor": 1,
-        "AccountName": "RIPON  BAROI",
-        "InterestRate": 8.5,
-        "Duration": 60,
-        "InstallmentAmount": 500,
-        "TxnAccountNumber": "T-0051979",
-        "InterestPostingAccount": "",
+        "AccountHolders": props.accountHolders,
+        "Nominees": props.nominees,
+        "AccountOperators": props.accountOperators,
+        "Introducers": props.introducers,
+        "DMSProductCode": props.dMSProductCode,
+        "ApplicationNo": props.applicationNo,
+        "BranchCode": props.branchCode,
+        "AccountFor": props.accountFor,
+        "AccountName": props.accountName,
+        "InterestRate": props.interestRate,
+        "Duration": props.duration,
+        "InstallmentAmount": props.installmentAmount,
+        "TxnAccountNumber": props.txnAccountNumber,
+        "InterestPostingAccount": props.interestPostingAccount,
         "OTPRegId": props.otpRegId,
         "OTPValue": props.otpValue,
         "UserName": props.email,
@@ -378,7 +368,7 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      // var jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.createDepositAccount,

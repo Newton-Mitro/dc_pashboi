@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
+import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -189,16 +192,54 @@ class AccountOpeningStepsBloc
 
       final user = authUserResult.getOrElse(() => throw Exception()).user;
 
+      final cardPin = state.stepData[3]?['cardPin']?.trim() ?? '';
+
+      final secretKey = md5.convert(utf8.encode(cardPin)).toString();
+
+      final nominees =
+          state.nominees
+              .map(
+                (nominee) => {
+                  "PersonId": nominee.id,
+                  "NomineePercentage": nominee.percentage,
+                },
+              )
+              .toList();
+
       final accountResult = await openDepositAccountUseCase.call(
         OpenDepositAccountParams(
-          accountType: '',
-          accountName: '',
-          accountNumber: '',
-          accountBalance: '',
-          accountCurrency: '',
-          accountDescription: '',
-          otpRegId: '',
-          otpValue: '',
+          dMSProductCode: "19",
+          branchCode: "01",
+          accountFor: 0,
+          accountName: state.stepData[2]?['accountName'],
+          interestRate: state.selectedTenure!.interestRate,
+          duration: state.selectedTenure!.durationInMonths,
+          installmentAmount: state.selectedTenureAmount!.depositAmount,
+          txnAccountNumber: state.selectedAccount!.number,
+          accountNo: state.selectedAccount!.number,
+          applicationNo: '',
+          interestPostingAccount: state.stepData[2]?['interestTransferAccount'],
+          cardNo: state.selectedCard!.cardNumber,
+          nameOnCard: state.selectedCard!.nameOnCard,
+          secretKey: secretKey,
+          otpRegId: state.stepData[4]?['OTPRegId'],
+          otpValue: state.stepData[6]?['OTP'],
+          introducers: [],
+          accountHolders: [
+            {
+              "AccountHolderId": user.personId,
+              "IsOrganization": false,
+              "SavingsACNumber": state.stepData[2]?['interestTransferAccount'],
+              "MembershipNumber": "",
+            },
+          ],
+          nominees: nominees,
+          accountOperators: [
+            {
+              "AccountHolderId": user.personId,
+              "AccountOperatorId": user.personId,
+            },
+          ],
           email: user.loginEmail,
           userId: user.userId,
           rolePermissionId: user.roleId,
