@@ -275,65 +275,17 @@ class AccountOpeningStepsBloc
         break;
 
       case 1:
-        // if (data['searchAccountNumber'] == null) {
-        //   errors['searchAccountNumber'] =
-        //       'Please enter a search account number';
-        // }
-        // if (data['searchedAccountHolderName'] == null) {
-        //   errors['searchedAccountHolderName'] =
-        //       'Search account holder name is required';
-        // }
         break;
 
       case 2:
-        // final selectedLedgers =
-        //     state.nominees.where((l) => l.isSelected).toList();
-        // if (selectedLedgers.isEmpty) {
-        //   errors['ledgers'] = 'Please select at least one ledger to deposit';
-        // } else {
-        //   // Map ledgerId to error message for invalid deposit amounts
-        //   final Map<String, String> amountErrors = {};
+        if (state.selectedTenure == null) {
+          errors['accountDuration'] = 'Please add selected tenure';
+        }
 
-        //   for (final ledger in selectedLedgers) {
-        //     if (ledger.depositAmount <= 0) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount must be greater than zero';
-        //     } else if (!ledger.subledger &&
-        //         ledger.depositAmount < ledger.amount) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount cannot be less than the ${ledger.amount}';
-        //     } else if (ledger.multiplier &&
-        //         ledger.depositAmount % ledger.amount != 0) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount must be a multiple of ${ledger.amount}';
-        //     } else if (ledger.plType == 2 &&
-        //         ledger.depositAmount > ledger.loanBalance) {
-        //       amountErrors[ledger.ledgerId.toString()] =
-        //           'Deposit amount cannot be greater than the ${ledger.loanBalance}';
-        //     }
-        //   }
-
-        //   if (amountErrors.isNotEmpty) {
-        //     errors['amounts'] = amountErrors;
-        //   } else {
-        //     final totalDeposit = selectedLedgers.fold<double>(
-        //       0,
-        //       (sum, ledger) => sum + (ledger.depositAmount),
-        //     );
-
-        //     final totalWithdrawable =
-        //         state.selectedAccount != null
-        //             ? state.selectedAccount!.withdrawableBalance
-        //             : 0;
-
-        //     if (totalDeposit > totalWithdrawable) {
-        //       errors['ledgers'] =
-        //           "You don't have enough balance to deposit this amount";
-        //     }
-        //   }
-        // }
+        if (state.selectedTenureAmount == null) {
+          errors['installmentAmount'] = 'Please  select installment amount';
+        }
         break;
-
       case 3:
         final nominees = state.nominees;
         if (nominees.isEmpty) {

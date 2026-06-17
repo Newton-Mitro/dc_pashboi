@@ -393,6 +393,11 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
               AccountOpeningSelectTenure(selectedTenure!),
             );
           },
+          accountDurationError:
+              state.validationErrors[state.currentStep]?['accountDuration'],
+
+          installmentAmountError:
+              state.validationErrors[state.currentStep]?['installmentAmount'],
           installmentAmount:
               state.selectedTenureAmount != null
                   ? state.selectedTenureAmount!.depositAmount
