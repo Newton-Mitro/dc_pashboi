@@ -288,12 +288,16 @@ class AccountOpeningStepsBloc
         break;
 
       case 1:
-        if (data['accountForText'] != null) {
-          errors['accountForText'] = 'Please enter account for text';
-        }
         break;
 
       case 2:
+        if (state.selectedTenure == null) {
+          errors['accountDuration'] = 'Please add selected tenure';
+        }
+
+        if (state.selectedTenureAmount == null) {
+          errors['installmentAmount'] = 'Please  select installment amount';
+        }
         break;
       case 3:
         final nominees = state.nominees;

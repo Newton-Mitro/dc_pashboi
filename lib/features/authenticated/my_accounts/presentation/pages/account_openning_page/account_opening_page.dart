@@ -139,7 +139,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: Locales.string(context, 'oops'),
+                  title: Locales.string(context, 'success'),
                   message: state.successMessage!,
                   contentType: ContentType.success,
                 ),
