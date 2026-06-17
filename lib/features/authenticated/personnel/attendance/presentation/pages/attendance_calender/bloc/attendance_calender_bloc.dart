@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/domain/entities/get_attendance_entities.dart';
@@ -11,10 +12,12 @@ class AttendanceCalenderBloc
     extends Bloc<AttendanceCalenderHistory, AttendanceCalenderState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final AttendanceUseCase attendanceUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AttendanceCalenderBloc({
     required this.getAuthUserUseCase,
     required this.attendanceUseCase,
+    required this.appLocalizationService,
   }) : super(AttendanceCalenderInitial()) {
     on<AttendanceCalenderHistory>(_fetchAttendanceHistory);
   }
@@ -28,7 +31,11 @@ class AttendanceCalenderBloc
       final userResult = await getAuthUserUseCase(NoParams());
 
       final userEntity = userResult.fold((failure) {
-        emit(AttendanceCalenderError('Failed to load user information'));
+        emit(
+          AttendanceCalenderError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return null;
       }, (success) => success.user);
 

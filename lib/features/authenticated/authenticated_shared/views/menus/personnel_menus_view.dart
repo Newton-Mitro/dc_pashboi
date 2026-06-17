@@ -60,10 +60,7 @@ class _PersonnelMenusViewState extends State<PersonnelMenusView> {
       },
       {
         "icon": Icon(FontAwesomeIcons.thumbsUp, color: color, size: 30),
-        "menuName": Locales.string(
-          context,
-          "personnel_menu_leave_approval_title",
-        ),
+        "menuName": Locales.string(context, "leave_approval"),
 
         "route": AuthRoutesName.leaveApprovalPage,
         "controllerName": "Leave Approval",

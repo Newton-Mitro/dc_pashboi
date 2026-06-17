@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/shared/widgets/app_dropdown_select.dart';
 import 'package:pashboi/shared/widgets/app_search_input.dart';
@@ -28,7 +29,7 @@ class TransferToAccountSection extends StatefulWidget {
   changeSearchedAccountHolderName;
 
   const TransferToAccountSection({
-    Key? key,
+    super.key,
     this.sectionTitle,
     required this.searchAccountNumber,
     required this.searchAccountNumberError,
@@ -39,7 +40,7 @@ class TransferToAccountSection extends StatefulWidget {
     required this.changeSearchAccountNumber,
     required this.changeBeneficiaryAccountNumber,
     required this.changeSearchedAccountHolderName,
-  }) : super(key: key);
+  });
 
   @override
   State<TransferToAccountSection> createState() =>
@@ -90,7 +91,9 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
   void _searchWithAccountNumber(String searchText) {
     if (searchText.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter account number")),
+        SnackBar(
+          content: Text(Locales.string(context, 'please_enter_account_number')),
+        ),
       );
       return;
     }
@@ -114,7 +117,10 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, widget.sectionTitle ?? "Search Account"),
+          _buildHeader(
+            context,
+            widget.sectionTitle ?? Locales.string(context, 'search_account'),
+          ),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -156,7 +162,7 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
                           widget.changeBeneficiaryAccountNumber(value);
                           _searchWithAccountNumber(value ?? '');
                         },
-                        label: "Beneficiary",
+                        label: Locales.string(context, 'beneficiary'),
                       );
                     } else {
                       return const SizedBox.shrink();
@@ -164,14 +170,14 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
                   },
                 ),
                 const SizedBox(height: 10),
-                const Text("or"),
+                Text(Locales.string(context, 'or')),
                 const SizedBox(height: 10),
                 BlocBuilder<CollectionLedgerBloc, CollectionLedgerState>(
                   builder: (context, cState) {
                     bool isLoading = cState is CollectionLedgerLoading;
                     return AppSearchTextInput(
                       initialValue: widget.searchAccountNumber,
-                      label: "Account Number",
+                      label: Locales.string(context, 'account_number'),
                       isSearch: true,
                       errorText: widget.searchAccountNumberError,
                       enabled: !isLoading,
@@ -191,7 +197,7 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
                 const SizedBox(height: 16),
                 AppTextInput(
                   initialValue: displayedName,
-                  label: "Account Holder Name",
+                  label: Locales.string(context, 'account_holder_name'),
                   errorText: widget.searchedAccountHolderNameError,
                   prefixIcon: Icon(
                     Icons.person,

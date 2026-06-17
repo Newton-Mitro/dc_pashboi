@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/shared/widgets/app_text_input.dart';
@@ -36,7 +37,10 @@ class AccountHolderSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, "Select Account Holder"),
+          _buildHeader(
+            context,
+            Locales.string(context, 'select_account_holder'),
+          ),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -44,7 +48,7 @@ class AccountHolderSection extends StatelessWidget {
                 AppTextInput(
                   controller: TextEditingController(text: accountForText),
                   enabled: false,
-                  label: "Account Type",
+                  label: Locales.string(context, 'account_type'),
                   prefixIcon: Icon(
                     FontAwesomeIcons.creditCard,
                     color: context.theme.colorScheme.onSurface,
@@ -54,7 +58,7 @@ class AccountHolderSection extends StatelessWidget {
                 AppTextInput(
                   controller: TextEditingController(text: accountHolderName),
                   enabled: false,
-                  label: "Account Holder",
+                  label: Locales.string(context, 'account_holder_name'),
                   prefixIcon: Icon(
                     FontAwesomeIcons.user,
                     color: context.theme.colorScheme.onSurface,
@@ -79,13 +83,13 @@ class AccountHolderSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, "Account Operator"),
+          _buildHeader(context, Locales.string(context, 'account_operator')),
           Padding(
             padding: const EdgeInsets.all(16),
             child: AppTextInput(
               controller: TextEditingController(text: accountOperatorName),
               enabled: false,
-              label: "Account Operator",
+              label: Locales.string(context, 'account_operator_name'),
               prefixIcon: Icon(
                 FontAwesomeIcons.userShield,
                 color: context.theme.colorScheme.onSurface,

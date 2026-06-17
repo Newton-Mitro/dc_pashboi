@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -12,9 +13,11 @@ part 'relationship_state.dart';
 class RelationshipBloc extends Bloc<RelationshipEvent, RelationshipState> {
   final FetchRelationshipsUseCase fetchRelationshipsUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
   RelationshipBloc({
     required this.fetchRelationshipsUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(RelationshipInitial()) {
     on<FetchRelationshipsEvent>((event, emit) async {
       emit(RelationshipLoading());
@@ -25,7 +28,11 @@ class RelationshipBloc extends Bloc<RelationshipEvent, RelationshipState> {
 
         authUser.fold(
           (left) {
-            emit(RelationshipError('Failed to load user information'));
+            emit(
+              RelationshipError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
+            );
           },
           (right) {
             user = right.user;
@@ -33,7 +40,11 @@ class RelationshipBloc extends Bloc<RelationshipEvent, RelationshipState> {
         );
 
         if (user == null) {
-          emit(RelationshipError('User not found'));
+          emit(
+            RelationshipError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -58,7 +69,11 @@ class RelationshipBloc extends Bloc<RelationshipEvent, RelationshipState> {
           },
         );
       } catch (e) {
-        emit(RelationshipError('Failed to load debit card'));
+        emit(
+          RelationshipError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

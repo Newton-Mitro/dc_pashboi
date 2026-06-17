@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -62,30 +63,35 @@ void registerTransferModule() async {
     () => BankToDcTransferStepsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitTransferBankToDcUseCase: sl<SubmitTransferBankToDcUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<InternalTransferStepsBloc>(
     () => InternalTransferStepsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitFundTransferUseCase: sl<SubmitFundTransferUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<TransferToBkashStepsBloc>(
     () => TransferToBkashStepsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitTransferToBkashUseCase: sl<SubmitTransferToBkashUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<DcBankAccountBloc>(
     () => DcBankAccountBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       fetchDcBankAccountsUseCase: sl<FetchDcBankAccountsUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<TransferSearchAccountBloc>(
     () => TransferSearchAccountBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       fetchTransferAccountUseCase: sl<FetchTransferAccountUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
@@ -68,7 +69,10 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, "Select Account Nominee"),
+          _buildHeader(
+            context,
+            Locales.string(context, 'select_account_nominee'),
+          ),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -82,7 +86,10 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                     }
                     if (state is FamilyAndRelativesFailure) {
                       return Text(
-                        "Failed to load family members",
+                        Locales.string(
+                          context,
+                          'failed_to_load_family_or_relative',
+                        ),
                         style: TextStyle(
                           color: context.theme.colorScheme.error,
                         ),
@@ -99,7 +106,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                     }
 
                     return AppDropdownSelect<String>(
-                      label: "Nominee",
+                      label: Locales.string(context, 'nominee'),
                       prefixIcon: FontAwesomeIcons.user,
                       value: nomineeName,
                       enabled: names.isNotEmpty,
@@ -118,7 +125,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                 ),
                 const SizedBox(height: 12),
                 AppDropdownSelect<double>(
-                  label: "Share Percentage",
+                  label: Locales.string(context, 'share_percentage'),
                   prefixIcon: FontAwesomeIcons.percent,
                   value: sharePercentage,
                   onChanged: onSharePercentageChanged,
@@ -133,7 +140,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                 const SizedBox(height: 16),
                 AppPrimaryButton(
                   iconBefore: const Icon(FontAwesomeIcons.userPlus),
-                  label: "Add nominee",
+                  label: Locales.string(context, 'add_nominee'),
                   enabled:
                       nomineeName != null &&
                       sharePercentage != 0 &&
@@ -156,7 +163,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "Remaining: ${remainingPercentage.toStringAsFixed(1)}%",
+                  "${Locales.string(context, 'remaining')}: ${remainingPercentage.toStringAsFixed(1)}%",
                   style: TextStyle(
                     color:
                         widget.sectionError != null
@@ -188,7 +195,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(context, "Appointed Nominee's"),
+          _buildHeader(context, Locales.string(context, 'appointed_nominees')),
           Padding(
             padding: const EdgeInsets.all(16),
             child: SizedBox(
@@ -197,7 +204,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                   widget.nominees.isEmpty
                       ? Center(
                         child: Text(
-                          "No nominees added yet.",
+                          Locales.string(context, 'no_nominees_added_yet'),
                           style: TextStyle(
                             color: context.theme.colorScheme.onSurface
                                 .withOpacity(0.6),

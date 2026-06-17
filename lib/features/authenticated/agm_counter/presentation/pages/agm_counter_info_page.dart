@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/agm_counter/domain/entities/agm_counter_entity.dart';
@@ -32,7 +33,9 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("AGM Counter Info")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'agm_counter_info_page_title')),
+      ),
       body: PageContainer(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -50,7 +53,10 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
                   children: [
                     // Section title
                     Text(
-                      "Search Counter",
+                      Locales.string(
+                        context,
+                        'agm_counter_info_page_search_input_label',
+                      ),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -61,7 +67,10 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
 
                     // Account No Input
                     AppTextInput(
-                      label: "Membership No",
+                      label: Locales.string(
+                        context,
+                        'agm_counter_info_page_search_input_hint',
+                      ),
                       controller: _accountNoController,
                     ),
                     const SizedBox(height: 12),
@@ -81,8 +90,11 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
                               );
                             }
                           },
-                          child: const Text(
-                            "Find",
+                          child: Text(
+                            Locales.string(
+                              context,
+                              'agm_counter_info_page_search_button_text',
+                            ),
                             style: TextStyle(fontSize: 14),
                           ),
                         ),
@@ -160,7 +172,7 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
             const SizedBox(height: 20),
 
             Text(
-              "SL: ${counter.slNo}",
+              "${Locales.string(context, 'agm_counter_info_page_sl_label')}: ${counter.slNo}",
               style: TextStyle(
                 color: context.theme.colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
@@ -182,7 +194,7 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: Text(
-                "Location: ${counter.locationName}\nAccount No: ${counter.accountNo}",
+                "${Locales.string(context, 'agm_counter_info_page_location_label')}: ${counter.locationName}\n${Locales.string(context, 'agm_counter_info_page_account_no_label')}: ${counter.accountNo}",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/deposit/domain/usecases/fetch_bkash_service_charge_usecase.dart';
@@ -11,10 +12,12 @@ class BkashServiceChargeBloc
     extends Bloc<BkashServiceChargeEvent, BkashServiceChargeState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchBkashServiceChargeUseCase fetchBkashServiceChargeUseCase;
+  final AppLocalizationService appLocalizationService;
 
   BkashServiceChargeBloc({
     required this.getAuthUserUseCase,
     required this.fetchBkashServiceChargeUseCase,
+    required this.appLocalizationService,
   }) : super(BkashServiceChargeInitial()) {
     on<FetchBkashServiceChargeEvent>(_onFetchBkashServiceCharge);
   }
@@ -29,7 +32,11 @@ class BkashServiceChargeBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(BkashServiceChargeError('Failed to load user information'));
+        emit(
+          BkashServiceChargeError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return;
       }
 
@@ -53,7 +60,11 @@ class BkashServiceChargeBloc
             emit(BkashServiceChargeLoaded(serviceCharge: serviceCharge)),
       );
     } catch (_) {
-      emit(BkashServiceChargeError('Failed to load service charge'));
+      emit(
+        BkashServiceChargeError(
+          appLocalizationService.t('failed_to_loan_service_charge'),
+        ),
+      );
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -23,6 +24,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
   final LockTheCardUseCase lockTheCardUseCase;
   final VerifyCardPinUseCase verifyCardPinUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   late UserEntity? user;
 
@@ -33,6 +35,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
     required this.lockTheCardUseCase,
     required this.verifyCardPinUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(const DebitCardState()) {
     on<DebitCardLoad>(_onLoad);
     on<DebitCardIssue>(_onIssue);
@@ -46,8 +49,11 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
     UserEntity? userEntity;
 
     authResult.fold(
-      (failure) =>
-          emit(state.copyWith(error: 'Failed to load user information')),
+      (failure) => emit(
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_load_user_info'),
+        ),
+      ),
       (authData) => userEntity = authData.user,
     );
 
@@ -83,7 +89,10 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
       );
     } catch (e) {
       emit(
-        state.copyWith(isLoading: false, error: 'Failed to load debit card'),
+        state.copyWith(
+          isLoading: false,
+          error: appLocalizationService.t('failed_to_load_debit_card'),
+        ),
       );
     }
   }
@@ -117,12 +126,19 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
         (_) => emit(
           state.copyWith(
             isLoading: false,
-            successMessage: 'Card issued successfully',
+            successMessage: appLocalizationService.t(
+              'card_issued_successfully',
+            ),
           ),
         ),
       );
     } catch (e) {
-      emit(state.copyWith(isLoading: false, error: 'Card issue failed'));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          error: appLocalizationService.t('card_issue_failed'),
+        ),
+      );
     }
   }
 
@@ -154,12 +170,19 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
         (_) => emit(
           state.copyWith(
             isLoading: false,
-            successMessage: 'Card reissued successfully',
+            successMessage: appLocalizationService.t(
+              'card_reissued_successfully',
+            ),
           ),
         ),
       );
     } catch (e) {
-      emit(state.copyWith(isLoading: false, error: 'Card reissue failed'));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          error: appLocalizationService.t('card_reissue_failed'),
+        ),
+      );
     }
   }
 
@@ -198,7 +221,9 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
         (_) => emit(
           state.copyWith(
             isLoading: false,
-            successMessage: 'Card blocked successfully',
+            successMessage: appLocalizationService.t(
+              'card_blocked_successfully',
+            ),
             error: null,
           ),
         ),
@@ -207,7 +232,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
       emit(
         state.copyWith(
           isLoading: false,
-          error: 'Failed to block card',
+          error: appLocalizationService.t('failed_to_block_card'),
           successMessage: null,
         ),
       );
@@ -256,16 +281,23 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
             emit(
               state.copyWith(
                 isLoading: false,
-                error: 'Card blocked after 3 incorrect PIN attempts',
+                error: appLocalizationService.t(
+                  'card_blocked_after_3_incorrect_pin_attempts',
+                ),
                 pinAttempts: updatedAttempts,
                 successMessage: null,
               ),
             );
           } else {
+            final errorMessage =
+                '${appLocalizationService.t('incorrect_pin_attempt')} '
+                '$updatedAttempts '
+                '${appLocalizationService.t('of_3')}';
+
             emit(
               state.copyWith(
                 isLoading: false,
-                error: 'Incorrect PIN. Attempt $updatedAttempts of 3.',
+                error: errorMessage,
                 successMessage: null,
                 pinAttempts: updatedAttempts,
               ),
@@ -285,7 +317,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
       emit(
         state.copyWith(
           isLoading: false,
-          error: 'PIN verification failed',
+          error: appLocalizationService.t('pin_verification_failed'),
           successMessage: null,
         ),
       );

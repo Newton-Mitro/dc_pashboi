@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
@@ -19,7 +20,9 @@ class WithdrawQrSuccessPage extends StatelessWidget {
     final colorScheme = context.theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Generated Success")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, "otqr_generated_successfully")),
+      ),
       body: PageContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +46,7 @@ class WithdrawQrSuccessPage extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton.icon(
               icon: const Icon(Icons.share),
-              label: const Text("Share QR Code"),
+              label: Text(Locales.string(context, 'share_qr_code')),
               onPressed: () async {
                 await _shareQrCode(successMessage);
               },
@@ -52,7 +55,7 @@ class WithdrawQrSuccessPage extends StatelessWidget {
             const SizedBox(height: 20),
             // ✅ Main title
             Text(
-              "Withdrawal QR Generated!",
+              Locales.string(context, 'withdrawl_qr_generated'),
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
@@ -65,7 +68,7 @@ class WithdrawQrSuccessPage extends StatelessWidget {
 
             // 🚀 CTA Button
             AppPrimaryButton(
-              label: "Back To Home",
+              label: Locales.string(context, 'back_to_home'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -107,11 +110,8 @@ class WithdrawQrSuccessPage extends StatelessWidget {
     final file = File('${tempDir.path}/qr_code.png');
     await file.writeAsBytes(bytes);
 
-    final shareResult = await SharePlus.instance.share(
+    await SharePlus.instance.share(
       ShareParams(files: [XFile(file.path)], text: 'Here is your QR code!'),
     );
-
-    // Optionally handle shareResult or show a confirmation
-    print('Share status: ${shareResult.status}');
   }
 }

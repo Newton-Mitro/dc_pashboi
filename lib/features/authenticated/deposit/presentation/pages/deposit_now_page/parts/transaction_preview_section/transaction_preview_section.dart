@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/row_info.dart';
@@ -53,7 +54,7 @@ class TransactionPreviewSection extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "Preview of Deposit",
+                      Locales.string(context, 'priview_of_deposit'),
                       style: TextStyle(
                         color: colorScheme.onPrimary,
                         fontSize: 16,
@@ -105,7 +106,7 @@ class TransactionPreviewSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Total Deposit Amount:",
+                    "${Locales.string(context, 'total_deposit_amount')}:",
                     style: TextStyle(
                       color: colorScheme.onSurface,
                       fontWeight: FontWeight.w600,

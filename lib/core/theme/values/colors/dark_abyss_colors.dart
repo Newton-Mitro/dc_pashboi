@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class DarkAbyssColors extends AppColors {
-  static const Color _primary = Color.fromARGB(255, 29, 36, 48);
+  static const Color _primary = Color.fromARGB(255, 43, 52, 68);
 
   @override
   Color get primary => _primary;
@@ -93,6 +93,24 @@ class DarkAbyssColors extends AppColors {
 
   @override
   Color get onErrorContainer => Colors.white;
+
+  @override
+  Color get success => Color(0xFF5CB31E);
+  @override
+  Color get onSuccess => Colors.white;
+  @override
+  Color get successContainer => Color(0xFFDEF9DC);
+  @override
+  Color get onSuccessContainer => Color(0xFF0B410C);
+
+  @override
+  Color get warning => Color(0xFFB3771E);
+  @override
+  Color get onWarning => Colors.white;
+  @override
+  Color get warningContainer => Color(0xFFF9EBDC);
+  @override
+  Color get onWarningContainer => Color(0xFF41320B);
 
   @override
   Color get background => Color(0xFF121212);

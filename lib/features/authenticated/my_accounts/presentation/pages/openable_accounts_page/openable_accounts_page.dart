@@ -43,9 +43,9 @@ class _OpenableAccountsPageState extends State<OpenableAccountsPage> {
             );
           } else if (state is OpenableAccountSuccess) {
             if (state.openableAccounts.isEmpty) {
-              return const Center(
+              return Center(
                 child: Text(
-                  'No accounts available to open.',
+                  Locales.string(context, 'no_accounts_available_to_open'),
                   style: TextStyle(fontSize: 16),
                 ),
               );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
+import 'package:pashboi/core/theme/values/colors/dark_blue_ocean_colors.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
@@ -13,7 +15,9 @@ class BankToDcTransferSuccessPage extends StatelessWidget {
     final colorScheme = context.theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Bank To DC Transfer Success")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'bank_to_dc_transfer_success')),
+      ),
       body: PageContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -22,13 +26,13 @@ class BankToDcTransferSuccessPage extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: colorScheme.primary.withOpacity(0.1),
+                color: DarkBlueOceanColors().success.withOpacity(0.1),
               ),
               padding: const EdgeInsets.all(24),
               child: Icon(
                 Icons.check_circle_rounded,
                 size: 80,
-                color: colorScheme.primary,
+                color: DarkBlueOceanColors().success,
               ),
             ),
 
@@ -36,11 +40,11 @@ class BankToDcTransferSuccessPage extends StatelessWidget {
 
             // ✅ Main title
             Text(
-              "Transaction Successful!",
+              Locales.string(context, 'transaction_successful'),
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
-                color: colorScheme.primary,
+                color: DarkBlueOceanColors().success,
               ),
               textAlign: TextAlign.center,
             ),
@@ -58,8 +62,7 @@ class BankToDcTransferSuccessPage extends StatelessWidget {
 
             // 🚀 CTA Button
             AppPrimaryButton(
-              label: "Back To Home",
-              // label: Locales.string(context, 'login_page_login_button'),
+              label: Locales.string(context, 'back_to_home'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

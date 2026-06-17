@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
@@ -73,7 +74,11 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildHeader(context, widget.sectionTitle ?? "Bank Transfer Info"),
+          _buildHeader(
+            context,
+            widget.sectionTitle ??
+                Locales.string(context, 'bank_transfer_ifnormation'),
+          ),
           _buildFormBody(context),
         ],
       ),
@@ -127,7 +132,7 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppDropdownSelect(
-                      label: "Bank Account",
+                      label: Locales.string(context, 'bank_account'),
                       value: widget.selectedBankAccount.id,
                       prefixIcon: FontAwesomeIcons.buildingColumns,
                       errorText: widget.bankSelectionError,
@@ -154,22 +159,15 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
 
                     AppTextInput(
                       enabled: false,
-                      label: "Routing Number",
+                      label: Locales.string(context, 'routing_number'),
                       keyboardType: TextInputType.number,
                       prefixIcon: const Icon(Icons.route),
                       initialValue: widget.selectedBankAccount.bankRoutingNo,
                     ),
                     const SizedBox(height: 16),
 
-                    // AppTextInput(
-                    //   label: "Transaction ID",
-                    //   prefixIcon: const Icon(Icons.confirmation_number),
-                    //   initialValue: widget.transactionId,
-                    //   onChanged: widget.onTransactionIdChange,
-                    // ),
-                    // const SizedBox(height: 16),
                     AppTextInput(
-                      label: "Deposit Amount",
+                      label: Locales.string(context, 'deposit_amount'),
                       errorText: widget.amountError,
                       prefixIcon: const Icon(Icons.attach_money),
                       keyboardType: TextInputType.number,
@@ -180,7 +178,9 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
                     ),
                     const SizedBox(height: 10),
 
-                    const Text("Attach Bank Transfer Receipt"),
+                    Text(
+                      Locales.string(context, 'attach_bank_transfer_receipt'),
+                    ),
                     const SizedBox(height: 8),
 
                     GestureDetector(
@@ -201,18 +201,15 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
                           child:
                               widget.receiptFile != null
                                   ? Image.file(widget.receiptFile!)
-                                  : const Text("Tap to upload receipt image"),
+                                  : Text(
+                                    Locales.string(
+                                      context,
+                                      'tap_to_upload_receipt_image',
+                                    ),
+                                  ),
                         ),
                       ),
                     ),
-                    // const SizedBox(height: 16),
-
-                    // AppTextInput(
-                    //   label: "Remarks",
-                    //   prefixIcon: const Icon(Icons.edit_note),
-                    //   initialValue: widget.remarks,
-                    //   onChanged: widget.onRemarksChange,
-                    // ),
                   ],
                 ),
               ),

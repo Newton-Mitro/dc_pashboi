@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
@@ -18,7 +19,7 @@ class CollateralDetails extends StatefulWidget {
   final Map<String, String>? amountErrors;
 
   const CollateralDetails({
-    Key? key,
+    super.key,
     required this.title,
     required this.ledgers,
     required this.onToggleSelect,
@@ -27,7 +28,7 @@ class CollateralDetails extends StatefulWidget {
     required this.sectionError,
     this.amountErrors = const {},
     required this.totalAmount,
-  }) : super(key: key);
+  });
 
   @override
   State<CollateralDetails> createState() => _CollateralDetailsState();
@@ -131,24 +132,36 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                     children: [
                                       _InfoItem(
                                         icon: FontAwesomeIcons.layerGroup,
-                                        label: "Account Type",
+                                        label: Locales.string(
+                                          context,
+                                          'account_type',
+                                        ),
                                         value: accounts.accountType ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.hashtag,
-                                        label: "Account Number",
+                                        label: Locales.string(
+                                          context,
+                                          'account_number',
+                                        ),
                                         value: accounts.accountNumber ?? "N/A",
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.sackDollar,
-                                        label: "Account Balance",
+                                        label: Locales.string(
+                                          context,
+                                          'account_balance',
+                                        ),
                                         value: TakaFormatter.format(
                                           accounts.totalBalance ?? 0,
                                         ),
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.coins,
-                                        label: "Loanable Balance",
+                                        label: Locales.string(
+                                          context,
+                                          'loanable_balance',
+                                        ),
                                         value: TakaFormatter.format(
                                           accounts.loanableBalance ?? 0,
                                         ),
@@ -175,7 +188,10 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                           .accountNumber
                                           .toString()]!
                                       : '',
-                              label: "Apply Loan Amount",
+                              label: Locales.string(
+                                context,
+                                'apply_loan_amount',
+                              ),
                               prefixIcon: Icon(
                                 FontAwesomeIcons.coins,
                                 color: theme.colorScheme.onSurface,
@@ -191,7 +207,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                           ],
                         ),
                       );
-                    }).toList(),
+                    }),
                   ],
                 ),
               ),
@@ -234,7 +250,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                       Row(
                         children: [
                           Text(
-                            "Total Apply Loan Amount:",
+                            Locales.string(context, 'total_apply_loan_amount'),
                             style: TextStyle(
                               color: colorScheme.onSurface,
                               fontWeight: FontWeight.w600,
@@ -271,11 +287,10 @@ class _InfoItem extends StatelessWidget {
   final String value;
 
   const _InfoItem({
-    Key? key,
     required this.icon,
     required this.label,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +299,7 @@ class _InfoItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18, color: theme.colorScheme.primary),
+        Icon(icon, size: 18, color: theme.colorScheme.onSurface),
         const SizedBox(width: 8),
         Expanded(
           child: Column(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
@@ -11,7 +12,9 @@ class ProductLoanSuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = context.theme.colorScheme;
     return Scaffold(
-      appBar: AppBar(title: const Text("Product Loan Success")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'product_loan_success')),
+      ),
       body: PageContainer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +35,10 @@ class ProductLoanSuccessPage extends StatelessWidget {
             const SizedBox(height: 24),
 
             Text(
-              "Your Product Loan Has Been Successfully Applied!",
+              Locales.string(
+                context,
+                'your_product_loan_has_successfully_applied',
+              ),
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w700,
@@ -52,7 +58,7 @@ class ProductLoanSuccessPage extends StatelessWidget {
             const SizedBox(height: 32),
 
             AppPrimaryButton(
-              label: "Back To Home",
+              label: Locales.string(context, 'back_to_home'),
               // label: Locales.string(context, 'login_page_login_button'),
               onPressed: () {
                 Navigator.of(context).pop();

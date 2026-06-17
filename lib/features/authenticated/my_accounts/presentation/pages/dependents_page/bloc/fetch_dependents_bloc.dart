@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/deposit_account_entity.dart';
@@ -12,10 +13,12 @@ class FetchDependentsBloc
     extends Bloc<FetchDependentsEvent, FetchDependentsState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchDependentsUseCase fetchDependentsUseCase;
+  final AppLocalizationService appLocalizationService;
 
   FetchDependentsBloc({
     required this.getAuthUserUseCase,
     required this.fetchDependentsUseCase,
+    required this.appLocalizationService,
   }) : super(FetchDependentsInitial()) {
     on<FetchDependentsEvent>(_onFetchDependents);
   }
@@ -31,7 +34,11 @@ class FetchDependentsBloc
 
       return authResult.fold(
         (failure) {
-          emit(FetchDependentsError('Failed to load user information'));
+          emit(
+            FetchDependentsError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
         },
         (authUserData) async {
           final user = authUserData.user;

@@ -55,9 +55,7 @@ class DepositLoanEligibilityModel {
       'InterestType': interestType,
       'IsEligible': isEligible,
       'EligibilityDetails':
-          eligibilityDetails
-              .map((e) => (e as EligibilityDetailModel).toJson())
-              .toList(),
+          eligibilityDetails.map((e) => (e).toJson()).toList(),
     };
   }
 

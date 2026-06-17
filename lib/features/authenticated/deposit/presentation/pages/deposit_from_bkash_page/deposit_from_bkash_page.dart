@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/bkash_icon.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/deposit_for_section/deposit_for_section.dart';
@@ -79,12 +80,13 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, "oops"),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -121,12 +123,13 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, "oops"),
                   message: state.message,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -145,7 +148,9 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
               DepositFromBkashStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: Text('Deposit From bKash')),
+            appBar: AppBar(
+              title: Text(Locales.string(context, 'deposit_from_bkash')),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -203,7 +208,10 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context
                                           .read<DepositFromBkashStepsBloc>()
@@ -218,7 +226,15 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                                   FontAwesomeIcons.angleRight,
                                 ),
                                 label:
-                                    isLastStep ? "Proceed with bKash" : "Next",
+                                    isLastStep
+                                        ? Locales.string(
+                                          context,
+                                          'proceed_with_bkash',
+                                        )
+                                        : Locales.string(
+                                          context,
+                                          "next_button_text",
+                                        ),
                                 onPressed: () {
                                   if (isLastStep) {
                                     _submitDepositFromBkash();
@@ -292,7 +308,7 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
       StepItem(
         icon: FontAwesomeIcons.magnifyingGlassChart,
         widget: DepositForSection(
-          sectionTitle: "Deposit For",
+          sectionTitle: Locales.string(context, 'deposit_for'),
           searchAccountNumber:
               state.stepData[state.currentStep]?['searchAccountNumber'],
           searchAccountNumberError:

@@ -31,8 +31,6 @@ class _AccountStatementPageState extends State<AccountStatementPage> {
 
   @override
   void initState() {
-    print(widget.accountDetails.number.trim());
-
     super.initState();
     endDate = DateTime.now();
     startDate = DateTime(endDate.year, endDate.month - 3, endDate.day);
@@ -59,7 +57,10 @@ class _AccountStatementPageState extends State<AccountStatementPage> {
       }
 
       if (endDate.isBefore(startDate)) {
-        _errorText = 'To Date must be after From Date';
+        _errorText = Locales.string(
+          context,
+          'to_date_must_be_greater_than_from_date',
+        );
       } else {
         _errorText = null;
       }
@@ -69,7 +70,6 @@ class _AccountStatementPageState extends State<AccountStatementPage> {
   Future<void> createAndSavePdf(
     List<AccountTransactionEntity> transactions,
   ) async {
-    print("transaction: $transactions");
     final pdf = pw.Document();
     final logoBytes = await rootBundle.load(
       'assets/images/brand/company_logo.png',

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -14,10 +15,13 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
   final FetchGivenSuretiesUseCase fetchGivenSuretiesUseCase;
   final FetchLoanSuretiesUseCase fetchLoanSuretiesUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
+
   SuretyBloc({
     required this.fetchGivenSuretiesUseCase,
     required this.fetchLoanSuretiesUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(SuretyInitial()) {
     on<FetchGivenSuretiesEvent>(_fetchGivenSureties);
     on<FetchLoanSuretiesEvent>(_fetchLoanSureties);
@@ -34,7 +38,9 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
 
       authUser.fold(
         (left) {
-          emit(SuretyError('Failed to load user information'));
+          emit(
+            SuretyError(appLocalizationService.t('failed_to_load_user_info')),
+          );
         },
         (right) {
           user = right.user;
@@ -42,7 +48,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
       );
 
       if (user == null) {
-        emit(SuretyError('User not found'));
+        emit(SuretyError(appLocalizationService.t('failed_to_load_user_info')));
         return;
       }
 
@@ -66,7 +72,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
         },
       );
     } catch (e) {
-      emit(SuretyError('Failed to load debit card'));
+      emit(SuretyError(appLocalizationService.t('failed_to_load_debit_card')));
     }
   }
 
@@ -81,7 +87,9 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
 
       authUser.fold(
         (left) {
-          emit(SuretyError('Failed to load user information'));
+          emit(
+            SuretyError(appLocalizationService.t('failed_to_load_user_info')),
+          );
         },
         (right) {
           user = right.user;
@@ -89,7 +97,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
       );
 
       if (user == null) {
-        emit(SuretyError('User not found'));
+        emit(SuretyError(appLocalizationService.t('failed_to_load_user_info')));
         return;
       }
 
@@ -114,7 +122,7 @@ class SuretyBloc extends Bloc<SuretyEvent, SuretyState> {
         },
       );
     } catch (e) {
-      emit(SuretyError('Failed to load debit card'));
+      emit(SuretyError(appLocalizationService.t('failed_to_load_debit_card')));
     }
   }
 }

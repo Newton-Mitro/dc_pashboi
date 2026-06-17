@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -13,10 +14,12 @@ class AccountStatementBloc
     extends Bloc<AccountStatementEvent, AccountStatementState> {
   final GetAccountStatementUseCase getAccountStatementUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AccountStatementBloc({
     required this.getAccountStatementUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(AccountStatementInitial()) {
     on<FetchAccountStatementEvent>((event, emit) async {
       emit(AccountStatementLoading());
@@ -27,7 +30,11 @@ class AccountStatementBloc
 
         authUser.fold(
           (left) {
-            emit(AccountStatementError('Failed to load user information'));
+            emit(
+              AccountStatementError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
+            );
           },
           (right) {
             user = right.user;
@@ -35,7 +42,11 @@ class AccountStatementBloc
         );
 
         if (user == null) {
-          emit(AccountStatementError('User not found'));
+          emit(
+            AccountStatementError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -62,7 +73,11 @@ class AccountStatementBloc
           },
         );
       } catch (e) {
-        emit(AccountStatementError('Failed to load debit card'));
+        emit(
+          AccountStatementError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

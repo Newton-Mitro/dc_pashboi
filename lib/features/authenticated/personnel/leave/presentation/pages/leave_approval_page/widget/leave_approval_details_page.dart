@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/data/model/fallback_request_model.dart';
@@ -38,11 +39,11 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
   @override
   void initState() {
     super.initState();
-    _leaveTypeController.text = widget.data.leaveType ?? '';
-    _employeeNameController.text = widget.data.fallbackPersonName ?? '';
-    _totalDaysController.text = widget.data.totalLeaveDays.toString() ?? '';
-    _applicationStatusController.text = widget.data.currentStage ?? '';
-    _reasonController.text = widget.data.remarks ?? '';
+    _leaveTypeController.text = widget.data.leaveType;
+    _employeeNameController.text = widget.data.fallbackPersonName;
+    _totalDaysController.text = widget.data.totalLeaveDays.toString();
+    _applicationStatusController.text = widget.data.currentStage;
+    _reasonController.text = widget.data.remarks;
     _startDate = widget.data.fromDate;
     _endDate = widget.data.toDate;
 
@@ -74,7 +75,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
-          return 'Please enter a value';
+          return Locales.string(context, "please_enter_a_value");
         }
         return null;
       },
@@ -84,7 +85,9 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Leave Approval Details")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, "leave_approval_details")),
+      ),
       body: PageContainer(
         child: SingleChildScrollView(
           child: Padding(
@@ -107,8 +110,8 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: const Text(
-                          " Leave Approval Details",
+                        child: Text(
+                          Locales.string(context, "leave_approval_details"),
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -120,7 +123,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
 
                     AppTextInput(
                       controller: _leaveTypeController,
-                      label: 'Leave Type',
+                      label: Locales.string(context, "leave_type"),
                       prefixIcon: Icon(
                         FontAwesomeIcons.addressBook,
                         color: context.theme.colorScheme.onSurface,
@@ -132,7 +135,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
 
                     AppTextInput(
                       controller: _employeeNameController,
-                      label: 'Fallback Employee Name',
+                      label: Locales.string(context, "fallback_employee_id"),
                       prefixIcon: Icon(
                         Icons.person_outline,
                         color: context.theme.colorScheme.onSurface,
@@ -149,7 +152,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             selectedDate: _startDate,
                             onDateChanged:
                                 (d) => setState(() => _startDate = d),
-                            label: "Start Date",
+                            label: Locales.string(context, "from_date"),
                             errorText: '',
                             firstDate: null,
                             enabled: false,
@@ -160,7 +163,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                           child: AppDatePicker(
                             selectedDate: _endDate,
                             onDateChanged: (d) => setState(() => _endDate = d),
-                            label: "End Date",
+                            label: Locales.string(context, "to_date"),
                             errorText: '',
                             firstDate: null,
                             enabled: false,
@@ -176,7 +179,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                           Expanded(
                             child: AppTimePicker(
                               enabled: false,
-                              label: "Start Time",
+                              label: Locales.string(context, "start_time"),
                               selectedTime: _startTimeController,
 
                               onTimeChanged: (time) {},
@@ -185,7 +188,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                           const SizedBox(width: 12),
                           Expanded(
                             child: AppTimePicker(
-                              label: "End Time",
+                              label: Locales.string(context, "end_time"),
                               selectedTime: _endTimeController,
                               enabled: false,
                               onTimeChanged: (time) {},
@@ -200,7 +203,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                         Expanded(
                           child: AppTextInput(
                             controller: _totalDaysController,
-                            label: 'Total Day(s)',
+                            label: Locales.string(context, "total_days"),
                             prefixIcon: Icon(
                               Icons.calendar_today,
                               color: context.theme.colorScheme.onSurface,
@@ -215,7 +218,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             selectedDate: _rejoinDate,
                             onDateChanged:
                                 (d) => setState(() => _rejoinDate = d),
-                            label: "Rejoin Date",
+                            label: Locales.string(context, "rejoin_date"),
                             errorText: '',
                             firstDate: null,
                             lastDate: null,
@@ -228,14 +231,14 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
 
                     _buildTextArea(
                       controller: _reasonController,
-                      label: "Reason for Leave",
+                      label: Locales.string(context, "reason_for_leave"),
                       enabled: false,
                     ),
                     const SizedBox(height: 12),
 
                     AppTextInput(
                       controller: _applicationStatusController,
-                      label: 'Application Status',
+                      label: Locales.string(context, "application_status"),
                       prefixIcon: Icon(
                         FontAwesomeIcons.faceSmile,
                         color: context.theme.colorScheme.onSurface,
@@ -247,7 +250,10 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
 
                     _buildTextArea(
                       controller: _remarksController,
-                      label: "Fallback Approval Remarks",
+                      label: Locales.string(
+                        context,
+                        "fallback_approval_remarks",
+                      ),
                     ),
                     const SizedBox(height: 16),
 
@@ -262,7 +268,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
-                              title: 'Oops!',
+                              title: Locales.string(context, "oops"),
                               message: state.message,
                               contentType: ContentType.failure,
                             ),
@@ -279,7 +285,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             behavior: SnackBarBehavior.floating,
                             backgroundColor: Colors.transparent,
                             content: AwesomeSnackbarContent(
-                              title: 'Done!',
+                              title: Locales.string(context, "success"),
                               message: state.message,
                               contentType: ContentType.success,
                             ),
@@ -294,7 +300,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                         }
                       },
                       child: AppPrimaryButton(
-                        label: "Submit",
+                        label: Locales.string(context, "submit"),
                         onPressed: () {
                           context.read<SubmitLeaveApprovalBloc>().add(
                             SubmitLeaveApprovals(

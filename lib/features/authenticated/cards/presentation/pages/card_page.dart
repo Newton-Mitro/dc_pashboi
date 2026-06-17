@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
 import 'package:pashboi/features/authenticated/cards/presentation/pages/bloc/debit_card_bloc.dart';
@@ -34,7 +35,9 @@ class CardPage extends StatelessWidget {
     final double cardWidth = cardHeight * 2.0;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Cards')),
+      appBar: AppBar(
+        title: Text(Locales.string(context, 'my_cards_page_title')),
+      ),
       body: PageContainer(
         child: Center(
           child: Padding(
@@ -77,7 +80,10 @@ class CardPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 16),
                             child: AppPrimaryButton(
-                              label: "Apply For Re-Issue",
+                              label: Locales.string(
+                                context,
+                                "apply_for_reissue",
+                              ),
                               enabled: true,
                               onPressed: () {
                                 context.read<DebitCardBloc>().add(
@@ -97,7 +103,7 @@ class CardPage extends StatelessWidget {
 
                   return Center(
                     child: AppPrimaryButton(
-                      label: "Issue a Card",
+                      label: Locales.string(context, "issue_a_card"),
                       enabled: true,
                       onPressed: () {
                         context.read<DebitCardBloc>().add(

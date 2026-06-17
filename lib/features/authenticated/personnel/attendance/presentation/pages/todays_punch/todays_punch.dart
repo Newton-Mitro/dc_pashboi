@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
@@ -16,14 +17,12 @@ class TodaysPunch extends StatefulWidget {
 class _TodaysPunchState extends State<TodaysPunch> {
   String extractTime(String? dateTimeString) {
     if (dateTimeString == null || dateTimeString.trim().isEmpty) {
-      debugPrint("Date string is null or empty");
       return "--";
     }
     try {
       final dateTime = DateTime.parse(dateTimeString);
       return DateFormat.jm().format(dateTime);
     } catch (e) {
-      debugPrint("Date parsing error: $e");
       return "--";
     }
   }
@@ -43,7 +42,7 @@ class _TodaysPunchState extends State<TodaysPunch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Today's Punch")),
+      appBar: AppBar(title: Text(Locales.string(context, "todays_punch"))),
       body: PageContainer(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -74,7 +73,7 @@ class _TodaysPunchState extends State<TodaysPunch> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          'No punch data available',
+                          Locales.string(context, "no_record_found"),
                           textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 16),
                         ),
@@ -145,11 +144,13 @@ class _TodaysPunchState extends State<TodaysPunch> {
                                           ),
                                           const SizedBox(height: 6),
                                           Text(
-                                            "Punch Time: ${extractTime(punch.checkInTime)} ",
+                                            "${Locales.string(context, "punch_in")}: ${extractTime(punch.checkInTime)} ",
                                           ),
                                           const SizedBox(height: 4),
 
-                                          Text("Remarks: ${punch.remarks}"),
+                                          Text(
+                                            "${Locales.string(context, "remarks")}: ${punch.remarks}",
+                                          ),
                                         ],
                                       ),
                                     ),

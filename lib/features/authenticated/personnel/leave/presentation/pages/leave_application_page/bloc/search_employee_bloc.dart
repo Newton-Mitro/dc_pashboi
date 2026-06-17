@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/entities/search_employee_entity.dart';
@@ -12,9 +13,12 @@ class SearchEmployeeBloc
     extends Bloc<SearchEmployeeEvent, SearchEmployeeState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final SearchEmployeeUseCase searchEmployeeUseCase;
+  final AppLocalizationService appLocalizationService;
+
   SearchEmployeeBloc({
     required this.getAuthUserUseCase,
     required this.searchEmployeeUseCase,
+    required this.appLocalizationService,
   }) : super(SearchEmployeeInitial()) {
     on<FetchSearchEmployeeEvent>(_onFetchSearchEmployee);
   }

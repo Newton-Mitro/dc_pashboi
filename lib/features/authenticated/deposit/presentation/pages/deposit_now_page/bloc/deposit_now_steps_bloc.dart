@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -20,10 +21,12 @@ class DepositNowStepsBloc
   static const int totalSteps = lastStep + 1;
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitDepositNowUseCase submitDepositNowUseCase;
+  final AppLocalizationService appLocalizationService;
 
   DepositNowStepsBloc({
     required this.getAuthUserUseCase,
     required this.submitDepositNowUseCase,
+    required this.appLocalizationService,
   }) : super(const DepositNowStepsState(currentStep: 0)) {
     on<DepositNowGoToNextStep>(_onGoToNextStep);
     on<DepositNowGoToPreviousStep>(_onGoToPreviousStep);
@@ -241,7 +244,12 @@ class DepositNowStepsBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -292,7 +300,10 @@ class DepositNowStepsBloc
       );
     } catch (_) {
       emit(
-        state.copyWith(error: 'Failed to submit deposit now', isLoading: false),
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_submit_deposit_now'),
+          isLoading: false,
+        ),
       );
     }
   }
@@ -305,14 +316,17 @@ class DepositNowStepsBloc
       case 0:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
       case 1:
         if (data['searchAccountNumber'] == null) {
-          errors['searchAccountNumber'] =
-              'Please enter a search account number';
+          errors['searchAccountNumber'] = appLocalizationService.t(
+            'please_enter_a_search_account_number',
+          );
         }
         if (data['searchedAccountHolderName'] == null) {
           errors['searchedAccountHolderName'] =
@@ -324,27 +338,38 @@ class DepositNowStepsBloc
         final selectedLedgers =
             state.collectionLedgers.where((l) => l.isSelected).toList();
         if (selectedLedgers.isEmpty) {
-          errors['ledgers'] = 'Please select at least one ledger to deposit';
+          errors['ledgers'] = appLocalizationService.t(
+            'please_select_at_least_one_account',
+          );
         } else {
           // Map ledgerId to error message for invalid deposit amounts
           final Map<String, String> amountErrors = {};
 
           for (final ledger in selectedLedgers) {
             if (ledger.depositAmount <= 0) {
-              amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be greater than zero';
+              amountErrors[ledger.ledgerId.toString()] = appLocalizationService
+                  .t('deposit_amount_must_be_greater_than_zero');
             } else if (!ledger.subledger &&
                 ledger.depositAmount < ledger.amount) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be less than the ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amount_cannot_be_less_than',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.multiplier &&
                 ledger.depositAmount % ledger.amount != 0) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be a multiple of ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amount_must_be_a_multiple_of',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.plType == 2 &&
                 ledger.depositAmount > ledger.loanBalance) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be greater than the ${ledger.loanBalance}';
+                  appLocalizationService.t(
+                    'deposit_amount_cannot_be_greater_than',
+                  ) +
+                  ledger.loanBalance.toString();
             }
           }
 
@@ -362,8 +387,9 @@ class DepositNowStepsBloc
                     : 0;
 
             if (totalDeposit > totalWithdrawable) {
-              errors['ledgers'] =
-                  "You don't have enough balance to deposit this amount";
+              errors['ledgers'] = appLocalizationService.t(
+                'you_dont_have_enough_balance_to_deposit_this_amount',
+              );
             }
           }
         }
@@ -371,15 +397,19 @@ class DepositNowStepsBloc
 
       case 4:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t('pin_must_be_4_digits');
         }
         break;
 
       case 5:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 

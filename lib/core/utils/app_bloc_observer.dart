@@ -61,6 +61,5 @@ class AppBlocObserver extends BlocObserver {
       buffer.writeln('$key: $value');
     });
     buffer.writeln('----------------------\n');
-    print(buffer.toString());
   }
 }

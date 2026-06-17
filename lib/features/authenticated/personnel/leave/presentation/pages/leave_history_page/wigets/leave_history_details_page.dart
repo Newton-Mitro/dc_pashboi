@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/data/model/fallback_request_model.dart';
@@ -45,8 +46,6 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
 
   final TextEditingController _fallbackEmployeeCode = TextEditingController();
 
-  TimeOfDay? _startTimeController;
-  TimeOfDay? _endTimeController;
   late DateTime startDate;
   late DateTime endDate;
   late DateTime rejoinDate;
@@ -59,12 +58,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
     endDate = widget.data.toDate;
     rejoinDate = DateTime.parse(widget.data.rejoiningDate);
     selectedLeaveType = widget.data.leaveTypeCode;
-    _accountSearchController.text = widget.data.fallbackEmployeeCode ?? '';
-    _accountHolderController.text = widget.data.fallbackPersonName ?? '';
-    _applicationStatusController.text = widget.data.currentStage ?? '';
-    _descriptionController.text = widget.data.remarks ?? '';
-    _startTimeController = TimeOfDay.fromDateTime(startDate);
-    _endTimeController = TimeOfDay.fromDateTime(endDate);
+    _accountSearchController.text = widget.data.fallbackEmployeeCode;
+    _accountHolderController.text = widget.data.fallbackPersonName;
+    _applicationStatusController.text = widget.data.currentStage;
+    _descriptionController.text = widget.data.remarks;
     _updateTotalDays();
     context.read<LeaveTypeBloc>().add(FetchLeaveTypeEvent());
   }
@@ -108,7 +105,9 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Leave History Details")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, "leave_history_details")),
+      ),
       body: PageContainer(
         child: SizedBox(
           height: double.infinity,
@@ -133,8 +132,8 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: const Text(
-                            "Leave History",
+                          child: Text(
+                            Locales.string(context, "leave_history"),
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -165,7 +164,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                 state.leaveTypeEntity;
 
                             return AppDropdownSelect(
-                              label: "Leave Type",
+                              label: Locales.string(context, "leave_type"),
                               value: selectedLeaveType,
                               enabled: widget.isEnable,
                               items:
@@ -200,7 +199,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                           children: [
                             AppSearchTextInput(
                               controller: _accountSearchController,
-                              label: "Fallback Employee Id",
+                              label: Locales.string(
+                                context,
+                                "fallback_employee_id",
+                              ),
                               isSearch: true,
                               enabled: widget.isEnable,
                               prefixIcon: Icon(
@@ -245,19 +247,28 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                   final String fallbackName =
                                       employees.isNotEmpty
                                           ? employees.first.fullName
-                                          : 'No Employee Found';
+                                          : Locales.string(
+                                            context,
+                                            "no_employee_found",
+                                          );
 
                                   final String fallbackEmpCode =
                                       employees.isNotEmpty
                                           ? employees.first.employeeCode
-                                          : 'No Employee Found';
+                                          : Locales.string(
+                                            context,
+                                            "no_employee_found",
+                                          );
 
                                   _fallbackEmployeeCode.text = fallbackEmpCode;
                                   _accountHolderController.text = fallbackName;
                                 }
                                 return AppTextInput(
                                   controller: _accountHolderController,
-                                  label: 'Fallback Employee Name',
+                                  label: Locales.string(
+                                    context,
+                                    "fallback_employee_name",
+                                  ),
                                   prefixIcon: Icon(
                                     Icons.person_outline,
                                     color: context.theme.colorScheme.onSurface,
@@ -280,7 +291,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                               Expanded(
                                 child: _buildDatePicker(
                                   date: startDate,
-                                  label: "From Date",
+                                  label: Locales.string(context, "from_date"),
                                   field: 'from',
                                 ),
                               ),
@@ -288,7 +299,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                               Expanded(
                                 child: _buildDatePicker(
                                   date: endDate,
-                                  label: "To Date",
+                                  label: Locales.string(context, "to_date"),
                                   field: 'to',
                                 ),
                               ),
@@ -306,7 +317,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                     );
                                   });
                                 },
-                                label: 'Form Date and Time',
+                                label: Locales.string(
+                                  context,
+                                  "from_date_and_time",
+                                ),
                               ),
                               SizedBox(height: 16),
                               AppDateTimePicker(
@@ -317,7 +331,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                   });
                                 },
 
-                                label: 'To Date and Time',
+                                label: Locales.string(
+                                  context,
+                                  "to_date_and_time",
+                                ),
                               ),
                             ],
                           ),
@@ -332,7 +349,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                 Expanded(
                                   child: AppTextInput(
                                     controller: _totalDaysController,
-                                    label: 'Total Day(s)',
+                                    label: Locales.string(
+                                      context,
+                                      "total_days",
+                                    ),
                                     prefixIcon: Icon(
                                       Icons.calendar_today,
                                       color:
@@ -346,7 +366,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                 Expanded(
                                   child: _buildDatePicker(
                                     date: rejoinDate,
-                                    label: "Rejoin Date",
+                                    label: Locales.string(
+                                      context,
+                                      "rejoin_date",
+                                    ),
                                     field: 'rejoin',
                                   ),
                                 ),
@@ -356,7 +379,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
 
                           AppTextInput(
                             controller: _applicationStatusController,
-                            label: 'Application Status',
+                            label: Locales.string(
+                              context,
+                              "application_status",
+                            ),
                             prefixIcon: Icon(
                               Icons.person_outline,
                               color: context.theme.colorScheme.onSurface,
@@ -373,7 +399,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                             enabled: widget.isEnable,
                             keyboardType: TextInputType.multiline,
                             decoration: InputDecoration(
-                              labelText: 'Reason for Leave',
+                              labelText: Locales.string(
+                                context,
+                                "reason_for_leave",
+                              ),
                               border: OutlineInputBorder(),
                               prefixIcon: Icon(Icons.edit_note),
                             ),
@@ -398,7 +427,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                       behavior: SnackBarBehavior.floating,
                                       backgroundColor: Colors.transparent,
                                       content: AwesomeSnackbarContent(
-                                        title: 'Oops!',
+                                        title: Locales.string(context, "oops"),
                                         message: state.message,
                                         contentType: ContentType.failure,
                                       ),
@@ -415,7 +444,10 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                       behavior: SnackBarBehavior.floating,
                                       backgroundColor: Colors.transparent,
                                       content: AwesomeSnackbarContent(
-                                        title: 'Done!',
+                                        title: Locales.string(
+                                          context,
+                                          "success",
+                                        ),
                                         message: state.message,
                                         contentType: ContentType.success,
                                       ),
@@ -432,7 +464,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                   // TODO: implement listener
                                 },
                                 child: AppPrimaryButton(
-                                  label: "Apply",
+                                  label: Locales.string(context, "apply"),
                                   onPressed: () {
                                     context
                                         .read<UpdateLeaveApplicationBloc>()
@@ -462,7 +494,7 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                 ),
                               )
                               : AppPrimaryButton(
-                                label: "close",
+                                label: Locales.string(context, "close"),
                                 onPressed: () {},
                               ),
                         ],

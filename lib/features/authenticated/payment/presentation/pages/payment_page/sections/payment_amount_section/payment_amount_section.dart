@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/cards/presentation/pages/bloc/debit_card_bloc.dart';
@@ -59,7 +60,7 @@ class _PaymentAmountSectionState extends State<PaymentAmountSection> {
                 ),
                 child: Center(
                   child: Text(
-                    "Payment Amount",
+                    Locales.string(context, "payment_amount"),
                     style: TextStyle(
                       color: colorScheme.onPrimary,
                       fontSize: 15,
@@ -80,7 +81,7 @@ class _PaymentAmountSectionState extends State<PaymentAmountSection> {
                       initialValue: widget.paymentAmount,
                       keyboardType: TextInputType.number,
                       enabled: true,
-                      label: "Amount",
+                      label: Locales.string(context, "amount"),
                       errorText: widget.paymentAmountError,
                       prefixIcon: Icon(
                         FontAwesomeIcons.coins,
@@ -93,7 +94,7 @@ class _PaymentAmountSectionState extends State<PaymentAmountSection> {
                     AppTextInput(
                       initialValue: widget.paymentAmount,
                       enabled: true,
-                      label: "Reference",
+                      label: Locales.string(context, "reference"),
                       errorText: widget.paymentAmountError,
                       prefixIcon: Icon(
                         FontAwesomeIcons.tags,

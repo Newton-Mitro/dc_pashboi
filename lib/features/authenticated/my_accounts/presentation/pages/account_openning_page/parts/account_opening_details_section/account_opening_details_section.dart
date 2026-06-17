@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/tenure_amount_entity.dart';
@@ -81,7 +82,7 @@ class _AccountOpeningDetailsSectionState
                 ),
                 child: Center(
                   child: Text(
-                    "Account Opening Details",
+                    Locales.string(context, 'account_opening_details'),
                     style: TextStyle(
                       color: context.theme.colorScheme.onPrimary,
                       fontSize: 15,
@@ -98,7 +99,7 @@ class _AccountOpeningDetailsSectionState
                       controller: TextEditingController(
                         text: widget.accountName,
                       ),
-                      label: "Account Name",
+                      label: Locales.string(context, 'account_name'),
                       errorText: widget.accountNameError,
                       prefixIcon: Icon(
                         FontAwesomeIcons.user,
@@ -124,7 +125,7 @@ class _AccountOpeningDetailsSectionState
                         return AppDropdownSelect<String>(
                           value: widget.accountDuration.toString(),
                           errorText: widget.accountDurationError,
-                          label: "Tenure",
+                          label: Locales.string(context, 'tenure'),
                           enabled: filteredTenures.isNotEmpty,
                           items:
                               filteredTenures
@@ -158,7 +159,7 @@ class _AccountOpeningDetailsSectionState
                         text: widget.accountDuration.toString(),
                       ),
                       enabled: false,
-                      label: "Duration In Months",
+                      label: Locales.string(context, 'duration_in_months'),
                       prefixIcon: Icon(
                         FontAwesomeIcons.calendar,
                         color: context.theme.colorScheme.onSurface,
@@ -170,7 +171,7 @@ class _AccountOpeningDetailsSectionState
                         text: widget.interestRate.toString(),
                       ),
                       enabled: false,
-                      label: "Interest Rate",
+                      label: Locales.string(context, 'interest_rate'),
                       prefixIcon: Icon(
                         FontAwesomeIcons.percent,
                         color: context.theme.colorScheme.onSurface,
@@ -186,7 +187,7 @@ class _AccountOpeningDetailsSectionState
                         return AppDropdownSelect<String>(
                           value: widget.installmentAmount.toString(),
                           errorText: widget.installmentAmountError,
-                          label: "Installment Amount",
+                          label: Locales.string(context, 'installment_amount'),
                           enabled: tenureAmounts.isNotEmpty,
                           items:
                               tenureAmounts
@@ -215,7 +216,10 @@ class _AccountOpeningDetailsSectionState
                       controller: TextEditingController(
                         text: widget.interestTransferTo,
                       ),
-                      label: "Interest Transfer Account",
+                      label: Locales.string(
+                        context,
+                        'interest_transfer_account',
+                      ),
                       prefixIcon: Icon(
                         FontAwesomeIcons.buildingColumns,
                         color: context.theme.colorScheme.onSurface,

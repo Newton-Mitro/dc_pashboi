@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
@@ -47,7 +48,10 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              "Sorry! You're not eligible for this loan.",
+                              Locales.string(
+                                context,
+                                'sorry_you_are_not_eligible_for_this_loan',
+                              ),
                               textAlign: TextAlign.center,
                               style: theme.textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.w600,
@@ -58,7 +62,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                         ),
                       ),
                       Text(
-                        "Eligibility Findings :-",
+                        Locales.string(context, 'eligibility_findings'),
                         style: theme.textTheme.titleLarge?.copyWith(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -101,7 +105,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                                 child: Text(
                                   condition.itemName,
                                   style: theme.textTheme.bodyMedium?.copyWith(
-                                    color: theme.colorScheme.onBackground,
+                                    color: theme.colorScheme.onSurface,
                                     fontWeight:
                                         isEligible
                                             ? FontWeight.w500
@@ -112,7 +116,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                             ],
                           ),
                         );
-                      }).toList(),
+                      }),
                     ],
                   ),
                 ),
@@ -133,7 +137,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                           color: theme.colorScheme.onPrimary,
                         ),
                         label: Text(
-                          "Close",
+                          Locales.string(context, 'close'),
                           style: TextStyle(
                             fontSize: 14,
                             color: theme.colorScheme.onPrimary,
@@ -167,7 +171,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                           color: theme.colorScheme.onPrimary,
                         ),
                         label: Text(
-                          "Top Up",
+                          Locales.string(context, 'top_up'),
                           style: TextStyle(
                             fontSize: 14,
                             color: theme.colorScheme.onPrimary,

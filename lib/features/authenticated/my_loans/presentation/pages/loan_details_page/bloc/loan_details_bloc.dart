@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -12,10 +13,12 @@ part 'loan_details_state.dart';
 class LoanDetsilsBloc extends Bloc<LoanDetsilsEvent, LoanDetailsState> {
   final FetchLoanDetailsUseCase fetchLoanDetailsUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   LoanDetsilsBloc({
     required this.fetchLoanDetailsUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(LoanDetailsInitial()) {
     on<FetchLoanDetsilsEvent>((event, emit) async {
       emit(LoanDetsilsLoading());
@@ -26,7 +29,11 @@ class LoanDetsilsBloc extends Bloc<LoanDetsilsEvent, LoanDetailsState> {
 
         authUser.fold(
           (left) {
-            emit(LoanDetailsError('Failed to load user information'));
+            emit(
+              LoanDetailsError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
+            );
           },
           (right) {
             user = right.user;
@@ -34,7 +41,11 @@ class LoanDetsilsBloc extends Bloc<LoanDetsilsEvent, LoanDetailsState> {
         );
 
         if (user == null) {
-          emit(LoanDetailsError('User not found'));
+          emit(
+            LoanDetailsError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -59,7 +70,11 @@ class LoanDetsilsBloc extends Bloc<LoanDetsilsEvent, LoanDetailsState> {
           },
         );
       } catch (e) {
-        emit(LoanDetailsError('Failed to load debit card'));
+        emit(
+          LoanDetailsError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

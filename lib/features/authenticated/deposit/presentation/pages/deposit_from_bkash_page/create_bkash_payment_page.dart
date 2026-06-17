@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class CreateBkashPaymentPage extends StatefulWidget {
@@ -27,30 +28,20 @@ class _CreateBkashPaymentPageState extends State<CreateBkashPaymentPage> {
               Navigator.of(context).pop();
             },
           );
-    // ..setNavigationDelegate(
-    //   NavigationDelegate(
-    //     onPageStarted: (url) => print("🔵 Loading: $url"),
-    //     onPageFinished: (url) => print("✅ Loaded: $url"),
-    //     onWebResourceError:
-    //         (error) => print(
-    //           "❌ Error: ${error.description} (${error.errorCode})",
-    //         ),
-    //   ),
-    // )
     if (isValidUrl) {
       _controller.loadRequest(Uri.parse(widget.paymentUrl!));
     } else {
       _controller.loadHtmlString(_pageNotFoundHtml);
     }
 
-    // Uri.parse('http://172.16.200.15:9981/Home/bKashPaymentResponse?paymentID=TR0011dnGabij1754199757868&status=cancel&signature=r39TnGKSUU&apiVersion=1.2.0-beta/'),
+    // Uri.parse('https://172.16.200.15:9981/Home/bKashPaymentResponse?paymentID=TR0011dnGabij1754199757868&status=cancel&signature=r39TnGKSUU&apiVersion=1.2.0-beta/'),
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create Bkash Payment"),
+        title: Text(Locales.string(context, "create_bkash_payment")),
         automaticallyImplyLeading: false,
       ),
       body: WebViewWidget(controller: _controller),

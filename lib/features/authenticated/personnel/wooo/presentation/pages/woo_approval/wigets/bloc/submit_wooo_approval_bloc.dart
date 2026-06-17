@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/usecase/wooo_approval_submit_usecase.dart';
@@ -11,10 +12,12 @@ class SubmitWoooApprovalBloc
     extends Bloc<SubmitWoooApplicationEvent, SubmitWoooApprovalState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final WoooApprovalSubmitUseCase woooApprovalSubmitUseCase;
+  final AppLocalizationService appLocalizationService;
 
   SubmitWoooApprovalBloc({
     required this.getAuthUserUseCase,
     required this.woooApprovalSubmitUseCase,
+    required this.appLocalizationService,
   }) : super(SubmitWoooApprovalInitial()) {
     on<SubmitWoooApplicationEvent>(_submitWoooApprovalRequest);
   }

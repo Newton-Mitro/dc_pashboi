@@ -1,8 +1,8 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:pashboi/core/injection.dart';
 import 'package:pashboi/features/auth/data/data_sources/auth_local_datasource.dart';
-import 'package:pashboi/features/my_app/presentation/pages/my_app.dart';
 
 class AuthInterceptor extends Interceptor {
   final Dio dio;

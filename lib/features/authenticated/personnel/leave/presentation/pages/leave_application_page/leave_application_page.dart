@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/entities/leave_type_entity.dart';
@@ -56,7 +57,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Leave Application")),
+      appBar: AppBar(title: Text(Locales.string(context, "leave_application"))),
       body: PageContainer(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(12),
@@ -93,9 +94,9 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const ListTile(
+                ListTile(
                   title: Text(
-                    "Leave Application",
+                    Locales.string(context, "leave_application"),
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -104,7 +105,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
 
                 /// Leave Type Dropdown
                 AppDropdownSelect<String>(
-                  label: "Leave Type",
+                  label: Locales.string(context, "leave_type"),
                   value:
                       selectedLeaveType?.isEmpty ?? true
                           ? widget.selectedLeaveTypeId
@@ -139,7 +140,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                     children: [
                       AppSearchTextInput(
                         controller: _fallbackEmployeeController,
-                        label: "Fallback Employee Id",
+                        label: Locales.string(context, "fallback_employee_id"),
                         isSearch: true,
                         enabled: true,
                         prefixIcon: Icon(
@@ -193,7 +194,10 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
 
                             return AppTextInput(
                               initialValue: employee.fullName,
-                              label: 'Fallback Employee Name',
+                              label: Locales.string(
+                                context,
+                                "fallback_employee_name",
+                              ),
                               enabled: false,
                               prefixIcon: Icon(
                                 Icons.person_outline,
@@ -205,7 +209,10 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
 
                           return AppTextInput(
                             initialValue: data["accountHolderName"],
-                            label: 'Fallback Employee Name',
+                            label: Locales.string(
+                              context,
+                              "fallback_employee_name",
+                            ),
                             enabled: false,
                             prefixIcon: Icon(
                               Icons.person_outline,
@@ -225,7 +232,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                     children: [
                       Expanded(
                         child: AppDatePicker(
-                          label: "From Date",
+                          label: Locales.string(context, "from_date"),
                           enabled: true,
                           selectedDate: data["startDate"],
                           onDateChanged: (value) {
@@ -249,7 +256,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: AppDatePicker(
-                          label: "To Date",
+                          label: Locales.string(context, "to_date"),
                           enabled: true,
                           selectedDate: data["endDate"],
                           onDateChanged: (value) {
@@ -282,7 +289,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                   Column(
                     children: [
                       AppDateTimePicker(
-                        label: 'From Date and Time',
+                        label: Locales.string(context, "from_date_and_time"),
                         selectedDateTime: data["startDate"],
                         onDateTimeChanged: (dateTime) {
                           if (dateTime != null) {
@@ -303,7 +310,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                       ),
                       const SizedBox(height: 16),
                       AppDateTimePicker(
-                        label: 'To Date and Time',
+                        label: Locales.string(context, "to_date_and_time"),
                         selectedDateTime: data["endDate"],
                         onDateTimeChanged: (_) {},
                       ),
@@ -325,7 +332,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                                     data['endDate'],
                                   ).toString()
                                   : '',
-                          label: 'Total Day(s)',
+                          label: Locales.string(context, "total_days"),
                           enabled: false,
                           prefixIcon: Icon(
                             Icons.calendar_today,
@@ -337,7 +344,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: AppDatePicker(
-                          label: "Rejoin Date",
+                          label: Locales.string(context, "rejoin_date"),
                           selectedDate: data["rejoiningDate"],
                           enabled: true,
                           onDateChanged: (value) {
@@ -360,8 +367,8 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                   maxLines: null,
                   minLines: 2,
                   keyboardType: TextInputType.multiline,
-                  decoration: const InputDecoration(
-                    labelText: 'Reason for Leave',
+                  decoration: InputDecoration(
+                    labelText: Locales.string(context, "reason_for_leave"),
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.edit_note),
                   ),
@@ -419,7 +426,7 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
                     }
                   },
                   child: AppPrimaryButton(
-                    label: "Apply",
+                    label: Locales.string(context, "apply"),
                     onPressed: () {
                       context.read<LeaveApplicationBloc>().add(
                         LeaveApplicationSubmitEvent(),

@@ -69,7 +69,7 @@ class _BankToDcDepositsPageState extends State<BankToDcDepositsPage> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'You don’t have any family or relative added yet.',
+                          Locales.string(context, "empty_bank_to_dc_transfer"),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 13,

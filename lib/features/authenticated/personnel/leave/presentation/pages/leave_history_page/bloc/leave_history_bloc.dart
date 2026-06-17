@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/entities/leave_application_entites.dart';
@@ -11,10 +12,12 @@ part 'leave_history_state.dart';
 class LeaveHistoryBloc extends Bloc<LeaveHistoryEvent, LeaveHistoryState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final LeaveHistoryRequestUseCase leaveHistoryRequestUseCase;
+  final AppLocalizationService appLocalizationService;
 
   LeaveHistoryBloc({
     required this.getAuthUserUseCase,
     required this.leaveHistoryRequestUseCase,
+    required this.appLocalizationService,
   }) : super(LeaveHistoryInitial()) {
     on<FetchLeaveHistory>(_fetchLeaveHistory);
   }
@@ -27,7 +30,11 @@ class LeaveHistoryBloc extends Bloc<LeaveHistoryEvent, LeaveHistoryState> {
     try {
       final user = await getAuthUserUseCase(NoParams());
       final userEntity = user.fold((failure) {
-        emit(LeaveHistoryError('Failed to load user information'));
+        emit(
+          LeaveHistoryError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return null;
       }, (success) => success.user);
 

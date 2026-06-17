@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/beneficiaries_bloc/beneficiaries_bloc.dart';
@@ -88,12 +89,13 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -108,12 +110,13 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -140,7 +143,9 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
               WithdrawlQrStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Generate Withdrawal QR')),
+            appBar: AppBar(
+              title: Text(Locales.string(context, 'generate_withdrawal_qr')),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -197,7 +202,10 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context.read<WithdrawlQrStepsBloc>().add(
                                         WithdrawlQrGoToPreviousStep(),
@@ -211,7 +219,10 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                                     iconAfter: const Icon(
                                       FontAwesomeIcons.angleRight,
                                     ),
-                                    label: "Next",
+                                    label: Locales.string(
+                                      context,
+                                      'next_button_text',
+                                    ),
                                     onPressed: () {
                                       if (depositLaterStepsState.currentStep ==
                                           2) {
@@ -324,7 +335,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
       StepItem(
         icon: FontAwesomeIcons.coins,
         widget: TransferAmountSection(
-          sectionTitle: 'Withdrawal Amount',
+          sectionTitle: Locales.string(context, 'withdrawal_amount'),
           transferAmount: state.stepData[state.currentStep]?['withdrawAmount'],
           transferAmountError:
               state.validationErrors[state.currentStep]?['withdrawAmount'],
@@ -387,7 +398,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
             backgroundColor: context.theme.colorScheme.primary,
             progressColor: context.theme.colorScheme.secondary,
             foregroundColor: context.theme.colorScheme.onPrimary,
-            label: 'Hold & Press to Submit',
+            label: Locales.string(context, "press_and_hold_to_submit"),
             onSubmit: () {
               _submitWithdrawlQr(state);
             },

@@ -58,7 +58,7 @@ class _AddFamilyAndRelativesPageState extends State<AddFamilyAndRelativesPage> {
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Oops!',
+                    title: Locales.string(context, 'oops'),
                     message: state.error,
                     contentType: ContentType.failure,
                   ),
@@ -74,8 +74,11 @@ class _AddFamilyAndRelativesPageState extends State<AddFamilyAndRelativesPage> {
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Oops!',
-                    message: "Family or Relative added successfully",
+                    title: Locales.string(context, 'oops'),
+                    message: Locales.string(
+                      context,
+                      'family_or_relative_added_successfully',
+                    ),
                     contentType: ContentType.success,
                   ),
                 );
@@ -257,10 +260,7 @@ class _AddFamilyAndRelativesPageState extends State<AddFamilyAndRelativesPage> {
                     backgroundColor: theme.colorScheme.primary,
                     progressColor: theme.colorScheme.secondary,
                     foregroundColor: theme.colorScheme.onPrimary,
-                    label: Locales.string(
-                      context,
-                      'add_family_and_relative_page_submit_button_text',
-                    ),
+                    label: Locales.string(context, 'press_and_hold_to_submit'),
                     onSubmit: () {
                       if (!mounted) return;
 

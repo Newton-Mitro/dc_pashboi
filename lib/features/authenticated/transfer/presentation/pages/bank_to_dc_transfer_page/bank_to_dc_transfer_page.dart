@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/transfer_from_section/transfer_from_section.dart';
@@ -102,12 +103,13 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -122,12 +124,13 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -154,7 +157,11 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
               BankToDcTransferStepsBloc.lastStep;
 
           return Scaffold(
-            appBar: AppBar(title: const Text('Bank To DC Transfer Request')),
+            appBar: AppBar(
+              title: Text(
+                Locales.string(context, 'bank_to_dc_transfer_request'),
+              ),
+            ),
             body: Stack(
               children: [
                 PageContainer(
@@ -211,7 +218,10 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context
                                           .read<BankToDcTransferStepsBloc>()
@@ -227,7 +237,10 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                                     iconAfter: const Icon(
                                       FontAwesomeIcons.angleRight,
                                     ),
-                                    label: "Next",
+                                    label: Locales.string(
+                                      context,
+                                      'next_button_text',
+                                    ),
                                     onPressed: () {
                                       if (depositLaterStepsState.currentStep ==
                                           4) {
@@ -334,7 +347,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
       StepItem(
         icon: FontAwesomeIcons.receipt,
         widget: TransferFromSection(
-          sectionTitle: "Card and Account",
+          sectionTitle: Locales.string(context, 'card_and_account'),
           accountNumber: state.selectedAccount?.number,
           accountError:
               state.validationErrors[state.currentStep]?['transferFromAccount'],
@@ -371,7 +384,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
       StepItem(
         icon: FontAwesomeIcons.buildingColumns,
         widget: BankTransferInfoSection(
-          sectionTitle: 'Proof of Bank Transfer',
+          sectionTitle: Locales.string(context, 'proof_of_bank_transfer'),
           bankSelectionError:
               state.validationErrors[state.currentStep]?['bank'],
           selectedBankAccount: state.selectedBankAccount,
@@ -500,7 +513,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
             backgroundColor: context.theme.colorScheme.primary,
             progressColor: context.theme.colorScheme.secondary,
             foregroundColor: context.theme.colorScheme.onPrimary,
-            label: 'Hold & Press to Submit',
+            label: Locales.string(context, "press_and_hold_to_submit"),
             onSubmit: () {
               _submitBankToDcTransfer(state);
             },

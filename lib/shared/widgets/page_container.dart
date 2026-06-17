@@ -36,9 +36,9 @@ class PageContainer extends StatelessWidget {
 
         return Stack(
           children: [
-            Positioned.fill(
-              child: Image.asset(backgroundImage, fit: BoxFit.cover),
-            ),
+            // Positioned.fill(
+            //   child: Image.asset(backgroundImage, fit: BoxFit.cover),
+            // ),
             child,
           ],
         );

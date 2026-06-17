@@ -80,12 +80,12 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     final otp = _otpControllers.map((c) => c.text).join();
     if (otp.length != 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
+        SnackBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
           content: AwesomeSnackbarContent(
-            title: 'Error',
-            message: 'Please enter a 6-digit OTP',
+            title: Locales.string(context, 'oops'),
+            message: Locales.string(context, 'please_enter_6_digit_otp'),
             contentType: ContentType.failure,
           ),
         ),
@@ -132,7 +132,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Error',
+                    title: Locales.string(context, 'oops'),
                     message: state.error,
                     contentType: ContentType.failure,
                   ),
@@ -144,7 +144,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Success',
+                    title: Locales.string(context, 'success'),
                     message: state.message,
                     contentType: ContentType.success,
                   ),
@@ -167,7 +167,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                   content: AwesomeSnackbarContent(
-                    title: 'Success',
+                    title: Locales.string(context, 'success'),
                     message: state.message,
                     contentType: ContentType.success,
                   ),

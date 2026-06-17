@@ -57,6 +57,7 @@ dependencies:
   qr_flutter: ^4.1.0
   share_plus: ^11.0.0
   table_calendar: ^3.2.0
+  package_info_plus: ^8.0.2
 
 dev_dependencies:
   flutter_test:
@@ -99,6 +100,6 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/brand/company_logo.png"
+  image_path: "assets/images/brand/ic_launcher.png"
   adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/images/brand/company_logo.png"
+  adaptive_icon_foreground: "assets/images/brand/ic_launcher.png"

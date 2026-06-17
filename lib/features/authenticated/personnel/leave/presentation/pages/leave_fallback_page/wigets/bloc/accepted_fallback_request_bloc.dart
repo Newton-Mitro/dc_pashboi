@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -12,10 +13,12 @@ class AcceptedFallbackRequestBloc
     extends Bloc<AcceptedFallbackRequestEvent, AcceptedFallbackRequestState> {
   final AcceptedFallbackUseCase acceptedFallbackRequestUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AcceptedFallbackRequestBloc({
     required this.acceptedFallbackRequestUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(AcceptedFallbackRequestInitial()) {
     on<AcceptedFallbackRequestSubmitted>(_submitAcceptedFallbackRequest);
   }
@@ -26,7 +29,9 @@ class AcceptedFallbackRequestBloc
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
       emit(
-        const AcceptedFallbackRequestError('Failed to load user information'),
+        AcceptedFallbackRequestError(
+          appLocalizationService.t('failed_to_load_user_info'),
+        ),
       );
       return null;
     }, (success) => success.user);

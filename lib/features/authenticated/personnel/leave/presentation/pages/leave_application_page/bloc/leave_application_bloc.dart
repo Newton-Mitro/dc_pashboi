@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/submit_leave_application_usecase.dart';
@@ -11,10 +12,12 @@ class LeaveApplicationBloc
     extends Bloc<LeaveApplicationEvent, LeaveApplicationState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitLeaveApplicationUseCase submitLeaveApplicationUseCase;
+  final AppLocalizationService appLocalizationService;
 
   LeaveApplicationBloc({
     required this.getAuthUserUseCase,
     required this.submitLeaveApplicationUseCase,
+    required this.appLocalizationService,
   }) : super(LeaveApplicationState()) {
     on<LeaveApplicationUpdateField>(_onUpdateField);
     on<LeaveApplicationSubmitEvent>(_onSubmit);
@@ -26,11 +29,7 @@ class LeaveApplicationBloc
   ) {
     final updatedData = Map<String, dynamic>.from(state.leaveApplicationData)
       ..addAll(event.data);
-
     var newState = state.copyWith(leaveApplicationData: updatedData);
-
-    print(newState);
-
     emit(newState);
   }
 
@@ -44,7 +43,12 @@ class LeaveApplicationBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -88,7 +92,7 @@ class LeaveApplicationBloc
     } catch (e) {
       emit(
         state.copyWith(
-          error: 'Failed to submit leave application',
+          error: appLocalizationService.t('failed_to_submit_leave_application'),
           isLoading: false,
         ),
       );

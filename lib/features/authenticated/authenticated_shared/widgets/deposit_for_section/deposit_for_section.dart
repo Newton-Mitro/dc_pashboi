@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/beneficiaries_bloc/beneficiaries_bloc.dart';
@@ -49,7 +50,9 @@ class _DepositForSectionState extends State<DepositForSection> {
   void _searchWithAccountNumber(String searchText) {
     if (searchText.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter account number")),
+        SnackBar(
+          content: Text(Locales.string(context, 'please_enter_account_number')),
+        ),
       );
       return;
     }
@@ -154,7 +157,7 @@ class _DepositForSectionState extends State<DepositForSection> {
                             widget.changeBeneficiaryAccountNumber(value);
                             _searchWithAccountNumber(value ?? '');
                           },
-                          label: "Beneficiary",
+                          label: Locales.string(context, "beneficiary"),
                         );
                       }
                     }
@@ -162,13 +165,13 @@ class _DepositForSectionState extends State<DepositForSection> {
                   },
                 ),
                 const SizedBox(height: 10),
-                const Text("or"),
+                Text(Locales.string(context, "or")),
                 const SizedBox(height: 10),
                 BlocBuilder<CollectionLedgerBloc, CollectionLedgerState>(
                   builder: (context, state) {
                     return AppSearchTextInput(
                       initialValue: widget.searchAccountNumber,
-                      label: "Account Number",
+                      label: Locales.string(context, "account_number"),
                       isSearch: true,
                       errorText: widget.searchAccountNumberError,
                       enabled: state is! CollectionLedgerLoading,
@@ -188,7 +191,7 @@ class _DepositForSectionState extends State<DepositForSection> {
                 const SizedBox(height: 16),
                 AppTextInput(
                   initialValue: widget.searchedAccountHolderName,
-                  label: "Account Holder Name",
+                  label: Locales.string(context, "account_holder_name"),
                   errorText: widget.searchedAccountHolderNameError,
                   prefixIcon: Icon(
                     Icons.person,

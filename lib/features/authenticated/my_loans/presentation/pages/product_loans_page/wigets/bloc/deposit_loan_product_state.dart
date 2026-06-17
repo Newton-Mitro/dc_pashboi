@@ -38,7 +38,7 @@ class DepositLoanProductState extends Equatable {
       currentStep: currentStep ?? this.currentStep,
       validationErrors: validationErrors ?? this.validationErrors,
       stepData: stepData ?? this.stepData,
-      collectionLedgers: selectedLoanAccounts ?? this.loanAccounts,
+      collectionLedgers: selectedLoanAccounts ?? loanAccounts,
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
       successMessage: successMessage ?? this.successMessage,

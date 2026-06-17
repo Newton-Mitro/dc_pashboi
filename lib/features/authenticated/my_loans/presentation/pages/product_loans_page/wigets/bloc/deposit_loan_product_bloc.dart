@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -20,10 +21,12 @@ class DepositLoanProductBloc
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitLoanAgainstDepositProductUseCase
   submitLoanAgainstDepositProductUseCase;
+  final AppLocalizationService appLocalizationService;
 
   DepositLoanProductBloc({
     required this.getAuthUserUseCase,
     required this.submitLoanAgainstDepositProductUseCase,
+    required this.appLocalizationService,
   }) : super(DepositLoanProductState(currentStep: 0)) {
     on<DepositProductLoanGoToNextStep>(_onGoToNextStep);
     on<DepositProductLoanGoToPreviousStep>(_onGoToPreviousStep);
@@ -184,7 +187,12 @@ class DepositLoanProductBloc
     final authUserResult = await getAuthUserUseCase.call(NoParams());
 
     if (authUserResult.isLeft()) {
-      emit(state.copyWith(error: 'User not found', isLoading: false));
+      emit(
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_load_user_info'),
+          isLoading: false,
+        ),
+      );
       return;
     }
 
@@ -249,7 +257,9 @@ class DepositLoanProductBloc
         final selectedLedgers =
             state.loanAccounts.where((l) => l.isSelected!).toList();
         if (selectedLedgers.isEmpty) {
-          errors['loanAccounts'] = 'Please select at least one ledger Account';
+          errors['loanAccounts'] = appLocalizationService.t(
+            'please_select_at_least_one_account',
+          );
         } else {
           final Map<String, String> amountErrors = {};
 
@@ -262,16 +272,19 @@ class DepositLoanProductBloc
 
             if (amount <= 0) {
               amountErrors[account.accountNumber.toString()] =
-                  'Please enter a valid amount';
+                  appLocalizationService.t('please_enter_valid_amount');
             } else if (amount % 1000 != 0) {
               amountErrors[account.accountNumber.toString()] =
-                  'Amount must be a multiple of 1000 ৳';
+                  appLocalizationService.t('amount_must_be_a_multiple_of');
             } else if (amount > maxLoanAmount) {
               amountErrors[account.accountNumber.toString()] =
-                  'Maximum loan amount is ${state.stepData[1]?['MaximumLoanAmount']} ৳';
+                  appLocalizationService.t('maximum_loan_amount_is') +
+                  state.stepData[1]?['MaximumLoanAmount'];
             } else if (amount > eligibleAmount) {
-              amountErrors[account.accountNumber.toString()] =
-                  'Loan amount exceeds eligible amount';
+              amountErrors[account.accountNumber
+                  .toString()] = appLocalizationService.t(
+                'loan_amount_exceeds_eligible_amount',
+              );
             }
           }
           if (amountErrors.isNotEmpty) {
@@ -280,8 +293,9 @@ class DepositLoanProductBloc
         }
 
         if (selectedAccounts.isEmpty) {
-          errors['loanAccounts'] =
-              'Please select at least one eligible account';
+          errors['loanAccounts'] = appLocalizationService.t(
+            'please_select_at_least_one_eligible_account',
+          );
         } else {
           for (final account in selectedAccounts) {
             final amount =
@@ -291,17 +305,17 @@ class DepositLoanProductBloc
             const double maxLoanAmount = 100000;
 
             if (amount <= 0) {
-              errors['amount_${account.accountNumber}'] =
-                  'Please enter a valid amount';
+              errors['amount_${account.accountNumber}'] = appLocalizationService
+                  .t('please_enter_valid_amount');
             } else if (amount % 1000 != 0) {
-              errors['amount_${account.accountNumber}'] =
-                  'Amount must be a multiple of 1000 ৳';
+              errors['amount_${account.accountNumber}'] = appLocalizationService
+                  .t('amount_must_be_a_multiple_of');
             } else if (amount > maxLoanAmount) {
               errors['amount_${account.accountNumber}'] =
-                  'Maximum loan amount is 1,00,000 ৳';
+                  '${appLocalizationService.t('maximum_loan_amount_is')} 1,00,000 ৳';
             } else if (amount > eligibleAmount) {
-              errors['amount_${account.accountNumber}'] =
-                  'Loan amount exceeds eligible amount';
+              errors['amount_${account.accountNumber}'] = appLocalizationService
+                  .t('loan_amount_exceeds_eligible_amount');
             }
           }
         }
@@ -309,28 +323,38 @@ class DepositLoanProductBloc
       case 1:
         if (data['installmentNo'] == null ||
             data['installmentNo'].toString().isEmpty) {
-          errors['installmentNo'] = 'Please enter a installment no';
+          errors['installmentNo'] = appLocalizationService.t(
+            'please_enter_installment_no',
+          );
         }
         break;
 
       case 2:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
       case 3:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_cpin_must_be_4_digitsard_pin',
+          );
         }
         break;
 
       case 4:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 

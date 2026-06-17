@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/data/model/fallback_request_model.dart';
@@ -49,10 +50,10 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
   @override
   void initState() {
     super.initState();
-    _leaveTypeController.text = widget.data.leaveType ?? '';
-    _employeeNameController.text = widget.data.employeeName ?? '';
-    _totalDaysController.text = widget.data.totalLeaveDays.toString() ?? '';
-    _reasonController.text = widget.data.remarks ?? '';
+    _leaveTypeController.text = widget.data.leaveType;
+    _employeeNameController.text = widget.data.employeeName;
+    _totalDaysController.text = widget.data.totalLeaveDays.toString();
+    _reasonController.text = widget.data.remarks;
     _startDate = widget.data.fromDate;
     _endDate = widget.data.toDate;
     _rejoinDate =
@@ -64,7 +65,9 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Fallback Acceptance Details")),
+      appBar: AppBar(
+        title: Text(Locales.string(context, "fallback_acceptance_details")),
+      ),
       body: PageContainer(
         child: SizedBox(
           height: double.infinity,
@@ -89,8 +92,8 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: const Text(
-                            "Fallback Approval",
+                          child: Text(
+                            Locales.string(context, "fallback_approval"),
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -102,7 +105,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
 
                       AppTextInput(
                         controller: _leaveTypeController,
-                        label: 'Leave Type',
+                        label: Locales.string(context, "leave_type"),
                         prefixIcon: Icon(
                           FontAwesomeIcons.addressBook,
                           color: context.theme.colorScheme.onSurface,
@@ -114,7 +117,10 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
 
                       AppTextInput(
                         controller: _employeeNameController,
-                        label: 'Fallback Employee Name',
+                        label: Locales.string(
+                          context,
+                          "fallback_employee_name",
+                        ),
                         prefixIcon: Icon(
                           Icons.person_outline,
                           color: context.theme.colorScheme.onSurface,
@@ -131,7 +137,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               selectedDate: _startDate,
                               onDateChanged:
                                   (d) => setState(() => _startDate = d),
-                              label: "Start Date",
+                              label: Locales.string(context, "from_date"),
                               errorText: '',
                               firstDate: null,
                               enabled: false,
@@ -143,7 +149,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               selectedDate: _endDate,
                               onDateChanged:
                                   (d) => setState(() => _endDate = d),
-                              label: "End Date",
+                              label: Locales.string(context, "to_date"),
                               errorText: '',
                               firstDate: null,
                               enabled: false,
@@ -157,7 +163,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                           Expanded(
                             child: AppTextInput(
                               controller: _totalDaysController,
-                              label: 'Total Day(s)',
+                              label: Locales.string(context, "total_days"),
                               prefixIcon: Icon(
                                 Icons.calendar_today,
                                 color: context.theme.colorScheme.onSurface,
@@ -172,7 +178,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               selectedDate: _rejoinDate,
                               onDateChanged:
                                   (d) => setState(() => _rejoinDate = d),
-                              label: "Rejoin Date",
+                              label: Locales.string(context, "rejoin_date"),
                               errorText: '',
                               firstDate: null,
                               lastDate: null,
@@ -185,14 +191,17 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
 
                       _buildTextArea(
                         controller: _reasonController,
-                        label: "Reason for Leave",
+                        label: Locales.string(context, "reason_for_leave"),
                         enabled: false,
                       ),
                       const SizedBox(height: 12),
 
                       _buildTextArea(
                         controller: _remarksController,
-                        label: "Fallback Approval Remarks",
+                        label: Locales.string(
+                          context,
+                          "fallback_approval_remarks",
+                        ),
                       ),
                       const SizedBox(height: 16),
 
@@ -207,7 +216,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               behavior: SnackBarBehavior.floating,
                               backgroundColor: Colors.transparent,
                               content: AwesomeSnackbarContent(
-                                title: 'Oops!',
+                                title: Locales.string(context, "oops"),
                                 message: state.message,
                                 contentType: ContentType.failure,
                               ),
@@ -224,7 +233,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               behavior: SnackBarBehavior.floating,
                               backgroundColor: Colors.transparent,
                               content: AwesomeSnackbarContent(
-                                title: 'Done!',
+                                title: Locales.string(context, "success"),
                                 message: state.message,
                                 contentType: ContentType.success,
                               ),
@@ -238,7 +247,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                           }
                         },
                         child: AppPrimaryButton(
-                          label: "Submit",
+                          label: Locales.string(context, "submit"),
                           onPressed: () {
                             context.read<AcceptedFallbackRequestBloc>().add(
                               AcceptedFallbackRequestSubmitted(

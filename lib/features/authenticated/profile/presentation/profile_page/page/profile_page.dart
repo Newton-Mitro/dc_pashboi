@@ -91,7 +91,9 @@ class _ProfilePageState extends State<ProfilePage> {
           final person = state.personEntity;
 
           if (person == null) {
-            return const Center(child: Text('No profile data available'));
+            return Center(
+              child: Text(Locales.string(context, 'no_profile_data_available')),
+            );
           }
 
           return PageContainer(

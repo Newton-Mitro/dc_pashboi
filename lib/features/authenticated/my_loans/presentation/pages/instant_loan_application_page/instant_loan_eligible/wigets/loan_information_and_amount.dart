@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/my_loans/data/models/eligible_conditions_model.dart';
@@ -43,7 +44,7 @@ class _LoanInformationAndAmountState extends State<LoanInformationAndAmount> {
             ),
             child: Center(
               child: Text(
-                "Loan Information",
+                Locales.string(context, 'loan_information'),
                 style: TextStyle(
                   color: context.theme.colorScheme.onPrimary,
                   fontSize: 16,
@@ -96,7 +97,7 @@ class _LoanInformationAndAmountState extends State<LoanInformationAndAmount> {
             child: AppTextInput(
               initialValue: widget.amount,
               errorText: widget.amountError,
-              label: "Enter between eligible amount",
+              label: Locales.string(context, 'enter_between_eligible_amount'),
               prefixIcon: Icon(FontAwesomeIcons.bangladeshiTakaSign),
               onChanged: widget.onAmountChanged,
             ),

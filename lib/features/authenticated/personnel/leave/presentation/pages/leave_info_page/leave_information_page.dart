@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/utils/my_date_utils.dart';
@@ -30,7 +31,7 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Leave Info")),
+      appBar: AppBar(title: Text(Locales.string(context, 'leave_info'))),
       body: PageContainer(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -54,9 +55,9 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const ListTile(
+                        ListTile(
                           title: Text(
-                            "Leave Information",
+                            Locales.string(context, 'leave_information'),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 18,
@@ -92,7 +93,10 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   AppDropdownSelect(
-                                    label: "Leave Type",
+                                    label: Locales.string(
+                                      context,
+                                      'leave_type',
+                                    ),
                                     value: selectedLeaveType,
                                     enabled: leaveTypes.isNotEmpty,
                                     items:
@@ -154,13 +158,19 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                                         return Column(
                                           children: [
                                             _buildInfoRow(
-                                              title: "Annual Entitlement",
+                                              title: Locales.string(
+                                                context,
+                                                'annual_entitlement',
+                                              ),
                                               value:
                                                   data.leaveInfo.totalLeaveDays
                                                       .toString(),
                                             ),
                                             _buildInfoRow(
-                                              title: "Total Approved Leave",
+                                              title: Locales.string(
+                                                context,
+                                                'total_approval_leave',
+                                              ),
                                               value:
                                                   data
                                                       .leaveInfo
@@ -168,13 +178,19 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                                                       .toString(),
                                             ),
                                             _buildInfoRow(
-                                              title: "Balance",
+                                              title: Locales.string(
+                                                context,
+                                                'balance',
+                                              ),
                                               value:
                                                   data.leaveInfo.balance
                                                       .toString(),
                                             ),
                                             _buildInfoRow(
-                                              title: "Last Application Date",
+                                              title: Locales.string(
+                                                context,
+                                                'last_application_date',
+                                              ),
                                               value: MyDateUtils.formatDate(
                                                 DateTime.tryParse(
                                                   data
@@ -185,7 +201,10 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                                             ),
                                             const SizedBox(height: 16),
                                             AppPrimaryButton(
-                                              label: "Apply For Leave",
+                                              label: Locales.string(
+                                                context,
+                                                'apply_for_leave',
+                                              ),
                                               onPressed: () {
                                                 Navigator.pushNamed(
                                                   context,
@@ -230,8 +249,13 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                               .toList();
 
                       if (leaveSummaries.isEmpty) {
-                        return const Center(
-                          child: Text("No leave balance available."),
+                        return Center(
+                          child: Text(
+                            Locales.string(
+                              context,
+                              'no_leave_balance_available',
+                            ),
+                          ),
                         );
                       }
 
@@ -250,9 +274,9 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
-                              const ListTile(
+                              ListTile(
                                 title: Text(
-                                  "Leave Balance",
+                                  Locales.string(context, 'leave_balance'),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 18,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
@@ -44,7 +45,6 @@ class TransactionDetailsSection extends StatelessWidget {
               loanNumber: state.loanPayment.loanNumber,
             ),
           );
-          print(state.loanPayment.loanLpsAmount);
         }
       },
       child: Container(
@@ -59,7 +59,10 @@ class TransactionDetailsSection extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildHeader(context, "Accounts to Deposit"),
+                _buildHeader(
+                  context,
+                  Locales.string(context, "accounts_to_deposit"),
+                ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -276,7 +279,7 @@ class TransactionDetailsSection extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Total Deposit Amount:",
+                          "${Locales.string(context, "total_deposit_amount")}:",
                           style: TextStyle(
                             color: context.theme.colorScheme.onSurface,
                             fontWeight: FontWeight.w600,

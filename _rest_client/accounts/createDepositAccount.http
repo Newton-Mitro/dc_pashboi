@@ -71,3 +71,60 @@ Token: {{token}}
 }
 
 ### Response
+
+{
+  "transfer_from": {
+    "from_account": {
+      "id": 0,
+      "account_number": "T-0051979"
+    },
+    "from_card": {
+      "id": 0,
+      "card_number": ""
+    }
+  },
+  "account_details": {
+    "product_code": "20",
+    "account_for": 1,
+    "account_name": "RIPON  BAROI",
+    "interest_rate": 8.5,
+    "duration": 60,
+    "installment_amount": 500,
+    "txn_account_number": "T-0051979",
+    "interest_posting_account": ""
+  },
+  "account_holders": [
+    {
+      "account_holder_id": 29960,
+      "is_organization": false,
+      "membership_number": "",
+      "savings_ac_number": "T-0037417",
+      "account_name": "RIPON  BAROI"
+    }
+  ],
+  "nominees": [
+    {
+      "person_id": 52155,
+      "name": "",
+      "nominee_percentage": 100
+    }
+  ],
+  "account_operators": [
+    {
+      "account_holder_id": 37425,
+      "account_operator_id": 37425,
+      "operator_name": ""
+    }
+  ],
+  "introducers": [
+    {
+      "account_holder_id": 0,
+      "introducer_id": 0,
+      "introducer_name": ""
+    }
+  ],
+  "otp_details": {
+    "otp_reg_id": "",
+    "otp_value": ""
+  }
+}

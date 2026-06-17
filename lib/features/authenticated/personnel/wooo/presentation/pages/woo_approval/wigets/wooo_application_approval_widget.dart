@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/entities/wooo_data_entities.dart';
 import 'package:pashboi/shared/widgets/app_date_picker.dart';
@@ -54,7 +55,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppTextInput(
-                label: "Leave Type",
+                label: Locales.string(context, "leave_type"),
                 prefixIcon: const Icon(FontAwesomeIcons.clock),
                 keyboardType: TextInputType.number,
                 controller: selectedWoooType,
@@ -63,7 +64,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
 
               if (activeTabIndex == 1)
                 AppDatePicker(
-                  label: "==From Date==",
+                  label: Locales.string(context, "from_date"),
                   onDateChanged: onFromDateChanged,
                   selectedDate: fromDate,
                   enabled: isEditable,
@@ -71,21 +72,21 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
 
               if (activeTabIndex != 1)
                 AppDateTimePicker(
-                  label: "==From Date Time==",
+                  label: Locales.string(context, "from_date_and_time"),
                   selectedDateTime: fromDate,
                   onDateTimeChanged: onFromDateChanged,
                 ),
 
               if (activeTabIndex != 1)
                 AppDateTimePicker(
-                  label: "==To Date Time==",
+                  label: Locales.string(context, "to_date_and_time"),
                   selectedDateTime: toDate,
                   onDateTimeChanged: onToDateChanged,
                 ),
 
               if (activeTabIndex == 1)
                 AppDatePicker(
-                  label: "==To Date==",
+                  label: Locales.string(context, "to_date"),
                   onDateChanged: onToDateChanged,
                   selectedDate: toDate,
                   enabled: isEditable,
@@ -93,7 +94,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
 
               if (activeTabIndex == 0)
                 AppTextInput(
-                  label: "Total Hours",
+                  label: Locales.string(context, "total_hours"),
                   prefixIcon: const Icon(FontAwesomeIcons.clock),
                   keyboardType: TextInputType.number,
                   controller: totalHoursController,
@@ -102,7 +103,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
 
               if (activeTabIndex == 1)
                 AppTextInput(
-                  label: "Total Days",
+                  label: Locales.string(context, "total_days"),
                   prefixIcon: const Icon(FontAwesomeIcons.clock),
                   keyboardType: TextInputType.number,
                   controller: totalDaysController,
@@ -110,7 +111,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                 ),
 
               AppDatePicker(
-                label: "==Rejoin Date==",
+                label: Locales.string(context, "rejoin_date"),
                 onDateChanged: (_) {},
                 selectedDate: rejoiningDate,
                 enabled: isEditable,
@@ -122,14 +123,14 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                 maxLines: null,
                 minLines: 2,
                 keyboardType: TextInputType.multiline,
-                decoration: const InputDecoration(
-                  labelText: 'Reason for Leave',
+                decoration: InputDecoration(
+                  labelText: Locales.string(context, "reason_for_leave"),
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.edit_note),
                 ),
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter a reason';
+                    return Locales.string(context, "please_enter_a_reason");
                   }
                   return null;
                 },
@@ -146,7 +147,7 @@ class WoooApplicationApprovalWidget extends StatelessWidget {
                 value: selectedId,
                 onChanged: (value) => onStatusChanged(value as String),
                 enabled: isEditable,
-                label: "Status",
+                label: Locales.string(context, "application_status"),
               ),
             ],
           ),

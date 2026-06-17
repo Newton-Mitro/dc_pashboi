@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -22,10 +23,12 @@ class BankToDcTransferStepsBloc
   static const int totalSteps = lastStep + 1;
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitTransferBankToDcUseCase submitTransferBankToDcUseCase;
+  final AppLocalizationService appLocalizationService;
 
   BankToDcTransferStepsBloc({
     required this.getAuthUserUseCase,
     required this.submitTransferBankToDcUseCase,
+    required this.appLocalizationService,
   }) : super(
          BankToDcTransferStepsState(
            currentStep: 0,
@@ -44,14 +47,9 @@ class BankToDcTransferStepsBloc
     on<BankToDcTransferGoToPreviousStep>(_onGoToPreviousStep);
     on<BankToDcTransferUpdateStepData>(_onUpdateStepData);
     on<BankToDcTransferSetCollectionLedgers>(_onSetCollectionLedgers);
-    // on<BankToDcTransferToggleLedgerSelection>(_onToggleLedgerSelection);
-    // on<BankToDcTransferToggleSelectAllLedgers>(_onToggleSelectAllLedgers);
-    // on<BankToDcTransferUpdateLedgerAmount>(_onUpdateLedgerAmount);
     on<BankToDcTransferSelectBankAccount>(_onSelectBankAccount);
     on<BankToDcTransferSelectCardAccount>(_onSelectCardAccount);
     on<BankToDcTransferSelectDebitCard>(_onSelectDebitCard);
-    // update lps amount
-    // on<BankToDcTransferUpdateLpsAmount>(_onUpdateLpsAmount);
     on<BankToDcTransferValidateStep>(_onValidateStep);
     on<BankToDcTransferSubmit>(_onSubmitDepositNow);
   }
@@ -101,81 +99,6 @@ class BankToDcTransferStepsBloc
     emit(state.copyWith(stepData: updatedStepData));
   }
 
-  // void _onToggleLedgerSelection(
-  //   BankToDcTransferToggleLedgerSelection event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   late List<CollectionLedgerEntity> updatedLedgers;
-
-  //   if (event.ledger.subledger) {
-  //     updatedLedgers =
-  //         state.collectionLedgers.map((l) {
-  //           if (l.accountNumber == event.ledger.accountNumber) {
-  //             return l.copyWith(isSelected: !(event.ledger.isSelected));
-  //           }
-  //           return l;
-  //         }).toList();
-  //   } else if (event.ledger.plType == 2 || event.ledger.plType == 1) {
-  //     updatedLedgers =
-  //         state.collectionLedgers.map((l) {
-  //           if (l.accountNumber == event.ledger.accountNumber &&
-  //               !event.ledger.isSelected) {
-  //             return l.copyWith(isSelected: true);
-  //           } else if (l.accountNumber == event.ledger.accountNumber &&
-  //               event.ledger.ledgerId == l.ledgerId) {
-  //             return l.copyWith(isSelected: false);
-  //           }
-  //           return l;
-  //         }).toList();
-  //   } else {
-  //     updatedLedgers =
-  //         state.collectionLedgers.map((l) {
-  //           if (l.accountId == event.ledger.accountId &&
-  //               l.accountNumber == event.ledger.accountNumber &&
-  //               l.ledgerId == event.ledger.ledgerId) {
-  //             return l.copyWith(isSelected: !(l.isSelected));
-  //           }
-  //           return l;
-  //         }).toList();
-  //   }
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
-  // void _onToggleSelectAllLedgers(
-  //   BankToDcTransferToggleSelectAllLedgers event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   final updatedLedgers =
-  //       state.collectionLedgers
-  //           .map((l) => l.copyWith(isSelected: event.selectAll))
-  //           .toList();
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
-  // void _onUpdateLedgerAmount(
-  //   BankToDcTransferUpdateLedgerAmount event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   if (!event.ledger.subledger &&
-  //       event.ledger.plType == 2 &&
-  //       event.ledger.lps) {
-  //     return;
-  //   }
-  //   final updatedLedgers =
-  //       state.collectionLedgers.map((l) {
-  //         if (l.accountId == event.ledger.accountId &&
-  //             l.accountNumber == event.ledger.accountNumber &&
-  //             l.ledgerId == event.ledger.ledgerId) {
-  //           return l.copyWith(depositAmount: event.newAmount);
-  //         }
-  //         return l;
-  //       }).toList();
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
   void _onSelectBankAccount(
     BankToDcTransferSelectBankAccount event,
     Emitter<BankToDcTransferStepsState> emit,
@@ -197,22 +120,6 @@ class BankToDcTransferStepsBloc
     emit(state.copyWith(selectedCard: event.selectedCard));
   }
 
-  // void _onUpdateLpsAmount(
-  //   BankToDcTransferUpdateLpsAmount event,
-  //   Emitter<BankToDcTransferStepsState> emit,
-  // ) {
-  //   final updatedLedgers =
-  //       state.collectionLedgers.map((l) {
-  //         if (l.collectionType.trim() == 'LoanLpsAmount' &&
-  //             l.accountNumber == event.loanNumber) {
-  //           return l.copyWith(depositAmount: event.newAmount);
-  //         }
-  //         return l;
-  //       }).toList();
-
-  //   emit(state.copyWith(collectionLedgers: updatedLedgers));
-  // }
-
   void _onValidateStep(
     BankToDcTransferValidateStep event,
     Emitter<BankToDcTransferStepsState> emit,
@@ -230,9 +137,7 @@ class BankToDcTransferStepsBloc
   }
 
   Future<String> fileToBase64(File file) async {
-    // Read file as bytes
     final bytes = await file.readAsBytes();
-    // Encode bytes to base64 string
     return base64Encode(bytes);
   }
 
@@ -246,7 +151,12 @@ class BankToDcTransferStepsBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -303,7 +213,10 @@ class BankToDcTransferStepsBloc
       );
     } catch (_) {
       emit(
-        state.copyWith(error: 'Failed to submit deposit now', isLoading: false),
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_submit_deposit_now'),
+          isLoading: false,
+        ),
       );
     }
   }
@@ -324,19 +237,27 @@ class BankToDcTransferStepsBloc
       case 0:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
       case 1:
         if (data['amount'] == null) {
-          errors['amount'] = 'Please enter deposit amount';
+          errors['amount'] = appLocalizationService.t(
+            'please_enter_deposit_amount',
+          );
         }
         if (state.selectedBankAccount.bankAccNumber.isEmpty) {
-          errors['bank'] = 'Please select a bank account';
+          errors['bank'] = appLocalizationService.t(
+            'please_select_a_bank_account',
+          );
         }
         if (data['receiptFile'] == null) {
-          errors['receiptFile'] = 'Please attach a transaction receipt';
+          errors['receiptFile'] = appLocalizationService.t(
+            'please_attach_a_transaction_receipt',
+          );
         }
         break;
 
@@ -344,66 +265,64 @@ class BankToDcTransferStepsBloc
         final selectedLedgers =
             state.collectionLedgers.where((l) => l.isSelected).toList();
         if (selectedLedgers.isEmpty) {
-          errors['ledgers'] = 'Please select at least one ledger to deposit';
+          errors['ledgers'] = appLocalizationService.t(
+            'please_select_at_least_one_account',
+          );
         } else {
-          // Map ledgerId to error message for invalid deposit amounts
           final Map<String, String> amountErrors = {};
 
           for (final ledger in selectedLedgers) {
             if (ledger.depositAmount <= 0) {
-              amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be greater than zero';
+              amountErrors[ledger.ledgerId.toString()] = appLocalizationService
+                  .t('deposit_amount_must_be_greater_than_zero');
             } else if (!ledger.subledger &&
                 ledger.depositAmount < ledger.amount) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be less than the ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amunt_cannot_be_less_than_the',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.multiplier &&
                 ledger.depositAmount % ledger.amount != 0) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount must be a multiple of ${ledger.amount}';
+                  appLocalizationService.t(
+                    'deposit_amount_must_be_a_multiple_of',
+                  ) +
+                  ledger.amount.toString();
             } else if (ledger.plType == 2 &&
                 ledger.depositAmount > ledger.loanBalance) {
               amountErrors[ledger.ledgerId.toString()] =
-                  'Deposit amount cannot be greater than the ${ledger.loanBalance}';
+                  appLocalizationService.t(
+                    'deposit_amount_cannot_be_greater_than',
+                  ) +
+                  ledger.loanBalance.toString();
             }
           }
 
           if (amountErrors.isNotEmpty) {
             errors['amounts'] = amountErrors;
-          } else {
-            final totalDeposit = selectedLedgers.fold<double>(
-              0,
-              (sum, ledger) => sum + (ledger.depositAmount),
-            );
-
-            final totalWithdrawable =
-                state.selectedAccount != null
-                    ? state.selectedAccount!.withdrawableBalance
-                    : 0;
-
-            if (totalDeposit > totalWithdrawable) {
-              errors['ledgers'] =
-                  "You don't have enough balance to deposit this amount";
-            }
           }
         }
         break;
 
       case 4:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t('pin_must_be_4_digits');
         }
         break;
 
       case 5:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 
-      // No validation needed for final review/step 5
       default:
         break;
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/deposit/presentation/pages/deposit_later_page/sections/deposit_later_preview/deposit_later_preview_section.dart';
@@ -61,7 +62,7 @@ class AccountPreviewSection extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "Account Preview",
+                    Locales.string(context, 'account_preview'),
                     style: TextStyle(
                       color: colorScheme.onPrimary,
                       fontSize: 16,
@@ -80,38 +81,57 @@ class AccountPreviewSection extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        const SectionTitle("Account Info"),
-                        InfoRow("Account Type", accountType ?? ""),
-                        InfoRow("Account Name", accountName ?? ""),
-                        InfoRow("Tenure", "$accountDuration Months"),
+                        SectionTitle(Locales.string(context, 'account_info')),
                         InfoRow(
-                          "Interest Rate",
+                          Locales.string(context, 'account_type'),
+                          accountType ?? "",
+                        ),
+                        InfoRow(
+                          Locales.string(context, 'account_name'),
+                          accountName ?? "",
+                        ),
+                        InfoRow(
+                          Locales.string(context, 'tenure'),
+                          "$accountDuration Months",
+                        ),
+                        InfoRow(
+                          Locales.string(context, 'interest_rate'),
                           interestRate.toString(),
                           icon: FontAwesomeIcons.percent,
                         ),
                         InfoRow(
-                          "Deposit Amount",
+                          Locales.string(context, 'installment_amount'),
                           installmentAmount.toString(),
                           icon: FontAwesomeIcons.bangladeshiTakaSign,
                         ),
                         InfoRow(
-                          "Interest Transfer To",
+                          Locales.string(context, 'interest_transfer_account'),
                           interestTransferTo ?? "",
                         ),
 
                         Divider(height: 30, color: colorScheme.primary),
 
-                        const SectionTitle("Account Holder"),
-                        InfoRow("Full Name", accountHolderName ?? ""),
+                        SectionTitle(Locales.string(context, 'account_holder')),
+                        InfoRow(
+                          Locales.string(context, 'full_name'),
+                          accountHolderName ?? "",
+                        ),
 
                         Divider(height: 30, color: colorScheme.primary),
 
-                        const SectionTitle("Account Operator"),
-                        InfoRow("Full Name", accountOperatorName ?? ""),
+                        SectionTitle(
+                          Locales.string(context, 'account_operator'),
+                        ),
+                        InfoRow(
+                          Locales.string(context, 'full_name'),
+                          accountOperatorName ?? "",
+                        ),
 
                         Divider(height: 30, color: colorScheme.primary),
 
-                        const SectionTitle("Appointed Nominees"),
+                        SectionTitle(
+                          Locales.string(context, 'appointed_nominees'),
+                        ),
                         for (final nominee in nominees)
                           InfoRow(
                             nominee.name,

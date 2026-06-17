@@ -48,7 +48,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     behavior: SnackBarBehavior.floating,
                     backgroundColor: Colors.transparent,
                     content: AwesomeSnackbarContent(
-                      title: 'Oh Snap!',
+                      title: Locales.string(context, 'oops'),
                       message: state.message,
                       contentType: ContentType.failure,
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
@@ -20,7 +21,7 @@ class ApplicationDetails extends StatefulWidget {
   final String? selectInstallmentError;
 
   const ApplicationDetails({
-    Key? key,
+    super.key,
     required this.title,
     required this.totalAmount,
     required this.accountData,
@@ -30,7 +31,7 @@ class ApplicationDetails extends StatefulWidget {
     required this.state,
     required this.selectInstallmentData,
     required this.selectInstallmentError,
-  }) : super(key: key);
+  });
 
   @override
   State<ApplicationDetails> createState() => _ApplicationDetailsState();
@@ -168,7 +169,10 @@ class _ApplicationDetailsState extends State<ApplicationDetails> {
                           AppTextInput(
                             initialValue:
                                 productLoanInterest.maxLoanAmount.toString(),
-                            label: "Maximum Loan Amount",
+                            label: Locales.string(
+                              context,
+                              'maximum_loan_amount',
+                            ),
                             prefixIcon: Icon(
                               FontAwesomeIcons.coins,
                               color: theme.colorScheme.onSurface,
@@ -181,7 +185,7 @@ class _ApplicationDetailsState extends State<ApplicationDetails> {
                             initialValue:
                                 productLoanInterest.interestRate.toString(),
                             // productLoanInterest,
-                            label: "Interest Rate",
+                            label: Locales.string(context, 'interest_rate'),
                             prefixIcon: Icon(
                               FontAwesomeIcons.percent,
                               color: theme.colorScheme.onSurface,
@@ -194,7 +198,7 @@ class _ApplicationDetailsState extends State<ApplicationDetails> {
                             items: buildInstallmentItems(
                               productLoanInterest.minimumInstallment,
                             ),
-                            label: "Installment No",
+                            label: Locales.string(context, 'installment_no'),
                             onChanged: (value) {
                               widget.selectInstallment(value.toString());
                             },
@@ -203,7 +207,7 @@ class _ApplicationDetailsState extends State<ApplicationDetails> {
                           ),
                           const SizedBox(height: 18),
                           AppTextInput(
-                            label: "Apply Loan Amount",
+                            label: Locales.string(context, 'apply_loan_amount'),
                             prefixIcon: Icon(
                               FontAwesomeIcons.moneyBillWave,
                               color: theme.colorScheme.onSurface,

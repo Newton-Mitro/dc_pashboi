@@ -1,5 +1,6 @@
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/features/my_app/data/data_source/app_status_remote_datasource.dart';
+import 'package:pashboi/features/my_app/data/models/advertisement_model.dart';
 import 'package:pashboi/features/my_app/data/models/app_status_model.dart';
 
 class AppStatusMockDataSourceImpl implements AppStatusRemoteDataSource {
@@ -23,5 +24,11 @@ class AppStatusMockDataSourceImpl implements AppStatusRemoteDataSource {
           "Dear Member,\nPlease be informed that due to system upgradation our ATM and MMS Services will remain temporarily unavailable, rnuntill further notice. We are sorry for the inconvenience.rn rnFor any enquiry, please call our 24-hour Member Services Hotline 09678156156.rnrnThank YournDhaka Credit",
     });
     return model;
+  }
+
+  @override
+  Future<List<AdvertisementModel>> getAdds() {
+    // TODO: implement getAdds
+    throw UnimplementedError();
   }
 }

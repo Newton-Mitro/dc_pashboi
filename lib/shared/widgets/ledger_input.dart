@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/features/authenticated/collection_ledgers/domain/entities/collection_ledger_entity.dart';
 import 'package:pashboi/features/authenticated/loan_payment/presentation/pages/bloc/loan_payment_bloc.dart';
 
@@ -53,7 +54,7 @@ class _LedgerInputState extends State<LedgerInput> {
         enabled: widget.isSelected && !widget.ledger.editable,
         controller: _controller,
         decoration: InputDecoration(
-          labelText: "Amt",
+          labelText: Locales.string(context, "amount"),
           border: OutlineInputBorder(),
           isDense: true,
           contentPadding: const EdgeInsets.symmetric(

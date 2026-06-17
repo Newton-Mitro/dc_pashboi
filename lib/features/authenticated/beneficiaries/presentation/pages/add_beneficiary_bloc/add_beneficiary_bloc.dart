@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -12,10 +13,12 @@ class AddBeneficiaryBloc
     extends Bloc<AddBeneficiaryEvent, AddBeneficiaryState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final AddBeneficiaryUseCase addBeneficiaryUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AddBeneficiaryBloc({
     required this.getAuthUserUseCase,
     required this.addBeneficiaryUseCase,
+    required this.appLocalizationService,
   }) : super(AddBeneficiaryInitial()) {
     on<AddBeneficiarySubmit>(_onSubmitAddBeneficiary);
   }
@@ -25,7 +28,8 @@ class AddBeneficiaryBloc
   ) async {
     final authUser = await getAuthUserUseCase(NoParams());
     return authUser.fold((failure) {
-      emit(const AddBeneficiaryFailure('Failed to load user information'));
+      final message = appLocalizationService.t('failed_to_load_user_info');
+      emit(AddBeneficiaryFailure(message));
       return null;
     }, (success) => success.user);
   }
@@ -37,11 +41,15 @@ class AddBeneficiaryBloc
     final errors = <String, String>{};
 
     if (event.beneficiaryName.trim().isEmpty) {
-      errors['beneficiaryName'] = 'Please enter beneficiary name';
+      errors['beneficiaryName'] = appLocalizationService.t(
+        'please_enter_beneficiary_name',
+      );
     }
 
     if (event.accountNumber.trim().isEmpty) {
-      errors['accountNumber'] = 'Please enter account number';
+      errors['accountNumber'] = appLocalizationService.t(
+        'please_enter_account_number',
+      );
     }
 
     if (errors.isNotEmpty) {

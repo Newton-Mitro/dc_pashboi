@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -60,6 +61,7 @@ void registerWoooLeaveTypeModule() {
     () => WoooTypeBloc(
       woooTypeUseCase: sl<WoooTypeUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -67,6 +69,7 @@ void registerWoooLeaveTypeModule() {
     () => SubmitWoooApplicationBloc(
       submitWoooApplicationUseCase: sl<SubmitWoooApplicationUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -74,6 +77,7 @@ void registerWoooLeaveTypeModule() {
     () => GetWoooDataBloc(
       getWoooDataUseCase: sl<GetWoooDataUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -81,6 +85,7 @@ void registerWoooLeaveTypeModule() {
     () => UpdateWoooRequestBloc(
       updateWoooUseCase: sl<UpdateWoooUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -88,6 +93,7 @@ void registerWoooLeaveTypeModule() {
     () => GetWoooApprovalBloc(
       getWoooApprovalUsecase: sl<GetWoooApprovalUsecase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -95,6 +101,7 @@ void registerWoooLeaveTypeModule() {
     () => SubmitWoooApprovalBloc(
       woooApprovalSubmitUseCase: sl<WoooApprovalSubmitUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

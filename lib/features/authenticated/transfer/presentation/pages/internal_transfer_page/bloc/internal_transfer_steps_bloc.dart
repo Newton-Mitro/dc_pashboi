@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
@@ -14,23 +15,23 @@ part 'internal_transfer_steps_state.dart';
 
 class InternalTransferStepsBloc
     extends Bloc<InternalTransferStepsEvent, InternalTransferStepsState> {
-  // Define step range constants
   static const int firstStep = 0;
   static const int lastStep = 5;
   static const int totalSteps = lastStep + 1;
   final GetAuthUserUseCase getAuthUserUseCase;
   final SubmitFundTransferUseCase submitFundTransferUseCase;
+  final AppLocalizationService appLocalizationService;
 
   InternalTransferStepsBloc({
     required this.getAuthUserUseCase,
     required this.submitFundTransferUseCase,
+    required this.appLocalizationService,
   }) : super(const InternalTransferStepsState(currentStep: 0)) {
     on<InternalTransferGoToNextStep>(_onGoToNextStep);
     on<InternalTransferGoToPreviousStep>(_onGoToPreviousStep);
     on<InternalTransferUpdateStepData>(_onUpdateStepData);
     on<InternalTransferSelectCardAccount>(_onSelectCardAccount);
     on<InternalTransferSelectDebitCard>(_onSelectDebitCard);
-    // update lps amount
     on<InternalTransferValidateStep>(_onValidateStep);
     on<InternalTransferSubmit>(_onSubmitFundTransfer);
   }
@@ -120,7 +121,12 @@ class InternalTransferStepsBloc
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(state.copyWith(error: 'User not found', isLoading: false));
+        emit(
+          state.copyWith(
+            error: appLocalizationService.t('failed_to_load_user_info'),
+            isLoading: false,
+          ),
+        );
         return;
       }
 
@@ -157,36 +163,13 @@ class InternalTransferStepsBloc
       );
     } catch (_) {
       emit(
-        state.copyWith(error: 'Failed to submit deposit now', isLoading: false),
+        state.copyWith(
+          error: appLocalizationService.t('failed_to_submit_deposit_now'),
+          isLoading: false,
+        ),
       );
     }
   }
-
-  // String getFormattedAccountNumber(String? userInputAccountNumber) {
-  //   if (userInputAccountNumber == null || userInputAccountNumber.isEmpty) {
-  //     return "";
-  //   }
-
-  //   String input = userInputAccountNumber.trim();
-  //   String formatted = "";
-
-  //   if (input.contains('-')) {
-  //     List<String> parts = input.split('-');
-  //     String prefix = parts[0].toLowerCase();
-  //     String number = parts[1].trim().padLeft(7, '0');
-
-  //     if (prefix.contains('t')) {
-  //       formatted = 'T-$number';
-  //     } else if (prefix.contains('l')) {
-  //       formatted = 'L-$number';
-  //     } else if (prefix.contains('std')) {
-  //       formatted = 'STD-$number';
-  //     }
-  //   } else {
-  //     formatted = input.padLeft(7, '0');
-  //   }
-  //   return formatted;
-  // }
 
   Map<String, dynamic> _validateDepositNowSteps(int step) {
     final data = state.stepData[step] ?? {};
@@ -196,18 +179,22 @@ class InternalTransferStepsBloc
       case 0:
         if (state.selectedAccount == null ||
             state.selectedAccount!.number.isEmpty) {
-          errors['transferFromAccount'] = 'Select an account to transfer from';
+          errors['transferFromAccount'] = appLocalizationService.t(
+            'select_an_account_to_transfer_from',
+          );
         }
         break;
 
       case 1:
         if (data['searchAccountNumber'] == null) {
-          errors['searchAccountNumber'] =
-              'Please enter a search account number';
+          errors['searchAccountNumber'] = appLocalizationService.t(
+            'please_enter_a_search_account_number',
+          );
         }
         if (data['searchedAccountHolderName'] == null) {
-          errors['searchedAccountHolderName'] =
-              'Search account holder name is required';
+          errors['searchedAccountHolderName'] = appLocalizationService.t(
+            'account_holder_name_is_required',
+          );
         }
         break;
 
@@ -229,27 +216,32 @@ class InternalTransferStepsBloc
       //   }
 
       case 2:
-        if (data['transferAmount'] == '') {
-          errors['transferAmount'] = 'Please enter transfer amount';
+        if (data['transferAmount'] == '' || data['transferAmount'] == null) {
+          errors['transferAmount'] = appLocalizationService.t(
+            'please_enter_transfer_amount',
+          );
         }
 
         break;
 
       case 4:
         if (data['cardPin'] == null || data['cardPin'].toString().isEmpty) {
-          errors['cardPin'] = 'Please enter a card PIN';
+          errors['cardPin'] = appLocalizationService.t(
+            'please_enter_a_card_pin',
+          );
         } else if (data['cardPin'].length != 4) {
-          errors['cardPin'] = 'PIN must be 4 digits';
+          errors['cardPin'] = appLocalizationService.t('pin_must_be_4_digits');
         }
         break;
 
       case 5:
         if (data['confirmation'] != true) {
-          errors['confirmation'] = 'You must confirm to proceed';
+          errors['confirmation'] = appLocalizationService.t(
+            'you_must_confirm_to_proceed',
+          );
         }
         break;
 
-      // No validation needed for final review/step 5
       default:
         break;
     }

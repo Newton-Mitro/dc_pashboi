@@ -66,7 +66,7 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Locales.string(context, 'employee_profile_details')),
+        title: Text(Locales.string(context, 'employee_profile_title')),
       ),
       body: BlocBuilder<EmployeesProfileBloc, EmployeesProfileState>(
         builder: (context, state) {
@@ -175,13 +175,19 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                           const SizedBox(height: 10),
                           buildInfoRow(
                             FontAwesomeIcons.userTie,
-                            Locales.string(context, 'supervisor_name'),
+                            Locales.string(
+                              context,
+                              'employee_profile_supervisor_name',
+                            ),
                             person.supervisorName.trim().toTitleCase(),
                           ),
                           const SizedBox(height: 10),
                           buildInfoRow(
                             FontAwesomeIcons.idCard,
-                            Locales.string(context, 'employee_code'),
+                            Locales.string(
+                              context,
+                              'employee_profile_employee_code',
+                            ),
                             person.employeeCode,
                           ),
 
@@ -189,7 +195,7 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
 
                           buildInfoRow(
                             FontAwesomeIcons.person,
-                            Locales.string(context, 'gender'),
+                            Locales.string(context, 'employee_profile_gender'),
                             person.gender,
                           ),
 
@@ -197,20 +203,29 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
 
                           buildInfoRow(
                             FontAwesomeIcons.at,
-                            Locales.string(context, 'official_email'),
+                            Locales.string(
+                              context,
+                              'employee_profile_official_email',
+                            ),
                             person.employeeEmail,
                           ),
                           const SizedBox(height: 10),
                           buildInfoRow(
                             FontAwesomeIcons.at,
-                            Locales.string(context, 'personal_email'),
+                            Locales.string(
+                              context,
+                              'employee_profile_personal_email',
+                            ),
                             person.email,
                           ),
                           const SizedBox(height: 10),
 
                           buildInfoRow(
                             FontAwesomeIcons.calendar,
-                            Locales.string(context, 'joining_date'),
+                            Locales.string(
+                              context,
+                              'employee_profile_joining_date',
+                            ),
                             MyDateUtils.formatDate(
                               DateTime.tryParse(person.joiningDate),
                             ),
@@ -220,13 +235,16 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
 
                           buildInfoRow(
                             FontAwesomeIcons.droplet,
-                            Locales.string(context, 'profile_pae_blood_group'),
+                            Locales.string(
+                              context,
+                              'employee_profile_blood_group',
+                            ),
                             person.bloodGroup,
                           ),
                           const SizedBox(height: 10),
                           buildInfoRow(
                             FontAwesomeIcons.idCard,
-                            Locales.string(context, 'profile_pae_nid'),
+                            Locales.string(context, 'employee_profile_nid'),
                             person.nid,
                           ),
                           const SizedBox(height: 10),
@@ -234,7 +252,7 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                             FontAwesomeIcons.phoneVolume,
                             Locales.string(
                               context,
-                              'profile_pae_mobile_number',
+                              'employee_profile_mobile_number',
                             ),
                             person.mobileNumber,
                           ),

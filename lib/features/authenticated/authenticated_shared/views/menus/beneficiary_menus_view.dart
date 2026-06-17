@@ -38,7 +38,7 @@ class _BeneficiaryMenusViewState extends State<BeneficiaryMenusView> {
           context,
           "beneficiary_menu_add_beneficiaries_title",
         ),
-        "controllerName": "Beneficiary",
+        "controllerName": "Add Beneficiary",
         "menuDescription": Locales.string(
           context,
           "beneficiary_menu_add_beneficiaries_description",

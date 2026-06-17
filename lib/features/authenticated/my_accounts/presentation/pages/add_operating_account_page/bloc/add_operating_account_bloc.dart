@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/usecases/add_operating_account_usecase.dart';
@@ -11,10 +12,12 @@ class AddOperatingAccountBloc
     extends Bloc<AddOperatingAccountEvent, AddOperatingAccountState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final AddOperatingAccountUseCase addOperatingAccountUseCase;
+  final AppLocalizationService appLocalizationService;
 
   AddOperatingAccountBloc({
     required this.getAuthUserUseCase,
     required this.addOperatingAccountUseCase,
+    required this.appLocalizationService,
   }) : super(AddOperatingAccountInitial()) {
     on<AddOperatingAccountEvent>(_onSubmit);
   }
@@ -26,11 +29,15 @@ class AddOperatingAccountBloc
     final Map<String, String> errors = {};
 
     if (event.accountHolderId == 0) {
-      errors['dependents'] = 'Please select dependent';
+      errors['dependents'] = appLocalizationService.t(
+        'please_select_dependent',
+      );
     }
 
     if (event.accountHolderInfoId == 0) {
-      errors['dependentsAccounts'] = 'Please select dependent account';
+      errors['dependentsAccounts'] = appLocalizationService.t(
+        'please_select_dependent_account',
+      );
     }
 
     if (errors.isNotEmpty) {
@@ -45,7 +52,11 @@ class AddOperatingAccountBloc
 
       await authResult.fold(
         (failure) async {
-          emit(AddOperatingAccountError('Failed to load user info'));
+          emit(
+            AddOperatingAccountError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
         },
         (authUserData) async {
           final user = authUserData.user;

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -13,10 +14,12 @@ class CollectionLedgerBloc
     extends Bloc<CollectionLedgerEvent, CollectionLedgerState> {
   final FetchCollectionLedgersUseCase fetchCollectionLedgersUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   CollectionLedgerBloc({
     required this.fetchCollectionLedgersUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(CollectionLedgerInitial()) {
     on<FetchCollectionLedgersEvent>(_onFetchCollectionLedgers);
   }
@@ -29,8 +32,8 @@ class CollectionLedgerBloc
 
     if (searchText.isEmpty) {
       emit(
-        const CollectionLedgerValidationError({
-          'searchText': 'Please enter account number',
+        CollectionLedgerValidationError({
+          'searchText': appLocalizationService.t('please_enter_account_number'),
         }),
       );
       return;
@@ -43,8 +46,11 @@ class CollectionLedgerBloc
 
       UserEntity? user;
       authUser.fold(
-        (failure) =>
-            emit(CollectionLedgerError('Failed to load user information')),
+        (failure) => emit(
+          CollectionLedgerError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        ),
         (success) => user = success.user,
       );
 
@@ -68,7 +74,11 @@ class CollectionLedgerBloc
         (ledgers) => emit(CollectionLedgerLoaded(ledgers)),
       );
     } catch (e) {
-      emit(CollectionLedgerError('Failed to load collection ledgers'));
+      emit(
+        CollectionLedgerError(
+          appLocalizationService.t('failed_to_load_collection_ledgers'),
+        ),
+      );
     }
   }
 }

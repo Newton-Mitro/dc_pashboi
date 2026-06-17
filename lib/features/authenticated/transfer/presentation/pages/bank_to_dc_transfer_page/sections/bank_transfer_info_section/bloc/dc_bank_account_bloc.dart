@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/entities/dc_bank_entity.dart';
@@ -11,10 +12,12 @@ part 'dc_bank_account_state.dart';
 class DcBankAccountBloc extends Bloc<DcBankAccountEvent, DcBankAccountState> {
   final FetchDcBankAccountsUseCase fetchDcBankAccountsUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   DcBankAccountBloc({
     required this.fetchDcBankAccountsUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(DcBankAccountInitial()) {
     on<DcBankAccountLoadEvent>(_fetchDcBankAccounts);
   }
@@ -29,7 +32,11 @@ class DcBankAccountBloc extends Bloc<DcBankAccountEvent, DcBankAccountState> {
       final authUserResult = await getAuthUserUseCase.call(NoParams());
 
       if (authUserResult.isLeft()) {
-        emit(DcBankAccountError('Failed to load user information'));
+        emit(
+          DcBankAccountError(
+            appLocalizationService.t('failed_to_load_user_info'),
+          ),
+        );
         return;
       }
 
@@ -51,7 +58,11 @@ class DcBankAccountBloc extends Bloc<DcBankAccountEvent, DcBankAccountState> {
         (accounts) => emit(DcBankAccountLoaded(accounts)),
       );
     } catch (_) {
-      emit(DcBankAccountError('Failed to load DC bank accounts'));
+      emit(
+        DcBankAccountError(
+          appLocalizationService.t('failed_to_load_bank_accounts'),
+        ),
+      );
     }
   }
 }

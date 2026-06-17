@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -13,9 +14,12 @@ class FetchOperatingAccountsBloc
     extends Bloc<FetchOperatingAccountsEvent, FetchOperatingAccountsState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final FetchOperatingAccountsUseCase fetchOperatingAccountUseCase;
+  final AppLocalizationService appLocalizationService;
+
   FetchOperatingAccountsBloc({
     required this.getAuthUserUseCase,
     required this.fetchOperatingAccountUseCase,
+    required this.appLocalizationService,
   }) : super(FetchOperatingAccountsInitial()) {
     on<FetchOperatingAccountsEvent>((event, emit) async {
       emit(FetchOperatingAccountsLoading());
@@ -27,7 +31,9 @@ class FetchOperatingAccountsBloc
         authUser.fold(
           (left) {
             emit(
-              FetchOperatingAccountsError('Failed to load user information'),
+              FetchOperatingAccountsError(
+                appLocalizationService.t('failed_to_load_user_info'),
+              ),
             );
           },
           (right) {
@@ -36,7 +42,11 @@ class FetchOperatingAccountsBloc
         );
 
         if (user == null) {
-          emit(FetchOperatingAccountsError('User not found'));
+          emit(
+            FetchOperatingAccountsError(
+              appLocalizationService.t('failed_to_load_user_info'),
+            ),
+          );
           return;
         }
 
@@ -61,7 +71,11 @@ class FetchOperatingAccountsBloc
           },
         );
       } catch (e) {
-        emit(FetchOperatingAccountsError('Failed to load debit card'));
+        emit(
+          FetchOperatingAccountsError(
+            appLocalizationService.t('failed_to_load_debit_card'),
+          ),
+        );
       }
     });
   }

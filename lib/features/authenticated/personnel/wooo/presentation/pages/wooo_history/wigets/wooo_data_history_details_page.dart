@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/domain/entities/wooo_data_entities.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_application/bloc/wooo_type_bloc.dart';
@@ -111,10 +112,13 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Working Out Of Office"),
+        title: Text(Locales.string(context, "working_out_of_office")),
         bottom: TabBar(
           controller: _tabController,
-          tabs: const [Tab(text: "For Hours"), Tab(text: "For Days")],
+          tabs: [
+            Tab(text: Locales.string(context, 'for_hours')),
+            Tab(text: Locales.string(context, 'for_days')),
+          ],
           labelColor: context.theme.colorScheme.onPrimary,
           indicatorColor: Colors.white,
         ),
@@ -225,7 +229,7 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: Colors.transparent,
                         content: AwesomeSnackbarContent(
-                          title: 'Oops!',
+                          title: Locales.string(context, "oops"),
                           message: state.message,
                           contentType: ContentType.failure,
                         ),
@@ -241,9 +245,11 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
                         behavior: SnackBarBehavior.floating,
                         backgroundColor: Colors.transparent,
                         content: AwesomeSnackbarContent(
-                          title: 'Done!',
-                          message:
-                              "Working Out of Office application  Update successfully",
+                          title: Locales.string(context, "success"),
+                          message: Locales.string(
+                            context,
+                            "working_out_of_office_application_submitted_successfully",
+                          ),
                           contentType: ContentType.success,
                         ),
                       );
@@ -259,7 +265,7 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
                   },
 
                   child: AppPrimaryButton(
-                    label: "Submit",
+                    label: Locales.string(context, "submit"),
                     onPressed: () {
                       context.read<UpdateWoooRequestBloc>().add(
                         UpdateWoooApplication(

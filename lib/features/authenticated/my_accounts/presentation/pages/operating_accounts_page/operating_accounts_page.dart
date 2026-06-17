@@ -45,7 +45,7 @@ class DependentsAccountsPage extends StatelessWidget {
                 if (accounts.isEmpty) {
                   return Center(
                     child: Text(
-                      'No Operating Accounts Found.',
+                      Locales.string(context, 'no_operating_account_found'),
                       style: TextStyle(
                         fontSize: 14,
                         color: context.theme.colorScheme.onSurface,

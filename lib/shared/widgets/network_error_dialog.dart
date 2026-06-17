@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/utils/network_utils.dart';
 
 class NetworkErrorDialog extends StatefulWidget {
@@ -43,15 +44,13 @@ class _NetworkErrorDialogState extends State<NetworkErrorDialog>
     return FadeTransition(
       opacity: _animation,
       child: AlertDialog(
-        title: const Text("Network Error"),
-        content: const Text(
-          "No internet connection. Please check your network settings.",
-        ),
+        title: Text(Locales.string(context, 'network_error')),
+        content: Text(Locales.string(context, 'no_internet_connection')),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Text(
-              "Cancel",
+              Locales.string(context, 'cancel'),
               style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),
@@ -61,7 +60,7 @@ class _NetworkErrorDialogState extends State<NetworkErrorDialog>
               Navigator.pop(context);
             },
             child: Text(
-              "Open Settings",
+              Locales.string(context, 'open_settings'),
               style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
             ),
           ),

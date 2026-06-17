@@ -59,7 +59,7 @@ class _LoanStatementPageState extends State<LoanStatementPage> {
       }
       _errorText =
           endDate.isBefore(startDate)
-              ? 'To Date must be after From Date'
+              ? Locales.string(context, 'to_date_must_be_after_from_date')
               : null;
     });
   }
@@ -273,7 +273,6 @@ class _LoanStatementPageState extends State<LoanStatementPage> {
   Future<void> createAndSavePdf(
     List<LoanTransactionEntity> transactions,
   ) async {
-    print("transaction: $transactions");
     final pdf = pw.Document();
     final logoBytes = await rootBundle.load(
       'assets/images/brand/company_logo.png',

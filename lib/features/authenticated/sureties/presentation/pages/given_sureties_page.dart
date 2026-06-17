@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
@@ -18,7 +19,7 @@ class GivenSuretiesPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<SuretyBloc>()..add(FetchGivenSuretiesEvent()),
       child: Scaffold(
-        appBar: AppBar(title: Text('Given Sureties')),
+        appBar: AppBar(title: Text(Locales.string(context, "given_sureties"))),
         body: PageContainer(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
@@ -44,7 +45,7 @@ class GivenSuretiesPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            'You don’t have any surety account added yet.',
+                            Locales.string(context, 'empty_given_sureties'),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 13,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
@@ -50,7 +51,7 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Leave Approval")),
+      appBar: AppBar(title: Text(Locales.string(context, "leave_approval"))),
       body: PageContainer(
         child: SizedBox(
           height: double.infinity,
@@ -75,7 +76,7 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
                   child: AppDatePicker(
                     selectedDate: _startDate,
                     onDateChanged: (d) => setState(() => _startDate = d),
-                    label: "Start Date",
+                    label: Locales.string(context, "start_date"),
                     errorText: '',
                     firstDate: null,
                     enabled: true,
@@ -86,7 +87,7 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
                   child: AppDatePicker(
                     selectedDate: _endDate,
                     onDateChanged: (d) => setState(() => _endDate = d),
-                    label: "End Date",
+                    label: Locales.string(context, "end_date"),
                     errorText: '',
                     firstDate: null,
                     enabled: true,
@@ -98,7 +99,10 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
 
           // Search Button
           const SizedBox(height: 16),
-          AppPrimaryButton(label: "Search", onPressed: _fetchLeaveApprovals),
+          AppPrimaryButton(
+            label: Locales.string(context, "search"),
+            onPressed: _fetchLeaveApprovals,
+          ),
           const SizedBox(height: 15),
 
           // Leave Approvals List
@@ -111,7 +115,7 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
               if (state is LeaveApprovalError) {
                 return Center(
                   child: Text(
-                    state.message ?? 'An error occurred',
+                    state.message,
                     style: const TextStyle(color: Colors.red),
                   ),
                 );
@@ -159,8 +163,12 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(request.employeeName),
-                          Text("From: ${_formatDate(request.fromDate)}"),
-                          Text("To:   ${_formatDate(request.toDate)}"),
+                          Text(
+                            "${Locales.string(context, "from_date")}: ${_formatDate(request.fromDate)}",
+                          ),
+                          Text(
+                            "${Locales.string(context, "to_date")}:   ${_formatDate(request.toDate)}",
+                          ),
                         ],
                       ),
                       onTap: () {

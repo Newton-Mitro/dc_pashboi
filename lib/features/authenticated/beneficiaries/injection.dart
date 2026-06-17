@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -47,6 +48,7 @@ void registerBeneficiaryModule() async {
       fetchBeneficiariesUseCase: sl<FetchBeneficiariesUseCase>(),
       removeBeneficiaryUseCase: sl<RemoveBeneficiaryUseCase>(),
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 
@@ -54,6 +56,7 @@ void registerBeneficiaryModule() async {
     () => AddBeneficiaryBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       addBeneficiaryUseCase: sl<AddBeneficiaryUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

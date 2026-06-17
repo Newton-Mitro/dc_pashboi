@@ -1,4 +1,5 @@
 import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -63,30 +64,35 @@ void registerDepositModule() async {
     () => DepositNowStepsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitDepositNowUseCase: sl<SubmitDepositNowUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<DepositLaterStepsBloc>(
     () => DepositLaterStepsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitDepositLaterUseCase: sl<SubmitDepositLaterUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<DepositFromBkashStepsBloc>(
     () => DepositFromBkashStepsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       submitDepositFromBkashUseCase: sl<SubmitDepositFromBkashUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<BkashServiceChargeBloc>(
     () => BkashServiceChargeBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       fetchBkashServiceChargeUseCase: sl<FetchBkashServiceChargeUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
   sl.registerFactory<ScheduledDepositsBloc>(
     () => ScheduledDepositsBloc(
       getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       fetchScheduledDepositsUseCase: sl<FetchScheduledDepositsUseCase>(),
+      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

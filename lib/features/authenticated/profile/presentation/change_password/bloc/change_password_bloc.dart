@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:pashboi/core/locale/services/app_localization_service.dart';
 
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -15,10 +16,12 @@ class ChangePasswordBloc
     extends Bloc<ChangePasswordEvent, ChangePasswordState> {
   final ChangePasswordUseCase changePasswordUseCase;
   final GetAuthUserUseCase getAuthUserUseCase;
+  final AppLocalizationService appLocalizationService;
 
   ChangePasswordBloc({
     required this.changePasswordUseCase,
     required this.getAuthUserUseCase,
+    required this.appLocalizationService,
   }) : super(ChangePasswordInitial()) {
     on<ChangePasswordSubmitted>(_onChangePasswordSubmitted);
   }
@@ -30,16 +33,24 @@ class ChangePasswordBloc
     final errors = <String, String>{};
 
     if (event.currentPassword.trim().isEmpty) {
-      errors['currentPassword'] = 'Current password is required';
+      errors['currentPassword'] = appLocalizationService.t(
+        'current_password_is_required',
+      );
     }
     if (event.newPassword.trim().isEmpty) {
-      errors['newPassword'] = 'New password is required';
+      errors['newPassword'] = appLocalizationService.t(
+        'new_password_is_required',
+      );
     }
     if (event.confirmPassword.trim().isEmpty) {
-      errors['confirmPassword'] = 'Confirm password is required';
+      errors['confirmPassword'] = appLocalizationService.t(
+        'confirm_password_is_required',
+      );
     }
     if (event.newPassword != event.confirmPassword) {
-      errors['confirmPassword'] = 'Passwords do not match';
+      errors['confirmPassword'] = appLocalizationService.t(
+        'password_do_not_match',
+      );
     }
     if (errors.isNotEmpty) {
       emit(ChangePasswordValidationError(errors));

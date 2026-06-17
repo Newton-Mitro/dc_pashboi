@@ -69,7 +69,7 @@ class _ScheduledDepositsPageState extends State<ScheduledDepositsPage> {
                         ),
                         const SizedBox(height: 12),
                         Text(
-                          'You don’t have any family or relative added yet.',
+                          Locales.string(context, "empty_schedule_deposit"),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 13,

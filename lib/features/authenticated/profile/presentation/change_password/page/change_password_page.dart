@@ -63,12 +63,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.message,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -80,8 +81,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               behavior: SnackBarBehavior.floating,
               backgroundColor: Colors.transparent,
               content: AwesomeSnackbarContent(
-                title: 'Success',
-                message: "Password changed successfully, Please login again.",
+                title: Locales.string(context, 'success'),
+                message: Locales.string(
+                  context,
+                  'password_cahanged_successfully',
+                ),
                 contentType: ContentType.success,
               ),
             );
@@ -225,10 +229,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     backgroundColor: context.theme.colorScheme.primary,
                     progressColor: context.theme.colorScheme.secondary,
                     foregroundColor: context.theme.colorScheme.onPrimary,
-                    label: Locales.string(
-                      context,
-                      'change_password_submit_button_text',
-                    ),
+                    label: Locales.string(context, 'press_and_hold_to_submit'),
                     onSubmit: _submit,
                   ),
                 ],

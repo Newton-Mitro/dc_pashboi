@@ -81,6 +81,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
       listeners: [
         BlocListener<DebitCardBloc, DebitCardState>(
           listener: (context, state) {
+            print(state);
             if (state.successMessage != null) {
               context.read<AccountOpeningStepsBloc>().add(
                 AccountOpeningUpdateStepData(
@@ -98,12 +99,13 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -118,12 +120,13 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.error!,
                   contentType: ContentType.failure,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -136,12 +139,13 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: 'Oops!',
+                  title: Locales.string(context, 'oops'),
                   message: state.successMessage!,
                   contentType: ContentType.success,
                 ),
               );
 
+              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
@@ -224,7 +228,10 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                                     iconBefore: const Icon(
                                       FontAwesomeIcons.angleLeft,
                                     ),
-                                    label: "Previous",
+                                    label: Locales.string(
+                                      context,
+                                      'previous_button_text',
+                                    ),
                                     onPressed: () {
                                       context
                                           .read<AccountOpeningStepsBloc>()
@@ -240,7 +247,10 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                                     iconAfter: const Icon(
                                       FontAwesomeIcons.angleRight,
                                     ),
-                                    label: "Next",
+                                    label: Locales.string(
+                                      context,
+                                      'next_button_text',
+                                    ),
                                     onPressed: () {
                                       if (accountOpeningStepsState
                                               .currentStep ==
@@ -270,12 +280,12 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                     if (state.isLoading) {
                       return Container(
                         color: Colors.black.withOpacity(0.4),
-                        child: const Center(child: CircularProgressIndicator()),
+                        child: Center(child: CircularProgressIndicator()),
                       );
                     } else if (state.error != null) {
-                      return const SizedBox.shrink();
+                      return SizedBox.shrink();
                     }
-                    return const SizedBox.shrink();
+                    return SizedBox.shrink();
                   },
                 ),
               ],
