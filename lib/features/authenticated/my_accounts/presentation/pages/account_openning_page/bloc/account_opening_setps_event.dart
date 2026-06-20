@@ -86,4 +86,13 @@ class AccountOpeningSelectDebitCard extends AccountOpeningStepsEvent {
 
 class AccountOpeningFlowReset extends AccountOpeningStepsEvent {}
 
-class AccountOpeningSubmit extends AccountOpeningStepsEvent {}
+// class AccountOpeningSubmit extends AccountOpeningStepsEvent {}
+
+class AccountOpeningSubmit extends AccountOpeningStepsEvent {
+  final String productCode;
+
+  const AccountOpeningSubmit({required this.productCode});
+
+  @override
+  List<Object> get props => [productCode];
+}

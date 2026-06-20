@@ -215,10 +215,11 @@ class AccountOpeningStepsBloc
               .toList();
 
       final accountResult = await openDepositAccountUseCase.call(
+        // ProductCode
         OpenDepositAccountParams(
-          dMSProductCode: "19",
+          dMSProductCode: event.productCode,
           branchCode: "01",
-          accountFor: 1,
+          accountFor: state.selectedAccount!.accountFor,
           accountName: state.stepData[2]?['accountName'],
           interestRate: state.selectedTenure!.interestRate,
           duration: state.selectedTenure!.durationInMonths,

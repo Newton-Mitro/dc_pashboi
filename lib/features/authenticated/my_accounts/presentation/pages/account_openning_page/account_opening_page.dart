@@ -524,6 +524,8 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
   }
 
   void _submitAccountOpening(AccountOpeningStepsState state) {
-    context.read<AccountOpeningStepsBloc>().add(AccountOpeningSubmit());
+    context.read<AccountOpeningStepsBloc>().add(
+      AccountOpeningSubmit(productCode: widget.productCode),
+    );
   }
 }

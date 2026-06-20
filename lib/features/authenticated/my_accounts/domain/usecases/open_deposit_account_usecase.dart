@@ -48,7 +48,7 @@ class AccountOperator {
 class OpenDepositAccountParams extends BaseRequestProps {
   final String dMSProductCode;
   final String branchCode;
-  final double accountFor;
+  final String accountFor;
   final String accountName;
   final double interestRate;
   final int duration;
