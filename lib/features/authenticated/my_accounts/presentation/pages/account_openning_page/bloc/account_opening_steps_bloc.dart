@@ -208,7 +208,7 @@ class AccountOpeningStepsBloc
           state.nominees
               .map(
                 (nominee) => {
-                  "PersonId": nominee.id,
+                  "PersonId": nominee.personId,
                   "NomineePercentage": nominee.percentage,
                 },
               )
@@ -218,7 +218,7 @@ class AccountOpeningStepsBloc
         OpenDepositAccountParams(
           dMSProductCode: "19",
           branchCode: "01",
-          accountFor: 0,
+          accountFor: 1,
           accountName: state.stepData[2]?['accountName'],
           interestRate: state.selectedTenure!.interestRate,
           duration: state.selectedTenure!.durationInMonths,
@@ -288,7 +288,6 @@ class AccountOpeningStepsBloc
         break;
 
       case 1:
-<<<<<<< HEAD
         break;
 
       case 2:
@@ -299,14 +298,6 @@ class AccountOpeningStepsBloc
         if (state.selectedTenureAmount == null) {
           errors['installmentAmount'] = 'Please  select installment amount';
         }
-=======
-        if (data['accountForText'] != null) {
-          errors['accountForText'] = 'Please enter account for text';
-        }
-        break;
-
-      case 2:
->>>>>>> f296fe9d3f544cabfb01812976f305d56705aa38
         break;
       case 3:
         final nominees = state.nominees;

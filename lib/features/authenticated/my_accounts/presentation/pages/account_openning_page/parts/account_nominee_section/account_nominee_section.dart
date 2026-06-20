@@ -30,7 +30,9 @@ class AccountNomineeSection extends StatefulWidget {
 
 class _AccountNomineeSectionState extends State<AccountNomineeSection> {
   String? nomineeName;
+  int? personId;
   double sharePercentage = 0;
+  List<dynamic> _familyFriends = [];
 
   double get remainingPercentage {
     final totalUsed = widget.nominees.fold<double>(
@@ -40,8 +42,22 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
     return 100 - totalUsed;
   }
 
+  // void onNomineeChanged(String? name) {
+  //   setState(() => nomineeName = name);
+  // }
+
   void onNomineeChanged(String? name) {
-    setState(() => nomineeName = name);
+    final matches =
+        _familyFriends.where((e) => e.familyMemberName == name).toList();
+
+    if (matches.isEmpty) return;
+
+    final selected = matches.first;
+
+    setState(() {
+      nomineeName = selected.familyMemberName;
+      personId = selected.userPersonId;
+    });
   }
 
   void onSharePercentageChanged(double? value) {
@@ -97,6 +113,8 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                     }
 
                     if (state is FamilyAndRelativesLoaded) {
+                      _familyFriends = state.familyAndFriends;
+
                       names =
                           state.familyAndFriends
                               .map((e) => e.familyMemberName)
@@ -104,6 +122,17 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                     } else {
                       names = [];
                     }
+
+                    // if (state is FamilyAndRelativesLoaded) {
+                    //   _familyFriends = state.familyAndFriends;
+
+                    //   names =
+                    //       state.familyAndFriends
+                    //           .map((e) => e.familyMemberName)
+                    //           .toList();
+                    // } else {
+                    //   names = [];
+                    // }
 
                     return AppDropdownSelect<String>(
                       label: Locales.string(context, 'nominee'),
@@ -149,6 +178,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                     final nominee = NomineeEntity(
                       id: Random().nextInt(999999999),
                       name: nomineeName!.trim().toTitleCase(),
+                      personId: personId,
                       relation: "Brother",
                       phone: '',
                       nationalId: '',

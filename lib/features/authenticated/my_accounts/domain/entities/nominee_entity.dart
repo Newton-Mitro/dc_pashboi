@@ -8,6 +8,7 @@ class NomineeEntity extends Entity<int> {
   final double percentage;
   final DateTime? dateOfBirth;
   final String? address;
+  final int? personId;
 
   NomineeEntity({
     super.id,
@@ -18,6 +19,7 @@ class NomineeEntity extends Entity<int> {
     required this.percentage,
     this.dateOfBirth,
     this.address,
+    this.personId,
   });
 
   @override
@@ -30,5 +32,6 @@ class NomineeEntity extends Entity<int> {
     percentage,
     dateOfBirth,
     address,
+    personId,
   ];
 }

@@ -15,6 +15,7 @@ class NomineeModel extends NomineeEntity {
   factory NomineeModel.fromJson(Map<String, dynamic> json) {
     return NomineeModel(
       id: json['id'] ?? 0,
+
       name: json['name'] ?? '',
       relation: json['relation'] ?? '',
       phone: json['phone'] ?? '',
