@@ -13,7 +13,7 @@ class AppStatusBloc extends Bloc<AppStatusEvent, AppStatusState> {
       emit(AppStatusLoading());
 
       final result = await fetchAppStatusUseCase.call(
-        // FetchAppStatusPrams(version: 63),
+        // FetchAppStatusPrams(version: 65),
         FetchAppStatusPrams(version: 51),
       );
 
