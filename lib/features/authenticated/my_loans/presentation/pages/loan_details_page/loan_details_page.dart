@@ -192,20 +192,20 @@ class _LoanDetailsPageState extends State<LoanDetailsPage> {
                         alignment: WrapAlignment.center,
                         spacing: 20,
                         children: [
-                          // Chip(
-                          //   label: Text(
-                          //     account.status.toUpperCase(),
-                          //     style: TextStyle(
-                          //       fontSize: 12,
-                          //       color: context.theme.colorScheme.onSecondary,
-                          //     ),
-                          //   ),
-                          //   backgroundColor:
-                          //       context.theme.colorScheme.secondary,
-                          //   shape: RoundedRectangleBorder(
-                          //     borderRadius: BorderRadius.circular(12),
-                          //   ),
-                          // ),
+                          Chip(
+                            label: Text(
+                              account.status.toUpperCase(),
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: context.theme.colorScheme.onSecondary,
+                              ),
+                            ),
+                            backgroundColor:
+                                context.theme.colorScheme.secondary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
                           Chip(
                             label: Text(
                               account.defaulter ? "Defaulter" : "Regular",
