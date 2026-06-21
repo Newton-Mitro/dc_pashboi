@@ -4,12 +4,13 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/core/utils/my_date_utils.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/presentation/pages/employee_profile_page/bloc/employees_profile_bloc.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EmployeesProfilePage extends StatefulWidget {
   const EmployeesProfilePage({super.key});
@@ -23,6 +24,30 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
   void initState() {
     super.initState();
     context.read<EmployeesProfileBloc>().add(FetchEmployeeDetailsEvent());
+  }
+
+  Uint8List? getImageBytes(String? photo) {
+    if (photo == null) return null;
+
+    photo = photo.trim();
+
+    if (photo.isEmpty ||
+        photo.toLowerCase() == 'n/a' ||
+        photo.toLowerCase() == 'null') {
+      return null;
+    }
+
+    try {
+      // Handle data:image/jpeg;base64,...
+      if (photo.contains(',')) {
+        photo = photo.split(',').last;
+      }
+
+      return base64Decode(photo);
+    } catch (e) {
+      debugPrint('Invalid Base64 Image: $e');
+      return null;
+    }
   }
 
   Widget buildInfoRow(IconData icon, String title, String value) {
@@ -62,6 +87,29 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
     );
   }
 
+  Widget buildProfileImage(String? photo) {
+    final imageBytes = getImageBytes(photo);
+
+    if (imageBytes == null) {
+      return Container(
+        color: Colors.grey.shade200,
+        child: const Center(
+          child: Icon(Icons.person, size: 80, color: Colors.grey),
+        ),
+      );
+    }
+
+    return Image.memory(
+      imageBytes,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return const Center(
+          child: Icon(Icons.person, size: 80, color: Colors.grey),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,41 +135,28 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                   horizontal: 16,
                   vertical: 25,
                 ),
-                height: double.infinity,
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Center(
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 150,
-                              height: 150,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.theme.colorScheme.surface,
-                                border: Border.all(
-                                  color: context.theme.colorScheme.secondary,
-                                  width: 5,
-                                ),
-                              ),
-                              child: ClipOval(
-                                child: Image.memory(
-                                  person.personPhoto.isNotEmpty
-                                      ? base64Decode(person.personPhoto)
-                                      : Uint8List(0),
-                                  fit: BoxFit.cover,
-                                  errorBuilder:
-                                      (context, error, stackTrace) =>
-                                          const Icon(Icons.error),
-                                ),
-                              ),
+                        child: Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: context.theme.colorScheme.secondary,
+                              width: 5,
                             ),
-                          ],
+                          ),
+                          child: ClipOval(
+                            child: buildProfileImage(person.personPhoto),
+                          ),
                         ),
                       ),
+
                       const SizedBox(height: 20),
+
                       Text(
                         person.fullName.trim().toTitleCase(),
                         style: const TextStyle(
@@ -131,14 +166,14 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                       ),
 
                       const SizedBox(height: 10),
+
                       Text(
                         person.designationName,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.normal,
-                        ),
+                        style: const TextStyle(fontSize: 18),
                       ),
+
                       const SizedBox(height: 5),
+
                       Text(
                         person.departmentName,
                         textAlign: TextAlign.center,
@@ -147,6 +182,7 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                           color: context.theme.colorScheme.onSurface,
                         ),
                       ),
+
                       const SizedBox(height: 5),
 
                       Chip(
@@ -158,21 +194,12 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                           ),
                         ),
                         backgroundColor: context.theme.colorScheme.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        side: BorderSide(
-                          color: context.theme.colorScheme.primary,
-                          width: 1,
-                        ),
-                        visualDensity: VisualDensity.compact,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
+
                       const SizedBox(height: 30),
+
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SizedBox(height: 10),
                           buildInfoRow(
                             FontAwesomeIcons.userTie,
                             Locales.string(
@@ -181,7 +208,9 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                             ),
                             person.supervisorName.trim().toTitleCase(),
                           ),
+
                           const SizedBox(height: 10),
+
                           buildInfoRow(
                             FontAwesomeIcons.idCard,
                             Locales.string(
@@ -209,7 +238,9 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                             ),
                             person.employeeEmail,
                           ),
+
                           const SizedBox(height: 10),
+
                           buildInfoRow(
                             FontAwesomeIcons.at,
                             Locales.string(
@@ -218,6 +249,7 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                             ),
                             person.email,
                           ),
+
                           const SizedBox(height: 10),
 
                           buildInfoRow(
@@ -241,13 +273,17 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                             ),
                             person.bloodGroup,
                           ),
+
                           const SizedBox(height: 10),
+
                           buildInfoRow(
                             FontAwesomeIcons.idCard,
                             Locales.string(context, 'employee_profile_nid'),
                             person.nid,
                           ),
+
                           const SizedBox(height: 10),
+
                           buildInfoRow(
                             FontAwesomeIcons.phoneVolume,
                             Locales.string(
@@ -256,7 +292,6 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
                             ),
                             person.mobileNumber,
                           ),
-                          const SizedBox(height: 10),
                         ],
                       ),
                     ],
@@ -266,7 +301,7 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
             );
           }
 
-          return const SizedBox(); // Fallback for initial or unknown state
+          return const SizedBox.shrink();
         },
       ),
     );
