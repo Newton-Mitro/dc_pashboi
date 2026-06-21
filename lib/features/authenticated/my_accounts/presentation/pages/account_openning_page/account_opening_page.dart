@@ -134,30 +134,30 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
             }
 
             if (state.successMessage != null) {
-              // Navigator.of(context).pop();
-              // final snackBar = SnackBar(
-              //   elevation: 0,
-              //   behavior: SnackBarBehavior.floating,
-              //   backgroundColor: Colors.transparent,
-              //   content: AwesomeSnackbarContent(
-              //     title: Locales.string(context, 'success'),
-              //     message: state.successMessage!,
-              //     contentType: ContentType.success,
-              //   ),
-              // );
+              Navigator.of(context).pop();
+              final snackBar = SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: Locales.string(context, 'success'),
+                  message: state.successMessage!,
+                  contentType: ContentType.success,
+                ),
+              );
+              if (!context.mounted) return;
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(snackBar);
+
               final accountNumber =
                   state.successMessage!.split(':').last.trim();
 
-              Navigator.pushNamed(
+              Navigator.popAndPushNamed(
                 context,
                 AuthRoutesName.accountsDetailsPage,
                 arguments: {'accountNumber': accountNumber},
               );
-
-              // if (!context.mounted) return;
-              // ScaffoldMessenger.of(context)
-              //   ..hideCurrentSnackBar()
-              //   ..showSnackBar(snackBar);
             }
           },
         ),
