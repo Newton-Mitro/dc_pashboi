@@ -16,6 +16,7 @@ class TransactionDetailsSection extends StatelessWidget {
     required this.onToggleSelect,
     required this.onToggleSelectAll,
     required this.onAmountChanged,
+    this.removeSavingAccountNumber,
     this.sectionError,
     this.amountErrors = const {},
   });
@@ -26,6 +27,7 @@ class TransactionDetailsSection extends StatelessWidget {
   final void Function(CollectionLedgerEntity, int) onAmountChanged;
   final String? sectionError;
   final Map<String, String>? amountErrors;
+  final String? removeSavingAccountNumber;
 
   bool get areAllSelected =>
       ledgers.isNotEmpty && ledgers.every((l) => l.isSelected);
@@ -36,6 +38,13 @@ class TransactionDetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final filteredLedgers =
+        ledgers
+            .where(
+              (ledger) =>
+                  ledger.accountNumber.trim() != removeSavingAccountNumber,
+            )
+            .toList();
     return BlocListener<LoanPaymentBloc, LoanPaymentState>(
       listener: (context, state) {
         if (state is LoanPaymentLoaded) {
@@ -72,7 +81,7 @@ class TransactionDetailsSection extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(8, 16, 16, 40),
                       child: Column(
                         children:
-                            ledgers.map((ledger) {
+                            filteredLedgers.map((ledger) {
                               final isSelected = ledger.isSelected;
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 5),

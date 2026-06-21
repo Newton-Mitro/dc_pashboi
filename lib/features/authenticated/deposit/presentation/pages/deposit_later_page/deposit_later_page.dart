@@ -430,6 +430,7 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
               DepoistLaterToggleLedgerSelection(ledger),
             );
           },
+          removeSavingAccountNumber: state.selectedAccount?.number,
 
           onToggleSelectAll: (selectAll) {
             context.read<DepositLaterStepsBloc>().add(

@@ -417,6 +417,7 @@ class _DepositNowPageState extends State<DepositNowPage> {
               ToggleLedgerSelection(ledger),
             );
           },
+          removeSavingAccountNumber: state.selectedAccount?.number,
           onToggleSelectAll: (selectAll) {
             context.read<DepositNowStepsBloc>().add(
               ToggleSelectAllLedgers(selectAll),
