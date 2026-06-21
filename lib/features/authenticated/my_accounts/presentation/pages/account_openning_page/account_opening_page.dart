@@ -12,6 +12,7 @@ import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/ac
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_openning_page/parts/account_nominee_section/account_nominee_section.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_openning_page/parts/account_opening_details_section/account_opening_details_section.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_openning_page/parts/account_preview_section/account_preview_section.dart';
+import 'package:pashboi/routes/auth_routes_name.dart';
 import 'package:progress_stepper/progress_stepper.dart';
 
 import 'package:pashboi/core/extensions/app_context.dart';
@@ -133,22 +134,30 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
             }
 
             if (state.successMessage != null) {
-              Navigator.of(context).pop();
-              final snackBar = SnackBar(
-                elevation: 0,
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: Colors.transparent,
-                content: AwesomeSnackbarContent(
-                  title: Locales.string(context, 'success'),
-                  message: state.successMessage!,
-                  contentType: ContentType.success,
-                ),
+              // Navigator.of(context).pop();
+              // final snackBar = SnackBar(
+              //   elevation: 0,
+              //   behavior: SnackBarBehavior.floating,
+              //   backgroundColor: Colors.transparent,
+              //   content: AwesomeSnackbarContent(
+              //     title: Locales.string(context, 'success'),
+              //     message: state.successMessage!,
+              //     contentType: ContentType.success,
+              //   ),
+              // );
+              final accountNumber =
+                  state.successMessage!.split(':').last.trim();
+
+              Navigator.pushNamed(
+                context,
+                AuthRoutesName.accountsDetailsPage,
+                arguments: {'accountNumber': accountNumber},
               );
 
-              if (!context.mounted) return;
-              ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(snackBar);
+              // if (!context.mounted) return;
+              // ScaffoldMessenger.of(context)
+              //   ..hideCurrentSnackBar()
+              //   ..showSnackBar(snackBar);
             }
           },
         ),
