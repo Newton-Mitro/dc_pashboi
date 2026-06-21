@@ -368,10 +368,6 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
-
-      print(jsonEncodedRequestBody);
-
       final response = await apiService.post(
         ApiUrls.createDepositAccount,
         data: requestBody,
