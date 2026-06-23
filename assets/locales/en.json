@@ -418,6 +418,7 @@
   "reason_for_leave": "Reason For Leave",
   "application_status": "Application Status",
   "fallback_approval_remarks": "Fallback Approval Remarks",
+  "fallback_approval": "Fallback Approval",
   "fallback_acceptance": "Fallback Acceptance",
   "no_fallback_requests": "There are currently no fallback requests.",
   "no_leave_requests": "There are currently no leave requests.",

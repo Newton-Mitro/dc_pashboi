@@ -418,6 +418,7 @@
   "reason_for_leave": "ছুটির কারণ",
   "application_status": "আবেদনের অবস্থা",
   "fallback_approval_remarks": "ফলব্যাক অনুমোদনের মন্তব্য",
+  "fallback_approval": "ফলব্যাক অনুমোদনের",
   "fallback_acceptance": "ফলব্যাক গ্রহণ",
   "no_fallback_requests": "বর্তমানে কোনো ফলব্যাক অনুরোধ নেই।",
   "no_leave_requests": "বর্তমানে কোনো ছুটির অনুরোধ নেই।",

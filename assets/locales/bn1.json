@@ -254,7 +254,6 @@
   "schedule_deposit_info_page_accounts_to_deposit_section_title": "জমাদানের অ্যাকাউন্ট",
   "schedule_deposit_info_page_total_deposit_amount_label": "মোট জমা পরিমাণ",
   "account_opening_page_title": "অ্যাকাউন্ট খুলুন",
-
   "employee_profile_title": "কর্মচারীর তথ্য",
   "employee_profile_supervisor_name": "তত্ত্বাবধায়কের নাম",
   "employee_profile_employee_code": "কর্মচারী কোড",
@@ -265,9 +264,7 @@
   "employee_profile_blood_group": "রক্তের গ্রুপ",
   "employee_profile_nid": "জাতীয় পরিচয়পত্র নম্বর",
   "employee_profile_mobile_number": "মোবাইল নম্বর",
-
   "my_cards_page_title": "আমার কার্ডস",
-
   "agm_counter_info_page_title": "এজিএম কাউন্টার তথ্য",
   "agm_counter_info_page_search_input_label": "অনুসন্ধান",
   "agm_counter_info_page_search_input_hint": "সদস্য নম্বর লিখুন",
@@ -275,7 +272,6 @@
   "agm_counter_info_page_sl_label": "ক্রমিক নং",
   "agm_counter_info_page_location_label": "অবস্থান",
   "agm_counter_info_page_account_no_label": "অ্যাকাউন্ট নম্বর",
-
   "money_will_be_transferred_from": "যে অ্যাকাউন্ট থেকে টাকা স্থানান্তর করা হবে",
   "account_number": "অ্যাকাউন্ট নম্বর",
   "card_number": "কার্ড নম্বর",
@@ -308,7 +304,6 @@
   "full_name": "পূর্ণ নাম",
   "verify_card_pin": "কার্ড পিন যাচাই করুন",
   "card_pin": "কার্ড পিন",
-
   "product_loans": "প্রোডাক্ট ঋণ",
   "loan_account_details": "ঋণ অ্যাকাউন্টের বিবরণ",
   "findings": "মূল্যায়ন ফলাফল",
@@ -318,26 +313,21 @@
   "self_loan_regular": "সেলফ লোন রেগুলার",
   "eligible": "যোগ্য",
   "apply": "আবেদন করুন",
-
   "product_loan_application": "প্রডাক্ট লোন আবেদন",
   "collateral_details": "জামানত সংক্রান্ত বিবরণ",
   "account_balance": "অ্যাকাউন্ট ব্যালেন্স",
   "loanable_balance": "ঋণযোগ্য ব্যালেন্স",
   "apply_loan_amount": "ঋণের পরিমাণ লিখুন",
   "total_apply_loan_amount": "মোট আবেদনকৃত ঋণের পরিমাণ",
-
   "application_details": "আবেদন সংক্রান্ত বিবরণ",
   "maximum_loan_amount": "সর্বোচ্চ ঋণের পরিমাণ",
   "installment_no": "কিস্তি নম্বর",
-
   "transfer_to": "যেখানে স্থানান্তর করা হবে",
-
   "instant_loan_application": "ইনস্ট্যান্ট ঋণ আবেদন",
   "instant_loan_eligible_condition_check": "ইনস্ট্যান্ট ঋণ যোগ্যতা যাচাই",
   "top_up": "টপ আপ -> পরবর্তী",
   "loan_information": "ঋণের তথ্য",
   "enter_between_eligible_amount": "যোগ্য পরিমাণের মধ্যে লিখুন",
-
   "deposit_now": "এখন জমা দিন",
   "deposit_for": "যার জন্য জমা",
   "beneficiary": "বেনিফিশিয়ারি",
@@ -346,14 +336,12 @@
   "amount": "পরিমাণ",
   "total_deposit_amount": "মোট জমার পরিমাণ",
   "priview_of_deposit": "জমার প্রিভিউ",
-
   "deposit_and_charege_preview": "জমা ও চার্জ প্রিভিউ",
   "deposit_total": "মোট জমা",
   "service_charge": "সার্ভিস চার্জ",
   "grand_total": "সর্বমোট",
   "proceed_with_bkash": "বিকাশ দিয়ে এগিয়ে যান",
   "deposit_from_bkash": "বিকাশ থেকে জমা করুন",
-
   "schedule_for_deposit_later": "পরে জমা দেওয়ার জন্য সময়সূচী",
   "make_schedule": "সময়সূচি তৈরি করুন",
   "monthly_deposit_date": "মাসিক জমার তারিখ",
@@ -361,25 +349,21 @@
   "deposit_later_preview": "পরে জমার প্রিভিউ",
   "schedule_for_deposit": "জমার সময়সূচি",
   "selected_ledgers": "নির্বাচিত লেজারসমূহ",
-
   "empty_schedule_deposit": "আপনার কোনো নির্ধারিত জমা নেই।",
   "empty_beneficiaries": "আপনার কোনো উপকারভোগী নেই।",
   "empty_dependents": "আপনার কোনো নির্ভরশীল ব্যক্তি নেই।",
   "empty_given_sureties": "আপনার কোনো প্রদত্ত জামিনদার নেই।",
   "empty_bank_to_dc_transfer": "আপনার কোনো ব্যাংক থেকে DC ট্রান্সফার নেই।",
   "empty_family_and_relatives": "আপনার কোনো পরিবার ও আত্মীয়ের তথ্য নেই।",
-
   "transfer_within_dhaka_credit": "ঢাকা ক্রেডিটের মধ্যে ট্রান্সফার",
   "transfer_to_account": "অ্যাকাউন্টে ট্রান্সফার",
   "transfer_amount": "ট্রান্সফারের পরিমাণ",
   "transfer_preview": "ট্রান্সফার প্রিভিউ",
-
   "transfer_to_bkash": "বিকাশে ট্রান্সফার",
   "to_bkash_account": "বিকাশ অ্যাকাউন্টে",
   "bkash_number": "বিকাশ নম্বর",
   "sender_account": "প্রেরকের অ্যাকাউন্ট",
   "bkash_wallet": "বিকাশ ওয়ালেট",
-
   "bank_to_dc_transfer_request": "ব্যাংক থেকে DC ট্রান্সফার অনুরোধ",
   "card_and_account": "কার্ড ও অ্যাকাউন্ট",
   "proof_of_bank_transfer": "ব্যাংক ট্রান্সফারের প্রমাণ",
@@ -388,10 +372,8 @@
   "deposit_amount": "জমার পরিমাণ",
   "attach_bank_transfer_receipt": "ব্যাংক ট্রান্সফারের রসিদ সংযুক্ত করুন",
   "tap_to_upload_receipt_image": "রসিদের ছবি আপলোড করতে ট্যাপ করুন",
-
   "generate_withdrawal_qr": "উত্তোলনের কিউআর তৈরি করুন",
   "withdrawal_amount": "উত্তোলনের পরিমাণ",
-
   "family_and_relatives": "পরিবার ও আত্মীয়স্বজন",
   "given_sureties": "প্রদত্ত জামিন",
   "loan_id": "ঋণ আইডি",
@@ -410,7 +392,6 @@
   "defaulter": "খেলাপি",
   "surety_status": "জামিনের অবস্থা",
   "defaulter_details": "খেলাপির বিবরণ",
-
   "leave_info": "ছুটির তথ্য",
   "leave_information": "ছুটির বিবরণ",
   "leave_type": "ছুটির ধরন",
@@ -421,7 +402,6 @@
   "apply_for_leave": "ছুটির জন্য আবেদন করুন",
   "leave_balance": "ছুটির ব্যালেন্স",
   "no_leave_balance_available": "কোনো ছুটির ব্যালেন্স উপলব্ধ নেই",
-
   "leave_application": "ছুটির আবেদন",
   "fallback_employee_id": "ফলব্যাক কর্মচারী আইডি",
   "fallback_employee_name": "ফলব্যাক কর্মচারীর নাম",
@@ -436,16 +416,14 @@
   "reason_for_leave": "ছুটির কারণ",
   "application_status": "আবেদনের অবস্থা",
   "fallback_approval_remarks": "ফলব্যাক অনুমোদনের মন্তব্য",
-
+  "fallback_approval": "ফলব্যাক অনুমোদনের",
   "fallback_acceptance": "ফলব্যাক গ্রহণ",
   "no_fallback_requests": "বর্তমানে কোনো ফলব্যাক অনুরোধ নেই।",
   "no_leave_requests": "বর্তমানে কোনো ছুটির অনুরোধ নেই।",
-
   "leave_history": "ছুটির ইতিহাস",
   "leave_history_details": "ছুটির বিস্তারিত ইতিহাস",
   "search": "অনুসন্ধান",
   "close": "বন্ধ করুন",
-
   "attendance_calendar": "উপস্থিতি ক্যালেন্ডার",
   "no_record_selected": "কোনো রেকর্ড নির্বাচিত হয়নি",
   "status": "অবস্থা",
@@ -454,32 +432,24 @@
   "punch_area": "উপস্থিতির এলাকা",
   "branch": "শাখা",
   "remarks": "মন্তব্য",
-
   "working_out_of_office": "অফিসের বাইরে কাজ",
   "for_hours": "ঘন্টার জন্য",
   "for_days": "দিনের জন্য",
   "total_hours": "মোট ঘন্টা",
   "submit": "জমা দিন",
-
   "working_out_of_office_history": "অফিসের বাইরে কাজের ইতিহাস",
   "no_working_out_of_office_info": "অফিসের বাইরে কাজের কোনো তথ্য নেই",
   "todays_punch": "আজকের উপস্থিতি",
   "no_record_found": "কোনো রেকর্ড পাওয়া যায়নি",
-
   "no_deposit_accounts": "আপনার কোনো জমা অ্যাকাউন্ট নেই",
   "no_loan_accounts": "আপনার কোনো ঋণ অ্যাকাউন্ট নেই",
-
   "leave_approval_details": "ছুটির অনুমোদনের বিস্তারিত",
-
   "working_out_of_office_approval": "অফিসের বাইরে কাজের অনুমোদন",
-
   "fallback_acceptance_details": "ফলব্যাক গ্রহণের বিস্তারিত",
   "woo_approval_details": "অফিসের বাইরে কাজের অনুমোদনের বিস্তারিত",
-
   "email_required": "ইমেইল আবশ্যক",
   "valid_email_required": "বৈধ ইমেইল আবশ্যক",
   "password_required": "পাসওয়ার্ড আবশ্যক",
-
   "failed_to_load_user_info": "ব্যবহারকারীর তথ্য লোড করতে ব্যর্থ হয়েছে",
   "please_enter_beneficiary_name": "অনুগ্রহ করে উপকারভোগীর নাম লিখুন",
   "please_enter_account_number": "অনুগ্রহ করে অ্যাকাউন্ট নম্বর লিখুন",
@@ -505,7 +475,6 @@
   "deposit_amount_cannot_be_greater_than": "জমার পরিমাণ এর বেশি হতে পারবে না",
   "please_enter_transfer_to_mobile_number": "অনুগ্রহ করে যেই মোবাইল নম্বরে ট্রান্সফার করবেন তা লিখুন",
   "please_enter_your_mobile_number": "অনুগ্রহ করে আপনার মোবাইল নম্বর লিখুন",
-
   "info": "তথ্য",
   "failed": "ব্যর্থ",
   "success": "সফল",
@@ -519,24 +488,20 @@
   "loading": "লোড হচ্ছে",
   "failed_to_load": "লোড করতে ব্যর্থ হয়েছে",
   "sending": "পাঠানো হচ্ছে...",
-
   "select_an_account_to_transfer_from": "যে অ্যাকাউন্ট থেকে ট্রান্সফার করবেন সেটি নির্বাচন করুন",
   "please_enter_transfer_amount": "অনুগ্রহ করে ট্রান্সফারের পরিমাণ লিখুন",
   "please_enter_a_card_pin": "অনুগ্রহ করে কার্ড পিন লিখুন",
   "pin_must_be_4_digits": "পিন অবশ্যই ৪ সংখ্যার হতে হবে",
   "you_must_confirm_to_proceed": "এগিয়ে যেতে আপনাকে অবশ্যই নিশ্চিত করতে হবে",
-
   "please_enter_a_search_account_number": "অনুগ্রহ করে অনুসন্ধানের জন্য অ্যাকাউন্ট নম্বর লিখুন",
   "please_select_monthly_deposit_date": "অনুগ্রহ করে মাসিক জমার তারিখ নির্বাচন করুন",
   "please_select_number_of_months_to_deposit": "অনুগ্রহ করে কত মাসের জন্য জমা করবেন তা নির্বাচন করুন",
   "you_dont_have_enough_balance_to_deposit_this_amount": "এই পরিমাণ জমা দেওয়ার জন্য আপনার পর্যাপ্ত ব্যালেন্স নেই",
-
   "please_enter_relationship": "অনুগ্রহ করে সম্পর্ক লিখুন",
   "please_search_with_a_valid_account_number": "অনুগ্রহ করে একটি বৈধ অ্যাকাউন্ট নম্বর দিয়ে অনুসন্ধান করুন",
   "please_add_at_least_one_nominee": "অনুগ্রহ করে অন্তত একজন নমিনি যোগ করুন",
   "total_nominee_share_cannot_exceed_100": "মোট নমিনির অংশ ১০০% এর বেশি হতে পারবে না",
   "total_nominee_share_must_be_exactly_100": "মোট নমিনির অংশ অবশ্যই ঠিক ১০০% হতে হবে",
-
   "failed_to_load_tenures": "মেয়াদ লোড করতে ব্যর্থ হয়েছে",
   "please_select_dependent": "অনুগ্রহ করে নির্ভরশীল নির্বাচন করুন",
   "please_select_dependent_account": "অনুগ্রহ করে নির্ভরশীল অ্যাকাউন্ট নির্বাচন করুন",
@@ -547,7 +512,6 @@
   "please_enter_valid_amount": "অনুগ্রহ করে সঠিক পরিমাণ লিখুন",
   "amount_must_be_a_multiple_of": "পরিমাণ অবশ্যই ১০০০/- এর গুণিতক হতে হবে",
   "amount_must_be_less_than": "পরিমাণ অবশ্যই এর কম হতে হবে",
-
   "maximum_loan_amount_is": "সর্বোচ্চ ঋণের পরিমাণ হলো",
   "loan_amount_exceeds_eligible_amount": "ঋণের পরিমাণ অনুমোদিত সীমা অতিক্রম করেছে",
   "please_select_at_least_one_eligible_account": "অনুগ্রহ করে অন্তত একটি যোগ্য অ্যাকাউন্ট নির্বাচন করুন",
@@ -557,7 +521,6 @@
   "new_password_is_required": "নতুন পাসওয়ার্ড প্রয়োজন",
   "confirm_password_is_required": "পাসওয়ার্ড নিশ্চিতকরণ প্রয়োজন",
   "password_do_not_match": "পাসওয়ার্ড মিলছে না",
-
   "please_enter_deposit_amount": "অনুগ্রহ করে জমার পরিমাণ লিখুন",
   "please_select_a_bank_account": "অনুগ্রহ করে একটি ব্যাংক অ্যাকাউন্ট নির্বাচন করুন",
   "please_attach_a_transaction_receipt": "অনুগ্রহ করে লেনদেনের রসিদ সংযুক্ত করুন",
