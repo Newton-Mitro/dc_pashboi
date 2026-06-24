@@ -81,87 +81,92 @@ class _TodaysPunchState extends State<TodaysPunch> {
                     ),
                   );
                 }
-
-                final punch = todayPunchEntities.first;
-
+                final punches = todayPunchEntities;
                 return SingleChildScrollView(
                   child: Column(
-                    children: [
-                      Card(
-                        color: context.theme.colorScheme.surface,
-                        elevation: 3,
-                        shadowColor: context.theme.colorScheme.shadow,
-                        child: InkWell(
-                          borderRadius: BorderRadius.circular(6),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 2),
+                    children:
+                        punches.map((punch) {
+                          return Card(
+                            color: context.theme.colorScheme.surface,
+                            elevation: 3,
+                            shadowColor: context.theme.colorScheme.shadow,
+                            child: InkWell(
                               borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: IntrinsicHeight(
-                              child: Row(
-                                children: [
-                                  // Left Icon Area
-                                  Expanded(
-                                    flex: 3,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color:
-                                            context.theme.colorScheme.primary,
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4),
-                                          bottomLeft: Radius.circular(4),
-                                        ),
-                                      ),
-                                      child: const Center(
-                                        child: Icon(
-                                          FontAwesomeIcons.mapLocation,
-                                          size: 30,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-
-                                  // Right Detail Area
-                                  Expanded(
-                                    flex: 7,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 20,
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            punch.punchArea,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(width: 2),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      // Left Icon Area
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color:
+                                                context
+                                                    .theme
+                                                    .colorScheme
+                                                    .primary,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                  topLeft: Radius.circular(4),
+                                                  bottomLeft: Radius.circular(
+                                                    4,
+                                                  ),
+                                                ),
+                                          ),
+                                          child: const Center(
+                                            child: Icon(
+                                              FontAwesomeIcons.mapLocation,
+                                              size: 30,
+                                              color: Colors.white,
                                             ),
                                           ),
-                                          const SizedBox(height: 6),
-                                          Text(
-                                            "${Locales.string(context, "punch_in")}: ${extractTime(punch.checkInTime)} ",
-                                          ),
-                                          const SizedBox(height: 4),
-
-                                          Text(
-                                            "${Locales.string(context, "remarks")}: ${punch.remarks}",
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+
+                                      // Right Detail Area
+                                      Expanded(
+                                        flex: 7,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 20,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                punch.punchArea,
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 6),
+                                              Text(
+                                                "${Locales.string(context, "punch_in")}: ${extractTime(punch.checkInTime)} ",
+                                              ),
+                                              const SizedBox(height: 4),
+
+                                              Text(
+                                                "${Locales.string(context, "remarks")}: ${punch.remarks}",
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ],
+                          );
+                        }).toList(),
                   ),
                 );
               }
