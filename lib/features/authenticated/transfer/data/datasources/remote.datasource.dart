@@ -151,7 +151,10 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
         data: {
           "TransactionType": "bKashWithdrawalRequest",
           "TransactionMethod": "17",
+          "LedgerId": "1493",
+          "AccountId": "61759",
           "FromAccountNo": props.accountNumber,
+          "AccountNo":  props.accountNumber,
           "TransactionModels": [
             {
               "AccountNo": props.toBkashNumber,
