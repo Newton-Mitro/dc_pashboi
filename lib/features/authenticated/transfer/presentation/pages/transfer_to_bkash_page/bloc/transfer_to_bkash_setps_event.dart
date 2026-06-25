@@ -49,3 +49,5 @@ class TransferToBkashSelectDebitCard extends TransferToBkashStepsEvent {
 }
 
 class TransferToBkashSubmit extends TransferToBkashStepsEvent {}
+
+class TransferToBkashLoadUser extends TransferToBkashStepsEvent {}

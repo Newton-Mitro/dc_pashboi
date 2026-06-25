@@ -9,6 +9,7 @@ class TransferToBkashStepsState extends Equatable {
   final bool isLoading;
   final String? error;
   final String? successMessage;
+  final UserEntity? user;
 
   const TransferToBkashStepsState({
     required this.currentStep,
@@ -19,6 +20,7 @@ class TransferToBkashStepsState extends Equatable {
     bool? isLoading,
     this.error,
     this.successMessage,
+    this.user,
   }) : validationErrors = validationErrors ?? const {},
        stepData = stepData ?? const {},
        isLoading = isLoading ?? false;
@@ -32,6 +34,7 @@ class TransferToBkashStepsState extends Equatable {
     bool? isLoading,
     String? error,
     String? successMessage,
+    UserEntity? user,
   }) {
     return TransferToBkashStepsState(
       currentStep: currentStep ?? this.currentStep,
@@ -42,6 +45,7 @@ class TransferToBkashStepsState extends Equatable {
       isLoading: isLoading ?? this.isLoading,
       error: error,
       successMessage: successMessage,
+      user: user ?? this.user,
     );
   }
 
@@ -55,5 +59,6 @@ class TransferToBkashStepsState extends Equatable {
     isLoading,
     error,
     successMessage,
+    user, // ✅ IMPORTANT FIX
   ];
 }

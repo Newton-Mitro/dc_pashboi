@@ -5,6 +5,8 @@ import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
+import 'package:pashboi/features/auth/domain/entities/auth_user_entity.dart';
+import 'package:pashboi/features/auth/domain/entities/user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/authenticated/cards/domain/entities/debit_card_entity.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/deposit_account_entity.dart';
@@ -34,6 +36,38 @@ class TransferToBkashStepsBloc
     on<TransferToBkashSelectDebitCard>(_onSelectDebitCard);
     on<TransferToBkashValidateStep>(_onValidateStep);
     on<TransferToBkashSubmit>(_onSubmitTransferToBkash);
+    on<TransferToBkashLoadUser>(_onLoadUser);
+
+    add(TransferToBkashLoadUser());
+  }
+
+  void _onLoadUser(
+    TransferToBkashLoadUser event,
+    Emitter<TransferToBkashStepsState> emit,
+  ) async {
+    emit(state.copyWith(isLoading: true));
+
+    final authUserResult = await getAuthUserUseCase.call(NoParams());
+
+    authUserResult.fold(
+      (failure) {
+        emit(state.copyWith(error: failure.message, isLoading: false));
+      },
+      (authUserEntity) {
+        final updatedStepData = Map<int, Map<String, dynamic>>.from(
+          state.stepData,
+        );
+        updatedStepData[1] = {
+          ...?updatedStepData[1],
+          ...{
+            'transferToMobile': authUserEntity.user.regMobile
+                ?.replaceAll('+880', '')
+                .replaceAll('-', ''),
+          },
+        };
+        emit(state.copyWith(stepData: updatedStepData));
+      },
+    );
   }
 
   void _onGoToNextStep(

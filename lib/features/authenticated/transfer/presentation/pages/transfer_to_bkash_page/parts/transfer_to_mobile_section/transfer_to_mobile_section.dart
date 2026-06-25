@@ -83,6 +83,7 @@ class _TransferToMobileSectionState extends State<TransferToMobileSection> {
                       children: [
                         Expanded(
                           child: PrefixedMobileNumberInput(
+                            readOnly: true,
                             initialValue: widget.transferToMobile,
                             errorText: widget.transferToMobileError,
                             label: Locales.string(context, 'bkash_number'),
