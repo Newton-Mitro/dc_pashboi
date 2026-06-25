@@ -134,6 +134,9 @@ class TransferToBkashStepsBloc
 
       final accountResult = await submitTransferToBkashUseCase.call(
         SubmitTransferToBkashProps(
+          transferToAcc: user.regMobile,
+          recipientName: user.userName,
+          accountHolderName: user.userName,
           email: user.loginEmail,
           userId: user.userId,
           rolePermissionId: user.roleId,
@@ -152,6 +155,8 @@ class TransferToBkashStepsBloc
           amount: double.tryParse(state.stepData[2]?['transferAmount']) ?? 0.0,
           toBkashNumber: "+880-${state.stepData[1]?['transferToMobile']}",
           nameOnCard: state.selectedCard!.nameOnCard,
+          ledgerId: state.selectedCard!.cardsAccounts[0].ledgerId,
+          accountId: state.selectedCard!.cardsAccounts[0].id,
         ),
       );
 

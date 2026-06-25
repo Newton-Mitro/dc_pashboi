@@ -149,15 +149,19 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
       final response = await apiService.post(
         ApiUrls.bKashWithdrawal,
         data: {
+          'TransferToAcc': props.transferToAcc,
+          'RecipientName': props.recipientName,
+          'AccountHolderName': props.accountHolderName,
+          "AccountType": props.accountType,
           "TransactionType": "bKashWithdrawalRequest",
           "TransactionMethod": "17",
-          "LedgerId": "1493",
-          "AccountId": "61759",
+          "LedgerId": props.ledgerId,
+          "AccountId": props.accountId,
           "FromAccountNo": props.accountNumber,
-          "AccountNo":  props.accountNumber,
+          "AccountNo": props.accountNumber,
           "TransactionModels": [
             {
-              "AccountNo": props.toBkashNumber,
+              "AccountNo": props.transferToAcc,
               "AccountType": "bKash Account",
               "LedgerId": 0,
               "Amount": props.amount,

@@ -13,6 +13,12 @@ class SubmitTransferToBkashProps extends BaseRequestProps {
   final String cardNumber;
   final String nameOnCard;
   final String cardPin;
+  final int ledgerId;
+  final int accountId;
+
+  final String transferToAcc;
+  final String recipientName;
+  final String accountHolderName;
 
   const SubmitTransferToBkashProps({
     required this.amount,
@@ -24,6 +30,13 @@ class SubmitTransferToBkashProps extends BaseRequestProps {
     required this.cardNumber,
     required this.nameOnCard,
     required this.cardPin,
+    required this.ledgerId,
+    required this.accountId,
+
+    required this.transferToAcc,
+    required this.recipientName,
+    required this.accountHolderName,
+
     required super.email,
     required super.userId,
     required super.rolePermissionId,
