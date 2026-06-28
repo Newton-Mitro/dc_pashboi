@@ -164,7 +164,7 @@ class DepositRemoteDataSourceImpl implements DepositRemoteDataSource {
           "TotalDepositAmount": props.totalDepositAmount,
           "TransactionMethod": props.transactionMethod,
           "TransactionModels": jsonList,
-          "ServiceCharge": 0,
+          "ServiceCharge": props.serviceCharge,
           "RolePermissionId": props.rolePermissionId,
           "UID": props.userId,
           "UserName": props.email,

@@ -9,6 +9,7 @@ class SubmitDepositFromBkashProps extends BaseRequestProps {
   final double totalDepositAmount;
   final String transactionMethod;
   final String transactionType;
+  final double serviceCharge;
 
   final List<CollectionLedgerEntity>? collectionLedgers;
 
@@ -17,6 +18,7 @@ class SubmitDepositFromBkashProps extends BaseRequestProps {
     required this.transactionMethod,
     required this.transactionType,
     required this.collectionLedgers,
+    required this.serviceCharge,
     required super.email,
     required super.userId,
     required super.rolePermissionId,

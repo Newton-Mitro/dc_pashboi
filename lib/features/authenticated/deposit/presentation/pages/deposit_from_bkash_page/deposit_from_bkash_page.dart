@@ -355,6 +355,7 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
           },
         ),
       ),
+
       StepItem(
         icon: FontAwesomeIcons.piggyBank,
         widget: TransactionDetailsSection(
