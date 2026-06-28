@@ -160,13 +160,14 @@ class DepositRemoteDataSourceImpl implements DepositRemoteDataSource {
       final response = await apiService.post(
         ApiUrls.bkashCreatePayment,
         data: {
+          "TransactionType": props.transactionType,
+          "TotalDepositAmount": props.totalDepositAmount,
+          "TransactionMethod": props.transactionMethod,
+          "TransactionModels": jsonList,
+          "ServiceCharge": 0,
           "RolePermissionId": props.rolePermissionId,
           "UID": props.userId,
           "UserName": props.email,
-          "TotalDepositAmount": props.totalDepositAmount,
-          "TransactionMethod": props.transactionMethod,
-          "TransactionType": props.transactionType,
-          "TransactionModels": jsonList,
           "ByUserId": props.userId,
           "EmployeeCode": props.employeeCode,
           "MobileNo": props.mobileNumber,

@@ -65,7 +65,7 @@ class TransferToBkashStepsBloc
                 .replaceAll('-', ''),
           },
         };
-        emit(state.copyWith(stepData: updatedStepData));
+        emit(state.copyWith(stepData: updatedStepData, isLoading: false));
       },
     );
   }
