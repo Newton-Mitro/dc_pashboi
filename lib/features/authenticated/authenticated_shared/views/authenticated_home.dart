@@ -85,42 +85,43 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
         "label": Locales.string(context, 'auth_bottom_nav_menu_withdraw'),
         "index": 5,
       },
-      {
-        "icon": FontAwesomeIcons.wallet,
-        "activeIcon": FontAwesomeIcons.sackDollar,
-        "label": Locales.string(context, 'auth_bottom_nav_menu_payment'),
-        "index": 6,
-      },
+
       {
         "icon": FontAwesomeIcons.peopleRoof,
         "activeIcon": FontAwesomeIcons.houseChimneyUser,
         "label": Locales.string(context, 'auth_bottom_nav_menu_family'),
-        "index": 7,
+        "index": 6,
       },
       {
         "icon": FontAwesomeIcons.userGroup,
         "activeIcon": FontAwesomeIcons.userGroup,
         "label": Locales.string(context, 'auth_bottom_nav_menu_beneficiary'),
-        "index": 8,
+        "index": 7,
       },
       {
         "icon": FontAwesomeIcons.userShield,
         "activeIcon": FontAwesomeIcons.shieldHalved,
         "label": Locales.string(context, 'auth_bottom_nav_menu_surety'),
-        "index": 9,
+        "index": 8,
       },
       {
         "icon": FontAwesomeIcons.children,
         "activeIcon": FontAwesomeIcons.shieldHalved,
         "label": Locales.string(context, 'auth_bottom_nav_menu_dependent'),
-        "index": 10,
+        "index": 9,
       },
       {
         "icon": FontAwesomeIcons.helmetSafety,
         "activeIcon": FontAwesomeIcons.shieldHalved,
         "label": Locales.string(context, 'auth_bottom_nav_menu_personnel'),
-        "index": 11,
+        "index": 10,
       },
+      // {
+      //   "icon": FontAwesomeIcons.wallet,
+      //   "activeIcon": FontAwesomeIcons.sackDollar,
+      //   "label": Locales.string(context, 'auth_bottom_nav_menu_payment'),
+      //   "index": 11,
+      // },
     ];
 
     return MultiBlocProvider(
@@ -194,7 +195,7 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                     DepositMenusView(authUser: user),
                     TransferMenusView(authUser: user),
                     WithdrawMenusView(authUser: user),
-                    PaymentMenusView(authUser: user),
+                    // PaymentMenusView(authUser: user),
                     FamilyMenusView(authUser: user),
                     BeneficiaryMenusView(authUser: user),
                     SuretyMenusView(authUser: user),

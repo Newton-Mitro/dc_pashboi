@@ -60,7 +60,7 @@ class TransferToBkashStepsBloc
           ...?updatedStepData[1],
           ...{
             'transferToMobile': authUserEntity.user.regMobile
-                ?.replaceAll('+880', '')
+                .replaceAll('+880', '')
                 .replaceAll('-', ''),
           },
         };
