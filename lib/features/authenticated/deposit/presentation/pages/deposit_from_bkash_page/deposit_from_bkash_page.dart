@@ -222,6 +222,18 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
                                   ),
                               AppPrimaryButton(
                                 horizontalPadding: 5,
+                                enabled:
+                                    isLastStep &&
+                                            depositNowStepsState
+                                                    .stepData[2]?['serviceCharge'] ==
+                                                null
+                                        ? false
+                                        : isLastStep &&
+                                            depositNowStepsState
+                                                    .stepData[2]?['serviceCharge'] ==
+                                                0
+                                        ? false
+                                        : true,
                                 iconAfter: const Icon(
                                   FontAwesomeIcons.angleRight,
                                 ),
