@@ -26,6 +26,47 @@ class CardPage extends StatelessWidget {
     }
   }
 
+  String? expiryDateHandler(String expiryDate) {
+    try {
+      final parts = expiryDate.split('/');
+      if (parts.length != 3) return null;
+
+      final int day = int.parse(parts[0]);
+      final int month = int.parse(parts[1]);
+      final int year = int.parse(parts[2]);
+
+      // Expiry date
+      final expiry = DateTime(year, month, day);
+
+      // Today's date (without time)
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+
+      // Expired
+      if (expiry.isBefore(today)) {
+        return 'This card is expired, please apply for re-issue.';
+      }
+
+      // Difference
+      final difference = expiry.difference(today);
+
+      // Expires today
+      if (difference.inDays == 0) {
+        final hours = expiry.difference(now).inHours;
+        return 'Expires in $hours Hour, please apply for re-issue';
+      }
+
+      // Expires within 30 days
+      if (difference.inDays <= 30) {
+        return 'Expires in ${difference.inDays - 1} days, please apply for re-issue';
+      }
+
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double cardHeight =
@@ -71,32 +112,42 @@ class CardPage extends StatelessWidget {
 
                   if (state.debitCard != null) {
                     final card = state.debitCard!;
-                    final expired = _isExpired(card.expiryDate);
+                    final expiryMessage = expiryDateHandler(card.expiryDate);
 
                     return Column(
                       children: [
                         _buildCardView(card, context, cardHeight, cardWidth),
-                        if (expired)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: AppPrimaryButton(
-                              label: Locales.string(
-                                context,
-                                "apply_for_reissue",
-                              ),
-                              enabled: true,
-                              onPressed: () {
-                                context.read<DebitCardBloc>().add(
-                                  const DebitCardReIssue(
-                                    cardNumber: '',
-                                    cardTypeCode: '',
-                                    virtualCard: true,
-                                    nameOnCard: '',
-                                  ),
-                                );
-                              },
+
+                        if (expiryMessage != null) ...[
+                          const SizedBox(height: 16),
+
+                          Text(
+                            expiryMessage,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
+
+                          const SizedBox(height: 12),
+
+                          AppPrimaryButton(
+                            label: Locales.string(context, "apply_for_reissue"),
+                            enabled: true,
+                            onPressed: () {
+                              context.read<DebitCardBloc>().add(
+                                DebitCardReIssue(
+                                  cardNumber: card.cardNumber,
+                                  cardTypeCode: card.type,
+                                  virtualCard: true,
+                                  nameOnCard: card.nameOnCard,
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ],
                     );
                   }
