@@ -11,20 +11,20 @@ import 'package:pashboi/shared/widgets/page_container.dart';
 class CardPage extends StatelessWidget {
   const CardPage({super.key});
 
-  bool _isExpired(String expiryDate) {
-    try {
-      final parts = expiryDate.split('/');
-      if (parts.length != 3) return false;
-      final expiry = DateTime(
-        int.parse(parts[2]),
-        int.parse(parts[1]),
-        int.parse(parts[0]),
-      );
-      return DateTime.now().isAfter(expiry);
-    } catch (_) {
-      return false;
-    }
-  }
+  // bool _isExpired(String expiryDate) {
+  //   try {
+  //     final parts = expiryDate.split('/');
+  //     if (parts.length != 3) return false;
+  //     final expiry = DateTime(
+  //       int.parse(parts[2]),
+  //       int.parse(parts[1]),
+  //       int.parse(parts[0]),
+  //     );
+  //     return DateTime.now().isAfter(expiry);
+  //   } catch (_) {
+  //     return false;
+  //   }
+  // }
 
   String? expiryDateHandler(String expiryDate) {
     try {
