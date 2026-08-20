@@ -7,7 +7,7 @@ abstract class AuthRepository {
     String password,
     String confirmPassword,
   );
-  ResultFuture<AuthUserEntity> login(String email, String password);
+  ResultFuture<AuthUserEntity> login(String encryptedData);
   ResultFuture<void> logout();
   ResultFuture<AuthUserEntity> getAuthUser();
 

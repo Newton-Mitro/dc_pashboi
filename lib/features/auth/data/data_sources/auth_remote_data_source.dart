@@ -7,7 +7,7 @@ import 'package:pashboi/core/utils/json_util.dart';
 import 'package:pashboi/features/auth/data/models/auth_user_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<AuthUserModel> login(String email, String password);
+  Future<AuthUserModel> login(String encryptedData);
 
   Future<String> register(
     String email,
@@ -35,12 +35,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.apiService});
 
   @override
-  Future<AuthUserModel> login(String email, String password) async {
+  Future<AuthUserModel> login(String encryptedData) async {
     try {
-      final response = await apiService.post(
-        ApiUrls.login,
-        data: {"UserName": email, "Password": password, "RequestFrom": "Web"},
-      );
+      final body = <String, dynamic>{'Data': encryptedData};
+      final response = await apiService.post(ApiUrls.login, data: body);
 
       if (response.statusCode == HttpStatus.ok) {
         final dataString = response.data?['Data'];

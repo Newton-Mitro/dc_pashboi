@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:pashboi/core/errors/failures.dart';
 import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
+import 'package:pashboi/core/utils/crypto_helper.dart';
 import 'package:pashboi/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/login_usecase.dart';
@@ -49,8 +50,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     final loginParams = LoginParams(
       email: event.username,
-      password: event.password,
+      password: CryptoHelper.md5Hash(event.password),
     );
+
     final dataState = await loginUseCase.call(loginParams);
 
     dataState.fold(
