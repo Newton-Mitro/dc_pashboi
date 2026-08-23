@@ -30,7 +30,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.cccul.pashboi"
+        applicationId = "com.dhakacredit.cccul"
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
 
