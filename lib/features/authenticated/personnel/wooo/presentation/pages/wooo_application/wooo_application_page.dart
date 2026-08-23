@@ -234,7 +234,6 @@ class _WoooApplicationPageState extends State<WoooApplicationPage>
                       Navigator.pop(context);
                     }
                   }
-                  // TODO: implement listener
                 },
                 child: AppPrimaryButton(
                   label: Locales.string(context, "submit"),

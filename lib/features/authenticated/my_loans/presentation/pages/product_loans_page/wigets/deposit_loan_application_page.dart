@@ -197,7 +197,6 @@ class _DepositLoanApplicationPageState
                       arguments: {'message': state.successMessage!},
                     );
                   }
-                  // TODO: implement listener
                 },
               ),
             ],

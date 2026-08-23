@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "com.cccul.pashboi"
+    namespace = "com.dhakacredit.cccul"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "29.0.13113456"
 

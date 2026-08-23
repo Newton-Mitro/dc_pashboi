@@ -460,8 +460,6 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                       Navigator.pop(context);
                                     }
                                   }
-
-                                  // TODO: implement listener
                                 },
                                 child: AppPrimaryButton(
                                   label: Locales.string(context, "apply"),

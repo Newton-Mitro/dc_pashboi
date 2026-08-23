@@ -9,6 +9,7 @@ import 'package:pashboi/features/landing/presentation/pages/landing_page.dart';
 import 'package:pashboi/features/onboarding/presentation/pages/onboarding_page.dart';
 import 'package:pashboi/features/under_maintenance/presentation/pages/under_maintenance_page.dart';
 import 'package:pashboi/routes/routes.dart';
+import 'package:pashboi/security_gurd.dart';
 import 'package:pashboi/shared/widgets/language_switch/bloc/language_switch_bloc.dart';
 import 'package:pashboi/shared/widgets/theme_selector/bloc/theme_selector_bloc.dart';
 
@@ -59,7 +60,9 @@ class _MyAppState extends State<MyApp> {
                               : const Locale('en', 'US'),
                       onGenerateRoute: AppRoutes().onGenerateRoutes,
                       initialRoute: '/',
-                      home: _buildHome(appStatusState, onboardingState),
+                      home: UsbDebuggingGuard(
+                        child: _buildHome(appStatusState, onboardingState),
+                      ),
                     );
                   },
                 );

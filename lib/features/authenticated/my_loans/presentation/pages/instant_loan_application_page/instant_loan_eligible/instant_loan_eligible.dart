@@ -103,7 +103,6 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
             }
-            // TODO: implement listener
           },
         ),
         BlocListener<InstantLoanEligibleBloc, InstantLoanEligibleState>(

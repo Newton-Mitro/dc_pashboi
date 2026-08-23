@@ -8,7 +8,7 @@
 PRODUCT_NAME = pashboi
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.cccul.pashboi
+PRODUCT_BUNDLE_IDENTIFIER = com.dhakacredit.cccul
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2025 com.cccul. All rights reserved.

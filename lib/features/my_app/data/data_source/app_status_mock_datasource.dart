@@ -28,7 +28,6 @@ class AppStatusMockDataSourceImpl implements AppStatusRemoteDataSource {
 
   @override
   Future<List<AdvertisementModel>> getAdds() {
-    // TODO: implement getAdds
     throw UnimplementedError();
   }
 }
