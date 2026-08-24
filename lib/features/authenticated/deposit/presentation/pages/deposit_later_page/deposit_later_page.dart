@@ -177,114 +177,120 @@ class _DepositLaterPageState extends State<DepositLaterPage> {
               ),
             ),
 
-            body: Stack(
-              children: [
-                PageContainer(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 15,
-                        ),
-                        child: _buildProgressStepper(width, state),
-                      ),
-
-                      const SizedBox(height: 10),
-
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: IndexedStack(
-                            index: state.currentStep,
-                            children:
-                                steps
-                                    .map(
-                                      (e) => SingleChildScrollView(
-                                        child: e.widget,
-                                      ),
-                                    )
-                                    .toList(),
-                          ),
-                        ),
-                      ),
-
-                      SafeArea(
-                        maintainBottomViewPadding: true,
-                        child: Padding(
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  PageContainer(
+                    child: Column(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 15,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              isFirstStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconBefore: const Icon(
-                                      FontAwesomeIcons.angleLeft,
-                                    ),
-                                    label: Locales.string(
-                                      context,
-                                      'previous_button_text',
-                                    ),
-                                    onPressed: () {
-                                      context.read<DepositLaterStepsBloc>().add(
-                                        DepositLaterGoToPreviousStep(),
-                                      );
-                                    },
-                                  ),
+                          child: _buildProgressStepper(width, state),
+                        ),
 
-                              isLastStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconAfter: const Icon(
-                                      FontAwesomeIcons.angleRight,
-                                    ),
-                                    label: Locales.string(
-                                      context,
-                                      'next_button_text',
-                                    ),
-                                    onPressed: () {
-                                      if (state.currentStep == 5) {
-                                        context
-                                            .read<DepositLaterStepsBloc>()
-                                            .add(DepositLaterValidateStep(5));
+                        const SizedBox(height: 10),
 
-                                        _verifyCardPIN(state);
-
-                                        return;
-                                      }
-
-                                      context.read<DepositLaterStepsBloc>().add(
-                                        DepositLaterGoToNextStep(),
-                                      );
-                                    },
-                                  ),
-                            ],
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: IndexedStack(
+                              index: state.currentStep,
+                              children:
+                                  steps
+                                      .map(
+                                        (e) => SingleChildScrollView(
+                                          child: e.widget,
+                                        ),
+                                      )
+                                      .toList(),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+
+                        SafeArea(
+                          maintainBottomViewPadding: true,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 15,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                isFirstStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconBefore: const Icon(
+                                        FontAwesomeIcons.angleLeft,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'previous_button_text',
+                                      ),
+                                      onPressed: () {
+                                        context
+                                            .read<DepositLaterStepsBloc>()
+                                            .add(
+                                              DepositLaterGoToPreviousStep(),
+                                            );
+                                      },
+                                    ),
+
+                                isLastStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconAfter: const Icon(
+                                        FontAwesomeIcons.angleRight,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'next_button_text',
+                                      ),
+                                      onPressed: () {
+                                        if (state.currentStep == 5) {
+                                          context
+                                              .read<DepositLaterStepsBloc>()
+                                              .add(DepositLaterValidateStep(5));
+
+                                          _verifyCardPIN(state);
+
+                                          return;
+                                        }
+
+                                        context
+                                            .read<DepositLaterStepsBloc>()
+                                            .add(DepositLaterGoToNextStep());
+                                      },
+                                    ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
 
-                BlocBuilder<DebitCardBloc, DebitCardState>(
-                  builder: (context, state) {
-                    if (state.isLoading) {
-                      return Container(
-                        color: Colors.black.withOpacity(0.4),
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
-                    }
+                  BlocBuilder<DebitCardBloc, DebitCardState>(
+                    builder: (context, state) {
+                      if (state.isLoading) {
+                        return Container(
+                          color: Colors.black.withOpacity(0.4),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
 
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ],
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ],
+              ),
             ),
 
             bottomNavigationBar:

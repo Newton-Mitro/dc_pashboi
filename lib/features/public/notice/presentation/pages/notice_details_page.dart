@@ -22,39 +22,41 @@ class NoticeDetailsPage extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: PageContainer(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              showIcon
-                  ? Container(
-                    alignment: Alignment.center,
-                    height: 150,
-                    width: double.infinity,
-                    child: const FaIcon(
-                      FontAwesomeIcons.bullhorn,
-                      size: 100,
-                      color: Colors.grey,
-                    ),
-                  )
-                  : Container(
-                    height: 500,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                        image: NetworkImage(imageUrl),
-                        fit: BoxFit.cover,
+      body: SafeArea(
+        child: PageContainer(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                showIcon
+                    ? Container(
+                      alignment: Alignment.center,
+                      height: 150,
+                      width: double.infinity,
+                      child: const FaIcon(
+                        FontAwesomeIcons.bullhorn,
+                        size: 100,
+                        color: Colors.grey,
+                      ),
+                    )
+                    : Container(
+                      height: 500,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          image: NetworkImage(imageUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-              const SizedBox(height: 16),
-              Text(notice.title),
-              const SizedBox(height: 16),
-              Html(data: notice.description),
-            ],
+                const SizedBox(height: 16),
+                Text(notice.title),
+                const SizedBox(height: 16),
+                Html(data: notice.description),
+              ],
+            ),
           ),
         ),
       ),

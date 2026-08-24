@@ -33,212 +33,216 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
 
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, 'product_loans'))),
-      body: PageContainer(
-        child: SizedBox(
-          height: double.infinity,
-          child: BlocBuilder<DepositProductLoanBloc, DepositProductLoanState>(
-            builder: (context, state) {
-              if (state is DepositProductLoanLoading ||
-                  state is DepositProductLoanInitial) {
-                return const Center(child: CircularProgressIndicator());
-              }
-
-              if (state is DepositProductLoanError) {
-                return Center(child: Text(state.message));
-              }
-
-              if (state is DepositProductLoanSuccess) {
-                final accountList = state.depositLoanEligibilityDto;
-
-                if (accountList.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.boxOpen,
-                          size: 50,
-                          color: context.theme.colorScheme.onSurface
-                              .withOpacity(0.6),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          Locales.string(context, 'no_deposit_accounts'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: context.theme.colorScheme.onSurface,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+      body: SafeArea(
+        child: PageContainer(
+          child: SizedBox(
+            height: double.infinity,
+            child: BlocBuilder<DepositProductLoanBloc, DepositProductLoanState>(
+              builder: (context, state) {
+                if (state is DepositProductLoanLoading ||
+                    state is DepositProductLoanInitial) {
+                  return const Center(child: CircularProgressIndicator());
                 }
 
-                return Accordion(
-                  headerBorderWidth: 3,
-                  headerBorderColor: headerColor,
-                  headerBorderColorOpened: headerColor,
-                  headerBackgroundColorOpened: headerColor,
-                  contentBackgroundColor: context.theme.colorScheme.surface,
-                  contentBorderColor: headerColor,
-                  contentBorderWidth: 3,
-                  contentHorizontalPadding: 20,
-                  scaleWhenAnimating: true,
-                  openAndCloseAnimation: true,
-                  headerPadding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 15,
-                  ),
-                  sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
-                  sectionClosingHapticFeedback: SectionHapticFeedback.light,
-                  children:
-                      accountList.map((account) {
-                        return AccordionSection(
-                          isOpen: false,
-                          headerBackgroundColor: headerColor,
-                          headerBackgroundColorOpened: headerColor,
-                          headerBorderColor: headerColor,
-                          contentBorderColor: headerColor,
-                          contentVerticalPadding: 20,
-                          paddingBetweenClosedSections: 20,
-                          header: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                account.loanProductName,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: iconColor,
-                                ),
-                              ),
-                            ],
+                if (state is DepositProductLoanError) {
+                  return Center(child: Text(state.message));
+                }
+
+                if (state is DepositProductLoanSuccess) {
+                  final accountList = state.depositLoanEligibilityDto;
+
+                  if (accountList.isEmpty) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.boxOpen,
+                            size: 50,
+                            color: context.theme.colorScheme.onSurface
+                                .withOpacity(0.6),
                           ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: Text(
-                                  Locales.string(
-                                    context,
-                                    'loan_account_details',
-                                  ),
+                          const SizedBox(height: 16),
+                          Text(
+                            Locales.string(context, 'no_deposit_accounts'),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: context.theme.colorScheme.onSurface,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return Accordion(
+                    headerBorderWidth: 3,
+                    headerBorderColor: headerColor,
+                    headerBorderColorOpened: headerColor,
+                    headerBackgroundColorOpened: headerColor,
+                    contentBackgroundColor: context.theme.colorScheme.surface,
+                    contentBorderColor: headerColor,
+                    contentBorderWidth: 3,
+                    contentHorizontalPadding: 20,
+                    scaleWhenAnimating: true,
+                    openAndCloseAnimation: true,
+                    headerPadding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 15,
+                    ),
+                    sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+                    sectionClosingHapticFeedback: SectionHapticFeedback.light,
+                    children:
+                        accountList.map((account) {
+                          return AccordionSection(
+                            isOpen: false,
+                            headerBackgroundColor: headerColor,
+                            headerBackgroundColorOpened: headerColor,
+                            headerBorderColor: headerColor,
+                            contentBorderColor: headerColor,
+                            contentVerticalPadding: 20,
+                            paddingBetweenClosedSections: 20,
+                            header: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  account.loanProductName,
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: context.theme.colorScheme.primary,
+                                    color: iconColor,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-
-                              // Dynamically map all eligibilityDetails
-                              ...account.eligibilityDetails.map((detail) {
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 16),
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color:
-                                          Colors
-                                              .grey
-                                              .shade300, // You can customize this
-                                      width: 1.5,
+                              ],
+                            ),
+                            content: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    Locales.string(
+                                      context,
+                                      'loan_account_details',
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: context.theme.colorScheme.primary,
+                                    ),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Text(detail.accTypeCode),
-                                      _buildRow(
-                                        Locales.string(
-                                          context,
-                                          'account_number',
-                                        ),
-                                        detail.depositAccountNo,
+                                ),
+                                const SizedBox(height: 10),
+
+                                // Dynamically map all eligibilityDetails
+                                ...account.eligibilityDetails.map((detail) {
+                                  return Container(
+                                    margin: const EdgeInsets.only(bottom: 16),
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color:
+                                            Colors
+                                                .grey
+                                                .shade300, // You can customize this
+                                        width: 1.5,
                                       ),
-                                      const Divider(),
-                                      _buildRow(
-                                        Locales.string(context, 'findings'),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children:
-                                              [
-                                                _buildFindingItem(
-                                                  Locales.string(
-                                                    context,
-                                                    'collateral_covered',
-                                                  ),
-                                                  detail.collareralEligible,
-                                                ),
-                                                if (detail.hasCertificate)
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Text(detail.accTypeCode),
+                                        _buildRow(
+                                          Locales.string(
+                                            context,
+                                            'account_number',
+                                          ),
+                                          detail.depositAccountNo,
+                                        ),
+                                        const Divider(),
+                                        _buildRow(
+                                          Locales.string(context, 'findings'),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children:
+                                                [
                                                   _buildFindingItem(
                                                     Locales.string(
                                                       context,
-                                                      'certificate_submitted',
+                                                      'collateral_covered',
                                                     ),
-                                                    detail
-                                                        .isCertificateSubmitted,
+                                                    detail.collareralEligible,
                                                   ),
-                                                _buildFindingItem(
-                                                  Locales.string(
-                                                    context,
-                                                    'family_loan_regular',
+                                                  if (detail.hasCertificate)
+                                                    _buildFindingItem(
+                                                      Locales.string(
+                                                        context,
+                                                        'certificate_submitted',
+                                                      ),
+                                                      detail
+                                                          .isCertificateSubmitted,
+                                                    ),
+                                                  _buildFindingItem(
+                                                    Locales.string(
+                                                      context,
+                                                      'family_loan_regular',
+                                                    ),
+                                                    !detail.isFamilyDefaulter,
                                                   ),
-                                                  !detail.isFamilyDefaulter,
-                                                ),
-                                                _buildFindingItem(
-                                                  Locales.string(
-                                                    context,
-                                                    'self_loan_regular',
+                                                  _buildFindingItem(
+                                                    Locales.string(
+                                                      context,
+                                                      'self_loan_regular',
+                                                    ),
+                                                    !detail.isSelfDefaulter,
                                                   ),
-                                                  !detail.isSelfDefaulter,
-                                                ),
-                                              ].expand((widget) sync* {
-                                                yield widget;
-                                                yield const SizedBox(height: 8);
-                                              }).toList(),
+                                                ].expand((widget) sync* {
+                                                  yield widget;
+                                                  yield const SizedBox(
+                                                    height: 8,
+                                                  );
+                                                }).toList(),
+                                          ),
                                         ),
-                                      ),
-                                      const Divider(),
-                                      _buildRow(
-                                        Locales.string(context, 'eligible'),
-                                        detail.isEligible,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }),
-
-                              const SizedBox(height: 10),
-
-                              // getEligibleCollateralAccounts
-                              AppPrimaryButton(
-                                label: Locales.string(context, 'apply'),
-                                enabled: account.isEligible,
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    AuthRoutesName.depositLoanApplicationPage,
-                                    arguments: {
-                                      'account': account.loanProductCode,
-                                    },
+                                        const Divider(),
+                                        _buildRow(
+                                          Locales.string(context, 'eligible'),
+                                          detail.isEligible,
+                                        ),
+                                      ],
+                                    ),
                                   );
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      }).toList(),
-                );
-              }
+                                }),
 
-              return const SizedBox.shrink(); // fallback
-            },
+                                const SizedBox(height: 10),
+
+                                // getEligibleCollateralAccounts
+                                AppPrimaryButton(
+                                  label: Locales.string(context, 'apply'),
+                                  enabled: account.isEligible,
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      AuthRoutesName.depositLoanApplicationPage,
+                                      arguments: {
+                                        'account': account.loanProductCode,
+                                      },
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                  );
+                }
+
+                return const SizedBox.shrink(); // fallback
+              },
+            ),
           ),
         ),
       ),

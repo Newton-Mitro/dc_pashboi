@@ -68,198 +68,200 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "fallback_acceptance_details")),
       ),
-      body: PageContainer(
-        child: SizedBox(
-          height: double.infinity,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Card(
-                color: context.theme.colorScheme.surface,
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(
-                    color: context.theme.colorScheme.primary,
-                    width: 2,
+      body: SafeArea(
+        child: PageContainer(
+          child: SizedBox(
+            height: double.infinity,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Card(
+                  color: context.theme.colorScheme.surface,
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(
+                      color: context.theme.colorScheme.primary,
+                      width: 2,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            Locales.string(context, "fallback_approval"),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-
-                      AppTextInput(
-                        controller: _leaveTypeController,
-                        label: Locales.string(context, "leave_type"),
-                        prefixIcon: Icon(
-                          FontAwesomeIcons.addressBook,
-                          color: context.theme.colorScheme.onSurface,
-                        ),
-                        enabled: false,
-                        errorText: '',
-                      ),
-                      const SizedBox(height: 12),
-
-                      AppTextInput(
-                        controller: _employeeNameController,
-                        label: Locales.string(
-                          context,
-                          "fallback_employee_name",
-                        ),
-                        prefixIcon: Icon(
-                          Icons.person_outline,
-                          color: context.theme.colorScheme.onSurface,
-                        ),
-                        enabled: false,
-                        errorText: '',
-                      ),
-                      const SizedBox(height: 12),
-
-                      Row(
-                        children: [
-                          Expanded(
-                            child: AppDatePicker(
-                              selectedDate: _startDate,
-                              onDateChanged:
-                                  (d) => setState(() => _startDate = d),
-                              label: Locales.string(context, "from_date"),
-                              errorText: '',
-                              firstDate: null,
-                              enabled: false,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: AppDatePicker(
-                              selectedDate: _endDate,
-                              onDateChanged:
-                                  (d) => setState(() => _endDate = d),
-                              label: Locales.string(context, "to_date"),
-                              errorText: '',
-                              firstDate: null,
-                              enabled: false,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: AppTextInput(
-                              controller: _totalDaysController,
-                              label: Locales.string(context, "total_days"),
-                              prefixIcon: Icon(
-                                Icons.calendar_today,
-                                color: context.theme.colorScheme.onSurface,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              Locales.string(context, "fallback_approval"),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
-                              enabled: false,
-                              errorText: '',
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: AppDatePicker(
-                              selectedDate: _rejoinDate,
-                              onDateChanged:
-                                  (d) => setState(() => _rejoinDate = d),
-                              label: Locales.string(context, "rejoin_date"),
-                              errorText: '',
-                              firstDate: null,
-                              lastDate: null,
-                              enabled: false,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-
-                      _buildTextArea(
-                        controller: _reasonController,
-                        label: Locales.string(context, "reason_for_leave"),
-                        enabled: false,
-                      ),
-                      const SizedBox(height: 12),
-
-                      _buildTextArea(
-                        controller: _remarksController,
-                        label: Locales.string(
-                          context,
-                          "fallback_approval_remarks",
                         ),
-                      ),
-                      const SizedBox(height: 16),
+                        const SizedBox(height: 10),
 
-                      BlocListener<
-                        AcceptedFallbackRequestBloc,
-                        AcceptedFallbackRequestState
-                      >(
-                        listener: (context, state) {
-                          if (state is AcceptedFallbackRequestError) {
-                            final snackBar = SnackBar(
-                              elevation: 0,
-                              behavior: SnackBarBehavior.floating,
-                              backgroundColor: Colors.transparent,
-                              content: AwesomeSnackbarContent(
-                                title: Locales.string(context, "oops"),
-                                message: state.message,
-                                contentType: ContentType.failure,
+                        AppTextInput(
+                          controller: _leaveTypeController,
+                          label: Locales.string(context, "leave_type"),
+                          prefixIcon: Icon(
+                            FontAwesomeIcons.addressBook,
+                            color: context.theme.colorScheme.onSurface,
+                          ),
+                          enabled: false,
+                          errorText: '',
+                        ),
+                        const SizedBox(height: 12),
+
+                        AppTextInput(
+                          controller: _employeeNameController,
+                          label: Locales.string(
+                            context,
+                            "fallback_employee_name",
+                          ),
+                          prefixIcon: Icon(
+                            Icons.person_outline,
+                            color: context.theme.colorScheme.onSurface,
+                          ),
+                          enabled: false,
+                          errorText: '',
+                        ),
+                        const SizedBox(height: 12),
+
+                        Row(
+                          children: [
+                            Expanded(
+                              child: AppDatePicker(
+                                selectedDate: _startDate,
+                                onDateChanged:
+                                    (d) => setState(() => _startDate = d),
+                                label: Locales.string(context, "from_date"),
+                                errorText: '',
+                                firstDate: null,
+                                enabled: false,
                               ),
-                            );
-
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(snackBar);
-                          }
-
-                          if (state is AcceptedFallbackRequestSuccess) {
-                            final snackBar = SnackBar(
-                              elevation: 0,
-                              behavior: SnackBarBehavior.floating,
-                              backgroundColor: Colors.transparent,
-                              content: AwesomeSnackbarContent(
-                                title: Locales.string(context, "success"),
-                                message: state.message,
-                                contentType: ContentType.success,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: AppDatePicker(
+                                selectedDate: _endDate,
+                                onDateChanged:
+                                    (d) => setState(() => _endDate = d),
+                                label: Locales.string(context, "to_date"),
+                                errorText: '',
+                                firstDate: null,
+                                enabled: false,
                               ),
-                            );
-                            ScaffoldMessenger.of(context)
-                              ..hideCurrentSnackBar()
-                              ..showSnackBar(snackBar);
-                            if (Navigator.canPop(context)) {
-                              Navigator.pop(context);
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: AppTextInput(
+                                controller: _totalDaysController,
+                                label: Locales.string(context, "total_days"),
+                                prefixIcon: Icon(
+                                  Icons.calendar_today,
+                                  color: context.theme.colorScheme.onSurface,
+                                ),
+                                enabled: false,
+                                errorText: '',
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: AppDatePicker(
+                                selectedDate: _rejoinDate,
+                                onDateChanged:
+                                    (d) => setState(() => _rejoinDate = d),
+                                label: Locales.string(context, "rejoin_date"),
+                                errorText: '',
+                                firstDate: null,
+                                lastDate: null,
+                                enabled: false,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+
+                        _buildTextArea(
+                          controller: _reasonController,
+                          label: Locales.string(context, "reason_for_leave"),
+                          enabled: false,
+                        ),
+                        const SizedBox(height: 12),
+
+                        _buildTextArea(
+                          controller: _remarksController,
+                          label: Locales.string(
+                            context,
+                            "fallback_approval_remarks",
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        BlocListener<
+                          AcceptedFallbackRequestBloc,
+                          AcceptedFallbackRequestState
+                        >(
+                          listener: (context, state) {
+                            if (state is AcceptedFallbackRequestError) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.transparent,
+                                content: AwesomeSnackbarContent(
+                                  title: Locales.string(context, "oops"),
+                                  message: state.message,
+                                  contentType: ContentType.failure,
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(snackBar);
                             }
-                          }
-                        },
-                        child: AppPrimaryButton(
-                          label: Locales.string(context, "submit"),
-                          onPressed: () {
-                            context.read<AcceptedFallbackRequestBloc>().add(
-                              AcceptedFallbackRequestSubmitted(
-                                leaveApplicationId:
-                                    widget.data.leaveApplicationId ?? 0,
-                                remarks: _remarksController.text.trim(),
-                              ),
-                            );
+
+                            if (state is AcceptedFallbackRequestSuccess) {
+                              final snackBar = SnackBar(
+                                elevation: 0,
+                                behavior: SnackBarBehavior.floating,
+                                backgroundColor: Colors.transparent,
+                                content: AwesomeSnackbarContent(
+                                  title: Locales.string(context, "success"),
+                                  message: state.message,
+                                  contentType: ContentType.success,
+                                ),
+                              );
+                              ScaffoldMessenger.of(context)
+                                ..hideCurrentSnackBar()
+                                ..showSnackBar(snackBar);
+                              if (Navigator.canPop(context)) {
+                                Navigator.pop(context);
+                              }
+                            }
                           },
+                          child: AppPrimaryButton(
+                            label: Locales.string(context, "submit"),
+                            onPressed: () {
+                              context.read<AcceptedFallbackRequestBloc>().add(
+                                AcceptedFallbackRequestSubmitted(
+                                  leaveApplicationId:
+                                      widget.data.leaveApplicationId ?? 0,
+                                  remarks: _remarksController.text.trim(),
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

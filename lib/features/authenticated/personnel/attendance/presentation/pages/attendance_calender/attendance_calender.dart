@@ -143,168 +143,176 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
       appBar: AppBar(
         title: Text(Locales.string(context, "attendance_calendar")),
       ),
-      body: BlocListener<AttendanceCalenderBloc, AttendanceCalenderState>(
-        listener: (context, state) {
-          if (state is AttendanceCalenderError) {
-            final snackBar = SnackBar(
-              elevation: 0,
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: Locales.string(context, "oops"),
-                message: state.message ?? "Something went wrong",
-                contentType: ContentType.failure,
-              ),
-            );
+      body: SafeArea(
+        child: BlocListener<AttendanceCalenderBloc, AttendanceCalenderState>(
+          listener: (context, state) {
+            if (state is AttendanceCalenderError) {
+              final snackBar = SnackBar(
+                elevation: 0,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.transparent,
+                content: AwesomeSnackbarContent(
+                  title: Locales.string(context, "oops"),
+                  message: state.message ?? "Something went wrong",
+                  contentType: ContentType.failure,
+                ),
+              );
 
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(snackBar);
-          }
-        },
-        child: PageContainer(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: BlocBuilder<AttendanceCalenderBloc, AttendanceCalenderState>(
-              builder: (context, state) {
-                if (state is AttendanceCalenderLoading) {
-                  return const Center(child: CircularProgressIndicator());
-                }
+              ScaffoldMessenger.of(context)
+                ..hideCurrentSnackBar()
+                ..showSnackBar(snackBar);
+            }
+          },
+          child: PageContainer(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: BlocBuilder<
+                AttendanceCalenderBloc,
+                AttendanceCalenderState
+              >(
+                builder: (context, state) {
+                  if (state is AttendanceCalenderLoading) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
 
-                if (state is AttendanceCalenderSuccess) {
-                  // Map GetAttendanceEntities to AttendanceEvent and update events
-                  final attendanceEvents =
-                      state.attendanceEntities
-                          .map((e) => AttendanceEvent.fromEntity(e))
-                          .toList();
+                  if (state is AttendanceCalenderSuccess) {
+                    // Map GetAttendanceEntities to AttendanceEvent and update events
+                    final attendanceEvents =
+                        state.attendanceEntities
+                            .map((e) => AttendanceEvent.fromEntity(e))
+                            .toList();
 
-                  _updateAttendanceEvents(attendanceEvents);
+                    _updateAttendanceEvents(attendanceEvents);
 
-                  return Column(
-                    children: [
-                      TableCalendar<AttendanceEvent>(
-                        firstDay: DateTime.utc(2020, 1, 1),
-                        lastDay: DateTime.utc(2040, 12, 31),
-                        focusedDay: _focusedDay,
-                        selectedDayPredicate:
-                            (day) => isSameDay(_selectedDay, day),
-                        calendarFormat: _calendarFormat,
-                        eventLoader: _getEventsForDay,
-                        onDaySelected: (selectedDay, focusedDay) {
-                          setState(() {
-                            _selectedDay = selectedDay;
-                            _focusedDay = focusedDay;
-                            _selectedEvents.value = _getEventsForDay(
-                              selectedDay,
-                            );
-                          });
-                        },
-                        onFormatChanged: (format) {
-                          setState(() => _calendarFormat = format);
-                        },
-                        onPageChanged: (focusedDay) {
-                          setState(() {
-                            _focusedDay = focusedDay;
-                          });
-
-                          _sendAttendanceHistoryForMonth(focusedDay);
-                        },
-                        calendarBuilders: CalendarBuilders(
-                          markerBuilder: (context, date, events) {
-                            if (events.isEmpty) return const SizedBox();
-
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children:
-                                  events.map((event) {
-                                    return Container(
-                                      width: 20,
-                                      height: 20,
-                                      margin: const EdgeInsets.symmetric(
-                                        horizontal: 1,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: _getMarkerColor(event.remarks),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        event.status ?? '',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Expanded(
-                        child: ValueListenableBuilder<List<AttendanceEvent>>(
-                          valueListenable: _selectedEvents,
-                          builder: (context, value, _) {
-                            if (value.isEmpty) {
-                              return Center(
-                                child: Text(
-                                  Locales.string(context, "no_record_selected"),
-                                ),
+                    return Column(
+                      children: [
+                        TableCalendar<AttendanceEvent>(
+                          firstDay: DateTime.utc(2020, 1, 1),
+                          lastDay: DateTime.utc(2040, 12, 31),
+                          focusedDay: _focusedDay,
+                          selectedDayPredicate:
+                              (day) => isSameDay(_selectedDay, day),
+                          calendarFormat: _calendarFormat,
+                          eventLoader: _getEventsForDay,
+                          onDaySelected: (selectedDay, focusedDay) {
+                            setState(() {
+                              _selectedDay = selectedDay;
+                              _focusedDay = focusedDay;
+                              _selectedEvents.value = _getEventsForDay(
+                                selectedDay,
                               );
-                            }
-                            return ListView.builder(
-                              itemCount: value.length,
-                              itemBuilder: (context, index) {
-                                final event = value[index];
-                                return ListTile(
-                                  leading: Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: BoxDecoration(
-                                      color: _getMarkerColor(event.remarks),
-                                      shape: BoxShape.circle,
+                            });
+                          },
+                          onFormatChanged: (format) {
+                            setState(() => _calendarFormat = format);
+                          },
+                          onPageChanged: (focusedDay) {
+                            setState(() {
+                              _focusedDay = focusedDay;
+                            });
+
+                            _sendAttendanceHistoryForMonth(focusedDay);
+                          },
+                          calendarBuilders: CalendarBuilders(
+                            markerBuilder: (context, date, events) {
+                              if (events.isEmpty) return const SizedBox();
+
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children:
+                                    events.map((event) {
+                                      return Container(
+                                        width: 20,
+                                        height: 20,
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 1,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: _getMarkerColor(event.remarks),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          event.status ?? '',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                              );
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Expanded(
+                          child: ValueListenableBuilder<List<AttendanceEvent>>(
+                            valueListenable: _selectedEvents,
+                            builder: (context, value, _) {
+                              if (value.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    Locales.string(
+                                      context,
+                                      "no_record_selected",
                                     ),
                                   ),
-                                  title: Text(
-                                    '${Locales.string(context, "status")}: ${event.remarks}',
-                                  ),
-                                  subtitle: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${Locales.string(context, "punch_in")}:  ${extractTime(event.punchIn)}',
-                                      ),
-                                      Text(
-                                        '${Locales.string(context, "punch_out")}:  ${extractTime(event.punchOut)}',
-                                      ),
-                                      Text(
-                                        '${Locales.string(context, "punch_area")}: ${event.punchArea ?? "--"}',
-                                      ),
-                                      Text(
-                                        '${Locales.string(context, "branch")}: ${event.branchName ?? "--"}',
-                                      ),
-                                      Text(
-                                        '${Locales.string(context, "remarks")}: ${event.remarks}',
-                                      ),
-                                    ],
-                                  ),
                                 );
-                              },
-                            );
-                          },
+                              }
+                              return ListView.builder(
+                                itemCount: value.length,
+                                itemBuilder: (context, index) {
+                                  final event = value[index];
+                                  return ListTile(
+                                    leading: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        color: _getMarkerColor(event.remarks),
+                                        shape: BoxShape.circle,
+                                      ),
+                                    ),
+                                    title: Text(
+                                      '${Locales.string(context, "status")}: ${event.remarks}',
+                                    ),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${Locales.string(context, "punch_in")}:  ${extractTime(event.punchIn)}',
+                                        ),
+                                        Text(
+                                          '${Locales.string(context, "punch_out")}:  ${extractTime(event.punchOut)}',
+                                        ),
+                                        Text(
+                                          '${Locales.string(context, "punch_area")}: ${event.punchArea ?? "--"}',
+                                        ),
+                                        Text(
+                                          '${Locales.string(context, "branch")}: ${event.branchName ?? "--"}',
+                                        ),
+                                        Text(
+                                          '${Locales.string(context, "remarks")}: ${event.remarks}',
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }
+                      ],
+                    );
+                  }
 
-                return Center(
-                  child: Text(Locales.string(context, "no_data_available")),
-                );
-              },
+                  return Center(
+                    child: Text(Locales.string(context, "no_data_available")),
+                  );
+                },
+              ),
             ),
           ),
         ),

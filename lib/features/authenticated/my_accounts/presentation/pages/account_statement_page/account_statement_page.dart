@@ -318,40 +318,42 @@ class _AccountStatementPageState extends State<AccountStatementPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'account_statement_page_title')),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildDatePickers(),
-            const SizedBox(height: 20),
-            _buildChartSection(),
-            const SizedBox(height: 20),
-            _buildStatementListSection(),
-            const SizedBox(height: 20),
-            BlocBuilder<AccountStatementBloc, AccountStatementState>(
-              builder: (context, state) {
-                if (state is AccountStatementSuccess) {
-                  return ElevatedButton(
-                    onPressed: () async {
-                      await createAndSavePdf(state.transactions);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("PDF saved to Downloads folder"),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildDatePickers(),
+              const SizedBox(height: 20),
+              _buildChartSection(),
+              const SizedBox(height: 20),
+              _buildStatementListSection(),
+              const SizedBox(height: 20),
+              BlocBuilder<AccountStatementBloc, AccountStatementState>(
+                builder: (context, state) {
+                  if (state is AccountStatementSuccess) {
+                    return ElevatedButton(
+                      onPressed: () async {
+                        await createAndSavePdf(state.transactions);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("PDF saved to Downloads folder"),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        Locales.string(
+                          context,
+                          'account_statement_page_download_pdf_button_text',
                         ),
-                      );
-                    },
-                    child: Text(
-                      Locales.string(
-                        context,
-                        'account_statement_page_download_pdf_button_text',
                       ),
-                    ),
-                  );
-                }
+                    );
+                  }
 
-                return const SizedBox.shrink();
-              },
-            ),
-          ],
+                  return const SizedBox.shrink();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -32,279 +32,284 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, 'leave_info'))),
-      body: PageContainer(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-          height: double.infinity,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Card(
-                  color: context.theme.colorScheme.surface,
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: BorderSide(
-                      color: context.theme.colorScheme.primary,
-                      width: 2,
+      body: SafeArea(
+        child: PageContainer(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            height: double.infinity,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Card(
+                    color: context.theme.colorScheme.surface,
+                    elevation: 3,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      side: BorderSide(
+                        color: context.theme.colorScheme.primary,
+                        width: 2,
+                      ),
                     ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        ListTile(
-                          title: Text(
-                            Locales.string(context, 'leave_information'),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ListTile(
+                            title: Text(
+                              Locales.string(context, 'leave_information'),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
+                          const SizedBox(height: 12),
 
-                        /// Dropdown with Bloc
-                        BlocBuilder<LeaveTypeBloc, LeaveTypeState>(
-                          builder: (context, state) {
-                            if (state is LeaveTypeLoading) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
+                          /// Dropdown with Bloc
+                          BlocBuilder<LeaveTypeBloc, LeaveTypeState>(
+                            builder: (context, state) {
+                              if (state is LeaveTypeLoading) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
 
-                            if (state is LeaveTypeError) {
-                              return Text(
-                                state.message,
-                                style: TextStyle(
-                                  color: context.theme.colorScheme.error,
-                                ),
-                              );
-                            }
-
-                            if (state is LeaveTypeSuccess) {
-                              final List<LeaveTypeEntity> leaveTypes =
-                                  state.leaveTypeEntity;
-
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  AppDropdownSelect(
-                                    label: Locales.string(
-                                      context,
-                                      'leave_type',
-                                    ),
-                                    value: selectedLeaveType,
-                                    enabled: leaveTypes.isNotEmpty,
-                                    items:
-                                        leaveTypes.map((leaveType) {
-                                          return DropdownMenuItem(
-                                            value: leaveType.id,
-                                            child: Text(leaveType.leaveType),
-                                          );
-                                        }).toList(),
-                                    prefixIcon: FontAwesomeIcons.addressBook,
-                                    onChanged: (String? value) {
-                                      if (value != null) {
-                                        setState(() {
-                                          selectedLeaveType = value;
-                                          context
-                                              .read<LeaveTypeBalanceBloc>()
-                                              .add(
-                                                FetchLeaveTypeBalanceEvent(
-                                                  value,
-                                                ),
-                                              );
-                                        });
-                                      }
-                                    },
+                              if (state is LeaveTypeError) {
+                                return Text(
+                                  state.message,
+                                  style: TextStyle(
+                                    color: context.theme.colorScheme.error,
                                   ),
+                                );
+                              }
 
-                                  const SizedBox(height: 12),
+                              if (state is LeaveTypeSuccess) {
+                                final List<LeaveTypeEntity> leaveTypes =
+                                    state.leaveTypeEntity;
 
-                                  /// Balance Info
-                                  BlocBuilder<
-                                    LeaveTypeBalanceBloc,
-                                    LeaveTypeBalanceState
-                                  >(
-                                    builder: (context, state) {
-                                      if (state is LeaveTypeBalanceLoading) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      }
-
-                                      if (state is LeaveTypeBalanceError) {
-                                        return Center(
-                                          child: Text(
-                                            state.message,
-                                            style: TextStyle(
-                                              color:
-                                                  context
-                                                      .theme
-                                                      .colorScheme
-                                                      .error,
-                                            ),
-                                          ),
-                                        );
-                                      }
-
-                                      if (state is LeaveTypeBalanceSuccess) {
-                                        final data = state.leaveTypeBalance;
-
-                                        return Column(
-                                          children: [
-                                            _buildInfoRow(
-                                              title: Locales.string(
-                                                context,
-                                                'annual_entitlement',
-                                              ),
-                                              value:
-                                                  data.leaveInfo.totalLeaveDays
-                                                      .toString(),
-                                            ),
-                                            _buildInfoRow(
-                                              title: Locales.string(
-                                                context,
-                                                'total_approval_leave',
-                                              ),
-                                              value:
-                                                  data
-                                                      .leaveInfo
-                                                      .totalLeaveApplied
-                                                      .toString(),
-                                            ),
-                                            _buildInfoRow(
-                                              title: Locales.string(
-                                                context,
-                                                'balance',
-                                              ),
-                                              value:
-                                                  data.leaveInfo.balance
-                                                      .toString(),
-                                            ),
-                                            _buildInfoRow(
-                                              title: Locales.string(
-                                                context,
-                                                'last_application_date',
-                                              ),
-                                              value: MyDateUtils.formatDate(
-                                                DateTime.tryParse(
-                                                  data
-                                                      .leaveInfo
-                                                      .lastApplicationDate,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(height: 16),
-                                            AppPrimaryButton(
-                                              label: Locales.string(
-                                                context,
-                                                'apply_for_leave',
-                                              ),
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  AuthRoutesName
-                                                      .leaveApplicationPage,
-                                                  arguments: {
-                                                    'selectedLeaveTypeId':
-                                                        selectedLeaveType,
-                                                    'leaveTypes': leaveTypes,
-                                                  },
+                                return Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    AppDropdownSelect(
+                                      label: Locales.string(
+                                        context,
+                                        'leave_type',
+                                      ),
+                                      value: selectedLeaveType,
+                                      enabled: leaveTypes.isNotEmpty,
+                                      items:
+                                          leaveTypes.map((leaveType) {
+                                            return DropdownMenuItem(
+                                              value: leaveType.id,
+                                              child: Text(leaveType.leaveType),
+                                            );
+                                          }).toList(),
+                                      prefixIcon: FontAwesomeIcons.addressBook,
+                                      onChanged: (String? value) {
+                                        if (value != null) {
+                                          setState(() {
+                                            selectedLeaveType = value;
+                                            context
+                                                .read<LeaveTypeBalanceBloc>()
+                                                .add(
+                                                  FetchLeaveTypeBalanceEvent(
+                                                    value,
+                                                  ),
                                                 );
-                                              },
+                                          });
+                                        }
+                                      },
+                                    ),
+
+                                    const SizedBox(height: 12),
+
+                                    /// Balance Info
+                                    BlocBuilder<
+                                      LeaveTypeBalanceBloc,
+                                      LeaveTypeBalanceState
+                                    >(
+                                      builder: (context, state) {
+                                        if (state is LeaveTypeBalanceLoading) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+
+                                        if (state is LeaveTypeBalanceError) {
+                                          return Center(
+                                            child: Text(
+                                              state.message,
+                                              style: TextStyle(
+                                                color:
+                                                    context
+                                                        .theme
+                                                        .colorScheme
+                                                        .error,
+                                              ),
                                             ),
-                                          ],
-                                        );
-                                      }
+                                          );
+                                        }
 
-                                      return const SizedBox.shrink();
-                                    },
-                                  ),
-                                ],
-                              );
-                            }
+                                        if (state is LeaveTypeBalanceSuccess) {
+                                          final data = state.leaveTypeBalance;
 
-                            return const SizedBox.shrink();
-                          },
-                        ),
-                      ],
+                                          return Column(
+                                            children: [
+                                              _buildInfoRow(
+                                                title: Locales.string(
+                                                  context,
+                                                  'annual_entitlement',
+                                                ),
+                                                value:
+                                                    data
+                                                        .leaveInfo
+                                                        .totalLeaveDays
+                                                        .toString(),
+                                              ),
+                                              _buildInfoRow(
+                                                title: Locales.string(
+                                                  context,
+                                                  'total_approval_leave',
+                                                ),
+                                                value:
+                                                    data
+                                                        .leaveInfo
+                                                        .totalLeaveApplied
+                                                        .toString(),
+                                              ),
+                                              _buildInfoRow(
+                                                title: Locales.string(
+                                                  context,
+                                                  'balance',
+                                                ),
+                                                value:
+                                                    data.leaveInfo.balance
+                                                        .toString(),
+                                              ),
+                                              _buildInfoRow(
+                                                title: Locales.string(
+                                                  context,
+                                                  'last_application_date',
+                                                ),
+                                                value: MyDateUtils.formatDate(
+                                                  DateTime.tryParse(
+                                                    data
+                                                        .leaveInfo
+                                                        .lastApplicationDate,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 16),
+                                              AppPrimaryButton(
+                                                label: Locales.string(
+                                                  context,
+                                                  'apply_for_leave',
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    AuthRoutesName
+                                                        .leaveApplicationPage,
+                                                    arguments: {
+                                                      'selectedLeaveTypeId':
+                                                          selectedLeaveType,
+                                                      'leaveTypes': leaveTypes,
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        }
+
+                                        return const SizedBox.shrink();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              }
+
+                              return const SizedBox.shrink();
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
 
-                const SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
-                /// Leave Summary Card
-                BlocBuilder<LeaveTypeBalanceBloc, LeaveTypeBalanceState>(
-                  builder: (context, state) {
-                    if (state is LeaveTypeBalanceSuccess) {
-                      final leaveSummaries =
-                          state.leaveTypeBalance.leaveSummary
-                              .where((summary) => summary.balance != 0.0)
-                              .toList();
+                  /// Leave Summary Card
+                  BlocBuilder<LeaveTypeBalanceBloc, LeaveTypeBalanceState>(
+                    builder: (context, state) {
+                      if (state is LeaveTypeBalanceSuccess) {
+                        final leaveSummaries =
+                            state.leaveTypeBalance.leaveSummary
+                                .where((summary) => summary.balance != 0.0)
+                                .toList();
 
-                      if (leaveSummaries.isEmpty) {
-                        return Center(
-                          child: Text(
-                            Locales.string(
-                              context,
-                              'no_leave_balance_available',
+                        if (leaveSummaries.isEmpty) {
+                          return Center(
+                            child: Text(
+                              Locales.string(
+                                context,
+                                'no_leave_balance_available',
+                              ),
+                            ),
+                          );
+                        }
+
+                        return Card(
+                          color: context.theme.colorScheme.surface,
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            side: BorderSide(
+                              color: context.theme.colorScheme.primary,
+                              width: 2,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                ListTile(
+                                  title: Text(
+                                    Locales.string(context, 'leave_balance'),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+                                ...leaveSummaries.map((summary) {
+                                  return Column(
+                                    children: [
+                                      _buildInfoRow(
+                                        title: summary.leaveType,
+                                        value: summary.balance.toString(),
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              ],
                             ),
                           ),
                         );
                       }
 
-                      return Card(
-                        color: context.theme.colorScheme.surface,
-                        elevation: 3,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: BorderSide(
-                            color: context.theme.colorScheme.primary,
-                            width: 2,
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              ListTile(
-                                title: Text(
-                                  Locales.string(context, 'leave_balance'),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              ...leaveSummaries.map((summary) {
-                                return Column(
-                                  children: [
-                                    _buildInfoRow(
-                                      title: summary.leaveType,
-                                      value: summary.balance.toString(),
-                                    ),
-                                  ],
-                                );
-                              }),
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ],
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -181,164 +181,169 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         appBar: AppBar(
           title: Text(Locales.string(context, "otp_verification_page_title")),
         ),
-        body: PageContainer(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 36),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 10,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Icon(FontAwesomeIcons.key, size: 80),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      Locales.string(context, "otp_verification_page_title"),
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  Locales.string(context, "otp_verification_page_instruction"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(6, (index) {
-                    return SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: TextField(
-                        controller: _otpControllers[index],
-                        focusNode: _focusNodes[index],
-                        autofocus: index == 0,
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        decoration: InputDecoration(
-                          filled: true,
-                          counterText: '',
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: context.theme.colorScheme.secondary,
-                              width: 2.0,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: context.theme.colorScheme.secondary,
-                              width: 1.0,
-                            ),
-                          ),
-                          isDense: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                            horizontal: 10,
-                          ),
-                        ),
-                        onChanged: (value) {
-                          if (value.isNotEmpty) {
-                            _otpControllers[index].text = value[0];
-                            _otpControllers[index].selection =
-                                const TextSelection.collapsed(offset: 1);
-                          }
-                          _onOtpChanged(value, index);
-                        },
-                      ),
-                    );
-                  }),
-                ),
-                const SizedBox(height: 20),
-                if (_isWaiting)
+        body: SafeArea(
+          child: PageContainer(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 36),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                children: [
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircularCountDownTimer(
-                        duration: _otpDuration,
-                        initialDuration: 0,
-                        controller: _countDownController,
-                        width: 60,
-                        height: 60,
-                        ringColor: Colors.grey.shade300,
-                        fillColor: context.theme.colorScheme.secondary,
-                        backgroundColor: Colors.transparent,
-                        strokeWidth: 6.0,
-                        strokeCap: StrokeCap.round,
-                        isTimerTextShown: true,
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: context.theme.colorScheme.onSurface,
-                        ),
-                        isReverse: true,
-                        autoStart: true,
-                        onComplete: () {
-                          if (mounted) {
-                            setState(() => _isWaiting = false);
-                          }
-                        },
+                      Align(
+                        alignment: Alignment.center,
+                        child: Icon(FontAwesomeIcons.key, size: 80),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       Text(
-                        Locales.string(
-                          context,
-                          "otp_verification_page_otp_expired_in_text",
-                        ),
+                        Locales.string(context, "otp_verification_page_title"),
                         style: TextStyle(
-                          color: context.theme.colorScheme.onSurface,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
-                  )
-                else
-                  TextButton(
-                    onPressed: () {
-                      _clearOtpFields();
-                      _resendOTP();
-                    },
-                    child: Text(
-                      Locales.string(
-                        context,
-                        "otp_verification_page_reseend_otp_button",
-                      ),
-                      style: TextStyle(
-                        color: context.theme.colorScheme.onSurface,
-                        decoration: TextDecoration.underline,
-                      ),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    Locales.string(
+                      context,
+                      "otp_verification_page_instruction",
+                    ),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                const SizedBox(height: 20),
-                BlocBuilder<OtpVerificationBloc, OtpVerificationState>(
-                  builder: (context, state) {
-                    final isLoading = state is OtpVerificationLoading;
-                    return AppPrimaryButton(
-                      label: Locales.string(
-                        context,
-                        "otp_verification_page_verify_otp_button",
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(6, (index) {
+                      return SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: TextField(
+                          controller: _otpControllers[index],
+                          focusNode: _focusNodes[index],
+                          autofocus: index == 0,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          maxLength: 1,
+                          decoration: InputDecoration(
+                            filled: true,
+                            counterText: '',
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: context.theme.colorScheme.secondary,
+                                width: 2.0,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: context.theme.colorScheme.secondary,
+                                width: 1.0,
+                              ),
+                            ),
+                            isDense: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 10,
+                            ),
+                          ),
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              _otpControllers[index].text = value[0];
+                              _otpControllers[index].selection =
+                                  const TextSelection.collapsed(offset: 1);
+                            }
+                            _onOtpChanged(value, index);
+                          },
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 20),
+                  if (_isWaiting)
+                    Column(
+                      children: [
+                        CircularCountDownTimer(
+                          duration: _otpDuration,
+                          initialDuration: 0,
+                          controller: _countDownController,
+                          width: 60,
+                          height: 60,
+                          ringColor: Colors.grey.shade300,
+                          fillColor: context.theme.colorScheme.secondary,
+                          backgroundColor: Colors.transparent,
+                          strokeWidth: 6.0,
+                          strokeCap: StrokeCap.round,
+                          isTimerTextShown: true,
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: context.theme.colorScheme.onSurface,
+                          ),
+                          isReverse: true,
+                          autoStart: true,
+                          onComplete: () {
+                            if (mounted) {
+                              setState(() => _isWaiting = false);
+                            }
+                          },
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          Locales.string(
+                            context,
+                            "otp_verification_page_otp_expired_in_text",
+                          ),
+                          style: TextStyle(
+                            color: context.theme.colorScheme.onSurface,
+                          ),
+                        ),
+                      ],
+                    )
+                  else
+                    TextButton(
+                      onPressed: () {
+                        _clearOtpFields();
+                        _resendOTP();
+                      },
+                      child: Text(
+                        Locales.string(
+                          context,
+                          "otp_verification_page_reseend_otp_button",
+                        ),
+                        style: TextStyle(
+                          color: context.theme.colorScheme.onSurface,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
-                      onPressed: isLoading ? null : _verifyOtp,
-                      iconBefore: Icon(
-                        Icons.check_circle,
-                        color: context.theme.colorScheme.onPrimary,
-                      ),
-                    );
-                  },
-                ),
-              ],
+                    ),
+                  const SizedBox(height: 20),
+                  BlocBuilder<OtpVerificationBloc, OtpVerificationState>(
+                    builder: (context, state) {
+                      final isLoading = state is OtpVerificationLoading;
+                      return AppPrimaryButton(
+                        label: Locales.string(
+                          context,
+                          "otp_verification_page_verify_otp_button",
+                        ),
+                        onPressed: isLoading ? null : _verifyOtp,
+                        iconBefore: Icon(
+                          Icons.check_circle,
+                          color: context.theme.colorScheme.onPrimary,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

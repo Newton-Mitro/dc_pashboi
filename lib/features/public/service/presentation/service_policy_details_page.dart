@@ -23,40 +23,42 @@ class ServicePolicyDetailsPage extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: PageContainer(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              showIcon
-                  ? Container(
-                    alignment: Alignment.center,
-                    height: 150,
-                    width: double.infinity,
-                    child: FaIcon(
-                      FontAwesomeIcons.fileContract,
-                      size: 100,
-                      color: context.theme.colorScheme.onPrimary,
-                    ),
-                  )
-                  : Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                        image: NetworkImage(imageUrl),
-                        fit: BoxFit.cover,
+      body: SafeArea(
+        child: PageContainer(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                showIcon
+                    ? Container(
+                      alignment: Alignment.center,
+                      height: 150,
+                      width: double.infinity,
+                      child: FaIcon(
+                        FontAwesomeIcons.fileContract,
+                        size: 100,
+                        color: context.theme.colorScheme.onPrimary,
+                      ),
+                    )
+                    : Container(
+                      height: 200,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          image: NetworkImage(imageUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-              const SizedBox(height: 16),
-              Html(
-                data: service.longDescription,
-                style: {"*": Style(textAlign: TextAlign.justify)},
-              ),
-            ],
+                const SizedBox(height: 16),
+                Html(
+                  data: service.longDescription,
+                  style: {"*": Style(textAlign: TextAlign.justify)},
+                ),
+              ],
+            ),
           ),
         ),
       ),

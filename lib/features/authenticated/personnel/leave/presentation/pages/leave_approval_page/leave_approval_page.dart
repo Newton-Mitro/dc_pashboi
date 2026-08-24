@@ -52,10 +52,12 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, "leave_approval"))),
-      body: PageContainer(
-        child: SizedBox(
-          height: double.infinity,
-          child: SingleChildScrollView(child: _buildForm()),
+      body: SafeArea(
+        child: PageContainer(
+          child: SizedBox(
+            height: double.infinity,
+            child: SingleChildScrollView(child: _buildForm()),
+          ),
         ),
       ),
     );

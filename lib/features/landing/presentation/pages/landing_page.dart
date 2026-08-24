@@ -254,164 +254,166 @@ class _LandingPageState extends State<LandingPage> {
             const SizedBox(width: 20),
           ],
         ),
-        body: PageContainer(
-          child: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.10,
-                vertical: MediaQuery.of(context).size.height * 0.05,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const AppLogo(width: 150),
-                  Spacer(),
-                  Column(
-                    children: [
-                      Text(
-                        Locales.string(context, 'landing_page_welcome_text'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: context.theme.colorScheme.onSurface,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            Locales.string(
-                              context,
-                              'landing_page_already_have_account_text',
-                            ),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: context.theme.colorScheme.onSurface,
-                            ),
+        body: SafeArea(
+          child: PageContainer(
+            child: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.10,
+                  vertical: MediaQuery.of(context).size.height * 0.05,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const AppLogo(width: 150),
+                    Spacer(),
+                    Column(
+                      children: [
+                        Text(
+                          Locales.string(context, 'landing_page_welcome_text'),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: context.theme.colorScheme.onSurface,
                           ),
-                          TooltipComponent(
-                            tooltipMessage: Locales.string(
-                              context,
-                              'landing_page_login_instruction',
-                            ),
-                            child: Icon(
-                              Icons.info_outline,
-                              color: context.theme.colorScheme.onSurface,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      AppPrimaryButton(
-                        label: Locales.string(
-                          context,
-                          'landing_page_login_button',
+                          textAlign: TextAlign.center,
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              Locales.string(
+                                context,
+                                'landing_page_already_have_account_text',
+                              ),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: context.theme.colorScheme.onSurface,
+                              ),
+                            ),
+                            TooltipComponent(
+                              tooltipMessage: Locales.string(
+                                context,
+                                'landing_page_login_instruction',
+                              ),
+                              child: Icon(
+                                Icons.info_outline,
+                                color: context.theme.colorScheme.onSurface,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        AppPrimaryButton(
+                          label: Locales.string(
                             context,
-                            PublicRoutesName.loginPage,
-                          );
-                        },
-                        iconBefore: Icon(
-                          Icons.login,
-                          color: context.theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            Locales.string(
-                              context,
-                              'landing_page_dont_have_account_text',
-                            ),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: context.theme.colorScheme.onSurface,
-                            ),
+                            'landing_page_login_button',
                           ),
-                          TooltipComponent(
-                            tooltipMessage: Locales.string(
-                              context,
-                              'landing_page_create_account_instruction',
-                            ),
-                            child: Icon(
-                              Icons.info_outline,
-                              color: context.theme.colorScheme.onSurface,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      AppPrimaryButton(
-                        horizontalPadding: 5,
-                        label: Locales.string(
-                          context,
-                          'landing_page_create_account_button',
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => const TermsAndConditionsPage(),
-                            ),
-                          );
-                        },
-                        iconBefore: Icon(
-                          Icons.person_add,
-                          color: context.theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildInfoText(
-                        context,
-                        Locales.string(
-                          context,
-                          'landing_page_product_and_service_instruction',
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      SizedBox(
-                        height: 36,
-                        child: TextButton(
                           onPressed: () {
                             Navigator.pushNamed(
                               context,
-                              PublicRoutesName.publicRoot,
+                              PublicRoutesName.loginPage,
                             );
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 26.0,
-                            ),
-                            child: Text(
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: context.theme.colorScheme.onSurface,
-                                decoration: TextDecoration.underline,
-                              ),
+                          iconBefore: Icon(
+                            Icons.login,
+                            color: context.theme.colorScheme.onPrimary,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
                               Locales.string(
                                 context,
-                                'landing_page_product_and_service_button',
+                                'landing_page_dont_have_account_text',
+                              ),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: context.theme.colorScheme.onSurface,
+                              ),
+                            ),
+                            TooltipComponent(
+                              tooltipMessage: Locales.string(
+                                context,
+                                'landing_page_create_account_instruction',
+                              ),
+                              child: Icon(
+                                Icons.info_outline,
+                                color: context.theme.colorScheme.onSurface,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        AppPrimaryButton(
+                          horizontalPadding: 5,
+                          label: Locales.string(
+                            context,
+                            'landing_page_create_account_button',
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => const TermsAndConditionsPage(),
+                              ),
+                            );
+                          },
+                          iconBefore: Icon(
+                            Icons.person_add,
+                            color: context.theme.colorScheme.onPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildInfoText(
+                          context,
+                          Locales.string(
+                            context,
+                            'landing_page_product_and_service_instruction',
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          height: 36,
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                PublicRoutesName.publicRoot,
+                              );
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 26.0,
+                              ),
+                              child: Text(
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: context.theme.colorScheme.onSurface,
+                                  decoration: TextDecoration.underline,
+                                ),
+                                Locales.string(
+                                  context,
+                                  'landing_page_product_and_service_button',
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

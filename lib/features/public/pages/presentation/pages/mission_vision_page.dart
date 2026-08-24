@@ -32,42 +32,44 @@ class _MissionAndVisionPageState extends State<MissionAndVisionPage> {
           foregroundColor: context.theme.colorScheme.onPrimary,
           elevation: 0,
         ),
-        body: PageContainer(
-          child: BlocBuilder<PageBloc, PageState>(
-            builder: (context, state) {
-              if (state is PageLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        body: SafeArea(
+          child: PageContainer(
+            child: BlocBuilder<PageBloc, PageState>(
+              builder: (context, state) {
+                if (state is PageLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (state is PageError) {
-                return Center(child: Text(state.error));
-              }
+                if (state is PageError) {
+                  return Center(child: Text(state.error));
+                }
 
-              if (state is PageSuccess) {
-                final page = state.pageData;
+                if (state is PageSuccess) {
+                  final page = state.pageData;
 
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Text(
-                      //   page.title ?? 'No Title',
-                      //   style: Theme.of(context).textTheme.headlineSmall,
-                      // ),
-                      const SizedBox(height: 12),
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Text(
+                        //   page.title ?? 'No Title',
+                        //   style: Theme.of(context).textTheme.headlineSmall,
+                        // ),
+                        const SizedBox(height: 12),
 
-                      Html(
-                        data: page.longDescription,
-                        style: {"*": Style(textAlign: TextAlign.justify)},
-                      ),
-                    ],
-                  ),
-                );
-              }
+                        Html(
+                          data: page.longDescription,
+                          style: {"*": Style(textAlign: TextAlign.justify)},
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
-              return const SizedBox(); // fallback empty state
-            },
+                return const SizedBox(); // fallback empty state
+              },
+            ),
           ),
         ),
       ),

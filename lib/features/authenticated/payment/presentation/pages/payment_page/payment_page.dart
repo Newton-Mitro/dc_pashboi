@@ -152,118 +152,128 @@ class _PaymentPageState extends State<PaymentPage> {
 
           return Scaffold(
             appBar: AppBar(title: Text(Locales.string(context, "payment"))),
-            body: Stack(
-              children: [
-                PageContainer(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 15,
-                        ),
-                        child: _buildProgressStepper(
-                          width,
-                          depositLaterStepsState,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
-                            transitionBuilder:
-                                (child, animation) => SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(1, 0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                            child: KeyedSubtree(
-                              key: ValueKey(depositLaterStepsState.currentStep),
-                              child:
-                                  _buildSteps(
-                                    depositLaterStepsState,
-                                  )[depositLaterStepsState.currentStep].widget,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SafeArea(
-                        maintainBottomViewPadding: true,
-                        child: Padding(
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  PageContainer(
+                    child: Column(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 15,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              isFirstStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconBefore: const Icon(
-                                      FontAwesomeIcons.angleLeft,
-                                    ),
-                                    label: Locales.string(
-                                      context,
-                                      'previous_button_text',
-                                    ),
-                                    onPressed: () {
-                                      context.read<PaymentStepsBloc>().add(
-                                        PaymentGoToPreviousStep(),
-                                      );
-                                    },
-                                  ),
-                              isLastStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconAfter: const Icon(
-                                      FontAwesomeIcons.angleRight,
-                                    ),
-                                    label: Locales.string(
-                                      context,
-                                      'next_button_text',
-                                    ),
-                                    onPressed: () {
-                                      if (depositLaterStepsState.currentStep ==
-                                          4) {
-                                        context.read<PaymentStepsBloc>().add(
-                                          PaymentValidateStep(4),
-                                        );
-                                        _verifyCardPIN(depositLaterStepsState);
-                                        return;
-                                      }
-                                      context.read<PaymentStepsBloc>().add(
-                                        PaymentGoToNextStep(),
-                                      );
-                                    },
-                                  ),
-                            ],
+                          child: _buildProgressStepper(
+                            width,
+                            depositLaterStepsState,
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              transitionBuilder:
+                                  (child, animation) => SlideTransition(
+                                    position: Tween<Offset>(
+                                      begin: const Offset(1, 0),
+                                      end: Offset.zero,
+                                    ).animate(animation),
+                                    child: child,
+                                  ),
+                              child: KeyedSubtree(
+                                key: ValueKey(
+                                  depositLaterStepsState.currentStep,
+                                ),
+                                child:
+                                    _buildSteps(
+                                      depositLaterStepsState,
+                                    )[depositLaterStepsState
+                                        .currentStep].widget,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SafeArea(
+                          maintainBottomViewPadding: true,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 15,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                isFirstStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconBefore: const Icon(
+                                        FontAwesomeIcons.angleLeft,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'previous_button_text',
+                                      ),
+                                      onPressed: () {
+                                        context.read<PaymentStepsBloc>().add(
+                                          PaymentGoToPreviousStep(),
+                                        );
+                                      },
+                                    ),
+                                isLastStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconAfter: const Icon(
+                                        FontAwesomeIcons.angleRight,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'next_button_text',
+                                      ),
+                                      onPressed: () {
+                                        if (depositLaterStepsState
+                                                .currentStep ==
+                                            4) {
+                                          context.read<PaymentStepsBloc>().add(
+                                            PaymentValidateStep(4),
+                                          );
+                                          _verifyCardPIN(
+                                            depositLaterStepsState,
+                                          );
+                                          return;
+                                        }
+                                        context.read<PaymentStepsBloc>().add(
+                                          PaymentGoToNextStep(),
+                                        );
+                                      },
+                                    ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                BlocBuilder<DebitCardBloc, DebitCardState>(
-                  builder: (context, state) {
-                    if (state.isLoading) {
-                      return Container(
-                        color: Colors.black.withOpacity(0.4),
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
-                    } else if (state.error != null) {
+                  BlocBuilder<DebitCardBloc, DebitCardState>(
+                    builder: (context, state) {
+                      if (state.isLoading) {
+                        return Container(
+                          color: Colors.black.withOpacity(0.4),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      } else if (state.error != null) {
+                        return const SizedBox.shrink();
+                      }
                       return const SizedBox.shrink();
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ],
+                    },
+                  ),
+                ],
+              ),
             ),
             bottomNavigationBar:
                 isLastStep ? _buildSubmitButton(width, context) : null,

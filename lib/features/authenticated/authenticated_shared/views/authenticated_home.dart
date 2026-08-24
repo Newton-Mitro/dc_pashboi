@@ -382,24 +382,26 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                         ),
                       ],
                     ),
-                    body: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      transitionBuilder: (child, animation) {
-                        final offsetTween = Tween<Offset>(
-                          begin:
-                              isForward
-                                  ? const Offset(1, 0)
-                                  : const Offset(-1, 0),
-                          end: Offset.zero,
-                        );
-                        return SlideTransition(
-                          position: offsetTween.animate(animation),
-                          child: child,
-                        );
-                      },
-                      child: KeyedSubtree(
-                        key: ValueKey<int>(selectedPage),
-                        child: PageContainer(child: menuViews[selectedPage]),
+                    body: SafeArea(
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        transitionBuilder: (child, animation) {
+                          final offsetTween = Tween<Offset>(
+                            begin:
+                                isForward
+                                    ? const Offset(1, 0)
+                                    : const Offset(-1, 0),
+                            end: Offset.zero,
+                          );
+                          return SlideTransition(
+                            position: offsetTween.animate(animation),
+                            child: child,
+                          );
+                        },
+                        child: KeyedSubtree(
+                          key: ValueKey<int>(selectedPage),
+                          child: PageContainer(child: menuViews[selectedPage]),
+                        ),
                       ),
                     ),
                     bottomNavigationBar: RNavNSheet(

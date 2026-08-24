@@ -39,28 +39,32 @@ class _InstantLoanApplicationPageState
       appBar: AppBar(
         title: Text(Locales.string(context, 'instant_loan_application')),
       ),
-      body:
-          BlocBuilder<InstantLoanEligibilityBloc, InstantLoanEligibilityState>(
-            builder: (context, state) {
-              if (state is InstantLoanEligibilityLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
+      body: SafeArea(
+        child: BlocBuilder<
+          InstantLoanEligibilityBloc,
+          InstantLoanEligibilityState
+        >(
+          builder: (context, state) {
+            if (state is InstantLoanEligibilityLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-              if (state is InstantLoanEligibilitySuccess) {
-                final data = state.instantLoanEligibilityDTO;
+            if (state is InstantLoanEligibilitySuccess) {
+              final data = state.instantLoanEligibilityDTO;
 
-                final List<EligibleConditionsModel> eligibleConditions =
-                    (data.eligibleConditions).cast<EligibleConditionsModel>();
+              final List<EligibleConditionsModel> eligibleConditions =
+                  (data.eligibleConditions).cast<EligibleConditionsModel>();
 
-                return InstantLoanEligible(
-                  eligibleConditions: eligibleConditions,
-                );
-              }
+              return InstantLoanEligible(
+                eligibleConditions: eligibleConditions,
+              );
+            }
 
-              // Default or initial state
-              return const SizedBox.shrink();
-            },
-          ),
+            // Default or initial state
+            return const SizedBox.shrink();
+          },
+        ),
+      ),
     );
   }
 }

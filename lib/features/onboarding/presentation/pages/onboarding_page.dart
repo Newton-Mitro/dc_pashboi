@@ -37,161 +37,166 @@ class _OnboardingPageState extends State<OnboardingPage> {
       },
       builder: (context, state) {
         return Scaffold(
-          body: Stack(
-            children: [
-              PageView.builder(
-                itemCount: onboardingItems.length,
-                controller: _pageController,
-                onPageChanged: (value) {
-                  setState(() {
-                    currentPage = value;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return Stack(
-                    children: [
-                      Image.asset(
-                        onboardingItems[index].imagePath,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                      Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        color: const Color.fromARGB(169, 1, 0, 5),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 80,
-                          horizontal: 20,
+          body: SafeArea(
+            child: Stack(
+              children: [
+                PageView.builder(
+                  itemCount: onboardingItems.length,
+                  controller: _pageController,
+                  onPageChanged: (value) {
+                    setState(() {
+                      currentPage = value;
+                    });
+                  },
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Image.asset(
+                          onboardingItems[index].imagePath,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              onboardingItems[index].title,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 10),
-                            Text(
-                              onboardingItems[index].description,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                              ),
-                            ),
-                            const SizedBox(height: 30),
-                          ],
+                        Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          color: const Color.fromARGB(169, 1, 0, 5),
                         ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-
-              Positioned(
-                top: 16,
-                left: 16,
-                child: const SafeArea(child: LanguageSwitch()),
-              ),
-              Positioned(
-                top: 16,
-                right: 16,
-                child: const SafeArea(child: ThemeSelector()),
-              ),
-
-              Positioned(
-                bottom: 20,
-                left: 0,
-                right: 0,
-                child: Container(
-                  color: Colors.transparent,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      if (currentPage > 0)
-                        AppPrimaryButton(
-                          label: Locales.string(
-                            context,
-                            'previous_button_text',
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 80,
+                            horizontal: 20,
                           ),
-                          onPressed: () {
-                            _pageController.previousPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeIn,
-                            );
-                          },
-                          iconBefore: Icon(
-                            Icons.arrow_back,
-                            color: context.theme.colorScheme.onPrimary,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                onboardingItems[index].title,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                onboardingItems[index].description,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(height: 30),
+                            ],
                           ),
-                          horizontalPadding: 0,
-                        )
-                      else
-                        const SizedBox(width: 88),
-
-                      SmoothPageIndicator(
-                        controller: _pageController,
-                        count: onboardingItems.length,
-                        effect: ExpandingDotsEffect(
-                          dotColor: context.theme.colorScheme.primary,
-                          activeDotColor: context.theme.colorScheme.error,
-                          dotHeight: 10,
-                          dotWidth: 10,
-                          spacing: 5,
                         ),
-                      ),
+                      ],
+                    );
+                  },
+                ),
 
-                      (currentPage == onboardingItems.length - 1)
-                          ? AppPrimaryButton(
+                Positioned(
+                  top: 16,
+                  left: 16,
+                  child: const SafeArea(child: LanguageSwitch()),
+                ),
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: const SafeArea(child: ThemeSelector()),
+                ),
+
+                Positioned(
+                  bottom: 20,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (currentPage > 0)
+                          AppPrimaryButton(
                             label: Locales.string(
                               context,
-                              'onboarding_get_started_button',
+                              'previous_button_text',
                             ),
                             onPressed: () {
-                              context.read<OnboardingPageBloc>().add(
-                                SetOnboardingSeenEvent(seen: true),
-                              );
-                              Navigator.popAndPushNamed(
-                                context,
-                                PublicRoutesName.landingPage,
-                              );
-                            },
-                            iconAfter: Icon(
-                              Icons.rocket_launch,
-                              color: context.theme.colorScheme.onPrimary,
-                            ),
-                            horizontalPadding: 0,
-                          )
-                          : AppPrimaryButton(
-                            label: Locales.string(context, 'next_button_text'),
-                            onPressed: () {
-                              _pageController.nextPage(
+                              _pageController.previousPage(
                                 duration: const Duration(milliseconds: 300),
                                 curve: Curves.easeIn,
                               );
                             },
-                            iconAfter: Icon(
-                              Icons.arrow_forward,
+                            iconBefore: Icon(
+                              Icons.arrow_back,
                               color: context.theme.colorScheme.onPrimary,
                             ),
                             horizontalPadding: 0,
+                          )
+                        else
+                          const SizedBox(width: 88),
+
+                        SmoothPageIndicator(
+                          controller: _pageController,
+                          count: onboardingItems.length,
+                          effect: ExpandingDotsEffect(
+                            dotColor: context.theme.colorScheme.primary,
+                            activeDotColor: context.theme.colorScheme.error,
+                            dotHeight: 10,
+                            dotWidth: 10,
+                            spacing: 5,
                           ),
-                    ],
+                        ),
+
+                        (currentPage == onboardingItems.length - 1)
+                            ? AppPrimaryButton(
+                              label: Locales.string(
+                                context,
+                                'onboarding_get_started_button',
+                              ),
+                              onPressed: () {
+                                context.read<OnboardingPageBloc>().add(
+                                  SetOnboardingSeenEvent(seen: true),
+                                );
+                                Navigator.popAndPushNamed(
+                                  context,
+                                  PublicRoutesName.landingPage,
+                                );
+                              },
+                              iconAfter: Icon(
+                                Icons.rocket_launch,
+                                color: context.theme.colorScheme.onPrimary,
+                              ),
+                              horizontalPadding: 0,
+                            )
+                            : AppPrimaryButton(
+                              label: Locales.string(
+                                context,
+                                'next_button_text',
+                              ),
+                              onPressed: () {
+                                _pageController.nextPage(
+                                  duration: const Duration(milliseconds: 300),
+                                  curve: Curves.easeIn,
+                                );
+                              },
+                              iconAfter: Icon(
+                                Icons.arrow_forward,
+                                color: context.theme.colorScheme.onPrimary,
+                              ),
+                              horizontalPadding: 0,
+                            ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              if (state is OnboardingLoading)
-                const Center(child: CircularProgressIndicator()),
-            ],
+                if (state is OnboardingLoading)
+                  const Center(child: CircularProgressIndicator()),
+              ],
+            ),
           ),
         );
       },

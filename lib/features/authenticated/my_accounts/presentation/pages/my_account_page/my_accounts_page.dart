@@ -24,136 +24,141 @@ class MyAccountsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(Locales.string(context, 'my_accounts_page_title')),
         ),
-        body: PageContainer(
-          child: BlocBuilder<MyAccountBloc, MyAccountState>(
-            builder: (context, state) {
-              if (state is MyAccountLoading || state is MyAccountInitial) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        body: SafeArea(
+          child: PageContainer(
+            child: BlocBuilder<MyAccountBloc, MyAccountState>(
+              builder: (context, state) {
+                if (state is MyAccountLoading || state is MyAccountInitial) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (state is MyAccountError) {
-                return Center(child: Text(state.error));
-              }
+                if (state is MyAccountError) {
+                  return Center(child: Text(state.error));
+                }
 
-              if (state is MyAccountSuccess) {
-                final accountList = state.myAccounts;
+                if (state is MyAccountSuccess) {
+                  final accountList = state.myAccounts;
 
-                if (accountList.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.boxOpen,
-                          size: 50,
-                          color: context.theme.colorScheme.onSurface
-                              .withOpacity(0.6),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          Locales.string(context, 'no_deposit_accounts'),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: context.theme.colorScheme.onSurface,
+                  if (accountList.isEmpty) {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            FontAwesomeIcons.boxOpen,
+                            size: 50,
+                            color: context.theme.colorScheme.onSurface
+                                .withOpacity(0.6),
                           ),
+                          const SizedBox(height: 16),
+                          Text(
+                            Locales.string(context, 'no_deposit_accounts'),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: context.theme.colorScheme.onSurface,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 30,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Chart Section
+                        SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          backgroundColor: Colors.transparent,
+                          legend: Legend(
+                            isVisible: true,
+                            position: LegendPosition.top,
+                            overflowMode: LegendItemOverflowMode.wrap,
+                          ),
+                          enableSideBySideSeriesPlacement: true,
+                          title: ChartTitle(
+                            text: Locales.string(
+                              context,
+                              'my_accounts_page_account_balance_graph',
+                            ),
+                            textStyle: TextStyle(
+                              color: context.theme.colorScheme.onSurface,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          tooltipBehavior: TooltipBehavior(enable: true),
+                          series:
+                              <CartesianSeries<DepositAccountEntity, String>>[
+                                BarSeries<DepositAccountEntity, String>(
+                                  dataSource: accountList,
+                                  xValueMapper: (data, _) => data.shortTypeName,
+                                  yValueMapper: (data, _) => data.balance,
+                                  name: Locales.string(
+                                    context,
+                                    'my_accounts_page_deposit_account_label',
+                                  ),
+                                  color: context.theme.colorScheme.primary,
+                                  dataLabelMapper:
+                                      (data, _) =>
+                                          data.balance.toStringAsFixed(0),
+                                  dataLabelSettings: DataLabelSettings(
+                                    isVisible: true,
+                                  ),
+                                ),
+                              ],
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Account Cards
+                        Column(
+                          children:
+                              accountList.map((account) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 5,
+                                  ),
+                                  child: AppIconCard(
+                                    leftIcon: FontAwesomeIcons.piggyBank,
+                                    rightIcon: FontAwesomeIcons.chevronRight,
+                                    boarderColor:
+                                        account.defaultAccount
+                                            ? context.theme.colorScheme.error
+                                            : context.theme.colorScheme.primary,
+                                    cardBody: AccountCardBody(
+                                      accountName: account.typeName.trim(),
+                                      accountNumber: account.number,
+                                      balance: account.balance,
+                                    ),
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        AuthRoutesName.accountsDetailsPage,
+                                        arguments: {
+                                          'accountNumber':
+                                              account.number.trim(),
+                                        },
+                                      );
+                                    },
+                                  ),
+                                );
+                              }).toList(),
                         ),
                       ],
                     ),
                   );
                 }
 
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 30,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Chart Section
-                      SfCartesianChart(
-                        primaryXAxis: CategoryAxis(),
-                        backgroundColor: Colors.transparent,
-                        legend: Legend(
-                          isVisible: true,
-                          position: LegendPosition.top,
-                          overflowMode: LegendItemOverflowMode.wrap,
-                        ),
-                        enableSideBySideSeriesPlacement: true,
-                        title: ChartTitle(
-                          text: Locales.string(
-                            context,
-                            'my_accounts_page_account_balance_graph',
-                          ),
-                          textStyle: TextStyle(
-                            color: context.theme.colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        tooltipBehavior: TooltipBehavior(enable: true),
-                        series: <CartesianSeries<DepositAccountEntity, String>>[
-                          BarSeries<DepositAccountEntity, String>(
-                            dataSource: accountList,
-                            xValueMapper: (data, _) => data.shortTypeName,
-                            yValueMapper: (data, _) => data.balance,
-                            name: Locales.string(
-                              context,
-                              'my_accounts_page_deposit_account_label',
-                            ),
-                            color: context.theme.colorScheme.primary,
-                            dataLabelMapper:
-                                (data, _) => data.balance.toStringAsFixed(0),
-                            dataLabelSettings: DataLabelSettings(
-                              isVisible: true,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // Account Cards
-                      Column(
-                        children:
-                            accountList.map((account) {
-                              return Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 5,
-                                ),
-                                child: AppIconCard(
-                                  leftIcon: FontAwesomeIcons.piggyBank,
-                                  rightIcon: FontAwesomeIcons.chevronRight,
-                                  boarderColor:
-                                      account.defaultAccount
-                                          ? context.theme.colorScheme.error
-                                          : context.theme.colorScheme.primary,
-                                  cardBody: AccountCardBody(
-                                    accountName: account.typeName.trim(),
-                                    accountNumber: account.number,
-                                    balance: account.balance,
-                                  ),
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      AuthRoutesName.accountsDetailsPage,
-                                      arguments: {
-                                        'accountNumber': account.number.trim(),
-                                      },
-                                    );
-                                  },
-                                ),
-                              );
-                            }).toList(),
-                      ),
-                    ],
-                  ),
-                );
-              }
-
-              return const SizedBox(); // fallback
-            },
+                return const SizedBox(); // fallback
+              },
+            ),
           ),
         ),
       ),

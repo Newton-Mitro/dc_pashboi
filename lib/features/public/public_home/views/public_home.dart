@@ -112,22 +112,24 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
                 ),
               ],
             ),
-            body: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              transitionBuilder: (child, animation) {
-                final offsetTween = Tween<Offset>(
-                  begin: isForward ? const Offset(1, 0) : const Offset(-1, 0),
-                  end: Offset.zero,
-                );
-                return SlideTransition(
-                  position: offsetTween.animate(animation),
-                  child: child,
-                );
-              },
-              child: KeyedSubtree(
-                key: ValueKey<int>(homeScreenState.selectedIndex),
-                child: PageContainer(
-                  child: _getScreen(homeScreenState.selectedIndex),
+            body: SafeArea(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) {
+                  final offsetTween = Tween<Offset>(
+                    begin: isForward ? const Offset(1, 0) : const Offset(-1, 0),
+                    end: Offset.zero,
+                  );
+                  return SlideTransition(
+                    position: offsetTween.animate(animation),
+                    child: child,
+                  );
+                },
+                child: KeyedSubtree(
+                  key: ValueKey<int>(homeScreenState.selectedIndex),
+                  child: PageContainer(
+                    child: _getScreen(homeScreenState.selectedIndex),
+                  ),
                 ),
               ),
             ),

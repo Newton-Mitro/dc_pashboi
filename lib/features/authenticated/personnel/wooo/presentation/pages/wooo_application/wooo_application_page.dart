@@ -91,169 +91,171 @@ class _WoooApplicationPageState extends State<WoooApplicationPage>
           indicatorColor: Colors.white,
         ),
       ),
-      body: PageContainer(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-          child: Column(
-            children: [
-              Expanded(
-                child: BlocBuilder<WoooTypeBloc, WoooTypeState>(
-                  builder: (context, state) {
-                    if (state is WoooTypeLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+      body: SafeArea(
+        child: PageContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+            child: Column(
+              children: [
+                Expanded(
+                  child: BlocBuilder<WoooTypeBloc, WoooTypeState>(
+                    builder: (context, state) {
+                      if (state is WoooTypeLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
-                    if (state is WoooTypeError) {
-                      return Center(
-                        child: Text(
-                          state.message,
-                          style: TextStyle(
-                            color: context.theme.colorScheme.error,
+                      if (state is WoooTypeError) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(
+                              color: context.theme.colorScheme.error,
+                            ),
                           ),
+                        );
+                      }
+
+                      if (state is WoooTypeSuccess) {
+                        final woooTypes = state.woooTypeEntities;
+
+                        return TabBarView(
+                          controller: _tabController,
+                          children: [
+                            // For Hours
+                            WoooApplicationWidget(
+                              activeTabIndex: 0,
+                              woooTypes: woooTypes,
+                              selectedWoooType: selectedWoooType,
+                              onWoooTypeChanged: (value) {
+                                setState(() {
+                                  selectedWoooType = value;
+                                });
+                              },
+                              fromDate: fromDate,
+                              toDate: toDate,
+                              rejoiningDate: rejoiningDate,
+                              onFromDateChanged: (date) {
+                                setState(() {
+                                  fromDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              onToDateChanged: (date) {
+                                setState(() {
+                                  toDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              totalHoursController: totalHoursController,
+                              totalDaysController: totalDaysController,
+                              reasonController: reasonController,
+                            ),
+
+                            // For Days
+                            WoooApplicationWidget(
+                              activeTabIndex: 1,
+                              woooTypes: woooTypes,
+                              selectedWoooType: selectedWoooType,
+                              onWoooTypeChanged: (value) {
+                                setState(() {
+                                  selectedWoooType = value;
+                                });
+                              },
+                              fromDate: fromDate,
+                              toDate: toDate,
+                              rejoiningDate: rejoiningDate,
+                              onFromDateChanged: (date) {
+                                setState(() {
+                                  fromDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              onToDateChanged: (date) {
+                                setState(() {
+                                  toDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              totalHoursController: totalHoursController,
+                              totalDaysController: totalDaysController,
+                              reasonController: reasonController,
+                            ),
+                          ],
+                        );
+                      }
+
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 5),
+
+                BlocListener<
+                  SubmitWoooApplicationBloc,
+                  SubmitWoooApplicationState
+                >(
+                  listener: (context, state) {
+                    if (state is SubmitWoooApplicationError) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: Locales.string(context, 'oops'),
+                          message: state.message,
+                          contentType: ContentType.failure,
                         ),
                       );
+
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(snackBar);
                     }
 
-                    if (state is WoooTypeSuccess) {
-                      final woooTypes = state.woooTypeEntities;
-
-                      return TabBarView(
-                        controller: _tabController,
-                        children: [
-                          // For Hours
-                          WoooApplicationWidget(
-                            activeTabIndex: 0,
-                            woooTypes: woooTypes,
-                            selectedWoooType: selectedWoooType,
-                            onWoooTypeChanged: (value) {
-                              setState(() {
-                                selectedWoooType = value;
-                              });
-                            },
-                            fromDate: fromDate,
-                            toDate: toDate,
-                            rejoiningDate: rejoiningDate,
-                            onFromDateChanged: (date) {
-                              setState(() {
-                                fromDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            onToDateChanged: (date) {
-                              setState(() {
-                                toDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            totalHoursController: totalHoursController,
-                            totalDaysController: totalDaysController,
-                            reasonController: reasonController,
+                    if (state is SubmitWoooApplicationSuccess) {
+                      final snackBar = SnackBar(
+                        elevation: 0,
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: Colors.transparent,
+                        content: AwesomeSnackbarContent(
+                          title: Locales.string(context, 'success'),
+                          message: Locales.string(
+                            context,
+                            'working_out_of_office_application_submitted_successfully',
                           ),
-
-                          // For Days
-                          WoooApplicationWidget(
-                            activeTabIndex: 1,
-                            woooTypes: woooTypes,
-                            selectedWoooType: selectedWoooType,
-                            onWoooTypeChanged: (value) {
-                              setState(() {
-                                selectedWoooType = value;
-                              });
-                            },
-                            fromDate: fromDate,
-                            toDate: toDate,
-                            rejoiningDate: rejoiningDate,
-                            onFromDateChanged: (date) {
-                              setState(() {
-                                fromDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            onToDateChanged: (date) {
-                              setState(() {
-                                toDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            totalHoursController: totalHoursController,
-                            totalDaysController: totalDaysController,
-                            reasonController: reasonController,
-                          ),
-                        ],
-                      );
-                    }
-
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ),
-
-              const SizedBox(height: 5),
-
-              BlocListener<
-                SubmitWoooApplicationBloc,
-                SubmitWoooApplicationState
-              >(
-                listener: (context, state) {
-                  if (state is SubmitWoooApplicationError) {
-                    final snackBar = SnackBar(
-                      elevation: 0,
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.transparent,
-                      content: AwesomeSnackbarContent(
-                        title: Locales.string(context, 'oops'),
-                        message: state.message,
-                        contentType: ContentType.failure,
-                      ),
-                    );
-
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(snackBar);
-                  }
-
-                  if (state is SubmitWoooApplicationSuccess) {
-                    final snackBar = SnackBar(
-                      elevation: 0,
-                      behavior: SnackBarBehavior.floating,
-                      backgroundColor: Colors.transparent,
-                      content: AwesomeSnackbarContent(
-                        title: Locales.string(context, 'success'),
-                        message: Locales.string(
-                          context,
-                          'working_out_of_office_application_submitted_successfully',
+                          contentType: ContentType.success,
                         ),
-                        contentType: ContentType.success,
-                      ),
-                    );
+                      );
 
-                    ScaffoldMessenger.of(context)
-                      ..hideCurrentSnackBar()
-                      ..showSnackBar(snackBar);
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(snackBar);
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
                     }
-                  }
-                },
-                child: AppPrimaryButton(
-                  label: Locales.string(context, "submit"),
-                  onPressed: () {
-                    context.read<SubmitWoooApplicationBloc>().add(
-                      SubmitWoooApplication(
-                        fromDate: fromDate.toString(),
-                        toDate: toDate.toString(),
-                        rejoiningDate: rejoiningDate.toString(),
-                        reason: reasonController.text,
-                        woooTypeCode: selectedWoooType!,
-                        isHourly: _activeTabIndex == 0 ? true : false,
-                      ),
-                    );
                   },
+                  child: AppPrimaryButton(
+                    label: Locales.string(context, "submit"),
+                    onPressed: () {
+                      context.read<SubmitWoooApplicationBloc>().add(
+                        SubmitWoooApplication(
+                          fromDate: fromDate.toString(),
+                          toDate: toDate.toString(),
+                          rejoiningDate: rejoiningDate.toString(),
+                          reason: reasonController.text,
+                          woooTypeCode: selectedWoooType!,
+                          isHourly: _activeTabIndex == 0 ? true : false,
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 10),
-            ],
+                const SizedBox(height: 10),
+              ],
+            ),
           ),
         ),
       ),

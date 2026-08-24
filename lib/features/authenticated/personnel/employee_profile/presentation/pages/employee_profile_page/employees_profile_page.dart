@@ -116,193 +116,198 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'employee_profile_title')),
       ),
-      body: BlocBuilder<EmployeesProfileBloc, EmployeesProfileState>(
-        builder: (context, state) {
-          if (state is EmployeesProfileLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      body: SafeArea(
+        child: BlocBuilder<EmployeesProfileBloc, EmployeesProfileState>(
+          builder: (context, state) {
+            if (state is EmployeesProfileLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-          if (state is EmployeesProfileError) {
-            return Center(child: Text(state.message));
-          }
+            if (state is EmployeesProfileError) {
+              return Center(child: Text(state.message));
+            }
 
-          if (state is EmployeesProfileLoaded) {
-            final person = state.employeeDetails;
+            if (state is EmployeesProfileLoaded) {
+              final person = state.employeeDetails;
 
-            return PageContainer(
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 25,
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Center(
-                        child: Container(
-                          width: 150,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: context.theme.colorScheme.secondary,
-                              width: 5,
+              return PageContainer(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 25,
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Center(
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: context.theme.colorScheme.secondary,
+                                width: 5,
+                              ),
+                            ),
+                            child: ClipOval(
+                              child: buildProfileImage(person.personPhoto),
                             ),
                           ),
-                          child: ClipOval(
-                            child: buildProfileImage(person.personPhoto),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        Text(
+                          person.fullName.trim().toTitleCase(),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
 
-                      const SizedBox(height: 20),
+                        const SizedBox(height: 10),
 
-                      Text(
-                        person.fullName.trim().toTitleCase(),
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                        Text(
+                          person.designationName,
+                          style: const TextStyle(fontSize: 18),
                         ),
-                      ),
 
-                      const SizedBox(height: 10),
+                        const SizedBox(height: 5),
 
-                      Text(
-                        person.designationName,
-                        style: const TextStyle(fontSize: 18),
-                      ),
-
-                      const SizedBox(height: 5),
-
-                      Text(
-                        person.departmentName,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: context.theme.colorScheme.onSurface,
-                        ),
-                      ),
-
-                      const SizedBox(height: 5),
-
-                      Chip(
-                        label: Text(
-                          person.employeeCategoryName,
+                        Text(
+                          person.departmentName,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 12,
-                            color: context.theme.colorScheme.onPrimary,
+                            fontSize: 16,
+                            color: context.theme.colorScheme.onSurface,
                           ),
                         ),
-                        backgroundColor: context.theme.colorScheme.primary,
-                      ),
 
-                      const SizedBox(height: 30),
+                        const SizedBox(height: 5),
 
-                      Column(
-                        children: [
-                          buildInfoRow(
-                            FontAwesomeIcons.userTie,
-                            Locales.string(
-                              context,
-                              'employee_profile_supervisor_name',
-                            ),
-                            person.supervisorName.trim().toTitleCase(),
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          buildInfoRow(
-                            FontAwesomeIcons.idCard,
-                            Locales.string(
-                              context,
-                              'employee_profile_employee_code',
-                            ),
-                            person.employeeCode,
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          buildInfoRow(
-                            FontAwesomeIcons.person,
-                            Locales.string(context, 'employee_profile_gender'),
-                            person.gender,
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          buildInfoRow(
-                            FontAwesomeIcons.at,
-                            Locales.string(
-                              context,
-                              'employee_profile_official_email',
-                            ),
-                            person.employeeEmail,
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          buildInfoRow(
-                            FontAwesomeIcons.at,
-                            Locales.string(
-                              context,
-                              'employee_profile_personal_email',
-                            ),
-                            person.email,
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          buildInfoRow(
-                            FontAwesomeIcons.calendar,
-                            Locales.string(
-                              context,
-                              'employee_profile_joining_date',
-                            ),
-                            MyDateUtils.formatDate(
-                              DateTime.tryParse(person.joiningDate),
+                        Chip(
+                          label: Text(
+                            person.employeeCategoryName,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: context.theme.colorScheme.onPrimary,
                             ),
                           ),
+                          backgroundColor: context.theme.colorScheme.primary,
+                        ),
 
-                          const SizedBox(height: 10),
+                        const SizedBox(height: 30),
 
-                          buildInfoRow(
-                            FontAwesomeIcons.droplet,
-                            Locales.string(
-                              context,
-                              'employee_profile_blood_group',
+                        Column(
+                          children: [
+                            buildInfoRow(
+                              FontAwesomeIcons.userTie,
+                              Locales.string(
+                                context,
+                                'employee_profile_supervisor_name',
+                              ),
+                              person.supervisorName.trim().toTitleCase(),
                             ),
-                            person.bloodGroup,
-                          ),
 
-                          const SizedBox(height: 10),
+                            const SizedBox(height: 10),
 
-                          buildInfoRow(
-                            FontAwesomeIcons.idCard,
-                            Locales.string(context, 'employee_profile_nid'),
-                            person.nid,
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          buildInfoRow(
-                            FontAwesomeIcons.phoneVolume,
-                            Locales.string(
-                              context,
-                              'employee_profile_mobile_number',
+                            buildInfoRow(
+                              FontAwesomeIcons.idCard,
+                              Locales.string(
+                                context,
+                                'employee_profile_employee_code',
+                              ),
+                              person.employeeCode,
                             ),
-                            person.mobileNumber,
-                          ),
-                        ],
-                      ),
-                    ],
+
+                            const SizedBox(height: 10),
+
+                            buildInfoRow(
+                              FontAwesomeIcons.person,
+                              Locales.string(
+                                context,
+                                'employee_profile_gender',
+                              ),
+                              person.gender,
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            buildInfoRow(
+                              FontAwesomeIcons.at,
+                              Locales.string(
+                                context,
+                                'employee_profile_official_email',
+                              ),
+                              person.employeeEmail,
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            buildInfoRow(
+                              FontAwesomeIcons.at,
+                              Locales.string(
+                                context,
+                                'employee_profile_personal_email',
+                              ),
+                              person.email,
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            buildInfoRow(
+                              FontAwesomeIcons.calendar,
+                              Locales.string(
+                                context,
+                                'employee_profile_joining_date',
+                              ),
+                              MyDateUtils.formatDate(
+                                DateTime.tryParse(person.joiningDate),
+                              ),
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            buildInfoRow(
+                              FontAwesomeIcons.droplet,
+                              Locales.string(
+                                context,
+                                'employee_profile_blood_group',
+                              ),
+                              person.bloodGroup,
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            buildInfoRow(
+                              FontAwesomeIcons.idCard,
+                              Locales.string(context, 'employee_profile_nid'),
+                              person.nid,
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            buildInfoRow(
+                              FontAwesomeIcons.phoneVolume,
+                              Locales.string(
+                                context,
+                                'employee_profile_mobile_number',
+                              ),
+                              person.mobileNumber,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          }
+              );
+            }
 
-          return const SizedBox.shrink();
-        },
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

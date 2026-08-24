@@ -76,46 +76,48 @@ class _DepositLoanApplicationPageState
       appBar: AppBar(
         title: Text(Locales.string(context, 'product_loan_application')),
       ),
-      body: PageContainer(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(12),
-                child: BlocBuilder<
-                  ProductLoanCollectionAccountBloc,
-                  ProductLoanCollectionAccountState
-                >(
-                  builder: (context, state) {
-                    if (state is ProductLoanCollectionAccountLoading ||
-                        state is ProductLoanCollectionAccountInitial) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+      body: SafeArea(
+        child: PageContainer(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(12),
+                  child: BlocBuilder<
+                    ProductLoanCollectionAccountBloc,
+                    ProductLoanCollectionAccountState
+                  >(
+                    builder: (context, state) {
+                      if (state is ProductLoanCollectionAccountLoading ||
+                          state is ProductLoanCollectionAccountInitial) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
-                    if (state is ProductLoanCollectionAccountError) {
-                      return Center(child: Text(state.message));
-                    }
+                      if (state is ProductLoanCollectionAccountError) {
+                        return Center(child: Text(state.message));
+                      }
 
-                    if (state is ProductLoanCollectionAccountSuccess) {
-                      final productLoan =
-                          state.productLoanEligibleCollateralAccountDto;
+                      if (state is ProductLoanCollectionAccountSuccess) {
+                        final productLoan =
+                            state.productLoanEligibleCollateralAccountDto;
 
-                      context.read<DepositLoanProductBloc>().add(
-                        SetLoanAccounts(
-                          ledgers: productLoan.collateralAccounts,
-                        ),
-                      );
-                      return _buildForm(width, state);
-                    }
+                        context.read<DepositLoanProductBloc>().add(
+                          SetLoanAccounts(
+                            ledgers: productLoan.collateralAccounts,
+                          ),
+                        );
+                        return _buildForm(width, state);
+                      }
 
-                    // Fallback in case state doesn't match any above
-                    return const SizedBox.shrink();
-                  },
+                      // Fallback in case state doesn't match any above
+                      return const SizedBox.shrink();
+                    },
+                  ),
                 ),
               ),
-            ),
-            _buildBottomButtons(width),
-          ],
+              _buildBottomButtons(width),
+            ],
+          ),
         ),
       ),
     );

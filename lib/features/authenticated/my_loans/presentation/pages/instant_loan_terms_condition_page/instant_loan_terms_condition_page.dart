@@ -33,99 +33,101 @@ class _InstantLoanTermsAndConditionPageState
       appBar: AppBar(
         title: Text(Locales.string(context, 'terms_and_conditions_page_title')),
       ),
-      body: PageContainer(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: BlocBuilder<TermAndConditionBloc, TermAndConditionState>(
-            builder: (context, state) {
-              if (state is TermAndConditionLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is TermAndConditionError) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        state.message,
-                        style: const TextStyle(color: Colors.red),
-                      ),
-                      const SizedBox(height: 20),
-                      AppErrorButton(
-                        label: Locales.string(
-                          context,
-                          'terms_and_conditions_page_retry_button',
+      body: SafeArea(
+        child: PageContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: BlocBuilder<TermAndConditionBloc, TermAndConditionState>(
+              builder: (context, state) {
+                if (state is TermAndConditionLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is TermAndConditionError) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          state.message,
+                          style: const TextStyle(color: Colors.red),
                         ),
-                        onPressed: () {
-                          context.read<TermAndConditionBloc>().add(
-                            const FetchTermAndConditionEvent(
-                              contentName: "Instant Loan Policy",
-                            ),
-                          );
-                        },
-                        iconBefore: const Icon(Icons.refresh),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (state is TermAndConditionLoaded) {
-                return SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 20),
-                      HtmlWidget(
-                        state.content,
-                        customStylesBuilder: (element) {
-                          if (element.localName == 'a') {
-                            return {'color': 'red'};
-                          }
-                          return null;
-                        },
-                        renderMode: RenderMode.column,
-                        textStyle: const TextStyle(fontSize: 14),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          AppErrorButton(
-                            label: Locales.string(
-                              context,
-                              'terms_and_conditions_page_decline_button',
-                            ),
-                            onPressed: () => Navigator.pop(context),
-                            iconBefore: Icon(
-                              Icons.close,
-                              color: context.theme.colorScheme.onError,
-                            ),
-                            horizontalPadding: 0,
+                        const SizedBox(height: 20),
+                        AppErrorButton(
+                          label: Locales.string(
+                            context,
+                            'terms_and_conditions_page_retry_button',
                           ),
-                          AppSuccessButton(
-                            label: Locales.string(
-                              context,
-                              'terms_and_conditions_page_accept_button',
-                            ),
-                            onPressed: () {
-                              Navigator.pushReplacementNamed(
+                          onPressed: () {
+                            context.read<TermAndConditionBloc>().add(
+                              const FetchTermAndConditionEvent(
+                                contentName: "Instant Loan Policy",
+                              ),
+                            );
+                          },
+                          iconBefore: const Icon(Icons.refresh),
+                        ),
+                      ],
+                    ),
+                  );
+                } else if (state is TermAndConditionLoaded) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 20),
+                        HtmlWidget(
+                          state.content,
+                          customStylesBuilder: (element) {
+                            if (element.localName == 'a') {
+                              return {'color': 'red'};
+                            }
+                            return null;
+                          },
+                          renderMode: RenderMode.column,
+                          textStyle: const TextStyle(fontSize: 14),
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            AppErrorButton(
+                              label: Locales.string(
                                 context,
-                                AuthRoutesName.instantLoanApplicationPage,
-                              );
-                            },
-                            iconBefore: Icon(
-                              Icons.check,
-                              color: context.theme.colorScheme.onTertiary,
+                                'terms_and_conditions_page_decline_button',
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              iconBefore: Icon(
+                                Icons.close,
+                                color: context.theme.colorScheme.onError,
+                              ),
+                              horizontalPadding: 0,
                             ),
-                            horizontalPadding: 0,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 50),
-                    ],
-                  ),
-                );
-              }
-              return const SizedBox.shrink(); // fallback
-            },
+                            AppSuccessButton(
+                              label: Locales.string(
+                                context,
+                                'terms_and_conditions_page_accept_button',
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacementNamed(
+                                  context,
+                                  AuthRoutesName.instantLoanApplicationPage,
+                                );
+                              },
+                              iconBefore: Icon(
+                                Icons.check,
+                                color: context.theme.colorScheme.onTertiary,
+                              ),
+                              horizontalPadding: 0,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 50),
+                      ],
+                    ),
+                  );
+                }
+                return const SizedBox.shrink(); // fallback
+              },
+            ),
           ),
         ),
       ),
