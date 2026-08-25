@@ -63,6 +63,32 @@ flutter pub run flutter_launcher_icons:main
 ## Build Variants (Optional)
 
 ```
+flutter clean
+flutter pub get
+flutter build appbundle
+```
+
+6. Build signed APK
+
+For direct installation or testing:
+
+flutter build apk --release
+
+Output:
+
+build/app/outputs/flutter-apk/app-release.apk
+
+For smaller APKs per architecture:
+
+flutter build apk --split-per-abi
+
+You will get:
+
+app-armeabi-v7a-release.apk
+app-arm64-v8a-release.apk
+app-x86_64-release.apk
+
+```
 - flutter build apk
 - flutter build apk --release
 - flutter build apk --debug
