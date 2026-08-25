@@ -120,134 +120,138 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
             indicatorColor: Colors.white,
           ),
         ),
-        body: PageContainer(
-          child: Column(
-            children: [
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    WoooApplicationApprovalWidget(
-                      activeTabIndex: _activeTabIndex,
-                      selectedWoooType: selectedWoooType,
+        body: SafeArea(
+          child: PageContainer(
+            child: Column(
+              children: [
+                Expanded(
+                  child: TabBarView(
+                    children: [
+                      WoooApplicationApprovalWidget(
+                        activeTabIndex: _activeTabIndex,
+                        selectedWoooType: selectedWoooType,
 
-                      fromDate: fromDate ?? DateTime.now(), // optional fallback
-                      toDate: toDate ?? DateTime.now(),
-                      onFromDateChanged: (date) {
-                        setState(() {
-                          fromDate = date;
-                          _updateTotalHoursOrDays();
-                        });
-                      },
-                      onToDateChanged: (date) {
-                        setState(() {
-                          toDate = date;
-                          _updateTotalHoursOrDays();
-                        });
-                      },
-                      reasonController: reasonController,
-                      rejoiningDate: rejoiningDate,
-                      totalDaysController: totalDaysController,
-                      totalHoursController: totalHoursController,
-                      isEditable: widget.isEditable,
-                      status: statusItems,
-                      selectedId: selectedId,
-                      onStatusChanged: (value) {
-                        setState(() {
-                          selectedId = value;
-                        });
-                      },
-                    ),
+                        fromDate:
+                            fromDate ?? DateTime.now(), // optional fallback
+                        toDate: toDate ?? DateTime.now(),
+                        onFromDateChanged: (date) {
+                          setState(() {
+                            fromDate = date;
+                            _updateTotalHoursOrDays();
+                          });
+                        },
+                        onToDateChanged: (date) {
+                          setState(() {
+                            toDate = date;
+                            _updateTotalHoursOrDays();
+                          });
+                        },
+                        reasonController: reasonController,
+                        rejoiningDate: rejoiningDate,
+                        totalDaysController: totalDaysController,
+                        totalHoursController: totalHoursController,
+                        isEditable: widget.isEditable,
+                        status: statusItems,
+                        selectedId: selectedId,
+                        onStatusChanged: (value) {
+                          setState(() {
+                            selectedId = value;
+                          });
+                        },
+                      ),
 
-                    WoooApplicationApprovalWidget(
-                      activeTabIndex: _activeTabIndex,
-                      selectedWoooType: selectedWoooType,
-                      fromDate: fromDate ?? DateTime.now(),
-                      toDate: toDate ?? DateTime.now(),
-                      onFromDateChanged: (date) {
-                        setState(() {
-                          fromDate = date;
-                          _updateTotalHoursOrDays();
-                        });
-                      },
-                      onToDateChanged: (date) {
-                        setState(() {
-                          toDate = date;
-                          _updateTotalHoursOrDays();
-                        });
-                      },
-                      reasonController: reasonController,
-                      rejoiningDate: rejoiningDate,
-                      totalDaysController: totalDaysController,
-                      totalHoursController: totalHoursController,
-                      isEditable: widget.isEditable,
-                      status: statusItems,
-                      selectedId: selectedId,
-                      onStatusChanged: (value) {
-                        setState(() {
-                          selectedId = value;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              if (widget.isEditable)
-                BlocListener<SubmitWoooApprovalBloc, SubmitWoooApprovalState>(
-                  listener: (context, state) {
-                    if (state is SubmitWoooApprovalError) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: Locales.string(context, "oops"),
-                          message: state.message,
-                          contentType: ContentType.failure,
-                        ),
-                      );
-
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-                    }
-                    if (state is SubmitWoooApprovalSuccess) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: Locales.string(context, "success"),
-                          message: Locales.string(
-                            context,
-                            "wooo_application_submitted",
-                          ),
-                          contentType: ContentType.success,
-                        ),
-                      );
-
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
-                      }
-                    }
-                  },
-                  child: AppPrimaryButton(
-                    label: Locales.string(context, "submit"),
-                    onPressed: () {
-                      context.read<SubmitWoooApprovalBloc>().add(
-                        SubmitWoooApplicationEvent(
-                          status: selectedId,
-                          employeeWoooId:
-                              widget.wooodataHistory.employeeWoooId.toString(),
-                        ),
-                      );
-                    },
+                      WoooApplicationApprovalWidget(
+                        activeTabIndex: _activeTabIndex,
+                        selectedWoooType: selectedWoooType,
+                        fromDate: fromDate ?? DateTime.now(),
+                        toDate: toDate ?? DateTime.now(),
+                        onFromDateChanged: (date) {
+                          setState(() {
+                            fromDate = date;
+                            _updateTotalHoursOrDays();
+                          });
+                        },
+                        onToDateChanged: (date) {
+                          setState(() {
+                            toDate = date;
+                            _updateTotalHoursOrDays();
+                          });
+                        },
+                        reasonController: reasonController,
+                        rejoiningDate: rejoiningDate,
+                        totalDaysController: totalDaysController,
+                        totalHoursController: totalHoursController,
+                        isEditable: widget.isEditable,
+                        status: statusItems,
+                        selectedId: selectedId,
+                        onStatusChanged: (value) {
+                          setState(() {
+                            selectedId = value;
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ),
-              SizedBox(height: 18),
-            ],
+                if (widget.isEditable)
+                  BlocListener<SubmitWoooApprovalBloc, SubmitWoooApprovalState>(
+                    listener: (context, state) {
+                      if (state is SubmitWoooApprovalError) {
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: Locales.string(context, "oops"),
+                            message: state.message,
+                            contentType: ContentType.failure,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                      }
+                      if (state is SubmitWoooApprovalSuccess) {
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: Locales.string(context, "success"),
+                            message: Locales.string(
+                              context,
+                              "wooo_application_submitted",
+                            ),
+                            contentType: ContentType.success,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                      }
+                    },
+                    child: AppPrimaryButton(
+                      label: Locales.string(context, "submit"),
+                      onPressed: () {
+                        context.read<SubmitWoooApprovalBloc>().add(
+                          SubmitWoooApplicationEvent(
+                            status: selectedId,
+                            employeeWoooId:
+                                widget.wooodataHistory.employeeWoooId
+                                    .toString(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                SizedBox(height: 18),
+              ],
+            ),
           ),
         ),
       ),

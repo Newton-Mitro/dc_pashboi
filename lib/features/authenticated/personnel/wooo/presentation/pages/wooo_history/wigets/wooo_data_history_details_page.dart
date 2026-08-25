@@ -123,166 +123,170 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
           indicatorColor: Colors.white,
         ),
       ),
-      body: PageContainer(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-          child: Column(
-            children: [
-              Expanded(
-                child: BlocBuilder<WoooTypeBloc, WoooTypeState>(
-                  builder: (context, state) {
-                    if (state is WoooTypeLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (state is WoooTypeError) {
-                      return Center(
-                        child: Text(
-                          state.message,
-                          style: TextStyle(
-                            color: context.theme.colorScheme.error,
-                          ),
-                        ),
-                      );
-                    }
-                    if (state is WoooTypeSuccess) {
-                      final woooTypes = state.woooTypeEntities;
-                      return TabBarView(
-                        controller: _tabController,
-                        children: [
-                          WoooApplicationUpdateWidget(
-                            isEditable: widget.isEditable,
-                            wooodataHistory: widget.wooodataHistory,
-                            activeTabIndex: _activeTabIndex,
-                            woooTypes: woooTypes,
-                            selectedWoooType: selectedWoooType,
-                            onWoooTypeChanged: (value) {
-                              setState(() {
-                                selectedWoooType = value;
-                              });
-                            },
-                            fromDate: fromDate,
-                            toDate: toDate,
-                            rejoiningDate: rejoiningDate,
-                            onFromDateChanged: (date) {
-                              setState(() {
-                                fromDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            onToDateChanged: (date) {
-                              setState(() {
-                                toDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            totalHoursController: totalHoursController,
-                            totalDaysController: totalDaysController,
-                            reasonController: reasonController,
-                          ),
-
-                          WoooApplicationUpdateWidget(
-                            isEditable: widget.isEditable,
-                            wooodataHistory: widget.wooodataHistory,
-                            activeTabIndex:
-                                widget.wooodataHistory.isHourly == true ? 0 : 1,
-                            woooTypes: woooTypes,
-                            selectedWoooType: selectedWoooType,
-                            onWoooTypeChanged: (value) {
-                              setState(() {
-                                selectedWoooType = value;
-                              });
-                            },
-                            fromDate: fromDate,
-                            toDate: toDate,
-                            rejoiningDate: rejoiningDate,
-                            onFromDateChanged: (date) {
-                              setState(() {
-                                fromDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            onToDateChanged: (date) {
-                              setState(() {
-                                toDate = date;
-                                _updateTotalHoursOrDays();
-                              });
-                            },
-                            totalHoursController: totalHoursController,
-                            totalDaysController: totalDaysController,
-                            reasonController: reasonController,
-                          ),
-                        ],
-                      );
-                    }
-
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ),
-              SizedBox(height: 10),
-              if (widget.isEditable)
-                BlocListener<UpdateWoooRequestBloc, UpdateWoooRequestState>(
-                  listener: (context, state) {
-                    if (state is UpdateWoooRequestError) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: Locales.string(context, "oops"),
-                          message: state.message,
-                          contentType: ContentType.failure,
-                        ),
-                      );
-
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-                    }
-                    if (state is UpdateWoooRequestSuccess) {
-                      final snackBar = SnackBar(
-                        elevation: 0,
-                        behavior: SnackBarBehavior.floating,
-                        backgroundColor: Colors.transparent,
-                        content: AwesomeSnackbarContent(
-                          title: Locales.string(context, "success"),
-                          message: Locales.string(
-                            context,
-                            "working_out_of_office_application_submitted_successfully",
-                          ),
-                          contentType: ContentType.success,
-                        ),
-                      );
-
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(snackBar);
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
+      body: SafeArea(
+        child: PageContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+            child: Column(
+              children: [
+                Expanded(
+                  child: BlocBuilder<WoooTypeBloc, WoooTypeState>(
+                    builder: (context, state) {
+                      if (state is WoooTypeLoading) {
+                        return const Center(child: CircularProgressIndicator());
                       }
-                    }
-                  },
+                      if (state is WoooTypeError) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            style: TextStyle(
+                              color: context.theme.colorScheme.error,
+                            ),
+                          ),
+                        );
+                      }
+                      if (state is WoooTypeSuccess) {
+                        final woooTypes = state.woooTypeEntities;
+                        return TabBarView(
+                          controller: _tabController,
+                          children: [
+                            WoooApplicationUpdateWidget(
+                              isEditable: widget.isEditable,
+                              wooodataHistory: widget.wooodataHistory,
+                              activeTabIndex: _activeTabIndex,
+                              woooTypes: woooTypes,
+                              selectedWoooType: selectedWoooType,
+                              onWoooTypeChanged: (value) {
+                                setState(() {
+                                  selectedWoooType = value;
+                                });
+                              },
+                              fromDate: fromDate,
+                              toDate: toDate,
+                              rejoiningDate: rejoiningDate,
+                              onFromDateChanged: (date) {
+                                setState(() {
+                                  fromDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              onToDateChanged: (date) {
+                                setState(() {
+                                  toDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              totalHoursController: totalHoursController,
+                              totalDaysController: totalDaysController,
+                              reasonController: reasonController,
+                            ),
 
-                  child: AppPrimaryButton(
-                    label: Locales.string(context, "submit"),
-                    onPressed: () {
-                      context.read<UpdateWoooRequestBloc>().add(
-                        UpdateWoooApplication(
-                          fromDate: fromDate.toString(),
-                          toDate: toDate.toString(),
-                          rejoiningDate: rejoiningDate.toString(),
-                          reason: reasonController.text,
-                          woooTypeCode: selectedWoooType!,
-                          isHourly: _activeTabIndex == 0 ? true : false,
-                          leaveApplicationId:
-                              widget.wooodataHistory.employeeWoooId,
-                        ),
-                      );
+                            WoooApplicationUpdateWidget(
+                              isEditable: widget.isEditable,
+                              wooodataHistory: widget.wooodataHistory,
+                              activeTabIndex:
+                                  widget.wooodataHistory.isHourly == true
+                                      ? 0
+                                      : 1,
+                              woooTypes: woooTypes,
+                              selectedWoooType: selectedWoooType,
+                              onWoooTypeChanged: (value) {
+                                setState(() {
+                                  selectedWoooType = value;
+                                });
+                              },
+                              fromDate: fromDate,
+                              toDate: toDate,
+                              rejoiningDate: rejoiningDate,
+                              onFromDateChanged: (date) {
+                                setState(() {
+                                  fromDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              onToDateChanged: (date) {
+                                setState(() {
+                                  toDate = date;
+                                  _updateTotalHoursOrDays();
+                                });
+                              },
+                              totalHoursController: totalHoursController,
+                              totalDaysController: totalDaysController,
+                              reasonController: reasonController,
+                            ),
+                          ],
+                        );
+                      }
+
+                      return const SizedBox.shrink();
                     },
                   ),
                 ),
-              SizedBox(height: 15),
-            ],
+                SizedBox(height: 10),
+                if (widget.isEditable)
+                  BlocListener<UpdateWoooRequestBloc, UpdateWoooRequestState>(
+                    listener: (context, state) {
+                      if (state is UpdateWoooRequestError) {
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: Locales.string(context, "oops"),
+                            message: state.message,
+                            contentType: ContentType.failure,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                      }
+                      if (state is UpdateWoooRequestSuccess) {
+                        final snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: Locales.string(context, "success"),
+                            message: Locales.string(
+                              context,
+                              "working_out_of_office_application_submitted_successfully",
+                            ),
+                            contentType: ContentType.success,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context)
+                          ..hideCurrentSnackBar()
+                          ..showSnackBar(snackBar);
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                      }
+                    },
+
+                    child: AppPrimaryButton(
+                      label: Locales.string(context, "submit"),
+                      onPressed: () {
+                        context.read<UpdateWoooRequestBloc>().add(
+                          UpdateWoooApplication(
+                            fromDate: fromDate.toString(),
+                            toDate: toDate.toString(),
+                            rejoiningDate: rejoiningDate.toString(),
+                            reason: reasonController.text,
+                            woooTypeCode: selectedWoooType!,
+                            isHourly: _activeTabIndex == 0 ? true : false,
+                            leaveApplicationId:
+                                widget.wooodataHistory.employeeWoooId,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                SizedBox(height: 15),
+              ],
+            ),
           ),
         ),
       ),

@@ -177,126 +177,130 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 "${Locales.string(context, "account_opening_page_title")} ${widget.productName.trim().toTitleCase()}",
               ),
             ),
-            body: Stack(
-              children: [
-                PageContainer(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 15,
-                        ),
-                        child: _buildProgressStepper(
-                          width,
-                          accountOpeningStepsState,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
-                            transitionBuilder:
-                                (child, animation) => SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(1, 0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                            child: KeyedSubtree(
-                              key: ValueKey(
-                                accountOpeningStepsState.currentStep,
-                              ),
-                              child:
-                                  _buildSteps(
-                                    accountOpeningStepsState,
-                                  )[accountOpeningStepsState
-                                      .currentStep].widget,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SafeArea(
-                        maintainBottomViewPadding: true,
-                        child: Padding(
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  PageContainer(
+                    child: Column(
+                      children: [
+                        Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 15,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              isFirstStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconBefore: const Icon(
-                                      FontAwesomeIcons.angleLeft,
-                                    ),
-                                    label: Locales.string(
-                                      context,
-                                      'previous_button_text',
-                                    ),
-                                    onPressed: () {
-                                      context
-                                          .read<AccountOpeningStepsBloc>()
-                                          .add(
-                                            AccountOpeningGoToPreviousStep(),
-                                          );
-                                    },
-                                  ),
-                              isLastStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconAfter: const Icon(
-                                      FontAwesomeIcons.angleRight,
-                                    ),
-                                    label: Locales.string(
-                                      context,
-                                      'next_button_text',
-                                    ),
-                                    onPressed: () {
-                                      if (accountOpeningStepsState
-                                              .currentStep ==
-                                          5) {
-                                        context
-                                            .read<AccountOpeningStepsBloc>()
-                                            .add(AccountOpeningValidateStep(5));
-                                        _verifyCardPIN(
-                                          accountOpeningStepsState,
-                                        );
-                                        return;
-                                      }
-                                      context
-                                          .read<AccountOpeningStepsBloc>()
-                                          .add(AccountOpeningGoToNextStep());
-                                    },
-                                  ),
-                            ],
+                          child: _buildProgressStepper(
+                            width,
+                            accountOpeningStepsState,
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 10),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              transitionBuilder:
+                                  (child, animation) => SlideTransition(
+                                    position: Tween<Offset>(
+                                      begin: const Offset(1, 0),
+                                      end: Offset.zero,
+                                    ).animate(animation),
+                                    child: child,
+                                  ),
+                              child: KeyedSubtree(
+                                key: ValueKey(
+                                  accountOpeningStepsState.currentStep,
+                                ),
+                                child:
+                                    _buildSteps(
+                                      accountOpeningStepsState,
+                                    )[accountOpeningStepsState
+                                        .currentStep].widget,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SafeArea(
+                          maintainBottomViewPadding: true,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 15,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                isFirstStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconBefore: const Icon(
+                                        FontAwesomeIcons.angleLeft,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'previous_button_text',
+                                      ),
+                                      onPressed: () {
+                                        context
+                                            .read<AccountOpeningStepsBloc>()
+                                            .add(
+                                              AccountOpeningGoToPreviousStep(),
+                                            );
+                                      },
+                                    ),
+                                isLastStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconAfter: const Icon(
+                                        FontAwesomeIcons.angleRight,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'next_button_text',
+                                      ),
+                                      onPressed: () {
+                                        if (accountOpeningStepsState
+                                                .currentStep ==
+                                            5) {
+                                          context
+                                              .read<AccountOpeningStepsBloc>()
+                                              .add(
+                                                AccountOpeningValidateStep(5),
+                                              );
+                                          _verifyCardPIN(
+                                            accountOpeningStepsState,
+                                          );
+                                          return;
+                                        }
+                                        context
+                                            .read<AccountOpeningStepsBloc>()
+                                            .add(AccountOpeningGoToNextStep());
+                                      },
+                                    ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                BlocBuilder<DebitCardBloc, DebitCardState>(
-                  builder: (context, state) {
-                    if (state.isLoading) {
-                      return Container(
-                        color: Colors.black.withOpacity(0.4),
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    } else if (state.error != null) {
+                  BlocBuilder<DebitCardBloc, DebitCardState>(
+                    builder: (context, state) {
+                      if (state.isLoading) {
+                        return Container(
+                          color: Colors.black.withOpacity(0.4),
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      } else if (state.error != null) {
+                        return SizedBox.shrink();
+                      }
                       return SizedBox.shrink();
-                    }
-                    return SizedBox.shrink();
-                  },
-                ),
-              ],
+                    },
+                  ),
+                ],
+              ),
             ),
             bottomNavigationBar:
                 isLastStep ? _buildSubmitButton(width, context) : null,

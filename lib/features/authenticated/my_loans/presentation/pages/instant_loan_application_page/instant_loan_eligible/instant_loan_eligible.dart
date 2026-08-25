@@ -144,104 +144,109 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
               state.currentStep == InstantLoanEligibleBloc.lastStep;
 
           return Scaffold(
-            body: Stack(
-              children: [
-                PageContainer(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 15,
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  PageContainer(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 15,
+                          ),
+                          child: _buildProgressStepper(width, state, steps),
                         ),
-                        child: _buildProgressStepper(width, state, steps),
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
-                            transitionBuilder:
-                                (child, animation) => SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(1, 0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                            child: KeyedSubtree(
-                              key: ValueKey(state.currentStep),
-                              child: steps[state.currentStep].widget,
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              transitionBuilder:
+                                  (child, animation) => SlideTransition(
+                                    position: Tween<Offset>(
+                                      begin: const Offset(1, 0),
+                                      end: Offset.zero,
+                                    ).animate(animation),
+                                    child: child,
+                                  ),
+                              child: KeyedSubtree(
+                                key: ValueKey(state.currentStep),
+                                child: steps[state.currentStep].widget,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SafeArea(
-                        maintainBottomViewPadding: true,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 15,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              isFirstStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconBefore: const Icon(
-                                      FontAwesomeIcons.angleLeft,
-                                    ),
-                                    label: Locales.string(
-                                      context,
-                                      'previous_button_text',
-                                    ),
-                                    onPressed: () {
-                                      context
-                                          .read<InstantLoanEligibleBloc>()
-                                          .add(InstantLoanGoToPreviousStep());
-                                    },
-                                  ),
-                              isLastStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 10,
-                                    iconAfter: const Icon(
-                                      FontAwesomeIcons.angleRight,
-                                    ),
-                                    enabled:
-                                        instantLoanApplyByTopUp
-                                            ? instantLoanApplyByTopUp
-                                            : instantLoanApply,
-                                    label:
-                                        instantLoanApplyByTopUp
-                                            ? Locales.string(context, 'top_up')
-                                            : Locales.string(
-                                              context,
-                                              'next_button_text',
-                                            ),
-                                    onPressed: () {
-                                      if (state.currentStep == 3) {
+                        SafeArea(
+                          maintainBottomViewPadding: true,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 15,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                isFirstStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconBefore: const Icon(
+                                        FontAwesomeIcons.angleLeft,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'previous_button_text',
+                                      ),
+                                      onPressed: () {
                                         context
                                             .read<InstantLoanEligibleBloc>()
-                                            .add(InstantLoanValidateStep(3));
-                                        _verifyCardPIN(state);
-                                        return;
-                                      }
-                                      context
-                                          .read<InstantLoanEligibleBloc>()
-                                          .add(InstantLoanGoToNextStep());
-                                    },
-                                  ),
-                            ],
+                                            .add(InstantLoanGoToPreviousStep());
+                                      },
+                                    ),
+                                isLastStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 10,
+                                      iconAfter: const Icon(
+                                        FontAwesomeIcons.angleRight,
+                                      ),
+                                      enabled:
+                                          instantLoanApplyByTopUp
+                                              ? instantLoanApplyByTopUp
+                                              : instantLoanApply,
+                                      label:
+                                          instantLoanApplyByTopUp
+                                              ? Locales.string(
+                                                context,
+                                                'top_up',
+                                              )
+                                              : Locales.string(
+                                                context,
+                                                'next_button_text',
+                                              ),
+                                      onPressed: () {
+                                        if (state.currentStep == 3) {
+                                          context
+                                              .read<InstantLoanEligibleBloc>()
+                                              .add(InstantLoanValidateStep(3));
+                                          _verifyCardPIN(state);
+                                          return;
+                                        }
+                                        context
+                                            .read<InstantLoanEligibleBloc>()
+                                            .add(InstantLoanGoToNextStep());
+                                      },
+                                    ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             bottomNavigationBar:
                 isLastStep ? _buildSubmitButton(width, context, state) : null,

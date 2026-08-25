@@ -73,90 +73,96 @@ class ContactUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, 'emergency_contact'))),
-      body: Accordion(
-        headerBorderWidth: 3,
-        headerBorderColor: context.theme.colorScheme.primary,
-        headerBorderColorOpened: context.theme.colorScheme.primary,
-        headerBackgroundColorOpened: context.theme.colorScheme.primary,
-        contentBackgroundColor: context.theme.colorScheme.surface,
-        contentBorderColor: context.theme.colorScheme.primary,
-        contentBorderWidth: 3,
-        contentHorizontalPadding: 20,
-        scaleWhenAnimating: true,
-        openAndCloseAnimation: true,
-        headerPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        children:
-            pages.map((page) {
-              return AccordionSection(
-                isOpen: false,
-                headerBackgroundColor: context.theme.colorScheme.primary,
-                headerBackgroundColorOpened: context.theme.colorScheme.primary,
-                headerBorderColor: context.theme.colorScheme.primary,
-                contentBorderColor: context.theme.colorScheme.primary,
-                contentVerticalPadding: 20,
-                paddingBetweenClosedSections: 20,
-                leftIcon: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Icon(
-                    page['icon'] as IconData,
-                    color: Colors.white, // Or use a theme color if needed
-                    size: 24,
+      body: SafeArea(
+        child: Accordion(
+          headerBorderWidth: 3,
+          headerBorderColor: context.theme.colorScheme.primary,
+          headerBorderColorOpened: context.theme.colorScheme.primary,
+          headerBackgroundColorOpened: context.theme.colorScheme.primary,
+          contentBackgroundColor: context.theme.colorScheme.surface,
+          contentBorderColor: context.theme.colorScheme.primary,
+          contentBorderWidth: 3,
+          contentHorizontalPadding: 20,
+          scaleWhenAnimating: true,
+          openAndCloseAnimation: true,
+          headerPadding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 15,
+          ),
+          children:
+              pages.map((page) {
+                return AccordionSection(
+                  isOpen: false,
+                  headerBackgroundColor: context.theme.colorScheme.primary,
+                  headerBackgroundColorOpened:
+                      context.theme.colorScheme.primary,
+                  headerBorderColor: context.theme.colorScheme.primary,
+                  contentBorderColor: context.theme.colorScheme.primary,
+                  contentVerticalPadding: 20,
+                  paddingBetweenClosedSections: 20,
+                  leftIcon: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Icon(
+                      page['icon'] as IconData,
+                      color: Colors.white, // Or use a theme color if needed
+                      size: 24,
+                    ),
                   ),
-                ),
-                header: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      page['title'] ?? '',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: context.theme.colorScheme.onPrimary,
+                  header: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        page['title'] ?? '',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: context.theme.colorScheme.onPrimary,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                content: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      page['description'] ?? '',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 12),
-                    Center(
-                      child: Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children:
-                            (page['buttons'] as List<Map<String, dynamic>>)
-                                .map<Widget>((button) {
-                                  return ElevatedButton.icon(
-                                    onPressed: () {
-                                      final url = button['actionUrl'] ?? '';
-                                      if (url.startsWith('mailto:') ||
-                                          url.startsWith('tel:') ||
-                                          url.startsWith('https:')) {
-                                        launchUrl(Uri.parse(url));
-                                      }
-                                    },
-                                    icon: Icon(button['icon'], size: 18),
-                                    label: Text(button['label']),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          context.theme.colorScheme.primary,
-                                      foregroundColor:
-                                          context.theme.colorScheme.onPrimary,
-                                    ),
-                                  );
-                                })
-                                .toList(),
+                    ],
+                  ),
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        page['description'] ?? '',
+                        style: const TextStyle(fontSize: 16),
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }).toList(),
+                      const SizedBox(height: 12),
+                      Center(
+                        child: Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+                          children:
+                              (page['buttons'] as List<Map<String, dynamic>>)
+                                  .map<Widget>((button) {
+                                    return ElevatedButton.icon(
+                                      onPressed: () {
+                                        final url = button['actionUrl'] ?? '';
+                                        if (url.startsWith('mailto:') ||
+                                            url.startsWith('tel:') ||
+                                            url.startsWith('https:')) {
+                                          launchUrl(Uri.parse(url));
+                                        }
+                                      },
+                                      icon: Icon(button['icon'], size: 18),
+                                      label: Text(button['label']),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            context.theme.colorScheme.primary,
+                                        foregroundColor:
+                                            context.theme.colorScheme.onPrimary,
+                                      ),
+                                    );
+                                  })
+                                  .toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+        ),
       ),
     );
   }

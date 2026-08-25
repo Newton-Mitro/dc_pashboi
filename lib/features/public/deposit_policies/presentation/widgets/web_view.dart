@@ -25,6 +25,8 @@ class _HtmlContentWebViewState extends State<HtmlContentWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: WebViewWidget(controller: _controller));
+    return Scaffold(
+      body: SafeArea(child: WebViewWidget(controller: _controller)),
+    );
   }
 }

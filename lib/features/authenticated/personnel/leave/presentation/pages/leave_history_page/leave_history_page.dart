@@ -43,228 +43,232 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, "leave_history"))),
-      body: PageContainer(
-        child: Column(
-          children: [
-            // Date pickers and button
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(7.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: AppDatePicker(
-                            selectedDate: _startDate,
-                            onDateChanged:
-                                (d) => setState(() => _startDate = d),
-                            label: Locales.string(context, "from_date"),
-                            errorText: '',
-                            firstDate: null,
-                            enabled: true,
+      body: SafeArea(
+        child: PageContainer(
+          child: Column(
+            children: [
+              // Date pickers and button
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(7.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: AppDatePicker(
+                              selectedDate: _startDate,
+                              onDateChanged:
+                                  (d) => setState(() => _startDate = d),
+                              label: Locales.string(context, "from_date"),
+                              errorText: '',
+                              firstDate: null,
+                              enabled: true,
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: AppDatePicker(
-                            selectedDate: _endDate,
-                            onDateChanged: (d) => setState(() => _endDate = d),
-                            label: Locales.string(context, "end_date"),
-                            errorText: '',
-                            firstDate: null,
-                            enabled: true,
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: AppDatePicker(
+                              selectedDate: _endDate,
+                              onDateChanged:
+                                  (d) => setState(() => _endDate = d),
+                              label: Locales.string(context, "end_date"),
+                              errorText: '',
+                              firstDate: null,
+                              enabled: true,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  AppPrimaryButton(
-                    label: Locales.string(context, "search"),
-                    onPressed: _fetchLeaveApprovals,
-                  ),
-                ],
-              ),
-            ),
-
-            // Leave history list
-            Expanded(
-              child: BlocBuilder<LeaveHistoryBloc, LeaveHistoryState>(
-                builder: (context, state) {
-                  if (state is LeaveHistoryLoading) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-
-                  if (state is LeaveHistoryError) {
-                    return Center(
-                      child: Text(
-                        Locales.string(context, "an_error_occurred"),
-                        style: TextStyle(color: Colors.red),
-                        textAlign: TextAlign.center,
+                        ],
                       ),
-                    );
-                  }
+                    ),
+                    const SizedBox(height: 8),
+                    AppPrimaryButton(
+                      label: Locales.string(context, "search"),
+                      onPressed: _fetchLeaveApprovals,
+                    ),
+                  ],
+                ),
+              ),
 
-                  if (state is LeaveHistorySuccess) {
-                    final requestList = state.requests;
+              // Leave history list
+              Expanded(
+                child: BlocBuilder<LeaveHistoryBloc, LeaveHistoryState>(
+                  builder: (context, state) {
+                    if (state is LeaveHistoryLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                    if (requestList.isEmpty) {
+                    if (state is LeaveHistoryError) {
                       return Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              FontAwesomeIcons.boxOpen,
-                              size: 60,
-                              color: Colors.grey,
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              Locales.string(context, "no_leave_requests"),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
+                        child: Text(
+                          Locales.string(context, "an_error_occurred"),
+                          style: TextStyle(color: Colors.red),
+                          textAlign: TextAlign.center,
                         ),
                       );
                     }
 
-                    return ListView.builder(
-                      padding: const EdgeInsets.all(12),
-                      itemCount: requestList.length,
-                      itemBuilder: (context, index) {
-                        final request = requestList[index];
+                    if (state is LeaveHistorySuccess) {
+                      final requestList = state.requests;
 
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          color: context.theme.colorScheme.surface,
-                          elevation: 3,
-                          shadowColor: context.theme.colorScheme.shadow,
-                          child: InkWell(
-                            onTap: () {},
-                            borderRadius: BorderRadius.circular(6),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: context.theme.colorScheme.primary,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(6),
+                      if (requestList.isEmpty) {
+                        return Center(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                FontAwesomeIcons.boxOpen,
+                                size: 60,
+                                color: Colors.grey,
                               ),
-                              child: IntrinsicHeight(
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 20,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              request.leaveType,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
+                              SizedBox(height: 16),
+                              Text(
+                                Locales.string(context, "no_leave_requests"),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+
+                      return ListView.builder(
+                        padding: const EdgeInsets.all(12),
+                        itemCount: requestList.length,
+                        itemBuilder: (context, index) {
+                          final request = requestList[index];
+
+                          return Card(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            color: context.theme.colorScheme.surface,
+                            elevation: 3,
+                            shadowColor: context.theme.colorScheme.shadow,
+                            child: InkWell(
+                              onTap: () {},
+                              borderRadius: BorderRadius.circular(6),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: context.theme.colorScheme.primary,
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 20,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                request.leaveType,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                ),
                                               ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              "${Locales.string(context, "from_date")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.fromDate.toString()))}",
-                                            ),
-                                            Text(
-                                              "${Locales.string(context, "end_date")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.toDate.toString()))}",
-                                            ),
+                                              const SizedBox(height: 4),
+                                              Text(
+                                                "${Locales.string(context, "from_date")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.fromDate.toString()))}",
+                                              ),
+                                              Text(
+                                                "${Locales.string(context, "end_date")}: ${MyDateUtils.formatDate(DateTime.tryParse(request.toDate.toString()))}",
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 100,
+                                        height: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              context.theme.colorScheme.primary,
+                                          borderRadius: const BorderRadius.only(
+                                            topRight: Radius.circular(4),
+                                            bottomRight: Radius.circular(4),
+                                          ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            if (true) // Replace `true` with your condition to show the "eye" button
+                                              IconButton(
+                                                icon: const Icon(
+                                                  FontAwesomeIcons.eye,
+                                                  size: 15,
+                                                ),
+                                                color:
+                                                    context
+                                                        .theme
+                                                        .colorScheme
+                                                        .onPrimary,
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    AuthRoutesName
+                                                        .leaveHistoryDetailsPage,
+                                                    arguments: {
+                                                      'leaveApproval': request,
+                                                      'isEnable': false,
+                                                    },
+                                                  );
+                                                },
+                                              ),
+
+                                            if (request.currentStage ==
+                                                "Applied")
+                                              IconButton(
+                                                icon: const Icon(
+                                                  FontAwesomeIcons.penToSquare,
+                                                  size: 15,
+                                                ),
+                                                color:
+                                                    context
+                                                        .theme
+                                                        .colorScheme
+                                                        .onPrimary,
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                    context,
+                                                    AuthRoutesName
+                                                        .leaveHistoryDetailsPage,
+                                                    arguments: {
+                                                      'leaveApproval': request,
+                                                      'isEnable': true,
+                                                    },
+                                                  );
+                                                },
+                                              ),
                                           ],
                                         ),
                                       ),
-                                    ),
-                                    Container(
-                                      width: 100,
-                                      height: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color:
-                                            context.theme.colorScheme.primary,
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(4),
-                                          bottomRight: Radius.circular(4),
-                                        ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          if (true) // Replace `true` with your condition to show the "eye" button
-                                            IconButton(
-                                              icon: const Icon(
-                                                FontAwesomeIcons.eye,
-                                                size: 15,
-                                              ),
-                                              color:
-                                                  context
-                                                      .theme
-                                                      .colorScheme
-                                                      .onPrimary,
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  AuthRoutesName
-                                                      .leaveHistoryDetailsPage,
-                                                  arguments: {
-                                                    'leaveApproval': request,
-                                                    'isEnable': false,
-                                                  },
-                                                );
-                                              },
-                                            ),
-
-                                          if (request.currentStage == "Applied")
-                                            IconButton(
-                                              icon: const Icon(
-                                                FontAwesomeIcons.penToSquare,
-                                                size: 15,
-                                              ),
-                                              color:
-                                                  context
-                                                      .theme
-                                                      .colorScheme
-                                                      .onPrimary,
-                                              onPressed: () {
-                                                Navigator.pushNamed(
-                                                  context,
-                                                  AuthRoutesName
-                                                      .leaveHistoryDetailsPage,
-                                                  arguments: {
-                                                    'leaveApproval': request,
-                                                    'isEnable': true,
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  }
+                          );
+                        },
+                      );
+                    }
 
-                  // Default fallback widget
-                  return const SizedBox.shrink();
-                },
+                    // Default fallback widget
+                    return const SizedBox.shrink();
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

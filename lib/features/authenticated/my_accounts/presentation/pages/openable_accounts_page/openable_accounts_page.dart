@@ -30,110 +30,112 @@ class _OpenableAccountsPageState extends State<OpenableAccountsPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "openable_accounts_page_title")),
       ),
-      body: BlocBuilder<OpenableAccountBloc, OpenableAccountState>(
-        builder: (context, state) {
-          if (state is OpenableAccountLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is OpenableAccountError) {
-            return Center(
-              child: Text(
-                state.error,
-                style: const TextStyle(color: Colors.red, fontSize: 16),
-              ),
-            );
-          } else if (state is OpenableAccountSuccess) {
-            if (state.openableAccounts.isEmpty) {
+      body: SafeArea(
+        child: BlocBuilder<OpenableAccountBloc, OpenableAccountState>(
+          builder: (context, state) {
+            if (state is OpenableAccountLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is OpenableAccountError) {
               return Center(
                 child: Text(
-                  Locales.string(context, 'no_accounts_available_to_open'),
-                  style: TextStyle(fontSize: 16),
+                  state.error,
+                  style: const TextStyle(color: Colors.red, fontSize: 16),
                 ),
+              );
+            } else if (state is OpenableAccountSuccess) {
+              if (state.openableAccounts.isEmpty) {
+                return Center(
+                  child: Text(
+                    Locales.string(context, 'no_accounts_available_to_open'),
+                    style: TextStyle(fontSize: 16),
+                  ),
+                );
+              }
+
+              return Accordion(
+                headerBorderWidth: 3,
+                headerBorderColor: context.theme.colorScheme.primary,
+                headerBorderColorOpened: context.theme.colorScheme.primary,
+                headerBackgroundColorOpened: context.theme.colorScheme.primary,
+                contentBackgroundColor: context.theme.colorScheme.surface,
+                contentBorderColor: context.theme.colorScheme.primary,
+                contentBorderWidth: 3,
+                contentHorizontalPadding: 20,
+                scaleWhenAnimating: true,
+                openAndCloseAnimation: true,
+                headerPadding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 15,
+                ),
+                sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
+                sectionClosingHapticFeedback: SectionHapticFeedback.light,
+                children:
+                    state.openableAccounts.map((openableAccount) {
+                      final headerColor = context.theme.colorScheme.primary;
+                      final iconColor = context.theme.colorScheme.onPrimary;
+
+                      return AccordionSection(
+                        isOpen: false,
+                        headerBackgroundColor: headerColor,
+                        headerBackgroundColorOpened: headerColor,
+                        headerBorderColor: headerColor,
+                        contentBorderColor: headerColor,
+                        contentVerticalPadding: 20,
+                        paddingBetweenClosedSections: 20,
+                        leftIcon: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Icon(
+                            FontAwesomeIcons.check,
+                            size: 30,
+                            color: iconColor,
+                          ),
+                        ),
+                        header: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              openableAccount.productName,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: iconColor,
+                              ),
+                            ),
+                            Text(
+                              openableAccount.productTypeName,
+                              style: TextStyle(fontSize: 14, color: iconColor),
+                            ),
+                          ],
+                        ),
+                        content: Column(
+                          children: [
+                            Html(data: openableAccount.description),
+                            AppPrimaryButton(
+                              label: Locales.string(
+                                context,
+                                "openable_accounts_page_open_an_account_title",
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AuthRoutesName.createNewAccountPage,
+                                  arguments: {
+                                    'productCode': openableAccount.productCode,
+                                    'productName': openableAccount.productName,
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    }).toList(),
               );
             }
 
-            return Accordion(
-              headerBorderWidth: 3,
-              headerBorderColor: context.theme.colorScheme.primary,
-              headerBorderColorOpened: context.theme.colorScheme.primary,
-              headerBackgroundColorOpened: context.theme.colorScheme.primary,
-              contentBackgroundColor: context.theme.colorScheme.surface,
-              contentBorderColor: context.theme.colorScheme.primary,
-              contentBorderWidth: 3,
-              contentHorizontalPadding: 20,
-              scaleWhenAnimating: true,
-              openAndCloseAnimation: true,
-              headerPadding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 15,
-              ),
-              sectionOpeningHapticFeedback: SectionHapticFeedback.heavy,
-              sectionClosingHapticFeedback: SectionHapticFeedback.light,
-              children:
-                  state.openableAccounts.map((openableAccount) {
-                    final headerColor = context.theme.colorScheme.primary;
-                    final iconColor = context.theme.colorScheme.onPrimary;
-
-                    return AccordionSection(
-                      isOpen: false,
-                      headerBackgroundColor: headerColor,
-                      headerBackgroundColorOpened: headerColor,
-                      headerBorderColor: headerColor,
-                      contentBorderColor: headerColor,
-                      contentVerticalPadding: 20,
-                      paddingBetweenClosedSections: 20,
-                      leftIcon: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Icon(
-                          FontAwesomeIcons.check,
-                          size: 30,
-                          color: iconColor,
-                        ),
-                      ),
-                      header: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            openableAccount.productName,
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: iconColor,
-                            ),
-                          ),
-                          Text(
-                            openableAccount.productTypeName,
-                            style: TextStyle(fontSize: 14, color: iconColor),
-                          ),
-                        ],
-                      ),
-                      content: Column(
-                        children: [
-                          Html(data: openableAccount.description),
-                          AppPrimaryButton(
-                            label: Locales.string(
-                              context,
-                              "openable_accounts_page_open_an_account_title",
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                context,
-                                AuthRoutesName.createNewAccountPage,
-                                arguments: {
-                                  'productCode': openableAccount.productCode,
-                                  'productName': openableAccount.productName,
-                                },
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  }).toList(),
-            );
-          }
-
-          return const SizedBox.shrink();
-        },
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

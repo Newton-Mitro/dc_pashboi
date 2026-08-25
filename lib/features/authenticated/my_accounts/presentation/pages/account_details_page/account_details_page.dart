@@ -101,219 +101,226 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         appBar: AppBar(
           title: Text(Locales.string(context, 'account_details_page_title')),
         ),
-        body: PageContainer(
-          child: BlocBuilder<AccountDetailsBloc, AccountDetailsState>(
-            builder: (context, state) {
-              if (state is AccountDetailsLoading ||
-                  state is AccountDetailsInitial) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        body: SafeArea(
+          child: PageContainer(
+            child: BlocBuilder<AccountDetailsBloc, AccountDetailsState>(
+              builder: (context, state) {
+                if (state is AccountDetailsLoading ||
+                    state is AccountDetailsInitial) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (state is AccountDetailsError) {
-                return Center(child: Text(state.error));
-              }
+                if (state is AccountDetailsError) {
+                  return Center(child: Text(state.error));
+                }
 
-              if (state is AccountDetailsSuccess) {
-                final account = state.account;
+                if (state is AccountDetailsSuccess) {
+                  final account = state.account;
 
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 35),
-                      Icon(
-                        FontAwesomeIcons.piggyBank,
-                        size: 60,
-                        color: context.theme.colorScheme.onSurface,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        account.name.toTitleCase(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                  return SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 35),
+                        Icon(
+                          FontAwesomeIcons.piggyBank,
+                          size: 60,
                           color: context.theme.colorScheme.onSurface,
                         ),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        account.typeName,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: context.theme.colorScheme.onSurface,
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        account.number,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: context.theme.colorScheme.onSurface,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 20,
-                        children: [
-                          Chip(
-                            label: Text(
-                              account.status.toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: context.theme.colorScheme.onSecondary,
-                              ),
-                            ),
-                            backgroundColor:
-                                context.theme.colorScheme.secondary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            side: BorderSide(
-                              color: context.theme.colorScheme.secondary,
-                              width: 1,
-                            ),
-                            visualDensity: VisualDensity.compact,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
+                        const SizedBox(height: 10),
+                        Text(
+                          account.name.toTitleCase(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: context.theme.colorScheme.onSurface,
                           ),
-                          Chip(
-                            label: Text(
-                              account.defaultAccount ? "Defaulter" : "Regular",
-                              style: TextStyle(
-                                fontSize: 12,
-                                color:
-                                    account.defaultAccount
-                                        ? context.theme.colorScheme.onError
-                                        : context.theme.colorScheme.onPrimary,
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          account.typeName,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: context.theme.colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Text(
+                          account.number,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: context.theme.colorScheme.onSurface,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 20,
+                          children: [
+                            Chip(
+                              label: Text(
+                                account.status.toUpperCase(),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: context.theme.colorScheme.onSecondary,
+                                ),
                               ),
+                              backgroundColor:
+                                  context.theme.colorScheme.secondary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              side: BorderSide(
+                                color: context.theme.colorScheme.secondary,
+                                width: 1,
+                              ),
+                              visualDensity: VisualDensity.compact,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
                             ),
-                            backgroundColor:
+                            Chip(
+                              label: Text(
                                 account.defaultAccount
-                                    ? context.theme.colorScheme.error
-                                    : context.theme.colorScheme.primary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            side: BorderSide(
-                              color:
+                                    ? "Defaulter"
+                                    : "Regular",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color:
+                                      account.defaultAccount
+                                          ? context.theme.colorScheme.onError
+                                          : context.theme.colorScheme.onPrimary,
+                                ),
+                              ),
+                              backgroundColor:
                                   account.defaultAccount
                                       ? context.theme.colorScheme.error
                                       : context.theme.colorScheme.primary,
-                              width: 1,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              side: BorderSide(
+                                color:
+                                    account.defaultAccount
+                                        ? context.theme.colorScheme.error
+                                        : context.theme.colorScheme.primary,
+                                width: 1,
+                              ),
+                              visualDensity: VisualDensity.compact,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
                             ),
-                            visualDensity: VisualDensity.compact,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          _buildCircleStat(
-                            context,
-                            Locales.string(
-                              context,
-                              'account_details_page_balance',
-                            ),
-                            TakaFormatter.format(account.balance),
-                            context.theme.colorScheme.secondary,
-                            context.theme.colorScheme.onSecondary,
-                          ),
-                          if (account.typeCode == "16")
+                          ],
+                        ),
+                        const SizedBox(height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
                             _buildCircleStat(
                               context,
-                              // "Withdrawable",
                               Locales.string(
                                 context,
-                                'account_details_page_withdrawable',
+                                'account_details_page_balance',
                               ),
-                              TakaFormatter.format(account.withdrawableBalance),
-                              context.theme.colorScheme.primary,
-                              context.theme.colorScheme.onPrimary,
+                              TakaFormatter.format(account.balance),
+                              context.theme.colorScheme.secondary,
+                              context.theme.colorScheme.onSecondary,
                             ),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      Column(
-                        children: [
-                          buildInfoRow(
-                            context,
-                            Locales.string(
-                              context,
-                              'account_details_page_last_deposit_date',
-                            ),
-                            MyDateUtils.formatDate(account.lastPaidDate),
-                            icon: FontAwesomeIcons.calendarCheck,
-                          ),
-                          buildInfoRow(
-                            context,
-                            Locales.string(
-                              context,
-                              'account_details_page_maturity_date',
-                            ),
-                            MyDateUtils.formatDate(account.maturityDate),
-                            icon: FontAwesomeIcons.hourglassEnd,
-                          ),
-                          buildInfoRow(
-                            context,
-                            Locales.string(
-                              context,
-                              'account_details_page_nominee',
-                            ),
-                            account.nominees.toTitleCase(),
-                            icon: FontAwesomeIcons.userShield,
-                          ),
-                          // AccountStatementPage(),
-                        ],
-                      ),
-                      const SizedBox(height: 20),
-
-                      if (!["18", "30", "22"].contains(account.typeCode)) ...[
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              AuthRoutesName.accountStatementPage,
-                              arguments: {
-                                // 'accountNumber': account.number.trim(),
-                                'accountDetails': account,
-                              },
-                            );
-                          },
-
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 12,
-                            ),
-                            backgroundColor: context.theme.colorScheme.primary,
-                            foregroundColor:
+                            if (account.typeCode == "16")
+                              _buildCircleStat(
+                                context,
+                                // "Withdrawable",
+                                Locales.string(
+                                  context,
+                                  'account_details_page_withdrawable',
+                                ),
+                                TakaFormatter.format(
+                                  account.withdrawableBalance,
+                                ),
+                                context.theme.colorScheme.primary,
                                 context.theme.colorScheme.onPrimary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: Text(
-                            Locales.string(
-                              context,
-                              'account_details_page_view_statement_button_text',
-                            ),
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                              ),
+                          ],
                         ),
-                      ],
-                    ],
-                  ),
-                );
-              }
+                        const SizedBox(height: 30),
+                        Column(
+                          children: [
+                            buildInfoRow(
+                              context,
+                              Locales.string(
+                                context,
+                                'account_details_page_last_deposit_date',
+                              ),
+                              MyDateUtils.formatDate(account.lastPaidDate),
+                              icon: FontAwesomeIcons.calendarCheck,
+                            ),
+                            buildInfoRow(
+                              context,
+                              Locales.string(
+                                context,
+                                'account_details_page_maturity_date',
+                              ),
+                              MyDateUtils.formatDate(account.maturityDate),
+                              icon: FontAwesomeIcons.hourglassEnd,
+                            ),
+                            buildInfoRow(
+                              context,
+                              Locales.string(
+                                context,
+                                'account_details_page_nominee',
+                              ),
+                              account.nominees.toTitleCase(),
+                              icon: FontAwesomeIcons.userShield,
+                            ),
+                            // AccountStatementPage(),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
 
-              return const SizedBox.shrink();
-            },
+                        if (!["18", "30", "22"].contains(account.typeCode)) ...[
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                context,
+                                AuthRoutesName.accountStatementPage,
+                                arguments: {
+                                  // 'accountNumber': account.number.trim(),
+                                  'accountDetails': account,
+                                },
+                              );
+                            },
+
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 12,
+                              ),
+                              backgroundColor:
+                                  context.theme.colorScheme.primary,
+                              foregroundColor:
+                                  context.theme.colorScheme.onPrimary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              Locales.string(
+                                context,
+                                'account_details_page_view_statement_button_text',
+                              ),
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                }
+
+                return const SizedBox.shrink();
+              },
+            ),
           ),
         ),
       ),

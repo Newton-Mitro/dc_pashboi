@@ -107,68 +107,73 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
       },
       child: Scaffold(
         appBar: AppBar(title: Text(widget.pageTitle)),
-        body: PageContainer(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 36),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    const Icon(FontAwesomeIcons.mobileScreenButton, size: 80),
-                    const SizedBox(height: 16),
-                    Text(
-                      Locales.string(context, "mobile_verification_page_title"),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+        body: SafeArea(
+          child: PageContainer(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 36),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      const Icon(FontAwesomeIcons.mobileScreenButton, size: 80),
+                      const SizedBox(height: 16),
+                      Text(
+                        Locales.string(
+                          context,
+                          "mobile_verification_page_title",
+                        ),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 24),
-
-                PrefixedMobileNumberInput(
-                  errorText: mobileError,
-                  label: Locales.string(
-                    context,
-                    "mobile_verification_page_mobile_number_label",
+                    ],
                   ),
-                  prefixIcon: const Icon(Icons.phone),
-                  prefix: _prefix,
-                  onChanged: (value) {
-                    setState(() {
-                      _mobileNumber = value;
-                      mobileError = null;
-                    });
-                  },
-                ),
 
-                const SizedBox(height: 20),
+                  const SizedBox(height: 24),
 
-                BlocBuilder<VerifyMobileNumberBloc, VerifyMobileNumberState>(
-                  builder: (context, state) {
-                    final isLoading = state is VerifyMobileNumberLoading;
+                  PrefixedMobileNumberInput(
+                    errorText: mobileError,
+                    label: Locales.string(
+                      context,
+                      "mobile_verification_page_mobile_number_label",
+                    ),
+                    prefixIcon: const Icon(Icons.phone),
+                    prefix: _prefix,
+                    onChanged: (value) {
+                      setState(() {
+                        _mobileNumber = value;
+                        mobileError = null;
+                      });
+                    },
+                  ),
 
-                    return AppPrimaryButton(
-                      label:
-                          isLoading
-                              ? Locales.string(context, 'sending')
-                              : Locales.string(
-                                context,
-                                "mobile_verification_page_send_otp_button",
-                              ),
-                      onPressed: isLoading ? null : _sendOtp,
-                      iconBefore: Icon(
-                        Icons.send,
-                        color: context.theme.colorScheme.onPrimary,
-                      ),
-                    );
-                  },
-                ),
-              ],
+                  const SizedBox(height: 20),
+
+                  BlocBuilder<VerifyMobileNumberBloc, VerifyMobileNumberState>(
+                    builder: (context, state) {
+                      final isLoading = state is VerifyMobileNumberLoading;
+
+                      return AppPrimaryButton(
+                        label:
+                            isLoading
+                                ? Locales.string(context, 'sending')
+                                : Locales.string(
+                                  context,
+                                  "mobile_verification_page_send_otp_button",
+                                ),
+                        onPressed: isLoading ? null : _sendOtp,
+                        iconBefore: Icon(
+                          Icons.send,
+                          color: context.theme.colorScheme.onPrimary,
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),

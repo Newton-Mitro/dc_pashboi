@@ -23,61 +23,66 @@ class WithdrawQrSuccessPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(Locales.string(context, "otqr_generated_successfully")),
       ),
-      body: PageContainer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // 📷 QR Code image section
-            Container(
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: colorScheme.outlineVariant, width: 1),
+      body: SafeArea(
+        child: PageContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // 📷 QR Code image section
+              Container(
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: colorScheme.outlineVariant,
+                    width: 1,
+                  ),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: QrImageView(
+                  data: successMessage,
+                  version: QrVersions.auto,
+                  size: 250.0,
+                  backgroundColor: Colors.white,
+                ),
               ),
-              padding: const EdgeInsets.all(16),
-              child: QrImageView(
-                data: successMessage,
-                version: QrVersions.auto,
-                size: 250.0,
-                backgroundColor: Colors.white,
+
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                icon: const Icon(Icons.share),
+                label: Text(Locales.string(context, 'share_qr_code')),
+                onPressed: () async {
+                  await _shareQrCode(successMessage);
+                },
               ),
-            ),
 
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.share),
-              label: Text(Locales.string(context, 'share_qr_code')),
-              onPressed: () async {
-                await _shareQrCode(successMessage);
-              },
-            ),
-
-            const SizedBox(height: 20),
-            // ✅ Main title
-            Text(
-              Locales.string(context, 'withdrawl_qr_generated'),
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: colorScheme.onSurface,
+              const SizedBox(height: 20),
+              // ✅ Main title
+              Text(
+                Locales.string(context, 'withdrawl_qr_generated'),
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            // 🚀 CTA Button
-            AppPrimaryButton(
-              label: Locales.string(context, 'back_to_home'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              iconBefore: Icon(
-                Icons.home,
-                color: context.theme.colorScheme.onPrimary,
+              // 🚀 CTA Button
+              AppPrimaryButton(
+                label: Locales.string(context, 'back_to_home'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                iconBefore: Icon(
+                  Icons.home,
+                  color: context.theme.colorScheme.onPrimary,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

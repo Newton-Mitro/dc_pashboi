@@ -24,11 +24,13 @@ class _LeaveFallbackAcceptancePageState
       appBar: AppBar(
         title: Text(Locales.string(context, "fallback_acceptance")),
       ),
-      body: PageContainer(
-        child: SizedBox(
-          height: double.infinity,
+      body: SafeArea(
+        child: PageContainer(
+          child: SizedBox(
+            height: double.infinity,
 
-          child: SingleChildScrollView(child: _buildForm()),
+            child: SingleChildScrollView(child: _buildForm()),
+          ),
         ),
       ),
     );

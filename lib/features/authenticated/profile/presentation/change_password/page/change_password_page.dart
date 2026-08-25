@@ -52,190 +52,198 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'change_password_title')),
       ),
-      body: BlocListener<ChangePasswordBloc, ChangePasswordState>(
-        listener: (context, state) {
-          if (state is ChangePasswordError) {
-            if (state.message == "No internet connection") {
-              NetworkErrorDialog.show(context);
-            } else {
+      body: SafeArea(
+        child: BlocListener<ChangePasswordBloc, ChangePasswordState>(
+          listener: (context, state) {
+            if (state is ChangePasswordError) {
+              if (state.message == "No internet connection") {
+                NetworkErrorDialog.show(context);
+              } else {
+                final snackBar = SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: Locales.string(context, 'oops'),
+                    message: state.message,
+                    contentType: ContentType.failure,
+                  ),
+                );
+
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context)
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(snackBar);
+              }
+            }
+            if (state is ChangePasswordSuccess) {
               final snackBar = SnackBar(
                 elevation: 0,
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
-                  title: Locales.string(context, 'oops'),
-                  message: state.message,
-                  contentType: ContentType.failure,
+                  title: Locales.string(context, 'success'),
+                  message: Locales.string(
+                    context,
+                    'password_cahanged_successfully',
+                  ),
+                  contentType: ContentType.success,
                 ),
               );
 
-              if (!context.mounted) return;
               ScaffoldMessenger.of(context)
                 ..hideCurrentSnackBar()
                 ..showSnackBar(snackBar);
+
+              Navigator.of(context).pop();
+              context.read<AuthBloc>().add(LogoutRequested());
             }
-          }
-          if (state is ChangePasswordSuccess) {
-            final snackBar = SnackBar(
-              elevation: 0,
-              behavior: SnackBarBehavior.floating,
-              backgroundColor: Colors.transparent,
-              content: AwesomeSnackbarContent(
-                title: Locales.string(context, 'success'),
-                message: Locales.string(
-                  context,
-                  'password_cahanged_successfully',
-                ),
-                contentType: ContentType.success,
-              ),
-            );
-
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(snackBar);
-
-            Navigator.of(context).pop();
-            context.read<AuthBloc>().add(LogoutRequested());
-          }
-        },
-        child: BlocBuilder<ChangePasswordBloc, ChangePasswordState>(
-          builder: (context, state) {
-            return PageContainer(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: LayoutBuilder(
-                      builder: (context, constraints) {
-                        return SingleChildScrollView(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minHeight: constraints.maxHeight,
-                            ),
-                            child: IntrinsicHeight(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                spacing: 10,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Icon(
-                                        FontAwesomeIcons.key,
-                                        size: 40,
+          },
+          child: BlocBuilder<ChangePasswordBloc, ChangePasswordState>(
+            builder: (context, state) {
+              return PageContainer(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          return SingleChildScrollView(
+                            padding: const EdgeInsets.all(16.0),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                minHeight: constraints.maxHeight,
+                              ),
+                              child: IntrinsicHeight(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  spacing: 10,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Icon(
+                                          FontAwesomeIcons.key,
+                                          size: 40,
+                                          color:
+                                              context
+                                                  .theme
+                                                  .colorScheme
+                                                  .onSurface,
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          Locales.string(
+                                            context,
+                                            'change_password_title',
+                                          ),
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 45),
+                                    AppTextInput(
+                                      label: Locales.string(
+                                        context,
+                                        'change_password_current_password_input_label',
+                                      ),
+                                      controller: currentPasswordController,
+                                      errorText:
+                                          state is ChangePasswordValidationError
+                                              ? state
+                                                          .errors['currentPassword']
+                                                          ?.isNotEmpty ==
+                                                      true
+                                                  ? state
+                                                      .errors['currentPassword']
+                                                  : null
+                                              : null,
+                                      obscureText: true,
+                                      prefixIcon: Icon(
+                                        Icons.lock,
                                         color:
                                             context.theme.colorScheme.onSurface,
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        Locales.string(
-                                          context,
-                                          'change_password_title',
-                                        ),
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 45),
-                                  AppTextInput(
-                                    label: Locales.string(
-                                      context,
-                                      'change_password_current_password_input_label',
                                     ),
-                                    controller: currentPasswordController,
-                                    errorText:
-                                        state is ChangePasswordValidationError
-                                            ? state
-                                                        .errors['currentPassword']
-                                                        ?.isNotEmpty ==
-                                                    true
-                                                ? state
-                                                    .errors['currentPassword']
-                                                : null
-                                            : null,
-                                    obscureText: true,
-                                    prefixIcon: Icon(
-                                      Icons.lock,
-                                      color:
-                                          context.theme.colorScheme.onSurface,
-                                    ),
-                                  ),
 
-                                  AppTextInput(
-                                    controller: newPasswordController,
-                                    errorText:
-                                        state is ChangePasswordValidationError
-                                            ? state
-                                                        .errors['newPassword']
-                                                        ?.isNotEmpty ==
-                                                    true
-                                                ? state.errors['newPassword']
-                                                : null
-                                            : null,
-                                    obscureText: true,
-                                    prefixIcon: Icon(
-                                      Icons.lock,
-                                      color:
-                                          context.theme.colorScheme.onSurface,
+                                    AppTextInput(
+                                      controller: newPasswordController,
+                                      errorText:
+                                          state is ChangePasswordValidationError
+                                              ? state
+                                                          .errors['newPassword']
+                                                          ?.isNotEmpty ==
+                                                      true
+                                                  ? state.errors['newPassword']
+                                                  : null
+                                              : null,
+                                      obscureText: true,
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color:
+                                            context.theme.colorScheme.onSurface,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'change_password_new_password_input_label',
+                                      ),
                                     ),
-                                    label: Locales.string(
-                                      context,
-                                      'change_password_new_password_input_label',
+                                    PasswordStrengthIndicatorPlus(
+                                      textController: newPasswordController,
+                                      hideRules: true,
                                     ),
-                                  ),
-                                  PasswordStrengthIndicatorPlus(
-                                    textController: newPasswordController,
-                                    hideRules: true,
-                                  ),
-                                  const SizedBox(height: 1),
-                                  AppTextInput(
-                                    prefixIcon: Icon(
-                                      Icons.lock,
-                                      color:
-                                          context.theme.colorScheme.onSurface,
+                                    const SizedBox(height: 1),
+                                    AppTextInput(
+                                      prefixIcon: Icon(
+                                        Icons.lock,
+                                        color:
+                                            context.theme.colorScheme.onSurface,
+                                      ),
+                                      errorText:
+                                          state is ChangePasswordValidationError
+                                              ? state
+                                                          .errors['confirmPassword']
+                                                          ?.isNotEmpty ==
+                                                      true
+                                                  ? state
+                                                      .errors['confirmPassword']
+                                                  : null
+                                              : null,
+                                      controller: confirmPasswordController,
+                                      label: Locales.string(
+                                        context,
+                                        'change_password_confirm_password_input_label',
+                                      ),
+                                      obscureText: true,
                                     ),
-                                    errorText:
-                                        state is ChangePasswordValidationError
-                                            ? state
-                                                        .errors['confirmPassword']
-                                                        ?.isNotEmpty ==
-                                                    true
-                                                ? state
-                                                    .errors['confirmPassword']
-                                                : null
-                                            : null,
-                                    controller: confirmPasswordController,
-                                    label: Locales.string(
-                                      context,
-                                      'change_password_confirm_password_input_label',
-                                    ),
-                                    obscureText: true,
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                  ),
 
-                  ProgressSubmitButton(
-                    width: width - 10,
-                    height: 100,
-                    enabled: state is ChangePasswordLoading ? false : true,
-                    backgroundColor: context.theme.colorScheme.primary,
-                    progressColor: context.theme.colorScheme.secondary,
-                    foregroundColor: context.theme.colorScheme.onPrimary,
-                    label: Locales.string(context, 'press_and_hold_to_submit'),
-                    onSubmit: _submit,
-                  ),
-                ],
-              ),
-            );
-          },
+                    ProgressSubmitButton(
+                      width: width - 10,
+                      height: 100,
+                      enabled: state is ChangePasswordLoading ? false : true,
+                      backgroundColor: context.theme.colorScheme.primary,
+                      progressColor: context.theme.colorScheme.secondary,
+                      foregroundColor: context.theme.colorScheme.onPrimary,
+                      label: Locales.string(
+                        context,
+                        'press_and_hold_to_submit',
+                      ),
+                      onSubmit: _submit,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

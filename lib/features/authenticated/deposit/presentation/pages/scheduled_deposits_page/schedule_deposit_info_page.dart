@@ -28,210 +28,216 @@ class ScheduleDepositInfoPage extends StatelessWidget {
           Locales.string(context, "schedule_deposit_info_page_title"),
         ),
       ),
-      body: PageContainer(
-        child: Stack(
-          children: [
-            // Scrollable content
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Schedule Info
-                  if (depositRequest != null) ...[
-                    SectionTitle(
-                      Locales.string(
-                        context,
-                        "schedule_deposit_info_page_schedule_info_section_title",
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(
-                        bottom: 16,
-                        left: 16,
-                        right: 16,
-                      ),
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: colorScheme.surface,
-                        border: Border.all(
-                          color: colorScheme.primary,
-                          width: 1.2,
+      body: SafeArea(
+        child: PageContainer(
+          child: Stack(
+            children: [
+              // Scrollable content
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Schedule Info
+                    if (depositRequest != null) ...[
+                      SectionTitle(
+                        Locales.string(
+                          context,
+                          "schedule_deposit_info_page_schedule_info_section_title",
                         ),
-                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        spacing: 5,
-                        children: [
-                          Text(
-                            "${Locales.string(context, "schedule_deposit_info_page_request_id_label")}: ${depositRequest!.id}",
-                            style: TextStyle(
-                              color: colorScheme.onSurface,
-                              fontSize: 13,
-                            ),
+                      Container(
+                        margin: const EdgeInsets.only(
+                          bottom: 16,
+                          left: 16,
+                          right: 16,
+                        ),
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: colorScheme.surface,
+                          border: Border.all(
+                            color: colorScheme.primary,
+                            width: 1.2,
                           ),
-                          Text(
-                            "${Locales.string(context, "schedule_deposit_info_page_type_label")}: ${depositRequest!.transactionMethod == "Savings Account" ? "Schedule Deposit" : depositRequest!.transactionMethod}",
-                            style: TextStyle(
-                              color: colorScheme.onSurface,
-                              fontSize: 13,
-                            ),
-                          ),
-                          Text(
-                            "${Locales.string(context, "schedule_deposit_info_page_schedule_date_label")}: ${MyDateUtils.formatDate(depositRequest!.depositDate)}",
-                            style: TextStyle(
-                              color: colorScheme.onSurface,
-                              fontSize: 13,
-                            ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 5,
-                              vertical: 0,
-                            ),
-                            decoration: BoxDecoration(
-                              color:
-                                  depositRequest!.status == "Approved"
-                                      ? Colors.green
-                                      : Colors.orange,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Text(
-                              depositRequest!.status,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: 'Lexend',
-                                fontWeight: FontWeight.normal,
-                                color:
-                                    depositRequest!.status == "Approved"
-                                        ? context.theme.colorScheme.onTertiary
-                                        : context.theme.colorScheme.onSecondary,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-
-                  SectionTitle(
-                    Locales.string(
-                      context,
-                      "schedule_deposit_info_page_accounts_to_deposit_section_title",
-                    ),
-                  ),
-                  Expanded(
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.only(left: 16, right: 16),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
+                          spacing: 5,
                           children: [
-                            if (depositRequest != null)
-                              for (final ledger in depositRequest!.transactions)
-                                Container(
-                                  margin: const EdgeInsets.only(bottom: 8),
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: colorScheme.surface,
-                                    border: Border.all(
-                                      color: colorScheme.primary,
-                                      width: 1.2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              ledger.perticulars,
-                                              style: TextStyle(
-                                                color: colorScheme.onSurface,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 13,
-                                              ),
-                                            ),
-                                            Text(
-                                              ledger.accountNumber,
-                                              style: TextStyle(
-                                                color: colorScheme.onSurface,
-                                                fontSize: 11,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Text(
-                                        TakaFormatter.format(ledger.amount),
-                                        style: TextStyle(
-                                          color: colorScheme.onSurface,
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                            Text(
+                              "${Locales.string(context, "schedule_deposit_info_page_request_id_label")}: ${depositRequest!.id}",
+                              style: TextStyle(
+                                color: colorScheme.onSurface,
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              "${Locales.string(context, "schedule_deposit_info_page_type_label")}: ${depositRequest!.transactionMethod == "Savings Account" ? "Schedule Deposit" : depositRequest!.transactionMethod}",
+                              style: TextStyle(
+                                color: colorScheme.onSurface,
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              "${Locales.string(context, "schedule_deposit_info_page_schedule_date_label")}: ${MyDateUtils.formatDate(depositRequest!.depositDate)}",
+                              style: TextStyle(
+                                color: colorScheme.onSurface,
+                                fontSize: 13,
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                                vertical: 0,
+                              ),
+                              decoration: BoxDecoration(
+                                color:
+                                    depositRequest!.status == "Approved"
+                                        ? Colors.green
+                                        : Colors.orange,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                depositRequest!.status,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: 'Lexend',
+                                  fontWeight: FontWeight.normal,
+                                  color:
+                                      depositRequest!.status == "Approved"
+                                          ? context.theme.colorScheme.onTertiary
+                                          : context
+                                              .theme
+                                              .colorScheme
+                                              .onSecondary,
                                 ),
-
-                            // Padding at bottom so content isn't hidden
-                            const SizedBox(height: 70),
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                    ],
 
-            // Fixed Bottom Total
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 55,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                  color: colorScheme.surface,
-                  border: Border(
-                    top: BorderSide(color: colorScheme.primary, width: 1.2),
-                  ),
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(8),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "${Locales.string(context, "schedule_deposit_info_page_total_deposit_amount_label")}:",
-                      style: TextStyle(
-                        color: colorScheme.onSurface,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
+                    SectionTitle(
+                      Locales.string(
+                        context,
+                        "schedule_deposit_info_page_accounts_to_deposit_section_title",
                       ),
                     ),
-                    Text(
-                      TakaFormatter.format(totalAmount),
-                      style: TextStyle(
-                        color: colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
+                    Expanded(
+                      child: Scrollbar(
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.only(left: 16, right: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (depositRequest != null)
+                                for (final ledger
+                                    in depositRequest!.transactions)
+                                  Container(
+                                    margin: const EdgeInsets.only(bottom: 8),
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: colorScheme.surface,
+                                      border: Border.all(
+                                        color: colorScheme.primary,
+                                        width: 1.2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                ledger.perticulars,
+                                                style: TextStyle(
+                                                  color: colorScheme.onSurface,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 13,
+                                                ),
+                                              ),
+                                              Text(
+                                                ledger.accountNumber,
+                                                style: TextStyle(
+                                                  color: colorScheme.onSurface,
+                                                  fontSize: 11,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Text(
+                                          TakaFormatter.format(ledger.amount),
+                                          style: TextStyle(
+                                            color: colorScheme.onSurface,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
+                              // Padding at bottom so content isn't hidden
+                              const SizedBox(height: 70),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-          ],
+
+              // Fixed Bottom Total
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 55,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: colorScheme.surface,
+                    border: Border(
+                      top: BorderSide(color: colorScheme.primary, width: 1.2),
+                    ),
+                    borderRadius: const BorderRadius.vertical(
+                      bottom: Radius.circular(8),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${Locales.string(context, "schedule_deposit_info_page_total_deposit_amount_label")}:",
+                        style: TextStyle(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        TakaFormatter.format(totalAmount),
+                        style: TextStyle(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

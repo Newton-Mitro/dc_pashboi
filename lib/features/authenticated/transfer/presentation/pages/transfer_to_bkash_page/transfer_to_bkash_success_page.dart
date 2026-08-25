@@ -18,60 +18,62 @@ class TransferToBkashSuccessPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(Locales.string(context, 'transfer_to_bkash_success')),
       ),
-      body: PageContainer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // 🎯 Circle success icon
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: DarkBlueOceanColors().success.withOpacity(0.1),
+      body: SafeArea(
+        child: PageContainer(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // 🎯 Circle success icon
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: DarkBlueOceanColors().success.withOpacity(0.1),
+                ),
+                padding: const EdgeInsets.all(24),
+                child: Icon(
+                  Icons.check_circle_rounded,
+                  size: 80,
+                  color: DarkBlueOceanColors().success,
+                ),
               ),
-              padding: const EdgeInsets.all(24),
-              child: Icon(
-                Icons.check_circle_rounded,
-                size: 80,
-                color: DarkBlueOceanColors().success,
+
+              const SizedBox(height: 24),
+
+              // ✅ Main title
+              Text(
+                Locales.string(context, 'transaction_successful'),
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                  color: DarkBlueOceanColors().success,
+                ),
+                textAlign: TextAlign.center,
               ),
-            ),
 
-            const SizedBox(height: 24),
+              const SizedBox(height: 12),
 
-            // ✅ Main title
-            Text(
-              Locales.string(context, 'transaction_successful'),
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-                color: DarkBlueOceanColors().success,
+              // 📝 Subtitle / Custom message
+              Text(
+                successMessage,
+                style: TextStyle(fontSize: 16, color: colorScheme.onSurface),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
 
-            const SizedBox(height: 12),
+              const SizedBox(height: 32),
 
-            // 📝 Subtitle / Custom message
-            Text(
-              successMessage,
-              style: TextStyle(fontSize: 16, color: colorScheme.onSurface),
-              textAlign: TextAlign.center,
-            ),
-
-            const SizedBox(height: 32),
-
-            // 🚀 CTA Button
-            AppPrimaryButton(
-              label: Locales.string(context, 'back_to_home'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              iconBefore: Icon(
-                Icons.home,
-                color: context.theme.colorScheme.onPrimary,
+              // 🚀 CTA Button
+              AppPrimaryButton(
+                label: Locales.string(context, 'back_to_home'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                iconBefore: Icon(
+                  Icons.home,
+                  color: context.theme.colorScheme.onPrimary,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

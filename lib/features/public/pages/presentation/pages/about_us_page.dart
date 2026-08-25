@@ -29,45 +29,47 @@ class _AboutUsPageState extends State<AboutUsPage> {
           foregroundColor: context.theme.colorScheme.onPrimary,
           elevation: 0,
         ),
-        body: PageContainer(
-          child: BlocBuilder<PageBloc, PageState>(
-            builder: (context, state) {
-              if (state is PageLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        body: SafeArea(
+          child: PageContainer(
+            child: BlocBuilder<PageBloc, PageState>(
+              builder: (context, state) {
+                if (state is PageLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (state is PageError) {
-                return Center(child: Text(state.error));
-              }
+                if (state is PageError) {
+                  return Center(child: Text(state.error));
+                }
 
-              if (state is PageSuccess) {
-                final page = state.pageData;
+                if (state is PageSuccess) {
+                  final page = state.pageData;
 
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 12),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          page.shortDescription ?? 'No shortDescription',
-                          style: Theme.of(context).textTheme.headlineSmall,
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 12),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            page.shortDescription ?? 'No shortDescription',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      Html(
-                        data: page.longDescription,
-                        style: {"*": Style(textAlign: TextAlign.justify)},
-                      ),
-                    ],
-                  ),
-                );
-              }
+                        const SizedBox(height: 12),
+                        Html(
+                          data: page.longDescription,
+                          style: {"*": Style(textAlign: TextAlign.justify)},
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
-              return const SizedBox(); // fallback empty state
-            },
+                return const SizedBox(); // fallback empty state
+              },
+            ),
           ),
         ),
       ),

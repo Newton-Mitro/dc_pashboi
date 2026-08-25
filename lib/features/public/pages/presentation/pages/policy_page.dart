@@ -32,37 +32,39 @@ class _PolicyPageState extends State<PolicyPage> {
           foregroundColor: context.theme.colorScheme.onPrimary,
           elevation: 0,
         ),
-        body: PageContainer(
-          child: BlocBuilder<PageBloc, PageState>(
-            builder: (context, state) {
-              if (state is PageLoading) {
-                return const Center(child: CircularProgressIndicator());
-              }
+        body: SafeArea(
+          child: PageContainer(
+            child: BlocBuilder<PageBloc, PageState>(
+              builder: (context, state) {
+                if (state is PageLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
 
-              if (state is PageError) {
-                return Center(child: Text(state.error));
-              }
+                if (state is PageError) {
+                  return Center(child: Text(state.error));
+                }
 
-              if (state is PageSuccess) {
-                final page = state.pageData;
+                if (state is PageSuccess) {
+                  final page = state.pageData;
 
-                return SingleChildScrollView(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Html(
-                    data: page.longDescription,
-                    style: {
-                      "*": Style(
-                        textAlign: TextAlign.justify,
-                        fontSize: FontSize(16.0),
-                        lineHeight: LineHeight.number(1.6),
-                      ),
-                    },
-                  ),
-                );
-              }
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Html(
+                      data: page.longDescription,
+                      style: {
+                        "*": Style(
+                          textAlign: TextAlign.justify,
+                          fontSize: FontSize(16.0),
+                          lineHeight: LineHeight.number(1.6),
+                        ),
+                      },
+                    ),
+                  );
+                }
 
-              return const SizedBox(); // fallback empty state
-            },
+                return const SizedBox(); // fallback empty state
+              },
+            ),
           ),
         ),
       ),

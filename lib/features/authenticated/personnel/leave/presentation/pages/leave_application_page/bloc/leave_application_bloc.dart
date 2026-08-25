@@ -62,26 +62,25 @@ class LeaveApplicationBloc
       final rejoiningDate = data['rejoiningDate'];
       final leaveStageRemarks = data['leaveStageRemarks'];
 
-      final result = await submitLeaveApplicationUseCase.call(
-        SubmitLeaveApplicationProps(
-          remarks: remarks ?? '',
-          fallbackEmployeeCode:
-              leaveTypeCode == "03" ? user.employeeCode : fallbackEmployeeCode,
-          rejoiningDate: rejoiningDate.toString(),
-          toDate: toDate.toString(),
-          fromDate: fromDate.toString(),
-          leaveTypeCode: leaveTypeCode,
-          leaveStageRemarks: leaveStageRemarks ?? '',
-          formTime: fromDate.toString(),
-          toTime: toDate.toString(),
-          email: user.loginEmail,
-          userId: user.userId,
-          rolePermissionId: user.roleId,
-          personId: user.personId,
-          employeeCode: user.employeeCode,
-          mobileNumber: user.regMobile,
-        ),
+      final testData = SubmitLeaveApplicationProps(
+        remarks: remarks ?? '',
+        rejoiningDate: rejoiningDate == null ? '' : fromDate.toString(),
+        fallbackEmployeeCode: fallbackEmployeeCode ?? user.employeeCode,
+        toDate: toDate == null ? '' : toDate.toString(),
+        fromDate: fromDate == null ? '' : fromDate.toString(),
+        leaveTypeCode: leaveTypeCode,
+        leaveStageRemarks: leaveStageRemarks ?? '',
+        formTime: fromDate == null ? '' : fromDate.toString(),
+        toTime: toDate == null ? '' : toDate.toString(),
+        email: user.loginEmail,
+        userId: user.userId,
+        rolePermissionId: user.roleId,
+        personId: user.personId,
+        employeeCode: user.employeeCode,
+        mobileNumber: user.regMobile,
       );
+
+      final result = await submitLeaveApplicationUseCase.call(testData);
 
       result.fold(
         (failure) =>
@@ -90,6 +89,8 @@ class LeaveApplicationBloc
             emit(state.copyWith(successMessage: message, isLoading: false)),
       );
     } catch (e) {
+      print('Leave Application Submit Error: $e');
+
       emit(
         state.copyWith(
           error: appLocalizationService.t('failed_to_submit_leave_application'),

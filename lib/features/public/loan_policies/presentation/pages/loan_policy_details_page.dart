@@ -24,39 +24,41 @@ class LoanPolicyDetailsPage extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: PageContainer(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              showIcon
-                  ? Container(
-                    alignment: Alignment.center,
-                    height: 150,
-                    width: double.infinity,
-                    child: FaIcon(
-                      FontAwesomeIcons.sackDollar,
-                      size: 100,
-                      color: context.theme.colorScheme.onSurface,
-                    ),
-                  )
-                  : Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                        image: NetworkImage(imageUrl),
-                        fit: BoxFit.cover,
+      body: SafeArea(
+        child: PageContainer(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                showIcon
+                    ? Container(
+                      alignment: Alignment.center,
+                      height: 150,
+                      width: double.infinity,
+                      child: FaIcon(
+                        FontAwesomeIcons.sackDollar,
+                        size: 100,
+                        color: context.theme.colorScheme.onSurface,
+                      ),
+                    )
+                    : Container(
+                      height: 200,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          image: NetworkImage(imageUrl),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
-                  ),
-              const SizedBox(height: 16),
+                const SizedBox(height: 16),
 
-              Html(data: loanPolicy.longDescription),
-              // HtmlContentWebView(htmlContent: depositPolicy.longDescription),
-            ],
+                Html(data: loanPolicy.longDescription),
+                // HtmlContentWebView(htmlContent: depositPolicy.longDescription),
+              ],
+            ),
           ),
         ),
       ),

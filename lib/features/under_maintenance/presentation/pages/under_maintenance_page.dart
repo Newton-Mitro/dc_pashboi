@@ -13,63 +13,68 @@ class UnderMaintenancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: PageContainer(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppLogo(width: 150),
+        child: SafeArea(
+          child: PageContainer(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppLogo(width: 150),
 
-                  const SizedBox(height: 32),
+                    const SizedBox(height: 32),
 
-                  // Title
-                  Text(
-                    Locales.string(context, 'under_maintenance_page_title'),
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: context.theme.colorScheme.onSurface,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // Description
-                  Text(
-                    Locales.string(context, 'under_maintenance_page_message'),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: context.theme.colorScheme.onSurface,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-
-                  const SizedBox(height: 32),
-
-                  // Exit Button
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 32,
-                        vertical: 12,
+                    // Title
+                    Text(
+                      Locales.string(context, 'under_maintenance_page_title'),
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: context.theme.colorScheme.onSurface,
                       ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
+                      textAlign: TextAlign.center,
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Description
+                    Text(
+                      Locales.string(context, 'under_maintenance_page_message'),
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: context.theme.colorScheme.onSurface,
                       ),
-                      backgroundColor: context.theme.colorScheme.primary,
-                      foregroundColor: context.theme.colorScheme.onPrimary,
+                      textAlign: TextAlign.center,
                     ),
-                    onPressed: () {
-                      exit(0); // <-- Exit the app
-                    },
-                    child: Text(
-                      Locales.string(context, "under_maintenance_page_button"),
+
+                    const SizedBox(height: 32),
+
+                    // Exit Button
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 12,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        backgroundColor: context.theme.colorScheme.primary,
+                        foregroundColor: context.theme.colorScheme.onPrimary,
+                      ),
+                      onPressed: () {
+                        exit(0); // <-- Exit the app
+                      },
+                      child: Text(
+                        Locales.string(
+                          context,
+                          "under_maintenance_page_button",
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -151,145 +151,151 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
             appBar: AppBar(
               title: Text(Locales.string(context, 'deposit_from_bkash')),
             ),
-            body: Stack(
-              children: [
-                PageContainer(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 16,
-                          right: 16,
-                          top: 15,
-                          bottom: 15,
+            body: SafeArea(
+              child: Stack(
+                children: [
+                  PageContainer(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 16,
+                            right: 16,
+                            top: 15,
+                            bottom: 15,
+                          ),
+                          child: _buildProgressStepper(
+                            width,
+                            depositNowStepsState,
+                          ),
                         ),
-                        child: _buildProgressStepper(
-                          width,
-                          depositNowStepsState,
-                        ),
-                      ),
-                      Expanded(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 300),
-                            transitionBuilder:
-                                (child, animation) => SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(1, 0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                ),
-                            child: KeyedSubtree(
-                              key: ValueKey(depositNowStepsState.currentStep),
-                              child:
-                                  _buildSteps(
-                                    depositNowStepsState,
-                                  )[depositNowStepsState.currentStep].widget,
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              transitionBuilder:
+                                  (child, animation) => SlideTransition(
+                                    position: Tween<Offset>(
+                                      begin: const Offset(1, 0),
+                                      end: Offset.zero,
+                                    ).animate(animation),
+                                    child: child,
+                                  ),
+                              child: KeyedSubtree(
+                                key: ValueKey(depositNowStepsState.currentStep),
+                                child:
+                                    _buildSteps(
+                                      depositNowStepsState,
+                                    )[depositNowStepsState.currentStep].widget,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SafeArea(
-                        maintainBottomViewPadding: true,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 15,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              isFirstStep
-                                  ? const SizedBox(width: 100)
-                                  : AppPrimaryButton(
-                                    horizontalPadding: 5,
-                                    iconBefore: const Icon(
-                                      FontAwesomeIcons.angleLeft,
+                        SafeArea(
+                          maintainBottomViewPadding: true,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 15,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                isFirstStep
+                                    ? const SizedBox(width: 100)
+                                    : AppPrimaryButton(
+                                      horizontalPadding: 5,
+                                      iconBefore: const Icon(
+                                        FontAwesomeIcons.angleLeft,
+                                      ),
+                                      label: Locales.string(
+                                        context,
+                                        'previous_button_text',
+                                      ),
+                                      onPressed: () {
+                                        context
+                                            .read<DepositFromBkashStepsBloc>()
+                                            .add(
+                                              DepositFromBkashGoToPreviousStep(),
+                                            );
+                                      },
                                     ),
-                                    label: Locales.string(
-                                      context,
-                                      'previous_button_text',
-                                    ),
-                                    onPressed: () {
+                                AppPrimaryButton(
+                                  horizontalPadding: 5,
+                                  enabled:
+                                      isLastStep &&
+                                              depositNowStepsState
+                                                      .stepData[2]?['serviceCharge'] ==
+                                                  null
+                                          ? false
+                                          : isLastStep &&
+                                              depositNowStepsState
+                                                      .stepData[2]?['serviceCharge'] ==
+                                                  0
+                                          ? false
+                                          : true,
+                                  iconAfter: const Icon(
+                                    FontAwesomeIcons.angleRight,
+                                  ),
+                                  label:
+                                      isLastStep
+                                          ? Locales.string(
+                                            context,
+                                            'proceed_with_bkash',
+                                          )
+                                          : Locales.string(
+                                            context,
+                                            "next_button_text",
+                                          ),
+                                  onPressed: () {
+                                    if (isLastStep) {
+                                      _submitDepositFromBkash();
+                                    } else {
                                       context
                                           .read<DepositFromBkashStepsBloc>()
-                                          .add(
-                                            DepositFromBkashGoToPreviousStep(),
-                                          );
-                                    },
-                                  ),
-                              AppPrimaryButton(
-                                horizontalPadding: 5,
-                                enabled:
-                                    isLastStep &&
-                                            depositNowStepsState
-                                                    .stepData[2]?['serviceCharge'] ==
-                                                null
-                                        ? false
-                                        : isLastStep &&
-                                            depositNowStepsState
-                                                    .stepData[2]?['serviceCharge'] ==
-                                                0
-                                        ? false
-                                        : true,
-                                iconAfter: const Icon(
-                                  FontAwesomeIcons.angleRight,
+                                          .add(DepositFromBkashGoToNextStep());
+                                    }
+                                  },
                                 ),
-                                label:
-                                    isLastStep
-                                        ? Locales.string(
-                                          context,
-                                          'proceed_with_bkash',
-                                        )
-                                        : Locales.string(
-                                          context,
-                                          "next_button_text",
-                                        ),
-                                onPressed: () {
-                                  if (isLastStep) {
-                                    _submitDepositFromBkash();
-                                  } else {
-                                    context
-                                        .read<DepositFromBkashStepsBloc>()
-                                        .add(DepositFromBkashGoToNextStep());
-                                  }
-                                },
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                BlocBuilder<
-                  DepositFromBkashStepsBloc,
-                  DepositFromBkashStepsState
-                >(
-                  builder: (context, state) {
-                    if (state.isLoading) {
-                      return Container(
-                        color: Colors.black.withOpacity(0.4),
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-                BlocBuilder<CollectionLedgerBloc, CollectionLedgerState>(
-                  builder: (context, state) {
-                    if (state is CollectionLedgerLoading) {
-                      return Container(
-                        color: Colors.black.withOpacity(0.4),
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
-                    }
-                    return const SizedBox.shrink();
-                  },
-                ),
-              ],
+                  BlocBuilder<
+                    DepositFromBkashStepsBloc,
+                    DepositFromBkashStepsState
+                  >(
+                    builder: (context, state) {
+                      if (state.isLoading) {
+                        return Container(
+                          color: Colors.black.withOpacity(0.4),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                  BlocBuilder<CollectionLedgerBloc, CollectionLedgerState>(
+                    builder: (context, state) {
+                      if (state is CollectionLedgerLoading) {
+                        return Container(
+                          color: Colors.black.withOpacity(0.4),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         },

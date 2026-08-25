@@ -108,396 +108,405 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "leave_history_details")),
       ),
-      body: PageContainer(
-        child: SizedBox(
-          height: double.infinity,
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Card(
-                color: context.theme.colorScheme.surface,
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: BorderSide(
-                    color: context.theme.colorScheme.primary,
-                    width: 2,
+      body: SafeArea(
+        child: PageContainer(
+          child: SizedBox(
+            height: double.infinity,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Card(
+                  color: context.theme.colorScheme.surface,
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    side: BorderSide(
+                      color: context.theme.colorScheme.primary,
+                      width: 2,
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            Locales.string(context, "leave_history"),
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      BlocBuilder<LeaveTypeBloc, LeaveTypeState>(
-                        builder: (context, state) {
-                          if (state is LeaveTypeLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-
-                          if (state is LeaveTypeError) {
-                            return Text(
-                              state.message,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              Locales.string(context, "leave_history"),
                               style: TextStyle(
-                                color: context.theme.colorScheme.error,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
-                            );
-                          }
-
-                          if (state is LeaveTypeSuccess) {
-                            final List<LeaveTypeEntity> leaveTypes =
-                                state.leaveTypeEntity;
-
-                            return AppDropdownSelect(
-                              label: Locales.string(context, "leave_type"),
-                              value: selectedLeaveType,
-                              enabled: widget.isEnable,
-                              items:
-                                  leaveTypes
-                                      .map(
-                                        (type) => DropdownMenuItem<String>(
-                                          value:
-                                              type.id, // or type.name if your logic uses that
-                                          child: Text(type.leaveType),
-                                        ),
-                                      )
-                                      .toList(),
-                              prefixIcon: FontAwesomeIcons.addressBook,
-                              onChanged: (newValue) {
-                                setState(() {
-                                  selectedLeaveType = newValue;
-                                });
-                              },
-                            );
-                          }
-
-                          // Fallback for unexpected states
-                          return const SizedBox.shrink();
-                        },
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      if (selectedLeaveType != '02' &&
-                          selectedLeaveType != '03')
-                        Column(
-                          children: [
-                            AppSearchTextInput(
-                              controller: _accountSearchController,
-                              label: Locales.string(
-                                context,
-                                "fallback_employee_id",
-                              ),
-                              isSearch: true,
-                              enabled: widget.isEnable,
-                              prefixIcon: Icon(
-                                FontAwesomeIcons.userTie,
-                                color: context.theme.colorScheme.onSurface,
-                              ),
-                              errorText: '',
-                              onSearchPressed: () {
-                                final searchText =
-                                    _accountSearchController.text.trim();
-                                context.read<SearchEmployeeBloc>().add(
-                                  FetchSearchEmployeeEvent(searchText),
-                                );
-                              },
                             ),
-                            const SizedBox(height: 16),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        BlocBuilder<LeaveTypeBloc, LeaveTypeState>(
+                          builder: (context, state) {
+                            if (state is LeaveTypeLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
 
-                            BlocBuilder<
-                              SearchEmployeeBloc,
-                              SearchEmployeeState
-                            >(
-                              builder: (context, state) {
-                                if (state is SearchEmployeeLoading) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }
+                            if (state is LeaveTypeError) {
+                              return Text(
+                                state.message,
+                                style: TextStyle(
+                                  color: context.theme.colorScheme.error,
+                                ),
+                              );
+                            }
 
-                                if (state is SearchEmployeeError) {
-                                  return Text(
-                                    state.message,
-                                    style: TextStyle(
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                    ),
-                                  );
-                                }
+                            if (state is LeaveTypeSuccess) {
+                              final List<LeaveTypeEntity> leaveTypes =
+                                  state.leaveTypeEntity;
 
-                                if (state is SearchEmployeeSuccess) {
-                                  final List<SearchEmployeeEntity> employees =
-                                      state.employees;
-                                  final String fallbackName =
-                                      employees.isNotEmpty
-                                          ? employees.first.fullName
-                                          : Locales.string(
-                                            context,
-                                            "no_employee_found",
-                                          );
+                              return AppDropdownSelect(
+                                label: Locales.string(context, "leave_type"),
+                                value: selectedLeaveType,
+                                enabled: widget.isEnable,
+                                items:
+                                    leaveTypes
+                                        .map(
+                                          (type) => DropdownMenuItem<String>(
+                                            value:
+                                                type.id, // or type.name if your logic uses that
+                                            child: Text(type.leaveType),
+                                          ),
+                                        )
+                                        .toList(),
+                                prefixIcon: FontAwesomeIcons.addressBook,
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    selectedLeaveType = newValue;
+                                  });
+                                },
+                              );
+                            }
 
-                                  final String fallbackEmpCode =
-                                      employees.isNotEmpty
-                                          ? employees.first.employeeCode
-                                          : Locales.string(
-                                            context,
-                                            "no_employee_found",
-                                          );
-
-                                  _fallbackEmployeeCode.text = fallbackEmpCode;
-                                  _accountHolderController.text = fallbackName;
-                                }
-                                return AppTextInput(
-                                  controller: _accountHolderController,
-                                  label: Locales.string(
-                                    context,
-                                    "fallback_employee_name",
-                                  ),
-                                  prefixIcon: Icon(
-                                    Icons.person_outline,
-                                    color: context.theme.colorScheme.onSurface,
-                                  ),
-                                  enabled: widget.isEnable,
-                                  errorText: '',
-                                );
-
-                                // Default fallback UI
-                                // return const SizedBox.shrink();
-                              },
-                            ),
-                          ],
+                            // Fallback for unexpected states
+                            return const SizedBox.shrink();
+                          },
                         ),
 
-                      const SizedBox(height: 16),
-                      selectedLeaveType != '03'
-                          ? Row(
+                        const SizedBox(height: 16),
+
+                        if (selectedLeaveType != '02' &&
+                            selectedLeaveType != '03')
+                          Column(
                             children: [
-                              Expanded(
-                                child: _buildDatePicker(
-                                  date: startDate,
-                                  label: Locales.string(context, "from_date"),
-                                  field: 'from',
+                              AppSearchTextInput(
+                                controller: _accountSearchController,
+                                label: Locales.string(
+                                  context,
+                                  "fallback_employee_id",
                                 ),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: _buildDatePicker(
-                                  date: endDate,
-                                  label: Locales.string(context, "to_date"),
-                                  field: 'to',
+                                isSearch: true,
+                                enabled: widget.isEnable,
+                                prefixIcon: Icon(
+                                  FontAwesomeIcons.userTie,
+                                  color: context.theme.colorScheme.onSurface,
                                 ),
+                                errorText: '',
+                                onSearchPressed: () {
+                                  final searchText =
+                                      _accountSearchController.text.trim();
+                                  context.read<SearchEmployeeBloc>().add(
+                                    FetchSearchEmployeeEvent(searchText),
+                                  );
+                                },
                               ),
-                            ],
-                          )
-                          : Column(
-                            children: [
-                              AppDateTimePicker(
-                                selectedDateTime: startDate,
-                                onDateTimeChanged: (DateTime) {
-                                  setState(() {
-                                    startDate = DateTime!;
-                                    endDate = startDate.add(
-                                      Duration(hours: 2, minutes: 30),
+                              const SizedBox(height: 16),
+
+                              BlocBuilder<
+                                SearchEmployeeBloc,
+                                SearchEmployeeState
+                              >(
+                                builder: (context, state) {
+                                  if (state is SearchEmployeeLoading) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
                                     );
-                                  });
-                                },
-                                label: Locales.string(
-                                  context,
-                                  "from_date_and_time",
-                                ),
-                              ),
-                              SizedBox(height: 16),
-                              AppDateTimePicker(
-                                selectedDateTime: endDate,
-                                onDateTimeChanged: (DateTime) {
-                                  setState(() {
-                                    endDate = DateTime!; // fallback if null
-                                  });
-                                },
+                                  }
 
-                                label: Locales.string(
-                                  context,
-                                  "to_date_and_time",
-                                ),
-                              ),
-                            ],
-                          ),
+                                  if (state is SearchEmployeeError) {
+                                    return Text(
+                                      state.message,
+                                      style: TextStyle(
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                      ),
+                                    );
+                                  }
 
-                      const SizedBox(height: 16),
+                                  if (state is SearchEmployeeSuccess) {
+                                    final List<SearchEmployeeEntity> employees =
+                                        state.employees;
+                                    final String fallbackName =
+                                        employees.isNotEmpty
+                                            ? employees.first.fullName
+                                            : Locales.string(
+                                              context,
+                                              "no_employee_found",
+                                            );
 
-                      Column(
-                        children: [
-                          if (selectedLeaveType != '03')
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: AppTextInput(
-                                    controller: _totalDaysController,
+                                    final String fallbackEmpCode =
+                                        employees.isNotEmpty
+                                            ? employees.first.employeeCode
+                                            : Locales.string(
+                                              context,
+                                              "no_employee_found",
+                                            );
+
+                                    _fallbackEmployeeCode.text =
+                                        fallbackEmpCode;
+                                    _accountHolderController.text =
+                                        fallbackName;
+                                  }
+                                  return AppTextInput(
+                                    controller: _accountHolderController,
                                     label: Locales.string(
                                       context,
-                                      "total_days",
+                                      "fallback_employee_name",
                                     ),
                                     prefixIcon: Icon(
-                                      Icons.calendar_today,
+                                      Icons.person_outline,
                                       color:
                                           context.theme.colorScheme.onSurface,
                                     ),
-                                    enabled: false,
+                                    enabled: widget.isEnable,
                                     errorText: '',
+                                  );
+
+                                  // Default fallback UI
+                                  // return const SizedBox.shrink();
+                                },
+                              ),
+                            ],
+                          ),
+
+                        const SizedBox(height: 16),
+                        selectedLeaveType != '03'
+                            ? Row(
+                              children: [
+                                Expanded(
+                                  child: _buildDatePicker(
+                                    date: startDate,
+                                    label: Locales.string(context, "from_date"),
+                                    field: 'from',
                                   ),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: _buildDatePicker(
-                                    date: rejoinDate,
-                                    label: Locales.string(
-                                      context,
-                                      "rejoin_date",
-                                    ),
-                                    field: 'rejoin',
+                                    date: endDate,
+                                    label: Locales.string(context, "to_date"),
+                                    field: 'to',
+                                  ),
+                                ),
+                              ],
+                            )
+                            : Column(
+                              children: [
+                                AppDateTimePicker(
+                                  selectedDateTime: startDate,
+                                  onDateTimeChanged: (DateTime) {
+                                    setState(() {
+                                      startDate = DateTime!;
+                                      endDate = startDate.add(
+                                        Duration(hours: 2, minutes: 30),
+                                      );
+                                    });
+                                  },
+                                  label: Locales.string(
+                                    context,
+                                    "from_date_and_time",
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                AppDateTimePicker(
+                                  selectedDateTime: endDate,
+                                  onDateTimeChanged: (DateTime) {
+                                    setState(() {
+                                      endDate = DateTime!; // fallback if null
+                                    });
+                                  },
+
+                                  label: Locales.string(
+                                    context,
+                                    "to_date_and_time",
                                   ),
                                 ),
                               ],
                             ),
-                          SizedBox(height: 16),
 
-                          AppTextInput(
-                            controller: _applicationStatusController,
-                            label: Locales.string(
-                              context,
-                              "application_status",
-                            ),
-                            prefixIcon: Icon(
-                              Icons.person_outline,
-                              color: context.theme.colorScheme.onSurface,
-                            ),
-                            enabled: false,
-                            errorText: '',
-                          ),
-                          const SizedBox(height: 16),
+                        const SizedBox(height: 16),
 
-                          TextFormField(
-                            controller: _descriptionController,
-                            maxLines: null,
-                            minLines: 2,
-                            enabled: widget.isEnable,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              labelText: Locales.string(
+                        Column(
+                          children: [
+                            if (selectedLeaveType != '03')
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: AppTextInput(
+                                      controller: _totalDaysController,
+                                      label: Locales.string(
+                                        context,
+                                        "total_days",
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.calendar_today,
+                                        color:
+                                            context.theme.colorScheme.onSurface,
+                                      ),
+                                      enabled: false,
+                                      errorText: '',
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: _buildDatePicker(
+                                      date: rejoinDate,
+                                      label: Locales.string(
+                                        context,
+                                        "rejoin_date",
+                                      ),
+                                      field: 'rejoin',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            SizedBox(height: 16),
+
+                            AppTextInput(
+                              controller: _applicationStatusController,
+                              label: Locales.string(
                                 context,
-                                "reason_for_leave",
+                                "application_status",
                               ),
-                              border: OutlineInputBorder(),
-                              prefixIcon: Icon(Icons.edit_note),
+                              prefixIcon: Icon(
+                                Icons.person_outline,
+                                color: context.theme.colorScheme.onSurface,
+                              ),
+                              enabled: false,
+                              errorText: '',
                             ),
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return 'Please enter a reason';
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 16),
+                            const SizedBox(height: 16),
 
-                          widget.isEnable
-                              ? BlocListener<
-                                UpdateLeaveApplicationBloc,
-                                UpdateLeaveApplicationState
-                              >(
-                                listener: (context, state) {
-                                  if (state is UpdateLeaveApplicationError) {
-                                    final snackBar = SnackBar(
-                                      elevation: 0,
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.transparent,
-                                      content: AwesomeSnackbarContent(
-                                        title: Locales.string(context, "oops"),
-                                        message: state.message,
-                                        contentType: ContentType.failure,
-                                      ),
-                                    );
-
-                                    ScaffoldMessenger.of(context)
-                                      ..hideCurrentSnackBar()
-                                      ..showSnackBar(snackBar);
-                                  }
-
-                                  if (state is UpdateLeaveApplicationSuccess) {
-                                    final snackBar = SnackBar(
-                                      elevation: 0,
-                                      behavior: SnackBarBehavior.floating,
-                                      backgroundColor: Colors.transparent,
-                                      content: AwesomeSnackbarContent(
-                                        title: Locales.string(
-                                          context,
-                                          "success",
-                                        ),
-                                        message: state.message,
-                                        contentType: ContentType.success,
-                                      ),
-                                    );
-
-                                    ScaffoldMessenger.of(context)
-                                      ..hideCurrentSnackBar()
-                                      ..showSnackBar(snackBar);
-                                    if (Navigator.canPop(context)) {
-                                      Navigator.pop(context);
-                                    }
-                                  }
-                                },
-                                child: AppPrimaryButton(
-                                  label: Locales.string(context, "apply"),
-                                  onPressed: () {
-                                    context
-                                        .read<UpdateLeaveApplicationBloc>()
-                                        .add(
-                                          UpdateLeaveApplication(
-                                            remarks:
-                                                _descriptionController.text
-                                                    .trim(),
-                                            fallbackEmployeeCode:
-                                                _accountSearchController.text
-                                                    .trim(),
-                                            rejoiningDate:
-                                                rejoinDate.toString(),
-                                            toDate: endDate.toString(),
-                                            formTime: startDate.toString(),
-                                            toTime: endDate.toString(),
-                                            fromDate: startDate.toString(),
-                                            leaveTypeCode:
-                                                selectedLeaveType.toString(),
-                                            leaveStageRemarks: '',
-                                            leaveApplicationId:
-                                                widget.data.leaveApplicationId
-                                                    .toString(),
-                                          ),
-                                        );
-                                  },
+                            TextFormField(
+                              controller: _descriptionController,
+                              maxLines: null,
+                              minLines: 2,
+                              enabled: widget.isEnable,
+                              keyboardType: TextInputType.multiline,
+                              decoration: InputDecoration(
+                                labelText: Locales.string(
+                                  context,
+                                  "reason_for_leave",
                                 ),
-                              )
-                              : AppPrimaryButton(
-                                label: Locales.string(context, "close"),
-                                onPressed: () {},
+                                border: OutlineInputBorder(),
+                                prefixIcon: Icon(Icons.edit_note),
                               ),
-                        ],
-                      ),
-                    ],
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Please enter a reason';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 16),
+
+                            widget.isEnable
+                                ? BlocListener<
+                                  UpdateLeaveApplicationBloc,
+                                  UpdateLeaveApplicationState
+                                >(
+                                  listener: (context, state) {
+                                    if (state is UpdateLeaveApplicationError) {
+                                      final snackBar = SnackBar(
+                                        elevation: 0,
+                                        behavior: SnackBarBehavior.floating,
+                                        backgroundColor: Colors.transparent,
+                                        content: AwesomeSnackbarContent(
+                                          title: Locales.string(
+                                            context,
+                                            "oops",
+                                          ),
+                                          message: state.message,
+                                          contentType: ContentType.failure,
+                                        ),
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(snackBar);
+                                    }
+
+                                    if (state
+                                        is UpdateLeaveApplicationSuccess) {
+                                      final snackBar = SnackBar(
+                                        elevation: 0,
+                                        behavior: SnackBarBehavior.floating,
+                                        backgroundColor: Colors.transparent,
+                                        content: AwesomeSnackbarContent(
+                                          title: Locales.string(
+                                            context,
+                                            "success",
+                                          ),
+                                          message: state.message,
+                                          contentType: ContentType.success,
+                                        ),
+                                      );
+
+                                      ScaffoldMessenger.of(context)
+                                        ..hideCurrentSnackBar()
+                                        ..showSnackBar(snackBar);
+                                      if (Navigator.canPop(context)) {
+                                        Navigator.pop(context);
+                                      }
+                                    }
+                                  },
+                                  child: AppPrimaryButton(
+                                    label: Locales.string(context, "apply"),
+                                    onPressed: () {
+                                      context
+                                          .read<UpdateLeaveApplicationBloc>()
+                                          .add(
+                                            UpdateLeaveApplication(
+                                              remarks:
+                                                  _descriptionController.text
+                                                      .trim(),
+                                              fallbackEmployeeCode:
+                                                  _accountSearchController.text
+                                                      .trim(),
+                                              rejoiningDate:
+                                                  rejoinDate.toString(),
+                                              toDate: endDate.toString(),
+                                              formTime: startDate.toString(),
+                                              toTime: endDate.toString(),
+                                              fromDate: startDate.toString(),
+                                              leaveTypeCode:
+                                                  selectedLeaveType.toString(),
+                                              leaveStageRemarks: '',
+                                              leaveApplicationId:
+                                                  widget.data.leaveApplicationId
+                                                      .toString(),
+                                            ),
+                                          );
+                                    },
+                                  ),
+                                )
+                                : AppPrimaryButton(
+                                  label: Locales.string(context, "close"),
+                                  onPressed: () {},
+                                ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

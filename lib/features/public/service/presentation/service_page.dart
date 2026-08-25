@@ -27,77 +27,83 @@ class ServicePage extends StatelessWidget {
           foregroundColor: context.theme.colorScheme.onPrimary,
           elevation: 0,
         ),
-        body: PageContainer(
-          child: BlocBuilder<ServicePolicyBloc, ServicePolicyState>(
-            builder: (context, state) {
-              if (state is ServiceProductLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is ServicePolicySuccess) {
-                final List<ServicePolicyEntity> policies =
-                    state.servicePolicies;
+        body: SafeArea(
+          child: PageContainer(
+            child: BlocBuilder<ServicePolicyBloc, ServicePolicyState>(
+              builder: (context, state) {
+                if (state is ServiceProductLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is ServicePolicySuccess) {
+                  final List<ServicePolicyEntity> policies =
+                      state.servicePolicies;
 
-                if (policies.isEmpty) {
-                  return const Center(
-                    child: Text("No service policies available."),
+                  if (policies.isEmpty) {
+                    return const Center(
+                      child: Text("No service policies available."),
+                    );
+                  }
+
+                  return ListView.builder(
+                    itemCount: policies.length,
+                    itemBuilder: (context, index) {
+                      final product = policies[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15.0,
+                          vertical: 10,
+                        ), // Adjust spacing here
+                        child: PublicAppImageCard(
+                          leftIcon: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              product.attachmentUrl,
+                            ),
+                            radius: 20,
+                          ),
+                          rightIcon: FontAwesomeIcons.chevronRight,
+                          boarderColor: context.theme.colorScheme.primary,
+                          cardBody: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 16,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                              children: [
+                                Text(
+                                  product.title,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Text(
+                                  TextUtil.truncateText(
+                                    product.shortDescription,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              PublicRoutesName.serviceDetailsPage,
+                              arguments: {"service": product},
+                            );
+                          },
+                        ),
+                      );
+                    },
                   );
+                } else if (state is ServicePolicyError) {
+                  return Center(child: Text("Error: ${state.error}"));
                 }
 
-                return ListView.builder(
-                  itemCount: policies.length,
-                  itemBuilder: (context, index) {
-                    final product = policies[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 15.0,
-                        vertical: 10,
-                      ), // Adjust spacing here
-                      child: PublicAppImageCard(
-                        leftIcon: CircleAvatar(
-                          backgroundImage: NetworkImage(product.attachmentUrl),
-                          radius: 20,
-                        ),
-                        rightIcon: FontAwesomeIcons.chevronRight,
-                        boarderColor: context.theme.colorScheme.primary,
-                        cardBody: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 16,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-
-                            children: [
-                              Text(
-                                product.title,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Text(
-                                TextUtil.truncateText(product.shortDescription),
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            PublicRoutesName.serviceDetailsPage,
-                            arguments: {"service": product},
-                          );
-                        },
-                      ),
-                    );
-                  },
-                );
-              } else if (state is ServicePolicyError) {
-                return Center(child: Text("Error: ${state.error}"));
-              }
-
-              return const SizedBox.shrink(); // Initial or unknown state
-            },
+                return const SizedBox.shrink(); // Initial or unknown state
+              },
+            ),
           ),
         ),
       ),

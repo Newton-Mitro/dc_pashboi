@@ -36,100 +36,105 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'agm_counter_info_page_title')),
       ),
-      body: PageContainer(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              // 🔎 Search Section
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: context.theme.colorScheme.surface,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Section title
-                    Text(
-                      Locales.string(
-                        context,
-                        'agm_counter_info_page_search_input_label',
+      body: SafeArea(
+        child: PageContainer(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                // 🔎 Search Section
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: context.theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Section title
+                      Text(
+                        Locales.string(
+                          context,
+                          'agm_counter_info_page_search_input_label',
+                        ),
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: context.theme.colorScheme.onSurface,
+                        ),
                       ),
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: context.theme.colorScheme.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
+                      const SizedBox(height: 12),
 
-                    // Account No Input
-                    AppTextInput(
-                      label: Locales.string(
-                        context,
-                        'agm_counter_info_page_search_input_hint',
+                      // Account No Input
+                      AppTextInput(
+                        label: Locales.string(
+                          context,
+                          'agm_counter_info_page_search_input_hint',
+                        ),
+                        controller: _accountNoController,
                       ),
-                      controller: _accountNoController,
-                    ),
-                    const SizedBox(height: 12),
+                      const SizedBox(height: 12),
 
-                    // Smaller Button
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: SizedBox(
-                        height: 40,
-                        width: 120, // smaller button width
-                        child: ElevatedButton(
-                          onPressed: () {
-                            final accountNo = _accountNoController.text.trim();
-                            if (accountNo.isNotEmpty) {
-                              context.read<AgmCounterBloc>().add(
-                                FetchAgmCounterInfoEvent(accountNo: accountNo),
-                              );
-                            }
-                          },
-                          child: Text(
-                            Locales.string(
-                              context,
-                              'agm_counter_info_page_search_button_text',
+                      // Smaller Button
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: SizedBox(
+                          height: 40,
+                          width: 120, // smaller button width
+                          child: ElevatedButton(
+                            onPressed: () {
+                              final accountNo =
+                                  _accountNoController.text.trim();
+                              if (accountNo.isNotEmpty) {
+                                context.read<AgmCounterBloc>().add(
+                                  FetchAgmCounterInfoEvent(
+                                    accountNo: accountNo,
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              Locales.string(
+                                context,
+                                'agm_counter_info_page_search_button_text',
+                              ),
+                              style: TextStyle(fontSize: 14),
                             ),
-                            style: TextStyle(fontSize: 14),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              const SizedBox(height: 24),
+                const SizedBox(height: 24),
 
-              // 🖼 Bloc State Rendering
-              Expanded(
-                child: BlocBuilder<AgmCounterBloc, AgmCounterState>(
-                  builder: (context, state) {
-                    if (state is AgmCounterInfoLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is AgmCounterInfoError) {
-                      return Center(
-                        child: Text(
-                          state.message,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(color: Colors.red),
-                        ),
+                // 🖼 Bloc State Rendering
+                Expanded(
+                  child: BlocBuilder<AgmCounterBloc, AgmCounterState>(
+                    builder: (context, state) {
+                      if (state is AgmCounterInfoLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is AgmCounterInfoError) {
+                        return Center(
+                          child: Text(
+                            state.message,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(color: Colors.red),
+                          ),
+                        );
+                      } else if (state is AgmCounterInfoLoaded) {
+                        return _buildCounterList(state.agmCounterInfo);
+                      }
+                      return const Center(
+                        child: Text("Enter an account number to fetch info"),
                       );
-                    } else if (state is AgmCounterInfoLoaded) {
-                      return _buildCounterList(state.agmCounterInfo);
-                    }
-                    return const Center(
-                      child: Text("Enter an account number to fetch info"),
-                    );
-                  },
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
