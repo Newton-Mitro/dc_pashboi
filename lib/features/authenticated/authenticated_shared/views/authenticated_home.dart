@@ -382,7 +382,10 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                         ),
                       ],
                     ),
-                    body: SafeArea(
+                    body: Padding(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewPadding.bottom,
+                      ),
                       child: AnimatedSwitcher(
                         duration: const Duration(milliseconds: 300),
                         transitionBuilder: (child, animation) {
@@ -404,33 +407,35 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                         ),
                       ),
                     ),
-                    bottomNavigationBar: RNavNSheet(
-                      onTap: (index) {
-                        context.read<AuthenticatedHomeBloc>().add(
-                          ChangePageEvent(index),
-                        );
-                      },
-                      initialSelectedIndex: 0,
-                      backgroundColor: context.theme.colorScheme.primary,
-                      borderColors: [
-                        context.theme.colorScheme.primary,
-                        context.theme.colorScheme.secondary,
-                        context.theme.colorScheme.primary,
-                      ],
-                      sheetOpenIcon: FontAwesomeIcons.listUl,
-                      sheetCloseIcon: FontAwesomeIcons.cross,
-                      sheetOpenIconColor: context.theme.colorScheme.primary,
-                      sheetOpenIconBoxColor:
-                          context.theme.colorScheme.onPrimary,
-                      unselectedItemColor: context.theme.colorScheme.onPrimary
-                          .withAlpha(120),
-                      selectedItemColor: context.theme.colorScheme.onPrimary,
-                      sheet: AuthenticatedBottomSheet(menuItems: menuItems),
-                      items: List.generate(
-                        4,
-                        (i) => RNavItem(
-                          icon: menuItems[i]['icon'],
-                          label: menuItems[i]['label'],
+                    bottomNavigationBar: SafeArea(
+                      child: RNavNSheet(
+                        onTap: (index) {
+                          context.read<AuthenticatedHomeBloc>().add(
+                            ChangePageEvent(index),
+                          );
+                        },
+                        initialSelectedIndex: 0,
+                        backgroundColor: context.theme.colorScheme.primary,
+                        borderColors: [
+                          context.theme.colorScheme.primary,
+                          context.theme.colorScheme.secondary,
+                          context.theme.colorScheme.primary,
+                        ],
+                        sheetOpenIcon: FontAwesomeIcons.listUl,
+                        sheetCloseIcon: FontAwesomeIcons.cross,
+                        sheetOpenIconColor: context.theme.colorScheme.primary,
+                        sheetOpenIconBoxColor:
+                            context.theme.colorScheme.onPrimary,
+                        unselectedItemColor: context.theme.colorScheme.onPrimary
+                            .withAlpha(120),
+                        selectedItemColor: context.theme.colorScheme.onPrimary,
+                        sheet: AuthenticatedBottomSheet(menuItems: menuItems),
+                        items: List.generate(
+                          4,
+                          (i) => RNavItem(
+                            icon: menuItems[i]['icon'],
+                            label: menuItems[i]['label'],
+                          ),
                         ),
                       ),
                     ),
