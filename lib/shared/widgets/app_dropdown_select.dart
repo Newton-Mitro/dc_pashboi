@@ -35,122 +35,129 @@ class AppDropdownSelect<T> extends StatelessWidget {
       ),
       builder: (_) {
         final sheetHeight = MediaQuery.of(context).size.height * 0.5;
-        return SizedBox(
-          height: sheetHeight,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: 10),
-              BlocBuilder<LanguageSwitchBloc, LanguageSwitchState>(
-                builder: (context, state) {
-                  if (state.language == 'bn') {
-                    return Text(
-                      "$label ${Locales.string(context, 'select')}",
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: context.theme.colorScheme.onSurface,
-                      ),
-                    );
-                  } else {
-                    return Text(
-                      "${Locales.string(context, 'select')} $label",
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: context.theme.colorScheme.onSurface,
-                      ),
-                    );
-                  }
-                },
-              ),
-              SizedBox(height: 3),
-              // 👇 The top horizontal line
-              Container(
-                width: 40,
-                height: 3,
-                decoration: BoxDecoration(
-                  color: context.theme.colorScheme.onSurface,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              SizedBox(height: 5),
-              // 👇 The actual dropdown list
-              Expanded(
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 20,
-                  ),
-                  itemCount: items.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 12),
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    return Container(
-                      padding: const EdgeInsets.only(left: 16),
-                      decoration:
-                          value == item.value
-                              ? BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                color: context.theme.colorScheme.primary,
-                                border: Border(
-                                  left: BorderSide(
-                                    color: context.theme.colorScheme.onSurface,
-                                    width: 3,
-                                  ),
-                                  right: BorderSide(
-                                    color: context.theme.colorScheme.onSurface,
-                                    width: 3,
-                                  ),
-                                ),
-                              )
-                              : BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: context.theme.colorScheme.onSurface
-                                        .withAlpha(360),
-                                    width: 1,
-                                  ),
-                                ),
-                              ),
-                      child: Theme(
-                        data: Theme.of(context).copyWith(
-                          radioTheme: RadioThemeData(
-                            fillColor: WidgetStateProperty.resolveWith<Color>((
-                              states,
-                            ) {
-                              if (states.contains(WidgetState.selected)) {
-                                return context.theme.colorScheme.onPrimary;
-                              }
-                              return context.theme.colorScheme.onSurface;
-                            }),
-                          ),
+        return SafeArea(
+          top: false,
+          bottom: true,
+          child: SizedBox(
+            height: sheetHeight,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: 10),
+                BlocBuilder<LanguageSwitchBloc, LanguageSwitchState>(
+                  builder: (context, state) {
+                    if (state.language == 'bn') {
+                      return Text(
+                        "$label ${Locales.string(context, 'select')}",
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: context.theme.colorScheme.onSurface,
                         ),
-                        child: RadioListTile(
-                          value: item.value,
-                          groupValue: value,
-                          onChanged: (selectedValue) {
-                            Navigator.of(context).pop();
-                            onChanged(selectedValue);
-                          },
-                          title: DefaultTextStyle(
-                            style: TextStyle(
-                              color:
-                                  value == item.value
-                                      ? context.theme.colorScheme.onPrimary
-                                      : context.theme.colorScheme.onSurface,
-                            ),
-                            child: item.child,
-                          ),
-                          selected: value == item.value,
+                      );
+                    } else {
+                      return Text(
+                        "${Locales.string(context, 'select')} $label",
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold,
+                          color: context.theme.colorScheme.onSurface,
                         ),
-                      ),
-                    );
+                      );
+                    }
                   },
                 ),
-              ),
-            ],
+                SizedBox(height: 3),
+                // 👇 The top horizontal line
+                Container(
+                  width: 40,
+                  height: 3,
+                  decoration: BoxDecoration(
+                    color: context.theme.colorScheme.onSurface,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                SizedBox(height: 5),
+                // 👇 The actual dropdown list
+                Expanded(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 20,
+                    ),
+                    itemCount: items.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 12),
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+                      return Container(
+                        padding: const EdgeInsets.only(left: 16),
+                        decoration:
+                            value == item.value
+                                ? BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: context.theme.colorScheme.primary,
+                                  border: Border(
+                                    left: BorderSide(
+                                      color:
+                                          context.theme.colorScheme.onSurface,
+                                      width: 3,
+                                    ),
+                                    right: BorderSide(
+                                      color:
+                                          context.theme.colorScheme.onSurface,
+                                      width: 3,
+                                    ),
+                                  ),
+                                )
+                                : BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: context.theme.colorScheme.onSurface
+                                          .withAlpha(360),
+                                      width: 1,
+                                    ),
+                                  ),
+                                ),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                            radioTheme: RadioThemeData(
+                              fillColor: WidgetStateProperty.resolveWith<Color>(
+                                (states) {
+                                  if (states.contains(WidgetState.selected)) {
+                                    return context.theme.colorScheme.onPrimary;
+                                  }
+                                  return context.theme.colorScheme.onSurface;
+                                },
+                              ),
+                            ),
+                          ),
+                          child: RadioListTile(
+                            value: item.value,
+                            groupValue: value,
+                            onChanged: (selectedValue) {
+                              Navigator.of(context).pop();
+                              onChanged(selectedValue);
+                            },
+                            title: DefaultTextStyle(
+                              style: TextStyle(
+                                color:
+                                    value == item.value
+                                        ? context.theme.colorScheme.onPrimary
+                                        : context.theme.colorScheme.onSurface,
+                              ),
+                              child: item.child,
+                            ),
+                            selected: value == item.value,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 30),
+              ],
+            ),
           ),
         );
       },

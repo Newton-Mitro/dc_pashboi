@@ -295,6 +295,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
                 isLastStep
                     ? SafeArea(
                       top: false,
+                      bottom: true,
                       child: _buildSubmitButton(width, context),
                     )
                     : null,

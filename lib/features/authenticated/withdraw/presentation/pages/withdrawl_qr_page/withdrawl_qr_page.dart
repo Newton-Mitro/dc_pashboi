@@ -273,6 +273,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                 isLastStep
                     ? SafeArea(
                       top: false,
+                      bottom: true,
                       child: _buildSubmitButton(width, context),
                     )
                     : null,

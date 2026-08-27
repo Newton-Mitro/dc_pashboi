@@ -409,6 +409,7 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                     ),
                     bottomNavigationBar: SafeArea(
                       top: false,
+                      bottom: true,
                       child: RNavNSheet(
                         onTap: (index) {
                           context.read<AuthenticatedHomeBloc>().add(

@@ -252,6 +252,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
                 isLastStep
                     ? SafeArea(
                       top: false,
+                      bottom: true,
                       child: _buildSubmitButton(width, context, state),
                     )
                     : null,

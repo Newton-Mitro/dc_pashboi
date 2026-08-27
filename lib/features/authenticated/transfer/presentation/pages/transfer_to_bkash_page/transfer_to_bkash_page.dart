@@ -279,6 +279,7 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
                 isLastStep
                     ? SafeArea(
                       top: false,
+                      bottom: true,
                       child: _buildSubmitButton(width, context),
                     )
                     : null,

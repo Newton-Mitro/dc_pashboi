@@ -283,6 +283,7 @@ class _InternalTransferPageState extends State<InternalTransferPage> {
                 isLastStep
                     ? SafeArea(
                       top: false,
+                      bottom: true,
                       child: _buildSubmitButton(width, context),
                     )
                     : null,

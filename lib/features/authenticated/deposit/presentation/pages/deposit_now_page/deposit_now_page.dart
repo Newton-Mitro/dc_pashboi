@@ -292,6 +292,7 @@ class _DepositNowPageState extends State<DepositNowPage> {
                 isLastStep
                     ? SafeArea(
                       top: false,
+                      bottom: true,
                       child: _buildSubmitButton(width, context),
                     )
                     : null,

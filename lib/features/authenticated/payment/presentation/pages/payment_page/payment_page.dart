@@ -279,6 +279,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 isLastStep
                     ? SafeArea(
                       top: false,
+                      bottom: true,
                       child: _buildSubmitButton(width, context),
                     )
                     : null,
