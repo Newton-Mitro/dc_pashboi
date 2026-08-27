@@ -276,7 +276,12 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ),
             bottomNavigationBar:
-                isLastStep ? _buildSubmitButton(width, context) : null,
+                isLastStep
+                    ? SafeArea(
+                      top: false,
+                      child: _buildSubmitButton(width, context),
+                    )
+                    : null,
           );
         },
       ),

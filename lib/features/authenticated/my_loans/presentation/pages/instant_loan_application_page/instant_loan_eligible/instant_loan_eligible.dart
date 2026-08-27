@@ -249,7 +249,12 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
               ),
             ),
             bottomNavigationBar:
-                isLastStep ? _buildSubmitButton(width, context, state) : null,
+                isLastStep
+                    ? SafeArea(
+                      top: false,
+                      child: _buildSubmitButton(width, context, state),
+                    )
+                    : null,
           );
         },
       ),

@@ -292,7 +292,12 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
               ),
             ),
             bottomNavigationBar:
-                isLastStep ? _buildSubmitButton(width, context) : null,
+                isLastStep
+                    ? SafeArea(
+                      top: false,
+                      child: _buildSubmitButton(width, context),
+                    )
+                    : null,
           );
         },
       ),

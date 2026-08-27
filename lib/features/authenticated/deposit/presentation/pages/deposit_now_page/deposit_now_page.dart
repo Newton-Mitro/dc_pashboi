@@ -289,7 +289,12 @@ class _DepositNowPageState extends State<DepositNowPage> {
               ),
             ),
             bottomNavigationBar:
-                isLastStep ? _buildSubmitButton(width, context) : null,
+                isLastStep
+                    ? SafeArea(
+                      top: false,
+                      child: _buildSubmitButton(width, context),
+                    )
+                    : null,
           );
         },
       ),
