@@ -7,19 +7,24 @@ import 'package:pashboi/features/authenticated/transfer/domain/repositories/tran
 class SubmitTransferBankToDcProps extends BaseRequestProps {
   final String accountNumber;
   final String accountHolderName;
+  final int accountId;
+  final int ledgerId;
+
+  final String toBankAccountNumber;
   final String bankRoutingNumber;
+
   final String transactionReceipt;
   final String transactionNumber;
-  final int accountId;
-  final String cardNumber;
   final String depositDate;
-  final int ledgerId;
-  final String cardPin;
   final double totalDepositAmount;
+
+  final String cardNumber;
+  final String nameOnCard;
+  final String cardPin;
+
   final String otpRegId;
   final String otpValue;
-  final String toBankAccountNumber;
-  final String nameOnCard;
+
   final List<CollectionLedgerEntity> collectionLedgers;
 
   const SubmitTransferBankToDcProps({

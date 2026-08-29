@@ -85,13 +85,13 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
         "AccountHolderName": props.nameOnCard,
         "AccountId": props.accountId,
         "AccountType": "Bank Account",
-        "FromAccountNo": props.accountNumber, // Bank account number
+        "FromAccountNo": props.toBankAccountNumber, // Bank account number
         "TransactionType": "DepositRequest",
         "DepositDate": props.depositDate,
         "LedgerId": props.ledgerId,
         "Remarks": "",
         "RepeatMonths": 0,
-        "ReferenceAccountNo": props.accountNumber, // Bank account number
+        "ReferenceAccountNo": props.toBankAccountNumber, // Bank account number
         "TransactionNumber": props.transactionNumber,
         "bankRoutingNumber": props.bankRoutingNumber,
         "TransactionReceipt": props.transactionReceipt,

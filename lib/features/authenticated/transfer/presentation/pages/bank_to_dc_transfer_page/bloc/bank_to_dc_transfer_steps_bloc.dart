@@ -179,29 +179,35 @@ class BankToDcTransferStepsBloc
           personId: user.personId,
           employeeCode: user.employeeCode,
           mobileNumber: user.regMobile,
-          accountNumber: state.selectedAccount!.number,
+
+          accountNumber: state.selectedAccount!.number, // Saving Account
           accountHolderName:
               state.selectedCard!.nameOnCard.toLowerCase().trim(),
           accountId: state.selectedAccount!.id,
-          cardNumber: state.selectedCard!.cardNumber,
-          depositDate: DateTime.now().toIso8601String(),
           ledgerId: state.selectedAccount!.ledgerId,
+
+          cardNumber: state.selectedCard!.cardNumber,
+          nameOnCard: state.selectedCard!.nameOnCard,
           cardPin:
               md5
                   .convert(utf8.encode(state.stepData[4]?['cardPin'].trim()))
                   .toString(),
+
+          toBankAccountNumber: state.selectedBankAccount.bankAccNumber,
+          bankRoutingNumber: state.selectedBankAccount.bankRoutingNo,
+
+          transactionReceipt: base64String,
+          transactionNumber: '',
+          depositDate: DateTime.now().toIso8601String(),
           totalDepositAmount:
               state.stepData[1]?['amount'] != null
                   ? double.parse(state.stepData[1]?['amount'])
                   : 0.0,
+
           otpRegId: state.stepData[4]?['OTPRegId'],
           otpValue: state.stepData[5]?['OTP'],
+
           collectionLedgers: state.collectionLedgers,
-          bankRoutingNumber: state.selectedBankAccount.bankRoutingNo,
-          transactionReceipt: base64String,
-          transactionNumber: '',
-          toBankAccountNumber: state.selectedBankAccount.bankAccNumber,
-          nameOnCard: state.selectedCard!.nameOnCard,
         ),
       );
 
