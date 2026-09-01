@@ -594,6 +594,30 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
               )
               .toList();
 
+      String jsonRequestBody = jsonEncode({
+        "ByUserId": props.userId,
+        "UID": props.userId,
+        "RolePermissionId": props.rolePermissionId,
+        "PersonId": props.personId,
+        "EmployeeCode": props.employeeCode,
+        "MobileNo": props.mobileNumber,
+        "MobileNumber": props.mobileNumber,
+        "RequestFrom": "MobileApp",
+        "UserName": props.email,
+        "LoanProductCode": props.loanProductCode,
+        "AccountNo": props.accountNo,
+        "NameOnCard": props.nameOnCard,
+        "MaximumLoanAmount": props.maximumLoanAmount,
+        "InterestRate": props.interestRate,
+        "NumberOfInstallment": props.numberOfInstallment,
+        "CollateralAccounts": collateralAccounts,
+        "TotalApplyLoan": props.totalApplyLoan,
+        "SecretKey": props.secretKey,
+        "CardNo": props.cardNo,
+        "OTPRegId": props.oTPRegId,
+        "OTPValue": props.oTPValue,
+      });
+
       final response = await apiService.post(
         ApiUrls.submitLoansAgainstDepositProduct,
         data: {

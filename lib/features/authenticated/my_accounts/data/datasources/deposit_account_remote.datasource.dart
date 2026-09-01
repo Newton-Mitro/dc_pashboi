@@ -343,6 +343,10 @@ class DepositAccountRemoteDataSourceImpl
       var requestBody = {
         "AccountHolders": props.accountHolders,
         "Nominees": props.nominees,
+        'NameOnCard': props.nameOnCard,
+        'SecretKey': props.secretKey,
+        'AccountNo': props.accountNo,
+        'CardNo': props.cardNo,
         "AccountOperators": props.accountOperators,
         "Introducers": props.introducers,
         "DMSProductCode": props.dMSProductCode,

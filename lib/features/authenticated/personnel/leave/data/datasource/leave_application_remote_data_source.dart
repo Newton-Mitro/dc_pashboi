@@ -183,6 +183,27 @@ class LeaveApplicationRemoteDataSourceImpl
     SubmitLeaveApplicationProps props,
   ) async {
     try {
+      String jsonRequestBody = jsonEncode({
+        "UserName": props.email,
+        "UID": props.userId,
+        "ByUserId": props.userId,
+        "RolePermissionId": props.rolePermissionId,
+        "PersonId": props.personId,
+        "EmployeeCode": props.employeeCode,
+        "MobileNumber": props.mobileNumber,
+        "MobileNo": props.mobileNumber,
+        "RequestFrom": "MobileApp",
+        "LeaveTypeCode": props.leaveTypeCode,
+        "FromDate": props.fromDate,
+        "ToDate": props.toDate,
+        "FormTime": props.formTime,
+        "ToTime": props.toTime,
+        "RejoiningDate": props.rejoiningDate,
+        "FallbackEmployeeCode": props.fallbackEmployeeCode,
+        "Remarks": props.remarks,
+        "LeaveStageRemarks": props.leaveStageRemarks,
+      });
+
       final response = await apiService.post(
         ApiUrls.submitLeaveApplication,
         data: {

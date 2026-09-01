@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:pashboi/core/constants/api_urls.dart';
@@ -76,6 +77,24 @@ class WoooRemoteDataSourceImpl implements WoooRemoteDataSource {
     SubmitWoooApplicationPropsProps props,
   ) async {
     try {
+      String jsonRequestBody = jsonEncode({
+        "UserName": props.email,
+        "MobileNo": props.mobileNumber,
+        "MobileNumber": props.mobileNumber,
+        "RolePermissionId": props.rolePermissionId,
+        "ByUserId": props.userId,
+        "UID": props.userId,
+        "EmployeeCode": props.employeeCode,
+        "PersonId": props.personId,
+        "RequestFrom": "MobileApp",
+        "FromDate": props.fromDate,
+        "ToDate": props.toDate,
+        "RejoiningDate": props.rejoiningDate,
+        "Reason": props.reason,
+        "WoooTypeCode": props.woooTypeCode,
+        "isHourly": props.isHourly,
+      });
+
       final response = await apiService.post(
         ApiUrls.addEmployeeWorkingOutofOffice,
         data: {

@@ -318,6 +318,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
           accountNumber: savingAccount.number,
           accountName: savingAccount.name,
           ledgerName: savingAccount.typeName,
+          accountType: savingAccount.typeName,
           accountTypeCode: savingAccount.typeCode,
           moduleCode: '0',
           amount: amount,

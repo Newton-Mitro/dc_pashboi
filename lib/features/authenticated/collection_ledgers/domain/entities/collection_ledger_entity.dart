@@ -6,6 +6,7 @@ class CollectionLedgerEntity extends Entity<int> {
   final String accountName;
   final String accountTypeCode;
   final String moduleCode;
+  final String accountType;
 
   final int ledgerId;
   final String ledgerName;
@@ -36,6 +37,7 @@ class CollectionLedgerEntity extends Entity<int> {
     required this.accountName,
     required this.ledgerName,
     required this.accountTypeCode,
+    required this.accountType,
     required this.moduleCode,
     required this.amount,
     required this.depositAmount,
@@ -60,7 +62,8 @@ class CollectionLedgerEntity extends Entity<int> {
   Map<String, dynamic> toJson() => {
     'AccountId': accountId,
     'AccountNo': accountNumber.trim(),
-    'AccountType': accountTypeCode.trim(),
+    'AccountType': accountType,
+    'AccountTypeCode': accountTypeCode.trim(),
     'Amount': depositAmount,
     'IsDefaulter': defaultAccount,
     'IsLps': lps,
@@ -68,6 +71,8 @@ class CollectionLedgerEntity extends Entity<int> {
     'IsNotEditable': editable,
     'IsRefundBased': isRefundBased,
     'IsSubLedger': subledger,
+    'LoanCollectionType': collectionType,
+    'AccountFor': accountFor,
     'LedgerId': ledgerId,
     'PlType': plType,
   };
@@ -103,6 +108,7 @@ class CollectionLedgerEntity extends Entity<int> {
       accountId: accountId ?? this.accountId,
       accountNumber: accountNumber ?? this.accountNumber,
       accountName: accountName ?? this.accountName,
+      accountType: accountType ?? this.accountType,
       accountTypeCode: accountTypeCode ?? this.accountTypeCode,
       moduleCode: moduleCode ?? this.moduleCode,
       ledgerId: ledgerId ?? this.ledgerId,
@@ -132,6 +138,7 @@ class CollectionLedgerEntity extends Entity<int> {
     accountNumber,
     accountName,
     ledgerName,
+    accountType,
     accountTypeCode,
     moduleCode,
     amount,
