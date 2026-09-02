@@ -31,7 +31,7 @@ class ContactUsPage extends StatelessWidget {
         {
           'label': 'Tap to call',
           'icon': Icons.phone_in_talk,
-          'actionUrl': 'tel:8809678156156',
+          'actionUrl': 'tel:01323146703',
         },
       ],
     },
@@ -45,7 +45,7 @@ class ContactUsPage extends StatelessWidget {
         {
           'label': 'Tap to call',
           'icon': Icons.phone_in_talk,
-          'actionUrl': 'tel:8809678156156',
+          'actionUrl': 'tel:+8809678771270',
         },
       ],
     },
@@ -58,7 +58,7 @@ class ContactUsPage extends StatelessWidget {
         {
           'label': 'Tap to call',
           'icon': Icons.phone_in_talk,
-          'actionUrl': 'tel:8809678156156',
+          'actionUrl': 'tel:+8809678777895',
         },
         {
           'label': 'Tap to browser',
