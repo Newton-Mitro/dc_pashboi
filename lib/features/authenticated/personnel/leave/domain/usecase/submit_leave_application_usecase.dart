@@ -13,6 +13,7 @@ class SubmitLeaveApplicationProps extends BaseRequestProps {
   final String leaveStageRemarks;
   final String formTime;
   final String toTime;
+  final String fallbackPersonName;
 
   const SubmitLeaveApplicationProps({
     required this.remarks,
@@ -30,6 +31,7 @@ class SubmitLeaveApplicationProps extends BaseRequestProps {
     required super.mobileNumber,
     required this.formTime,
     required this.toTime,
+    required this.fallbackPersonName,
   });
 }
 

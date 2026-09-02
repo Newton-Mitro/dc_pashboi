@@ -272,6 +272,7 @@ class DepositLaterStepsBloc
           accountId: state.selectedAccount!.id,
           accountType: state.selectedAccount!.typeName,
           cardNumber: state.selectedCard!.cardNumber,
+          nameOnCard: state.selectedCard!.nameOnCard,
           depositDate: DateTime.now().toIso8601String(),
           ledgerId: state.selectedAccount!.ledgerId,
           cardPin:

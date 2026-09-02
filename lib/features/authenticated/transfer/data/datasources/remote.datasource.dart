@@ -84,7 +84,7 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
       var requestBody = {
         "AccountHolderName": props.nameOnCard,
         "AccountId": props.accountId,
-        "AccountType": "Bank Account",
+        "AccountType": props.toBankAccountNumber,
         "FromAccountNo": props.toBankAccountNumber, // Bank account number
         "TransactionType": "DepositRequest",
         "DepositDate": props.depositDate,

@@ -65,6 +65,7 @@ class LeaveApplicationBloc
       final testData = SubmitLeaveApplicationProps(
         remarks: remarks ?? '',
         rejoiningDate: rejoiningDate == null ? '' : fromDate.toString(),
+        fallbackPersonName: data['fallbackPersonName'] ?? '',
         fallbackEmployeeCode: fallbackEmployeeCode ?? user.employeeCode,
         toDate: toDate == null ? '' : toDate.toString(),
         fromDate: fromDate == null ? '' : fromDate.toString(),

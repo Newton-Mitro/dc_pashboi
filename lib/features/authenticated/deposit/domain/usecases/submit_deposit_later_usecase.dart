@@ -18,11 +18,13 @@ class SubmitDepositLaterProps extends BaseRequestProps {
   final double totalDepositAmount;
   final String otpRegId;
   final String otpValue;
+  final String? nameOnCard;
 
   final List<CollectionLedgerEntity>? collectionLedgers;
 
   const SubmitDepositLaterProps({
     required this.accountNumber,
+    required this.nameOnCard,
     required this.accountHolderName,
     required this.accountId,
     required this.accountType,

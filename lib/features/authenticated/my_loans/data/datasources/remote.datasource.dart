@@ -430,6 +430,7 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
           "OTPRegId": props.otpRegId,
           "OTPValue": props.otpValue,
           "IsTopUp": props.isTopUp,
+          "Amount": 0,
         },
       );
 

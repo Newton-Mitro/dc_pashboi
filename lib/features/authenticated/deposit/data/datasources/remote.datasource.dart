@@ -95,13 +95,15 @@ class DepositRemoteDataSourceImpl implements DepositRemoteDataSource {
     try {
       final jsonList =
           props.collectionLedgers?.map((ledger) => ledger.toJson()).toList();
+
       var requestBody = {
         "AccountHolderName": props.accountHolderName,
         "CardNo": props.cardNumber,
         "DepositDate": props.depositDate,
         "FromAccountNo": props.accountNumber,
         "AccountNo": props.accountNumber,
-        "AccountId": 0,
+        "AccountId": props.accountId,
+        "NameOnCard": props.nameOnCard,
         "LedgerId": props.ledgerId,
         "Remarks": "",
         "EffectiveDay": props.dayOfMonth,
@@ -124,6 +126,7 @@ class DepositRemoteDataSourceImpl implements DepositRemoteDataSource {
         "UID": props.userId,
         "UserName": props.email,
       };
+
       final response = await apiService.post(
         ApiUrls.submitDepositLater,
         data: requestBody,
