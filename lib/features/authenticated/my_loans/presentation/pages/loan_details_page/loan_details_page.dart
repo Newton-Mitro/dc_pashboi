@@ -136,7 +136,11 @@ class _LoanDetailsPageState extends State<LoanDetailsPage> {
         appBar: AppBar(
           title: Text(Locales.string(context, 'loan_details_page_title')),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: BlocBuilder<LoanDetsilsBloc, LoanDetailsState>(
               builder: (context, state) {

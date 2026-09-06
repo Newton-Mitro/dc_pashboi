@@ -30,7 +30,11 @@ class _FamilyAndRelativesPageState extends State<FamilyAndRelativesPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "family_and_relatives")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SafeArea(
             child: BlocBuilder<FamilyAndRelativesBloc, FamilyAndRelativesState>(

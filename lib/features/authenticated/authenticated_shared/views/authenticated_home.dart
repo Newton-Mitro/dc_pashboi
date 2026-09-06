@@ -407,37 +407,33 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                         ),
                       ),
                     ),
-                    bottomNavigationBar: SafeArea(
-                      top: false,
-                      bottom: true,
-                      child: RNavNSheet(
-                        onTap: (index) {
-                          context.read<AuthenticatedHomeBloc>().add(
-                            ChangePageEvent(index),
-                          );
-                        },
-                        initialSelectedIndex: 0,
-                        backgroundColor: context.theme.colorScheme.primary,
-                        borderColors: [
-                          context.theme.colorScheme.primary,
-                          context.theme.colorScheme.secondary,
-                          context.theme.colorScheme.primary,
-                        ],
-                        sheetOpenIcon: FontAwesomeIcons.listUl,
-                        sheetCloseIcon: FontAwesomeIcons.cross,
-                        sheetOpenIconColor: context.theme.colorScheme.primary,
-                        sheetOpenIconBoxColor:
-                            context.theme.colorScheme.onPrimary,
-                        unselectedItemColor: context.theme.colorScheme.onPrimary
-                            .withAlpha(120),
-                        selectedItemColor: context.theme.colorScheme.onPrimary,
-                        sheet: AuthenticatedBottomSheet(menuItems: menuItems),
-                        items: List.generate(
-                          4,
-                          (i) => RNavItem(
-                            icon: menuItems[i]['icon'],
-                            label: menuItems[i]['label'],
-                          ),
+                    bottomNavigationBar: RNavNSheet(
+                      onTap: (index) {
+                        context.read<AuthenticatedHomeBloc>().add(
+                          ChangePageEvent(index),
+                        );
+                      },
+                      initialSelectedIndex: 0,
+                      backgroundColor: context.theme.colorScheme.primary,
+                      borderColors: [
+                        context.theme.colorScheme.primary,
+                        context.theme.colorScheme.secondary,
+                        context.theme.colorScheme.primary,
+                      ],
+                      sheetOpenIcon: FontAwesomeIcons.listUl,
+                      sheetCloseIcon: FontAwesomeIcons.cross,
+                      sheetOpenIconColor: context.theme.colorScheme.primary,
+                      sheetOpenIconBoxColor:
+                          context.theme.colorScheme.onPrimary,
+                      unselectedItemColor: context.theme.colorScheme.onPrimary
+                          .withAlpha(120),
+                      selectedItemColor: context.theme.colorScheme.onPrimary,
+                      sheet: AuthenticatedBottomSheet(menuItems: menuItems),
+                      items: List.generate(
+                        4,
+                        (i) => RNavItem(
+                          icon: menuItems[i]['icon'],
+                          label: menuItems[i]['label'],
                         ),
                       ),
                     ),

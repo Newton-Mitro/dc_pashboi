@@ -36,7 +36,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
             style: TextStyle(color: context.theme.colorScheme.onPrimary),
           ),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: BlocListener<RegistrationPageBloc, RegistrationPageState>(
               listener: (context, state) {

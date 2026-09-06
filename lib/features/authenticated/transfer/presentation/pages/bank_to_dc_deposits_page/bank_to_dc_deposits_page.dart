@@ -29,7 +29,11 @@ class _BankToDcDepositsPageState extends State<BankToDcDepositsPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "bank_to_dc_deposits_page_title")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SafeArea(
             child: BlocBuilder<ScheduledDepositsBloc, ScheduledDepositsState>(

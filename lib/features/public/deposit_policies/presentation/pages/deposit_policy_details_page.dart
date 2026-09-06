@@ -23,7 +23,11 @@ class DepositPolicyDetailsPage extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),

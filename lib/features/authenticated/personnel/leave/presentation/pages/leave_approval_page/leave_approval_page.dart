@@ -52,7 +52,11 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, "leave_approval"))),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SizedBox(
             height: double.infinity,

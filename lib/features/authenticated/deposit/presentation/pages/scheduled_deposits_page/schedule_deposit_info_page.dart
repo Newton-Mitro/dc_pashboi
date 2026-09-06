@@ -28,7 +28,11 @@ class ScheduleDepositInfoPage extends StatelessWidget {
           Locales.string(context, "schedule_deposit_info_page_title"),
         ),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Stack(
             children: [

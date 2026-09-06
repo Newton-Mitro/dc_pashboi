@@ -52,7 +52,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'change_password_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: BlocListener<ChangePasswordBloc, ChangePasswordState>(
           listener: (context, state) {
             if (state is ChangePasswordError) {

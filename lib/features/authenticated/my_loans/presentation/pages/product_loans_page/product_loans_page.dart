@@ -33,7 +33,11 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
 
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, 'product_loans'))),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SizedBox(
             height: double.infinity,

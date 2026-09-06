@@ -43,7 +43,11 @@ class _AddOperatingAccountPageState extends State<AddOperatingAccountPage> {
           Locales.string(context, 'add_operating_account_page_title'),
         ),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: MultiBlocListener(
           listeners: [
             BlocListener<AddOperatingAccountBloc, AddOperatingAccountState>(

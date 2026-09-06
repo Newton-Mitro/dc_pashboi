@@ -23,7 +23,11 @@ class WithdrawQrSuccessPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(Locales.string(context, "otqr_generated_successfully")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

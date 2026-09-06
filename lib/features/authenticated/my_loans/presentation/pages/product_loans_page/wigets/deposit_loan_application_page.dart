@@ -76,7 +76,11 @@ class _DepositLoanApplicationPageState
       appBar: AppBar(
         title: Text(Locales.string(context, 'product_loan_application')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Column(
             children: [

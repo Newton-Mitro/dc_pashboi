@@ -88,7 +88,11 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "leave_approval_details")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SingleChildScrollView(
             child: Padding(

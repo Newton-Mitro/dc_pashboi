@@ -18,7 +18,11 @@ class BankToDcTransferSuccessPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(Locales.string(context, 'bank_to_dc_transfer_success')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

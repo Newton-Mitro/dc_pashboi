@@ -28,7 +28,11 @@ class BankToDcDepositInfoPage extends StatelessWidget {
           Locales.string(context, "bank_to_dc_deposit_info_page_title"),
         ),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Stack(
             children: [

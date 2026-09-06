@@ -58,7 +58,11 @@ class _LeaveApplicationPageState extends State<LeaveApplicationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, "leave_application"))),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(12),

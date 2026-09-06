@@ -65,7 +65,11 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
       appBar: AppBar(
         title: Text(Locales.string(context, "working_out_of_office_history")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Column(
             children: [

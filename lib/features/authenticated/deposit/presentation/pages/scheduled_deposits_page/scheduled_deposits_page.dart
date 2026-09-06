@@ -29,7 +29,11 @@ class _ScheduledDepositsPageState extends State<ScheduledDepositsPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "schedule_deposits_page_title")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SafeArea(
             child: BlocBuilder<ScheduledDepositsBloc, ScheduledDepositsState>(

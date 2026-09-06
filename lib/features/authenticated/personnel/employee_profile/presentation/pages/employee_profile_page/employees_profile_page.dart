@@ -116,7 +116,11 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'employee_profile_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: BlocBuilder<EmployeesProfileBloc, EmployeesProfileState>(
           builder: (context, state) {
             if (state is EmployeesProfileLoading) {

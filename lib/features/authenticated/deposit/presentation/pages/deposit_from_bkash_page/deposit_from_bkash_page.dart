@@ -151,7 +151,11 @@ class _DepositFromBkashPageState extends State<DepositFromBkashPage> {
             appBar: AppBar(
               title: Text(Locales.string(context, 'deposit_from_bkash')),
             ),
-            body: SafeArea(
+            body: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewPadding.bottom,
+                top: MediaQuery.of(context).viewPadding.top,
+              ),
               child: Stack(
                 children: [
                   PageContainer(

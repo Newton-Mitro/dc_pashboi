@@ -22,7 +22,11 @@ class DependentsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(Locales.string(context, 'dependents_page_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SafeArea(
             child: BlocBuilder<FetchDependentsBloc, FetchDependentsState>(

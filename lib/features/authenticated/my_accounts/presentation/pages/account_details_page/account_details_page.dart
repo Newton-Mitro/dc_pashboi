@@ -101,7 +101,11 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         appBar: AppBar(
           title: Text(Locales.string(context, 'account_details_page_title')),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: BlocBuilder<AccountDetailsBloc, AccountDetailsState>(
               builder: (context, state) {

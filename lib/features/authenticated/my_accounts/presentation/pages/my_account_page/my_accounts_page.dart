@@ -24,7 +24,11 @@ class MyAccountsPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(Locales.string(context, 'my_accounts_page_title')),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: BlocBuilder<MyAccountBloc, MyAccountState>(
               builder: (context, state) {

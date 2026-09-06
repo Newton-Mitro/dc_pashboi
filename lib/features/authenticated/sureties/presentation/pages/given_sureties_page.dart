@@ -20,7 +20,11 @@ class GivenSuretiesPage extends StatelessWidget {
       create: (context) => sl<SuretyBloc>()..add(FetchGivenSuretiesEvent()),
       child: Scaffold(
         appBar: AppBar(title: Text(Locales.string(context, "given_sureties"))),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),

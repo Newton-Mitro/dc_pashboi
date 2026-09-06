@@ -177,7 +177,11 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                 "${Locales.string(context, "account_opening_page_title")} ${widget.productName.trim().toTitleCase()}",
               ),
             ),
-            body: SafeArea(
+            body: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewPadding.bottom,
+                top: MediaQuery.of(context).viewPadding.top,
+              ),
               child: Stack(
                 children: [
                   PageContainer(

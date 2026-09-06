@@ -38,7 +38,11 @@ class _LoginPageState extends State<LoginPage> {
         elevation: 0,
         title: Text(Locales.string(context, 'login_page_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {

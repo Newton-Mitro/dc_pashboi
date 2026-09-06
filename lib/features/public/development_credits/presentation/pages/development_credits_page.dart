@@ -26,7 +26,11 @@ class DevelopmentCreditsPage extends StatelessWidget {
             Locales.string(context, "side_menu_title_for_development_credits"),
           ),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: BlocBuilder<DevelopmentCreditBloc, DevelopmentCreditState>(
               builder: (context, state) {

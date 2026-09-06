@@ -107,7 +107,11 @@ class _MobileVerificationPageState extends State<MobileVerificationPage> {
       },
       child: Scaffold(
         appBar: AppBar(title: Text(widget.pageTitle)),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 36),

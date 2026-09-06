@@ -44,7 +44,13 @@ class _CreateBkashPaymentPageState extends State<CreateBkashPaymentPage> {
         title: Text(Locales.string(context, "create_bkash_payment")),
         automaticallyImplyLeading: false,
       ),
-      body: SafeArea(child: WebViewWidget(controller: _controller)),
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
+        child: WebViewWidget(controller: _controller),
+      ),
     );
   }
 }

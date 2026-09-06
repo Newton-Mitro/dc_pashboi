@@ -18,7 +18,11 @@ class DepositNowSuccessPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(Locales.string(context, 'deposit_now_success')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

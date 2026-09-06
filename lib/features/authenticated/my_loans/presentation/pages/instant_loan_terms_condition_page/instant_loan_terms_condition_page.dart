@@ -33,7 +33,11 @@ class _InstantLoanTermsAndConditionPageState
       appBar: AppBar(
         title: Text(Locales.string(context, 'terms_and_conditions_page_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),

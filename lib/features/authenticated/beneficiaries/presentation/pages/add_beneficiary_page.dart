@@ -86,7 +86,11 @@ class _AddBeneficiaryPageState extends State<AddBeneficiaryPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'add_beneficiary_page_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: MultiBlocListener(
           listeners: [
             BlocListener<AddBeneficiaryBloc, AddBeneficiaryState>(

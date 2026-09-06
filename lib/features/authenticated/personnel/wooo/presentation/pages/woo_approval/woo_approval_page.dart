@@ -45,7 +45,11 @@ class _WooApprovalPageState extends State<WooApprovalPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "working_out_of_office_approval")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Column(
             children: [

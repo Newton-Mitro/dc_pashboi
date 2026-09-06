@@ -43,7 +43,11 @@ class _TodaysPunchState extends State<TodaysPunch> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, "todays_punch"))),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Padding(
             padding: const EdgeInsets.all(8.0),

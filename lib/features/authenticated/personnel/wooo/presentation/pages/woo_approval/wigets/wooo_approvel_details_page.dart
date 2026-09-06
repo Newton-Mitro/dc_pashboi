@@ -120,7 +120,11 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
             indicatorColor: Colors.white,
           ),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: Column(
               children: [

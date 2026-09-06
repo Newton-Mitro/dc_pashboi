@@ -318,7 +318,11 @@ class _AccountStatementPageState extends State<AccountStatementPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'account_statement_page_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [

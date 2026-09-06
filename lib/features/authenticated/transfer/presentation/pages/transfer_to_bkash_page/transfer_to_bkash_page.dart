@@ -148,7 +148,11 @@ class _TransferToBkashPageState extends State<TransferToBkashPage> {
             appBar: AppBar(
               title: Text(Locales.string(context, 'transfer_to_bkash')),
             ),
-            body: SafeArea(
+            body: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewPadding.bottom,
+                top: MediaQuery.of(context).viewPadding.top,
+              ),
               child: Stack(
                 children: [
                   PageContainer(

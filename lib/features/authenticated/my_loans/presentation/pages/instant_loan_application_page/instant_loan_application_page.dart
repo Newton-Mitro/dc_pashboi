@@ -39,7 +39,11 @@ class _InstantLoanApplicationPageState
       appBar: AppBar(
         title: Text(Locales.string(context, 'instant_loan_application')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: BlocBuilder<
           InstantLoanEligibilityBloc,
           InstantLoanEligibilityState

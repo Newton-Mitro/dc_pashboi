@@ -48,7 +48,11 @@ class _AddFamilyAndRelativesPageState extends State<AddFamilyAndRelativesPage> {
           Locales.string(context, 'add_family_and_relative_page_title'),
         ),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: MultiBlocListener(
           listeners: [
             BlocListener<AddFamilyAndRelativeBloc, AddFamilyAndRelativeState>(

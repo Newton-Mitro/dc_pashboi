@@ -16,7 +16,11 @@ class InternalTransferSuccessPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, 'transfer_success'))),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

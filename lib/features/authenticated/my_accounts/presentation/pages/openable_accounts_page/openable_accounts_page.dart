@@ -30,7 +30,11 @@ class _OpenableAccountsPageState extends State<OpenableAccountsPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "openable_accounts_page_title")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: BlocBuilder<OpenableAccountBloc, OpenableAccountState>(
           builder: (context, state) {
             if (state is OpenableAccountLoading) {

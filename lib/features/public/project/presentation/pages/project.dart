@@ -23,7 +23,11 @@ class ProjectPage extends StatelessWidget {
         foregroundColor: context.theme.colorScheme.onPrimary,
         elevation: 0,
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: BlocProvider(
           create: (context) => sl<ProjectBloc>()..add(FetchProjectEvent()),
           child: PageContainer(

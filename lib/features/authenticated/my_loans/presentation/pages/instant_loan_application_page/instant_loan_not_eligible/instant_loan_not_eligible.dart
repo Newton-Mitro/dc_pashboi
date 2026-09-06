@@ -24,7 +24,11 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
     final theme = context.theme;
 
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SafeArea(
             child: Column(

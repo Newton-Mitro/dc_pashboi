@@ -32,7 +32,11 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(Locales.string(context, 'leave_info'))),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),

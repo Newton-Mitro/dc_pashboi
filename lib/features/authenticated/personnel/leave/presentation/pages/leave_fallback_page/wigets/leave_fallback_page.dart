@@ -68,7 +68,11 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, "fallback_acceptance_details")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: SizedBox(
             height: double.infinity,

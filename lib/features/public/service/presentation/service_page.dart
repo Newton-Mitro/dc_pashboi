@@ -27,7 +27,11 @@ class ServicePage extends StatelessWidget {
           foregroundColor: context.theme.colorScheme.onPrimary,
           elevation: 0,
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: BlocBuilder<ServicePolicyBloc, ServicePolicyState>(
               builder: (context, state) {

@@ -143,7 +143,11 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
       appBar: AppBar(
         title: Text(Locales.string(context, "attendance_calendar")),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: BlocListener<AttendanceCalenderBloc, AttendanceCalenderState>(
           listener: (context, state) {
             if (state is AttendanceCalenderError) {

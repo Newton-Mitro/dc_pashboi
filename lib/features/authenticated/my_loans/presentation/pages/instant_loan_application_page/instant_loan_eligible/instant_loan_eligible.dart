@@ -144,7 +144,11 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
               state.currentStep == InstantLoanEligibleBloc.lastStep;
 
           return Scaffold(
-            body: SafeArea(
+            body: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewPadding.bottom,
+                top: MediaQuery.of(context).viewPadding.top,
+              ),
               child: Stack(
                 children: [
                   PageContainer(

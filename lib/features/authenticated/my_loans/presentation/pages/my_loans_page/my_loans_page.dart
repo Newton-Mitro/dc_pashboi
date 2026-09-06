@@ -24,7 +24,11 @@ class MyLoansPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(Locales.string(context, 'my_loans_page_title')),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: PageContainer(
             child: BlocBuilder<MyLoansBloc, MyLoansState>(
               builder: (context, state) {

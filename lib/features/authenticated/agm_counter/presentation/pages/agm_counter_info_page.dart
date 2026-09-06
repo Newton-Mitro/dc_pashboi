@@ -36,7 +36,11 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
       appBar: AppBar(
         title: Text(Locales.string(context, 'agm_counter_info_page_title')),
       ),
-      body: SafeArea(
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
         child: PageContainer(
           child: Padding(
             padding: const EdgeInsets.all(16.0),

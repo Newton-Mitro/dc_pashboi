@@ -94,7 +94,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         appBar: AppBar(
           title: Text(Locales.string(context, 'reset_password_page_title')),
         ),
-        body: SafeArea(
+        body: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom,
+            top: MediaQuery.of(context).viewPadding.top,
+          ),
           child: BlocConsumer<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {
               if (state is ResetPasswordFailure) {

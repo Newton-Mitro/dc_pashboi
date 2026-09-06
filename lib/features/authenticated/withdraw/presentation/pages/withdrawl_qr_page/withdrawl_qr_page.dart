@@ -146,7 +146,11 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
             appBar: AppBar(
               title: Text(Locales.string(context, 'generate_withdrawal_qr')),
             ),
-            body: SafeArea(
+            body: Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewPadding.bottom,
+                top: MediaQuery.of(context).viewPadding.top,
+              ),
               child: Stack(
                 children: [
                   PageContainer(

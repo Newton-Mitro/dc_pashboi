@@ -26,7 +26,13 @@ class _HtmlContentWebViewState extends State<HtmlContentWebView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: WebViewWidget(controller: _controller)),
+      body: Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewPadding.bottom,
+          top: MediaQuery.of(context).viewPadding.top,
+        ),
+        child: WebViewWidget(controller: _controller),
+      ),
     );
   }
 }
