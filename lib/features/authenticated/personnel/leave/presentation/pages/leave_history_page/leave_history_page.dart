@@ -46,7 +46,6 @@ class _LeaveHistoryPageState extends State<LeaveHistoryPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: PageContainer(
           child: Column(

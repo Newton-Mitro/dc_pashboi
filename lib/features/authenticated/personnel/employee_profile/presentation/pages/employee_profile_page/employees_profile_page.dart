@@ -119,7 +119,6 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: BlocBuilder<EmployeesProfileBloc, EmployeesProfileState>(
           builder: (context, state) {

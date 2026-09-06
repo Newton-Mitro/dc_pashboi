@@ -115,7 +115,6 @@ class _PublicHomeScreenState extends State<PublicHomeScreen>
             body: Padding(
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewPadding.bottom,
-                top: MediaQuery.of(context).viewPadding.top,
               ),
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),

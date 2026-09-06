@@ -97,7 +97,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         body: Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewPadding.bottom,
-            top: MediaQuery.of(context).viewPadding.top,
           ),
           child: BlocConsumer<ResetPasswordBloc, ResetPasswordState>(
             listener: (context, state) {

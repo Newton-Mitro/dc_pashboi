@@ -123,7 +123,6 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
         body: Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewPadding.bottom,
-            top: MediaQuery.of(context).viewPadding.top,
           ),
           child: PageContainer(
             child: Column(

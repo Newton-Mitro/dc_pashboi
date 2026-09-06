@@ -68,7 +68,6 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: PageContainer(
           child: Column(

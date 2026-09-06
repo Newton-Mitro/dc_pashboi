@@ -81,7 +81,6 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {

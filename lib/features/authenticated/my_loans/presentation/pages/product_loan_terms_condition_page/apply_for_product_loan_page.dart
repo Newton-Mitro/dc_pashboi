@@ -35,7 +35,6 @@ class _ApplyForProductLoanPageState extends State<ApplyForProductLoanPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: PageContainer(
           child: Padding(

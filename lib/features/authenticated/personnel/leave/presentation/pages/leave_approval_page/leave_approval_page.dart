@@ -55,7 +55,6 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: PageContainer(
           child: SizedBox(

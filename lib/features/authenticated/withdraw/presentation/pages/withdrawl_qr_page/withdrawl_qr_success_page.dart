@@ -26,7 +26,6 @@ class WithdrawQrSuccessPage extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: PageContainer(
           child: Column(

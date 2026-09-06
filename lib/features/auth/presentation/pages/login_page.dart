@@ -41,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: PageContainer(
           child: BlocListener<AuthBloc, AuthState>(

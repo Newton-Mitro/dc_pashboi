@@ -73,7 +73,6 @@ class _LoanStatementPageState extends State<LoanStatementPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: SingleChildScrollView(
           child: Column(

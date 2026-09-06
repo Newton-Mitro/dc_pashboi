@@ -321,7 +321,6 @@ class _AccountStatementPageState extends State<AccountStatementPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: SingleChildScrollView(
           child: Column(

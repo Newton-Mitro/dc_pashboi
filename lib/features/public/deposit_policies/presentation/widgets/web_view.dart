@@ -29,7 +29,6 @@ class _HtmlContentWebViewState extends State<HtmlContentWebView> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: WebViewWidget(controller: _controller),
       ),

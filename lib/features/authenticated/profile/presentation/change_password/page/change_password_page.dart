@@ -55,7 +55,6 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: BlocListener<ChangePasswordBloc, ChangePasswordState>(
           listener: (context, state) {

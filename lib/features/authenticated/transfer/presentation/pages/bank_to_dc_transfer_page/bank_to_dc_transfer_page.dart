@@ -165,7 +165,6 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
             body: Padding(
               padding: EdgeInsets.only(
                 bottom: MediaQuery.of(context).viewPadding.bottom,
-                top: MediaQuery.of(context).viewPadding.top,
               ),
               child: Stack(
                 children: [

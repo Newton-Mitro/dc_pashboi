@@ -32,7 +32,6 @@ class _BankToDcDepositsPageState extends State<BankToDcDepositsPage> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: PageContainer(
           child: SafeArea(

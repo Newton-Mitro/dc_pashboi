@@ -146,7 +146,6 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
       body: Padding(
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewPadding.bottom,
-          top: MediaQuery.of(context).viewPadding.top,
         ),
         child: BlocListener<AttendanceCalenderBloc, AttendanceCalenderState>(
           listener: (context, state) {

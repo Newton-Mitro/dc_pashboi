@@ -35,7 +35,6 @@ class _FounderProfilePageState extends State<FounderProfilePage> {
         body: Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewPadding.bottom,
-            top: MediaQuery.of(context).viewPadding.top,
           ),
           child: PageContainer(
             child: BlocBuilder<PageBloc, PageState>(
