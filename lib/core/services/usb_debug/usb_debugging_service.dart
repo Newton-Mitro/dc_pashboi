@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class UsbDebuggingService {
@@ -7,14 +8,14 @@ class UsbDebuggingService {
     try {
       final result = await _channel.invokeMethod<bool>('isUsbDebuggingEnabled');
 
-      print('USB DEBUGGING RESULT: $result');
+      debugPrint('USB DEBUGGING RESULT: $result');
 
       return result ?? false;
     } on PlatformException catch (e) {
-      print('USB DEBUGGING ERROR: ${e.message}');
+      debugPrint('USB DEBUGGING ERROR: ${e.message}');
       return false;
     } catch (e) {
-      print('USB DEBUGGING UNKNOWN ERROR: $e');
+      debugPrint('USB DEBUGGING UNKNOWN ERROR: $e');
       return false;
     }
   }

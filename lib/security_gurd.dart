@@ -40,11 +40,9 @@ class _UsbDebuggingGuardState extends State<UsbDebuggingGuard>
   }
 
   Future<void> _checkUsbDebugging() async {
-    // TODO: fix this before publish
-    // final isEnabled = await UsbDebuggingService.isEnabled();
-    final isEnabled = false;
+    final isEnabled = await UsbDebuggingService.isEnabled();
 
-    print('CHECKING USB DEBUGGING: $isEnabled');
+    debugPrint('CHECKING USB DEBUGGING: $isEnabled');
 
     if (!mounted) return;
 
@@ -79,7 +77,7 @@ class _UsbDebuggingGuardState extends State<UsbDebuggingGuard>
                       'security/device',
                     ).invokeMethod('openDeveloperOptions');
                   } catch (e) {
-                    print(e);
+                    debugPrint(e.toString());
                   }
                 },
                 child: const Text('Open Settings'),

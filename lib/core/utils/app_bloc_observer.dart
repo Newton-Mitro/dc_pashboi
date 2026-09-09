@@ -1,4 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pashboi/core/injection.dart';
+import 'package:pashboi/core/services/logging/logger_service.dart';
 
 class AppBlocObserver extends BlocObserver {
   @override
@@ -55,11 +58,17 @@ class AppBlocObserver extends BlocObserver {
   }
 
   void _prettyPrint(String title, Map<String, String> data) {
-    final buffer = StringBuffer();
-    buffer.writeln('--- $title ---');
-    data.forEach((key, value) {
-      buffer.writeln('$key: $value');
-    });
-    buffer.writeln('----------------------\n');
+    // Only log if LoggerService is available (sl is initialized)
+    try {
+      final logger = sl<LoggerService>();
+      final buffer = StringBuffer();
+      data.forEach((key, value) {
+        buffer.write('$key: $value | ');
+      });
+      logger.logTrace('$title: ${buffer.toString()}');
+    } catch (e) {
+      // Fallback if sl is not ready yet
+      debugPrint('$title: $data');
+    }
   }
 }

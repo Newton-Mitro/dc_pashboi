@@ -3,14 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pashboi/core/injection.dart';
 import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
+import 'package:pashboi/features/auth/presentation/bloc/mobile_number_verification_bloc/mobile_number_verification_bloc.dart';
+import 'package:pashboi/features/auth/presentation/bloc/otp_verification_bloc/otp_verification_bloc.dart';
 import 'package:pashboi/features/auth/presentation/pages/login_page.dart';
-import 'package:pashboi/features/auth/presentation/pages/registration_page.dart';
-import 'package:pashboi/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:pashboi/features/auth/presentation/pages/mobile_verification_page.dart';
 import 'package:pashboi/features/auth/presentation/pages/otp_verification_page.dart';
+import 'package:pashboi/features/auth/presentation/pages/registration_page.dart';
+import 'package:pashboi/features/auth/presentation/pages/reset_password_page.dart';
 import 'package:pashboi/features/authenticated/agm_counter/presentation/pages/agm_counter_info_page.dart';
 import 'package:pashboi/features/authenticated/agm_counter/presentation/pages/bloc/agm_counter_bloc.dart';
+import 'package:pashboi/features/authenticated/authenticated_shared/views/authenticated_home.dart';
 import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/add_beneficiary_bloc/add_beneficiary_bloc.dart';
+import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/beneficiaries_page.dart';
+import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/add_beneficiary_page.dart';
+import 'package:pashboi/features/authenticated/cards/presentation/pages/card_page.dart';
 import 'package:pashboi/features/authenticated/deposit/domain/entities/voucher_entity.dart';
 import 'package:pashboi/features/authenticated/deposit/presentation/pages/deposit_from_bkash_page/bloc/deposit_from_bkash_steps_bloc.dart';
 import 'package:pashboi/features/authenticated/deposit/presentation/pages/deposit_from_bkash_page/create_bkash_payment_page.dart';
@@ -25,47 +31,65 @@ import 'package:pashboi/features/authenticated/deposit/presentation/pages/deposi
 import 'package:pashboi/features/authenticated/deposit/presentation/pages/scheduled_deposits_page/bloc/scheduled_deposits_bloc.dart';
 import 'package:pashboi/features/authenticated/deposit/presentation/pages/scheduled_deposits_page/schedule_deposit_info_page.dart';
 import 'package:pashboi/features/authenticated/deposit/presentation/pages/scheduled_deposits_page/scheduled_deposits_page.dart';
+import 'package:pashboi/features/authenticated/family_and_friends/presentation/pages/add_family_and_relative_page.dart';
 import 'package:pashboi/features/authenticated/family_and_friends/presentation/pages/bloc/add_family_and_relative_bloc/add_family_and_relative_bloc.dart';
+import 'package:pashboi/features/authenticated/family_and_friends/presentation/pages/bloc/relationship_bloc/relationship_bloc.dart';
+import 'package:pashboi/features/authenticated/family_and_friends/presentation/pages/family_and_relatives_page.dart';
 import 'package:pashboi/features/authenticated/loan_payment/presentation/pages/bloc/loan_payment_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/deposit_account_entity.dart';
-import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_statement_page/account_statement_page.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_details_page/account_details_page.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_openning_page/account_opening_page.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_openning_page/bloc/account_opening_steps_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_openning_page/parts/account_opening_details_section/bloc/tenure_amount_bloc/tenure_amount_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_openning_page/parts/account_opening_details_section/bloc/tenure_bloc/tenure_bloc.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_statement_page/account_statement_page.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_statement_page/bloc/account_statement_bloc.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/add_operating_account_page/add_operating_account_page.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/add_operating_account_page/bloc/add_operating_account_bloc.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/dependents_page/bloc/fetch_dependents_bloc.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/dependents_page/dependents_page.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/my_account_page/bloc/my_account_bloc.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/my_account_page/my_accounts_page.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/openable_accounts_page/bloc/openable_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/openable_accounts_page/openable_accounts_page.dart';
+import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/operating_accounts_page/operating_accounts_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_application_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_eligible/bloc/instant_loan_eligible_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_application_page/instant_loan_success_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/bloc/instant_loan_eligibility_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/instant_loan_terms_condition_page/instant_loan_terms_condition_page.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loan_terms_condition_page/apply_for_product_loan_page.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/loan_statement_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_details_page/loan_details_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/bloc/loan_statement_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_statement_section/loan_statement_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/my_loans_page/my_loans_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loan_terms_condition_page/apply_for_product_loan_page.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/bloc/deposit_product_loan_bloc.dart';
+import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/product_loans_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/product_loan_collection_account_bloc.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/deposit_loan_application_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/product_loan_success_page.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/step/bloc/fetch_against_loan_interest_bloc.dart';
+import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/bloc/payment_steps_bloc.dart';
+import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/payment_page.dart';
+import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/sections/pay_to_section/bloc/payment_service_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/attendance_calender.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/attendance_calender/bloc/attendance_calender_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/todays_punch/bloc/today_punch_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/attendance/presentation/pages/todays_punch/todays_punch.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/presentation/pages/employee_profile_page/bloc/employees_profile_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/presentation/pages/employee_profile_page/employees_profile_page.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/product_loans_page.dart';
-import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/bloc/payment_steps_bloc.dart';
-import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/payment_page.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/entities/leave_type_entity.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/accepted_fallback_request_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/leave_history_request_usecase.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/usecase/submit_leave_approvel_usecase.dart';
-import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/bloc/search_employee_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/bloc/leave_application_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/bloc/search_employee_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/leave_application_page.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/bloc/leave_approval_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/leave_approval_page.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/widget/bloc/submit_leave_approval_bloc.dart';
+import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/widget/leave_approval_details_page.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_fallback_page/bloc/fallback_request_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_fallback_page/leave_fallback_acceptance_page.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_fallback_page/wigets/bloc/accepted_fallback_request_bloc.dart';
@@ -77,10 +101,6 @@ import 'package:pashboi/features/authenticated/personnel/leave/presentation/page
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_info_page/bloc/leave_type_balance_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_info_page/bloc/leave_type_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_info_page/leave_information_page.dart';
-import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_application_page/leave_application_page.dart';
-import 'package:pashboi/features/authenticated/payment/presentation/pages/payment_page/sections/pay_to_section/bloc/payment_service_bloc.dart';
-import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/leave_approval_page.dart';
-import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_approval_page/widget/leave_approval_details_page.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/bloc/get_wooo_approval_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/wigets/bloc/submit_wooo_approval_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/woo_approval/wigets/wooo_approvel_details_page.dart';
@@ -92,9 +112,11 @@ import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_history/wigets/bloc/update_wooo_request_bloc.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_history/wigets/wooo_data_history_details_page.dart';
 import 'package:pashboi/features/authenticated/personnel/wooo/presentation/pages/wooo_history/wooo_history_page.dart';
+import 'package:pashboi/features/authenticated/profile/presentation/change_password/bloc/change_password_bloc.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/change_password/page/change_password_page.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/profile_page/bloc/profile_bloc.dart';
 import 'package:pashboi/features/authenticated/profile/presentation/profile_page/page/profile_page.dart';
+import 'package:pashboi/features/authenticated/sureties/presentation/pages/given_sureties_page.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/bank_to_dc_deposits_page/bank_to_dc_deposit_info_page.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/bank_to_dc_deposits_page/bank_to_dc_deposits_page.dart';
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/bank_to_dc_transfer_page/bank_to_dc_transfer_page.dart';
@@ -123,25 +145,11 @@ import 'package:pashboi/features/public/notice/presentation/pages/notice_details
 import 'package:pashboi/features/public/project/domain/entites/project_entity.dart';
 import 'package:pashboi/features/public/project/presentation/pages/project_details_page.dart';
 import 'package:pashboi/features/public/public_home/views/public_home.dart';
-import 'package:pashboi/features/authenticated/authenticated_shared/views/authenticated_home.dart';
-import 'package:pashboi/features/authenticated/cards/presentation/pages/card_page.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/my_loans_page/my_loans_page.dart';
-import 'package:pashboi/features/authenticated/my_loans/presentation/pages/loan_details_page/loan_details_page.dart';
-import 'package:pashboi/features/authenticated/family_and_friends/presentation/pages/family_and_relatives_page.dart';
-import 'package:pashboi/features/authenticated/family_and_friends/presentation/pages/add_family_and_relative_page.dart';
-import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/beneficiaries_page.dart';
-import 'package:pashboi/features/authenticated/beneficiaries/presentation/pages/add_beneficiary_page.dart';
-import 'package:pashboi/features/authenticated/sureties/presentation/pages/given_sureties_page.dart';
-import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/my_account_page/my_accounts_page.dart';
-import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/account_details_page/account_details_page.dart';
-import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/operating_accounts_page/operating_accounts_page.dart';
-import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/dependents_page/dependents_page.dart';
-import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/add_operating_account_page/add_operating_account_page.dart';
-import 'package:pashboi/features/authenticated/my_accounts/presentation/pages/add_operating_account_page/bloc/add_operating_account_bloc.dart';
 import 'package:pashboi/features/public/service/domain/enities/service_policy_entity.dart';
 import 'package:pashboi/features/public/service/presentation/service_policy_details_page.dart';
-import 'package:pashboi/routes/public_routes_name.dart';
+import 'package:pashboi/features/terms_and_condition/presentation/pages/bloc/term_and_condition_bloc.dart';
 import 'package:pashboi/routes/auth_routes_name.dart';
+import 'package:pashboi/routes/public_routes_name.dart';
 
 class AppRoutes {
   Route<dynamic> onGenerateRoutes(RouteSettings settings) {
@@ -165,14 +173,18 @@ class AppRoutes {
         return _materialRoute(RegistrationPage());
 
       case PublicRoutesName.resetPasswordPage:
+        // ResetPasswordPage provides itself in build using sl and initState.
         return _materialRoute(ResetPasswordPage());
 
       case PublicRoutesName.mobileVerificationPage:
         if (args is Map<String, String>) {
           return _materialRoute(
-            MobileVerificationPage(
-              routeName: args['routeName'] ?? '',
-              pageTitle: args['pageTitle'] ?? '',
+            BlocProvider(
+              create: (_) => sl<VerifyMobileNumberBloc>(),
+              child: MobileVerificationPage(
+                routeName: args['routeName'] ?? '',
+                pageTitle: args['pageTitle'] ?? '',
+              ),
             ),
           );
         }
@@ -180,10 +192,16 @@ class AppRoutes {
       case PublicRoutesName.otpVerificationPage:
         if (args is Map<String, String>) {
           return _materialRoute(
-            OtpVerificationPage(
-              routeName: args['routeName'] ?? '',
-              mobileNumber: args['mobileNumber'] ?? '',
-              otpRegId: args['otpRegId'] ?? '',
+            MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => sl<OtpVerificationBloc>()),
+                BlocProvider(create: (_) => sl<VerifyMobileNumberBloc>()),
+              ],
+              child: OtpVerificationPage(
+                routeName: args['routeName'] ?? '',
+                mobileNumber: args['mobileNumber'] ?? '',
+                otpRegId: args['otpRegId'] ?? '',
+              ),
             ),
           );
         }
@@ -248,8 +266,11 @@ class AppRoutes {
 
       case AuthRoutesName.addFamilyMemberPage:
         return _materialRoute(
-          BlocProvider(
-            create: (context) => sl<AddFamilyAndRelativeBloc>(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<AddFamilyAndRelativeBloc>()),
+              BlocProvider(create: (context) => sl<RelationshipBloc>()),
+            ],
             child: AddFamilyAndRelativesPage(),
           ),
         );
@@ -262,17 +283,29 @@ class AppRoutes {
 
       case AuthRoutesName.addBeneficiaryPage:
         return _materialRoute(
-          BlocProvider(
-            create: (context) => sl<AddBeneficiaryBloc>(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (context) => sl<AddBeneficiaryBloc>()),
+            ],
             child: AddBeneficiaryPage(),
           ),
         );
 
       case AuthRoutesName.dependentsPage:
-        return _materialRoute(DependentsPage());
+        return _materialRoute(
+          BlocProvider(
+            create: (_) => sl<FetchDependentsBloc>(),
+            child: DependentsPage(),
+          ),
+        );
 
       case AuthRoutesName.changePasswordPage:
-        return _materialRoute(ChangePasswordPage());
+        return _materialRoute(
+          BlocProvider(
+            create: (_) => sl<ChangePasswordBloc>(),
+            child: ChangePasswordPage(),
+          ),
+        );
 
       case AuthRoutesName.operatingAccountsPage:
         if (args is Map<String, int>) {
@@ -288,19 +321,28 @@ class AppRoutes {
 
       case AuthRoutesName.addOperatingAccountPage:
         return _materialRoute(
-          BlocProvider(
-            create: (_) => sl<AddOperatingAccountBloc>(),
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<AddOperatingAccountBloc>()),
+              BlocProvider(create: (_) => sl<MyAccountBloc>()),
+              BlocProvider(create: (_) => sl<FetchDependentsBloc>()),
+            ],
             child: AddOperatingAccountPage(),
           ),
         );
 
       case AuthRoutesName.myAccountsPage:
+        // MyAccountsPage provides its own Bloc in build.
         return _materialRoute(MyAccountsPage());
 
       case AuthRoutesName.accountsDetailsPage:
         if (args is Map<String, String>) {
+          // AccountDetailsPage does not seem to provide its own Bloc based on structure.
           return _materialRoute(
-            AccountDetailsPage(accountNumber: args['accountNumber'] ?? ''),
+            BlocProvider(
+              create: (_) => sl<MyAccountBloc>(),
+              child: AccountDetailsPage(accountNumber: args['accountNumber'] ?? ''),
+            ),
           );
         }
 
@@ -343,6 +385,7 @@ class AppRoutes {
         }
 
       case AuthRoutesName.myLoansPage:
+        // MyLoansPage provides its own Bloc in build.
         return _materialRoute(MyLoansPage());
 
       case AuthRoutesName.loanDetailsPage:
@@ -352,13 +395,28 @@ class AppRoutes {
           );
         }
       case AuthRoutesName.productLoansPage:
-        return _materialRoute(ProductLoansPage());
+        return _materialRoute(
+          BlocProvider(
+            create: (_) => sl<DepositProductLoanBloc>(),
+            child: ProductLoansPage(),
+          ),
+        );
 
       case AuthRoutesName.instantLoanTermsConditionPage:
-        return _materialRoute(InstantLoanTermsAndConditionPage());
+        return _materialRoute(
+          BlocProvider(
+            create: (_) => sl<TermAndConditionBloc>(),
+            child: InstantLoanTermsAndConditionPage(),
+          ),
+        );
 
       case AuthRoutesName.productLoanTermsConditionPage:
-        return _materialRoute(ApplyForProductLoanPage());
+        return _materialRoute(
+          BlocProvider(
+            create: (_) => sl<TermAndConditionBloc>(),
+            child: ApplyForProductLoanPage(),
+          ),
+        );
 
       case AuthRoutesName.depositNowPage:
         return _materialRoute(
