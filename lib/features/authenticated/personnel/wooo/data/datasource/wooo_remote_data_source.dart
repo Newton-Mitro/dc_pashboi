@@ -77,7 +77,7 @@ class WoooRemoteDataSourceImpl implements WoooRemoteDataSource {
     SubmitWoooApplicationPropsProps props,
   ) async {
     try {
-      String jsonRequestBody = jsonEncode({
+      final String jsonRequestBody = jsonEncode({
         "UserName": props.email,
         "MobileNo": props.mobileNumber,
         "MobileNumber": props.mobileNumber,

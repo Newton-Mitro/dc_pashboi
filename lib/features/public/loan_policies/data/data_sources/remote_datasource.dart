@@ -31,7 +31,7 @@ class LoanPolicyRemoteDataSourceImpl implements LoanPolicyRemoteDataSource {
           throw Exception('Invalid response format: expected a list');
         }
 
-        List<LoanPolicyModel> loanPolicies =
+        final List<LoanPolicyModel> loanPolicies =
             data.map((json) => LoanPolicyModel.fromJson(json)).toList();
 
         return loanPolicies;

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pashboi/core/services/usb_debug/usb_debugging_service.dart';
@@ -40,6 +41,10 @@ class _UsbDebuggingGuardState extends State<UsbDebuggingGuard>
   }
 
   Future<void> _checkUsbDebugging() async {
+    if (kDebugMode) {
+      debugPrint('USB DEBUGGING CHECK BYPASSED IN DEBUG MODE');
+      return;
+    }
     final isEnabled = await UsbDebuggingService.isEnabled();
 
     debugPrint('CHECKING USB DEBUGGING: $isEnabled');

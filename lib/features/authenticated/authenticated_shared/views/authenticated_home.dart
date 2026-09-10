@@ -138,7 +138,7 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
         },
         child: BlocBuilder<AuthenticatedHomeBloc, AuthenticatedHomeState>(
           builder: (context, authHomeState) {
-            int selectedPage =
+            final int selectedPage =
                 authHomeState is PageChangedState
                     ? authHomeState.selectedPage
                     : (authHomeState is AuthenticatedHomeInitial

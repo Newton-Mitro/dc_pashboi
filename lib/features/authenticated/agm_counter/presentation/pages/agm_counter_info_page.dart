@@ -147,7 +147,7 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
 
   Widget _buildCounterList(AGMCounterEntity counter) {
     // Extract digits from counterNo
-    String digits = counter.counterNo.replaceAll(RegExp(r'[^0-9]'), '');
+    final String digits = counter.counterNo.replaceAll(RegExp(r'[^0-9]'), '');
 
     return Card(
       color: context.theme.colorScheme.surface,

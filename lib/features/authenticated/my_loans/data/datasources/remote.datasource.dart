@@ -378,13 +378,14 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
           if (statusMessage != null && statusMessage == "failed") {
             throw ServerException(message: errorMessage);
           } else {
-            Map<String, dynamic> decoded = jsonDecode(dataString);
+            final Map<String, dynamic> decoded = jsonDecode(dataString);
 
-            String eligibleConditionsString = decoded['EligibleConditions'];
+            final String eligibleConditionsString =
+                decoded['EligibleConditions'];
 
-            var eligibilityMessage = decoded['EligibilityMessage'];
-            var eligibleConditionsList = jsonDecode(eligibleConditionsString);
-            var eligibleConditionsLists =
+            final eligibilityMessage = decoded['EligibilityMessage'];
+            final eligibleConditionsList = jsonDecode(eligibleConditionsString);
+            final eligibleConditionsLists =
                 (eligibleConditionsList)
                     .map((e) => EligibleConditionsModel.fromJson(e))
                     .toList();
@@ -595,7 +596,7 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
               )
               .toList();
 
-      String jsonRequestBody = jsonEncode({
+      final String jsonRequestBody = jsonEncode({
         "ByUserId": props.userId,
         "UID": props.userId,
         "RolePermissionId": props.rolePermissionId,

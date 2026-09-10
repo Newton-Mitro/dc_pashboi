@@ -134,7 +134,7 @@ class _DepositForSectionState extends State<DepositForSection> {
                       return Center(child: Text(state.message));
                     }
                     if (state is BeneficiariesLoaded) {
-                      var beneficiaries = state.beneficiaries;
+                      final beneficiaries = state.beneficiaries;
 
                       if (beneficiaries.isEmpty) {
                         return const SizedBox.shrink();

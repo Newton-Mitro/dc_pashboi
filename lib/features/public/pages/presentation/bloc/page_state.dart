@@ -17,7 +17,7 @@ final class PageSuccess extends PageState {
   const PageSuccess({required this.pageData});
 
   @override
-  get props => [pageData];
+  List<Object> get props => [pageData];
 }
 
 final class PageError extends PageState {

@@ -1,12 +1,12 @@
 class UrlHelper {
   static List<String> extractUrls(String text) {
-    RegExp urlRegex = RegExp(
+    final RegExp urlRegex = RegExp(
       r'((http|https):\/\/[^\s]+)',
       caseSensitive: false,
       multiLine: true,
     );
 
-    Iterable<Match> matches = urlRegex.allMatches(text);
+    final Iterable<Match> matches = urlRegex.allMatches(text);
     return matches.map((match) => match.group(0)!).toList();
   }
 

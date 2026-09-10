@@ -81,7 +81,7 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
     SubmitTransferBankToDcProps props,
   ) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "AccountHolderName": props.nameOnCard,
         "AccountId": props.accountId,
         "AccountType": props.toBankAccountNumber,
@@ -216,7 +216,7 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
     FetchDcBankAccountsProps props,
   ) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "UserName": props.email,
         "UID": props.userId,
         "ByUserId": props.userId,
@@ -228,7 +228,7 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getBankAccounts,

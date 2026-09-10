@@ -202,7 +202,7 @@ class DepositLoanProductBloc
         state.loanAccounts.where((l) => l.isSelected!).toList();
 
     final totalAmount = selectedLedgers.fold<double>(0.0, (sum, ledger) {
-      double value = double.tryParse(ledger.partialApplyLoan) ?? 0.0;
+      final double value = double.tryParse(ledger.partialApplyLoan) ?? 0.0;
       return sum + value;
     });
 

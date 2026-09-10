@@ -96,7 +96,7 @@ class DepositRemoteDataSourceImpl implements DepositRemoteDataSource {
       final jsonList =
           props.collectionLedgers?.map((ledger) => ledger.toJson()).toList();
 
-      var requestBody = {
+      final requestBody = {
         "AccountHolderName": props.accountHolderName,
         "CardNo": props.cardNumber,
         "DepositDate": props.depositDate,

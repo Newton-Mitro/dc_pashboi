@@ -109,7 +109,7 @@ class _AccountOpeningDetailsSectionState
                     const SizedBox(height: 10),
                     BlocBuilder<TenureBloc, TenureState>(
                       builder: (context, state) {
-                        var tenures =
+                        final tenures =
                             state is TenureSuccess ? state.tenures : [];
 
                         final Map<int, TenureEntity> uniqueMap = {};
@@ -121,7 +121,7 @@ class _AccountOpeningDetailsSectionState
                           );
                         }
 
-                        var filteredTenures = uniqueMap.values.toList();
+                        final filteredTenures = uniqueMap.values.toList();
                         return AppDropdownSelect<String>(
                           value: widget.accountDuration.toString(),
                           errorText: widget.accountDurationError,
@@ -180,7 +180,7 @@ class _AccountOpeningDetailsSectionState
                     const SizedBox(height: 10),
                     BlocBuilder<TenureAmountBloc, TenureAmountState>(
                       builder: (context, state) {
-                        var tenureAmounts =
+                        final tenureAmounts =
                             state is TenureAmountSuccess
                                 ? state.tenureAmounts
                                 : [];

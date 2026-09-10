@@ -40,7 +40,7 @@ class ApplicationDetails extends StatefulWidget {
 List<DropdownMenuItem<String>> buildInstallmentItems(String value) {
   if (value.isEmpty) return [];
   final parts = value.split(',').map((e) => e.trim()).toList();
-  var item =
+  final item =
       parts
           .map(
             (item) => DropdownMenuItem<String>(value: item, child: Text(item)),

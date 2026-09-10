@@ -174,7 +174,7 @@ class _TransferToAccountSectionState extends State<TransferToAccountSection> {
                 const SizedBox(height: 10),
                 BlocBuilder<CollectionLedgerBloc, CollectionLedgerState>(
                   builder: (context, cState) {
-                    bool isLoading = cState is CollectionLedgerLoading;
+                    final bool isLoading = cState is CollectionLedgerLoading;
                     return AppSearchTextInput(
                       initialValue: widget.searchAccountNumber,
                       label: Locales.string(context, 'account_number'),

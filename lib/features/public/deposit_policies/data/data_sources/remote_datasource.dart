@@ -33,7 +33,7 @@ class DepositPolicyRemoteDataSourceImpl
           throw Exception('Invalid response format: expected a list');
         }
 
-        List<DepositPolicyModel> depositPolicies =
+        final List<DepositPolicyModel> depositPolicies =
             data.map((json) => DepositPolicyModel.fromJson(json)).toList();
 
         return depositPolicies;

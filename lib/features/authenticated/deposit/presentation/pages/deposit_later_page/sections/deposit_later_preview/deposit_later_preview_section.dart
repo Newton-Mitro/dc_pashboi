@@ -203,7 +203,7 @@ class DepositLaterPreviewSection extends StatelessWidget {
     final now = DateTime.now();
     final DateFormat formatter = DateFormat('dd MMM yyyy');
 
-    List<String> dates = [];
+    final List<String> dates = [];
 
     for (int i = 1; i <= months; i++) {
       // ✅ Schedule from next month onward

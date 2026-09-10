@@ -108,7 +108,7 @@ class CollectionLedgerEntity extends Entity<int> {
       accountId: accountId ?? this.accountId,
       accountNumber: accountNumber ?? this.accountNumber,
       accountName: accountName ?? this.accountName,
-      accountType: accountType ?? this.accountType,
+      accountType: accountType ?? accountType,
       accountTypeCode: accountTypeCode ?? this.accountTypeCode,
       moduleCode: moduleCode ?? this.moduleCode,
       ledgerId: ledgerId ?? this.ledgerId,

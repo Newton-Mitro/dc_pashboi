@@ -25,7 +25,7 @@ class DevelopmentCreditRemoteDataSourceImpl
           throw Exception('Invalid response format: expected a list');
         }
 
-        List<DevelopmentCreditsModel> developmentCredit =
+        final List<DevelopmentCreditsModel> developmentCredit =
             data.map((json) => DevelopmentCreditsModel.fromJson(json)).toList();
 
         return developmentCredit;

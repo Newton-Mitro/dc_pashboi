@@ -25,7 +25,7 @@ class ServiceCenterRemoteDataSourceImpl
           throw Exception('Invalid response format: expected a list');
         }
 
-        List<ServiceCenterModel> depositPolicies =
+        final List<ServiceCenterModel> depositPolicies =
             data.map((json) => ServiceCenterModel.fromJson(json)).toList();
 
         return depositPolicies;

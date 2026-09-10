@@ -25,7 +25,7 @@ class OnboardingPageBloc
     Emitter<OnboardingPageState> emit,
   ) async {
     emit(OnboardingLoading());
-    var params = SetOnboardingSeenParams(seen: event.seen);
+    final params = SetOnboardingSeenParams(seen: event.seen);
     final result = await setOnBoardingSeenUseCase.call(params);
     result.fold(
       (failure) {

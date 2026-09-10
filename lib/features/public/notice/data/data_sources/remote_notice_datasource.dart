@@ -24,7 +24,7 @@ class NoticeRemoteDataSourceImpl implements NoticeRemoteDataSource {
           throw Exception('Invalid response format: expected a list');
         }
 
-        List<NoticeModel> depositPolicies =
+        final List<NoticeModel> depositPolicies =
             data.map((json) => NoticeModel.fromJson(json)).toList();
 
         return depositPolicies;

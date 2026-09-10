@@ -32,7 +32,7 @@ class ServicePolicyRemoteDataSourceImpl
           throw Exception('Invalid response format: expected a list');
         }
 
-        List<ServicePolicyModel> servicePolicies =
+        final List<ServicePolicyModel> servicePolicies =
             data.map((json) => ServicePolicyModel.fromJson(json)).toList();
 
         return servicePolicies;

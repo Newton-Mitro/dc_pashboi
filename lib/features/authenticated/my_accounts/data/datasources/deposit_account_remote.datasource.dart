@@ -40,7 +40,7 @@ class DepositAccountRemoteDataSourceImpl
     GetMyAccountsProps props,
   ) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "UserName": props.email,
         "UID": props.userId,
         "ByUserId": props.userId,
@@ -53,7 +53,7 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getMyAccounts,
@@ -92,7 +92,7 @@ class DepositAccountRemoteDataSourceImpl
     GetAccountDetailsProps props,
   ) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "UserName": props.email,
         "UID": props.userId,
         "ByUserId": props.userId,
@@ -105,7 +105,7 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getAccountDetails,
@@ -143,7 +143,7 @@ class DepositAccountRemoteDataSourceImpl
     GetAccountStatementProps props,
   ) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "UserName": props.email,
         "UID": props.userId,
         "ByUserId": props.userId,
@@ -158,7 +158,7 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getAccountStatement,
@@ -192,7 +192,7 @@ class DepositAccountRemoteDataSourceImpl
   @override
   Future<String> addOperatingAccount(AddOperatingAccountProps props) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "AccountOperators": [
           {
             "AccountHolderId": props.accountHolderId,
@@ -212,7 +212,7 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.addDependent,
@@ -244,7 +244,7 @@ class DepositAccountRemoteDataSourceImpl
     FetchDependentsProps props,
   ) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "UserName": props.email,
         "UID": props.userId,
         "ByUserId": props.userId,
@@ -257,7 +257,7 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getDependentAccounts,
@@ -293,7 +293,7 @@ class DepositAccountRemoteDataSourceImpl
     FetchOperatingAccountsProps props,
   ) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "UserName": props.email,
         "UID": props.userId,
         "ByUserId": props.userId,
@@ -306,7 +306,7 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      var jsonEncodedRequestBody = jsonEncode(requestBody);
+      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getDependentAccounts,
@@ -340,7 +340,7 @@ class DepositAccountRemoteDataSourceImpl
   @override
   Future<String> openDepositAccount(OpenDepositAccountParams props) async {
     try {
-      var requestBody = {
+      final requestBody = {
         "AccountHolders": props.accountHolders,
         "Nominees": props.nominees,
         'NameOnCard': props.nameOnCard,

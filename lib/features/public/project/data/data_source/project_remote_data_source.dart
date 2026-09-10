@@ -24,7 +24,7 @@ class ProjectRemoteDataSourceImpl implements ProjectRemoteDataSource {
           throw Exception('Invalid response format: expected a list');
         }
 
-        List<ProjectModel> depositPolicies =
+        final List<ProjectModel> depositPolicies =
             data.map((json) => ProjectModel.fromJson(json)).toList();
 
         return depositPolicies;
