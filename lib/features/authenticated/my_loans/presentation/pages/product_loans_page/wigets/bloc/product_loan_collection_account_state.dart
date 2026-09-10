@@ -4,7 +4,7 @@ sealed class ProductLoanCollectionAccountState extends Equatable {
   const ProductLoanCollectionAccountState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class ProductLoanCollectionAccountInitial
@@ -27,7 +27,7 @@ final class ProductLoanCollectionAccountSuccess
   );
 
   @override
-  List<Object> get props => [productLoanEligibleCollateralAccountDto];
+  List<Object?> get props => [productLoanEligibleCollateralAccountDto];
 }
 
 final class ProductLoanCollectionAccountError
@@ -37,5 +37,5 @@ final class ProductLoanCollectionAccountError
   const ProductLoanCollectionAccountError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

@@ -5,5 +5,5 @@ class FetchOperatingAccountsEvent extends Equatable {
   const FetchOperatingAccountsEvent(this.dependentPersonId);
 
   @override
-  List<Object> get props => [dependentPersonId];
+  List<Object?> get props => [dependentPersonId];
 }

@@ -4,10 +4,12 @@ abstract class DepositFromBkashStepsEvent extends Equatable {
   const DepositFromBkashStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class DepositFromBkashGoToNextStep extends DepositFromBkashStepsEvent {}
+class DepositFromBkashGoToNextStep extends DepositFromBkashStepsEvent {
+  const DepositFromBkashGoToNextStep();
+}
 
 class DepositFromBkashValidateStep extends DepositFromBkashStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class DepositFromBkashValidateStep extends DepositFromBkashStepsEvent {
   const DepositFromBkashValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class DepositFromBkashGoToPreviousStep extends DepositFromBkashStepsEvent {}
+class DepositFromBkashGoToPreviousStep extends DepositFromBkashStepsEvent {
+  const DepositFromBkashGoToPreviousStep();
+}
 
 class DepositFromBkashUpdateStepData extends DepositFromBkashStepsEvent {
   final int step;
@@ -30,7 +34,7 @@ class DepositFromBkashUpdateStepData extends DepositFromBkashStepsEvent {
   });
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class DepositFromBkashSetCollectionLedgers extends DepositFromBkashStepsEvent {
@@ -39,7 +43,7 @@ class DepositFromBkashSetCollectionLedgers extends DepositFromBkashStepsEvent {
   const DepositFromBkashSetCollectionLedgers({required this.ledgers});
 
   @override
-  List<Object> get props => [ledgers];
+  List<Object?> get props => [ledgers];
 }
 
 class DepositFromBkashToggleLedgerSelection extends DepositFromBkashStepsEvent {
@@ -48,7 +52,7 @@ class DepositFromBkashToggleLedgerSelection extends DepositFromBkashStepsEvent {
   const DepositFromBkashToggleLedgerSelection(this.ledger);
 
   @override
-  List<Object> get props => [ledger];
+  List<Object?> get props => [ledger];
 }
 
 class DepositFromBkashToggleSelectAllLedgers
@@ -58,7 +62,7 @@ class DepositFromBkashToggleSelectAllLedgers
   const DepositFromBkashToggleSelectAllLedgers(this.selectAll);
 
   @override
-  List<Object> get props => [selectAll];
+  List<Object?> get props => [selectAll];
 }
 
 class DepositFromBkashUpdateLedgerAmount extends DepositFromBkashStepsEvent {
@@ -71,7 +75,7 @@ class DepositFromBkashUpdateLedgerAmount extends DepositFromBkashStepsEvent {
   });
 
   @override
-  List<Object> get props => [ledger, newAmount];
+  List<Object?> get props => [ledger, newAmount];
 }
 
 class DepositFromBkashUpdateLpsAmount extends DepositFromBkashStepsEvent {
@@ -84,9 +88,13 @@ class DepositFromBkashUpdateLpsAmount extends DepositFromBkashStepsEvent {
   });
 
   @override
-  List<Object> get props => [loanNumber, newAmount];
+  List<Object?> get props => [loanNumber, newAmount];
 }
 
-class DepositFromBkashResetFlow extends DepositFromBkashStepsEvent {}
+class DepositFromBkashResetFlow extends DepositFromBkashStepsEvent {
+  const DepositFromBkashResetFlow();
+}
 
-class DepositFromBkashSubmit extends DepositFromBkashStepsEvent {}
+class DepositFromBkashSubmit extends DepositFromBkashStepsEvent {
+  const DepositFromBkashSubmit();
+}

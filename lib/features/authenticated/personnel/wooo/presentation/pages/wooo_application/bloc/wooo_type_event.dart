@@ -4,7 +4,7 @@ sealed class WoooTypeEvent extends Equatable {
   const WoooTypeEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchWoooTypeEvent extends WoooTypeEvent {

@@ -4,10 +4,12 @@ sealed class DepositLoanProductEvent extends Equatable {
   const DepositLoanProductEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class DepositProductLoanGoToNextStep extends DepositLoanProductEvent {}
+class DepositProductLoanGoToNextStep extends DepositLoanProductEvent {
+  const DepositProductLoanGoToNextStep();
+}
 
 class DepositProductLoanValidateStep extends DepositLoanProductEvent {
   final int step;
@@ -15,10 +17,12 @@ class DepositProductLoanValidateStep extends DepositLoanProductEvent {
   const DepositProductLoanValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class DepositProductLoanGoToPreviousStep extends DepositLoanProductEvent {}
+class DepositProductLoanGoToPreviousStep extends DepositLoanProductEvent {
+  const DepositProductLoanGoToPreviousStep();
+}
 
 class UpdateStepData extends DepositLoanProductEvent {
   final int step;
@@ -27,7 +31,7 @@ class UpdateStepData extends DepositLoanProductEvent {
   const UpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class SetLoanAccounts extends DepositLoanProductEvent {
@@ -36,7 +40,7 @@ class SetLoanAccounts extends DepositLoanProductEvent {
   const SetLoanAccounts({required this.ledgers});
 
   @override
-  List<Object> get props => [ledgers];
+  List<Object?> get props => [ledgers];
 }
 
 class ToggleAccountSelection extends DepositLoanProductEvent {
@@ -45,7 +49,7 @@ class ToggleAccountSelection extends DepositLoanProductEvent {
   const ToggleAccountSelection(this.ledger);
 
   @override
-  List<Object> get props => [ledger];
+  List<Object?> get props => [ledger];
 }
 
 class UpdateLoanAccountAmount extends DepositLoanProductEvent {
@@ -58,7 +62,7 @@ class UpdateLoanAccountAmount extends DepositLoanProductEvent {
   });
 
   @override
-  List<Object> get props => [ledger, newAmount];
+  List<Object?> get props => [ledger, newAmount];
 }
 
 class SelectDebitCard extends DepositLoanProductEvent {
@@ -67,7 +71,7 @@ class SelectDebitCard extends DepositLoanProductEvent {
   const SelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
 class SelectCardAccount extends DepositLoanProductEvent {
@@ -76,9 +80,13 @@ class SelectCardAccount extends DepositLoanProductEvent {
   const SelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
-class ResetInstantLoanFlow extends DepositLoanProductEvent {}
+class ResetInstantLoanFlow extends DepositLoanProductEvent {
+  const ResetInstantLoanFlow();
+}
 
-class SubmitDepositLoanProduct extends DepositLoanProductEvent {}
+class SubmitDepositLoanProduct extends DepositLoanProductEvent {
+  const SubmitDepositLoanProduct();
+}

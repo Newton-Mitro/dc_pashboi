@@ -4,10 +4,12 @@ abstract class BankToDcTransferStepsEvent extends Equatable {
   const BankToDcTransferStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class BankToDcTransferGoToNextStep extends BankToDcTransferStepsEvent {}
+class BankToDcTransferGoToNextStep extends BankToDcTransferStepsEvent {
+  const BankToDcTransferGoToNextStep();
+}
 
 class BankToDcTransferValidateStep extends BankToDcTransferStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class BankToDcTransferValidateStep extends BankToDcTransferStepsEvent {
   const BankToDcTransferValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class BankToDcTransferGoToPreviousStep extends BankToDcTransferStepsEvent {}
+class BankToDcTransferGoToPreviousStep extends BankToDcTransferStepsEvent {
+  const BankToDcTransferGoToPreviousStep();
+}
 
 class BankToDcTransferUpdateStepData extends BankToDcTransferStepsEvent {
   final int step;
@@ -30,7 +34,7 @@ class BankToDcTransferUpdateStepData extends BankToDcTransferStepsEvent {
   });
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class BankToDcTransferSetCollectionLedgers extends BankToDcTransferStepsEvent {
@@ -39,7 +43,7 @@ class BankToDcTransferSetCollectionLedgers extends BankToDcTransferStepsEvent {
   const BankToDcTransferSetCollectionLedgers({required this.ledger});
 
   @override
-  List<Object> get props => [ledger];
+  List<Object?> get props => [ledger];
 }
 
 // class BankToDcTransferToggleLedgerSelection extends BankToDcTransferStepsEvent {
@@ -93,7 +97,7 @@ class BankToDcTransferSelectCardAccount extends BankToDcTransferStepsEvent {
   const BankToDcTransferSelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class BankToDcTransferSelectDebitCard extends BankToDcTransferStepsEvent {
@@ -102,7 +106,7 @@ class BankToDcTransferSelectDebitCard extends BankToDcTransferStepsEvent {
   const BankToDcTransferSelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
 class BankToDcTransferSelectBankAccount extends BankToDcTransferStepsEvent {
@@ -111,7 +115,9 @@ class BankToDcTransferSelectBankAccount extends BankToDcTransferStepsEvent {
   const BankToDcTransferSelectBankAccount(this.selectedBankAccount);
 
   @override
-  List<Object> get props => [selectedBankAccount];
+  List<Object?> get props => [selectedBankAccount];
 }
 
-class BankToDcTransferSubmit extends BankToDcTransferStepsEvent {}
+class BankToDcTransferSubmit extends BankToDcTransferStepsEvent {
+  const BankToDcTransferSubmit();
+}

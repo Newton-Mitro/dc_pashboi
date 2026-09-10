@@ -4,7 +4,7 @@ sealed class AuthenticatedHomeEvent extends Equatable {
   const AuthenticatedHomeEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class ChangePageEvent extends AuthenticatedHomeEvent {
@@ -13,5 +13,5 @@ final class ChangePageEvent extends AuthenticatedHomeEvent {
   const ChangePageEvent(this.selectedPage);
 
   @override
-  List<Object> get props => [selectedPage];
+  List<Object?> get props => [selectedPage];
 }

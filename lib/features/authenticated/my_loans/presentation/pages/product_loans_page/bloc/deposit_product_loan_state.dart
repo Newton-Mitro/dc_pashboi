@@ -4,10 +4,12 @@ sealed class DepositProductLoanState extends Equatable {
   const DepositProductLoanState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class DepositProductLoanInitial extends DepositProductLoanState {}
+final class DepositProductLoanInitial extends DepositProductLoanState {
+  const DepositProductLoanInitial();
+}
 
 final class DepositProductLoanLoading extends DepositProductLoanState {
   const DepositProductLoanLoading();
@@ -19,7 +21,7 @@ final class DepositProductLoanSuccess extends DepositProductLoanState {
   const DepositProductLoanSuccess(this.depositLoanEligibilityDto);
 
   @override
-  List<Object> get props => [depositLoanEligibilityDto];
+  List<Object?> get props => [depositLoanEligibilityDto];
 }
 
 final class DepositProductLoanError extends DepositProductLoanState {
@@ -28,5 +30,5 @@ final class DepositProductLoanError extends DepositProductLoanState {
   const DepositProductLoanError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

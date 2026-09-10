@@ -4,10 +4,12 @@ sealed class AddBeneficiaryState extends Equatable {
   const AddBeneficiaryState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class AddBeneficiaryInitial extends AddBeneficiaryState {}
+final class AddBeneficiaryInitial extends AddBeneficiaryState {
+  const AddBeneficiaryInitial();
+}
 
 class AddBeneficiaryLoading extends AddBeneficiaryState {
   const AddBeneficiaryLoading();
@@ -23,7 +25,7 @@ class AddBeneficiaryFailure extends AddBeneficiaryState {
   const AddBeneficiaryFailure(this.error);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }
 
 class AddBeneficiaryValidationError extends AddBeneficiaryState {
@@ -32,5 +34,5 @@ class AddBeneficiaryValidationError extends AddBeneficiaryState {
   const AddBeneficiaryValidationError(this.errors);
 
   @override
-  List<Object> get props => [errors];
+  List<Object?> get props => [errors];
 }

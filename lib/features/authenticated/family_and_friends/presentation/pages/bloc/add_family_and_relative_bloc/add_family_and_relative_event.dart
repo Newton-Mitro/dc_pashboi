@@ -4,7 +4,7 @@ sealed class AddFamilyAndRelativeEvent extends Equatable {
   const AddFamilyAndRelativeEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AddFamilyAndRelativeSubmitted extends AddFamilyAndRelativeEvent {
@@ -19,7 +19,7 @@ class AddFamilyAndRelativeSubmitted extends AddFamilyAndRelativeEvent {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
     childPersonId,
     relationTypeCode,
     searchAccountNumber,

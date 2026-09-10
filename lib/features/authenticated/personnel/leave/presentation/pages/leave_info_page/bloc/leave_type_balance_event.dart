@@ -4,10 +4,13 @@ sealed class LeaveTypeBalanceEvent extends Equatable {
   const LeaveTypeBalanceEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchLeaveTypeBalanceEvent extends LeaveTypeBalanceEvent {
   final String leaveTypeCode;
   const FetchLeaveTypeBalanceEvent(this.leaveTypeCode);
+
+  @override
+  List<Object?> get props => [leaveTypeCode];
 }

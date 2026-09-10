@@ -4,12 +4,16 @@ sealed class FetchOperatingAccountsState extends Equatable {
   const FetchOperatingAccountsState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class FetchOperatingAccountsInitial extends FetchOperatingAccountsState {}
+final class FetchOperatingAccountsInitial extends FetchOperatingAccountsState {
+  const FetchOperatingAccountsInitial();
+}
 
-final class FetchOperatingAccountsLoading extends FetchOperatingAccountsState {}
+final class FetchOperatingAccountsLoading extends FetchOperatingAccountsState {
+  const FetchOperatingAccountsLoading();
+}
 
 final class FetchOperatingAccountsLoaded extends FetchOperatingAccountsState {
   final List<DepositAccountEntity> operatingAccounts;
@@ -17,7 +21,7 @@ final class FetchOperatingAccountsLoaded extends FetchOperatingAccountsState {
   const FetchOperatingAccountsLoaded(this.operatingAccounts);
 
   @override
-  List<Object> get props => [operatingAccounts];
+  List<Object?> get props => [operatingAccounts];
 }
 
 final class FetchOperatingAccountsSuccess extends FetchOperatingAccountsState {
@@ -26,7 +30,7 @@ final class FetchOperatingAccountsSuccess extends FetchOperatingAccountsState {
   const FetchOperatingAccountsSuccess(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class FetchOperatingAccountsError extends FetchOperatingAccountsState {
@@ -35,5 +39,5 @@ final class FetchOperatingAccountsError extends FetchOperatingAccountsState {
   const FetchOperatingAccountsError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

@@ -4,7 +4,7 @@ sealed class UpdateLeaveApplicationEvent extends Equatable {
   const UpdateLeaveApplicationEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UpdateLeaveApplication extends UpdateLeaveApplicationEvent {
@@ -33,7 +33,7 @@ class UpdateLeaveApplication extends UpdateLeaveApplicationEvent {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
     remarks,
     fallbackEmployeeCode,
     rejoiningDate,

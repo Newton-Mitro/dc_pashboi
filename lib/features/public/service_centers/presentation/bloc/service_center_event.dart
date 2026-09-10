@@ -4,7 +4,7 @@ sealed class ServiceCenterEvent extends Equatable {
   const ServiceCenterEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchServiceCenterEvent extends ServiceCenterEvent {

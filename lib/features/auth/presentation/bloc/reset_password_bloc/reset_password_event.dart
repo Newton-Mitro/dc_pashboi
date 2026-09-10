@@ -4,7 +4,7 @@ abstract class ResetPasswordEvent extends Equatable {
   const ResetPasswordEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class ResetPasswordRequested extends ResetPasswordEvent {
@@ -17,7 +17,9 @@ class ResetPasswordRequested extends ResetPasswordEvent {
   });
 
   @override
-  List<Object> get props => [mobileNumber, password];
+  List<Object?> get props => [mobileNumber, password];
 }
 
-class GetRegisteredMobileRequested extends ResetPasswordEvent {}
+class GetRegisteredMobileRequested extends ResetPasswordEvent {
+  const GetRegisteredMobileRequested();
+}

@@ -4,7 +4,7 @@ sealed class LoanDetsilsEvent extends Equatable {
   const LoanDetsilsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchLoanDetsilsEvent extends LoanDetsilsEvent {
@@ -12,5 +12,5 @@ class FetchLoanDetsilsEvent extends LoanDetsilsEvent {
   const FetchLoanDetsilsEvent({required this.loanNumber});
 
   @override
-  List<Object> get props => [loanNumber];
+  List<Object?> get props => [loanNumber];
 }

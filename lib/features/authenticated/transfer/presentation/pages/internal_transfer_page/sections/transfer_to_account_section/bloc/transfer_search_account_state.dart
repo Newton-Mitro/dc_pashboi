@@ -4,12 +4,16 @@ sealed class TransferSearchAccountState extends Equatable {
   const TransferSearchAccountState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class TransferSearchAccountInitial extends TransferSearchAccountState {}
+final class TransferSearchAccountInitial extends TransferSearchAccountState {
+  const TransferSearchAccountInitial();
+}
 
-final class TransferSearchAccountLoading extends TransferSearchAccountState {}
+final class TransferSearchAccountLoading extends TransferSearchAccountState {
+  const TransferSearchAccountLoading();
+}
 
 final class TransferSearchAccountLoaded extends TransferSearchAccountState {
   final String accountHolderName;
@@ -17,7 +21,7 @@ final class TransferSearchAccountLoaded extends TransferSearchAccountState {
   const TransferSearchAccountLoaded(this.accountHolderName);
 
   @override
-  List<Object> get props => [accountHolderName];
+  List<Object?> get props => [accountHolderName];
 }
 
 final class TransferSearchAccountError extends TransferSearchAccountState {
@@ -26,7 +30,7 @@ final class TransferSearchAccountError extends TransferSearchAccountState {
   const TransferSearchAccountError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class TransferSearchAccountValidationError
@@ -36,5 +40,5 @@ final class TransferSearchAccountValidationError
   const TransferSearchAccountValidationError(this.errors);
 
   @override
-  List<Object> get props => [errors];
+  List<Object?> get props => [errors];
 }

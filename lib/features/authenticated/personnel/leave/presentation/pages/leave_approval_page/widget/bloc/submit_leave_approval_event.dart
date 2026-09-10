@@ -4,7 +4,7 @@ sealed class SubmitLeaveApprovalEvent extends Equatable {
   const SubmitLeaveApprovalEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class SubmitLeaveApprovals extends SubmitLeaveApprovalEvent {
@@ -17,5 +17,5 @@ final class SubmitLeaveApprovals extends SubmitLeaveApprovalEvent {
   });
 
   @override
-  List<Object> get props => [leaveStageRemarks, leaveApplicationId];
+  List<Object?> get props => [leaveStageRemarks, leaveApplicationId];
 }

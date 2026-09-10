@@ -4,12 +4,16 @@ sealed class AddOperatingAccountState extends Equatable {
   const AddOperatingAccountState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class AddOperatingAccountInitial extends AddOperatingAccountState {}
+final class AddOperatingAccountInitial extends AddOperatingAccountState {
+  const AddOperatingAccountInitial();
+}
 
-final class AddOperatingAccountProcessing extends AddOperatingAccountState {}
+final class AddOperatingAccountProcessing extends AddOperatingAccountState {
+  const AddOperatingAccountProcessing();
+}
 
 final class AddOperatingAccountValidationErrorState
     extends AddOperatingAccountState {
@@ -17,7 +21,7 @@ final class AddOperatingAccountValidationErrorState
   const AddOperatingAccountValidationErrorState(this.errors);
 
   @override
-  List<Object> get props => [errors];
+  List<Object?> get props => [errors];
 }
 
 final class AddOperatingAccountSuccess extends AddOperatingAccountState {
@@ -26,7 +30,7 @@ final class AddOperatingAccountSuccess extends AddOperatingAccountState {
   const AddOperatingAccountSuccess(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class AddOperatingAccountError extends AddOperatingAccountState {
@@ -35,5 +39,5 @@ final class AddOperatingAccountError extends AddOperatingAccountState {
   const AddOperatingAccountError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

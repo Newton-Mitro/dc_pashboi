@@ -4,7 +4,7 @@ sealed class FetchAgainstLoanInterestEvent extends Equatable {
   const FetchAgainstLoanInterestEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchAgainstLoanInterest extends FetchAgainstLoanInterestEvent {
@@ -17,5 +17,5 @@ class FetchAgainstLoanInterest extends FetchAgainstLoanInterestEvent {
   });
 
   @override
-  List<Object> get props => [productCode, accountIds];
+  List<Object?> get props => [productCode, accountIds];
 }

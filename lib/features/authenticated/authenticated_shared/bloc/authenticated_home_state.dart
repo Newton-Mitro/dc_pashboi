@@ -4,7 +4,7 @@ sealed class AuthenticatedHomeState extends Equatable {
   const AuthenticatedHomeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AuthenticatedHomeInitial extends AuthenticatedHomeState {
@@ -12,10 +12,12 @@ class AuthenticatedHomeInitial extends AuthenticatedHomeState {
   const AuthenticatedHomeInitial({this.selectedPage = 0});
 
   @override
-  List<Object> get props => [selectedPage];
+  List<Object?> get props => [selectedPage];
 }
 
-final class AuthLoading extends AuthenticatedHomeState {}
+final class AuthLoading extends AuthenticatedHomeState {
+  const AuthLoading();
+}
 
 class PageChangedState extends AuthenticatedHomeState {
   final int selectedPage;
@@ -26,5 +28,5 @@ class PageChangedState extends AuthenticatedHomeState {
   }
 
   @override
-  List<Object> get props => [selectedPage];
+  List<Object?> get props => [selectedPage];
 }

@@ -4,7 +4,7 @@ sealed class AddBeneficiaryEvent extends Equatable {
   const AddBeneficiaryEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AddBeneficiarySubmit extends AddBeneficiaryEvent {
@@ -17,5 +17,5 @@ class AddBeneficiarySubmit extends AddBeneficiaryEvent {
   });
 
   @override
-  List<Object> get props => [beneficiaryName, accountNumber];
+  List<Object?> get props => [beneficiaryName, accountNumber];
 }

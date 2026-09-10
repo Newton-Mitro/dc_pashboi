@@ -4,10 +4,12 @@ abstract class WithdrawlQrStepsEvent extends Equatable {
   const WithdrawlQrStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class WithdrawlQrGoToNextStep extends WithdrawlQrStepsEvent {}
+class WithdrawlQrGoToNextStep extends WithdrawlQrStepsEvent {
+  const WithdrawlQrGoToNextStep();
+}
 
 class WithdrawlQrValidateStep extends WithdrawlQrStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class WithdrawlQrValidateStep extends WithdrawlQrStepsEvent {
   const WithdrawlQrValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class WithdrawlQrGoToPreviousStep extends WithdrawlQrStepsEvent {}
+class WithdrawlQrGoToPreviousStep extends WithdrawlQrStepsEvent {
+  const WithdrawlQrGoToPreviousStep();
+}
 
 class WithdrawlQrUpdateStepData extends WithdrawlQrStepsEvent {
   final int step;
@@ -27,7 +31,7 @@ class WithdrawlQrUpdateStepData extends WithdrawlQrStepsEvent {
   const WithdrawlQrUpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class WithdrawlQrSelectCardAccount extends WithdrawlQrStepsEvent {
@@ -36,7 +40,7 @@ class WithdrawlQrSelectCardAccount extends WithdrawlQrStepsEvent {
   const WithdrawlQrSelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class WithdrawlQrSelectDebitCard extends WithdrawlQrStepsEvent {
@@ -45,7 +49,7 @@ class WithdrawlQrSelectDebitCard extends WithdrawlQrStepsEvent {
   const WithdrawlQrSelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
 class WithdrawlQrSubmit extends WithdrawlQrStepsEvent {
@@ -54,5 +58,5 @@ class WithdrawlQrSubmit extends WithdrawlQrStepsEvent {
   const WithdrawlQrSubmit(this.withdrawAmount);
 
   @override
-  List<Object> get props => [withdrawAmount];
+  List<Object?> get props => [withdrawAmount];
 }

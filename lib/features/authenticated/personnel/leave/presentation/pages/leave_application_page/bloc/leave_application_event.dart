@@ -4,7 +4,7 @@ abstract class LeaveApplicationEvent extends Equatable {
   const LeaveApplicationEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class LeaveApplicationUpdateField extends LeaveApplicationEvent {
@@ -13,7 +13,9 @@ class LeaveApplicationUpdateField extends LeaveApplicationEvent {
   const LeaveApplicationUpdateField({required this.data});
 
   @override
-  List<Object> get props => [data];
+  List<Object?> get props => [data];
 }
 
-class LeaveApplicationSubmitEvent extends LeaveApplicationEvent {}
+class LeaveApplicationSubmitEvent extends LeaveApplicationEvent {
+  const LeaveApplicationSubmitEvent();
+}

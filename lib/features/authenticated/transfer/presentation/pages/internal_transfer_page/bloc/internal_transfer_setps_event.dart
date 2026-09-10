@@ -4,10 +4,12 @@ abstract class InternalTransferStepsEvent extends Equatable {
   const InternalTransferStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class InternalTransferGoToNextStep extends InternalTransferStepsEvent {}
+class InternalTransferGoToNextStep extends InternalTransferStepsEvent {
+  const InternalTransferGoToNextStep();
+}
 
 class InternalTransferValidateStep extends InternalTransferStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class InternalTransferValidateStep extends InternalTransferStepsEvent {
   const InternalTransferValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class InternalTransferGoToPreviousStep extends InternalTransferStepsEvent {}
+class InternalTransferGoToPreviousStep extends InternalTransferStepsEvent {
+  const InternalTransferGoToPreviousStep();
+}
 
 class InternalTransferUpdateStepData extends InternalTransferStepsEvent {
   final int step;
@@ -30,7 +34,7 @@ class InternalTransferUpdateStepData extends InternalTransferStepsEvent {
   });
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class InternalTransferSelectCardAccount extends InternalTransferStepsEvent {
@@ -39,7 +43,7 @@ class InternalTransferSelectCardAccount extends InternalTransferStepsEvent {
   const InternalTransferSelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class InternalTransferSelectDebitCard extends InternalTransferStepsEvent {
@@ -48,7 +52,7 @@ class InternalTransferSelectDebitCard extends InternalTransferStepsEvent {
   const InternalTransferSelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
 class InternalTransferSubmit extends InternalTransferStepsEvent {
@@ -61,5 +65,5 @@ class InternalTransferSubmit extends InternalTransferStepsEvent {
   });
 
   @override
-  List<Object> get props => [toAccountNumber, transferAmount];
+  List<Object?> get props => [toAccountNumber, transferAmount];
 }

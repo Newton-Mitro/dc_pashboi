@@ -4,7 +4,9 @@ sealed class ScheduledDepositsEvent extends Equatable {
   const ScheduledDepositsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class FetchScheduledDeposits extends ScheduledDepositsEvent {}
+class FetchScheduledDeposits extends ScheduledDepositsEvent {
+  const FetchScheduledDeposits();
+}

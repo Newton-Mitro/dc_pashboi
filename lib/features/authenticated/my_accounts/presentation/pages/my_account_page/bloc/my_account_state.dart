@@ -4,12 +4,16 @@ sealed class MyAccountState extends Equatable {
   const MyAccountState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class MyAccountInitial extends MyAccountState {}
+final class MyAccountInitial extends MyAccountState {
+  const MyAccountInitial();
+}
 
-final class MyAccountLoading extends MyAccountState {}
+final class MyAccountLoading extends MyAccountState {
+  const MyAccountLoading();
+}
 
 final class MyAccountSuccess extends MyAccountState {
   final List<DepositAccountEntity> myAccounts;
@@ -17,7 +21,7 @@ final class MyAccountSuccess extends MyAccountState {
   const MyAccountSuccess(this.myAccounts);
 
   @override
-  List<Object> get props => [myAccounts];
+  List<Object?> get props => [myAccounts];
 }
 
 final class MyAccountError extends MyAccountState {
@@ -25,5 +29,5 @@ final class MyAccountError extends MyAccountState {
   const MyAccountError(this.error);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

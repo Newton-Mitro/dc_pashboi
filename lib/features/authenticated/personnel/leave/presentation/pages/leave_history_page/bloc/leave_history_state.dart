@@ -4,7 +4,7 @@ sealed class LeaveHistoryState extends Equatable {
   const LeaveHistoryState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class LeaveHistoryInitial extends LeaveHistoryState {
@@ -21,7 +21,7 @@ final class LeaveHistorySuccess extends LeaveHistoryState {
   const LeaveHistorySuccess(this.requests);
 
   @override
-  List<Object> get props => [requests];
+  List<Object?> get props => [requests];
 }
 
 final class LeaveHistoryError extends LeaveHistoryState {
@@ -30,5 +30,5 @@ final class LeaveHistoryError extends LeaveHistoryState {
   const LeaveHistoryError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

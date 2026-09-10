@@ -4,12 +4,16 @@ sealed class AccountStatementState extends Equatable {
   const AccountStatementState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class AccountStatementInitial extends AccountStatementState {}
+final class AccountStatementInitial extends AccountStatementState {
+  const AccountStatementInitial();
+}
 
-final class AccountStatementLoading extends AccountStatementState {}
+final class AccountStatementLoading extends AccountStatementState {
+  const AccountStatementLoading();
+}
 
 final class AccountStatementSuccess extends AccountStatementState {
   final List<AccountTransactionEntity> transactions;
@@ -17,7 +21,7 @@ final class AccountStatementSuccess extends AccountStatementState {
   const AccountStatementSuccess(this.transactions);
 
   @override
-  List<Object> get props => [transactions];
+  List<Object?> get props => [transactions];
 }
 
 final class AccountStatementError extends AccountStatementState {
@@ -25,5 +29,5 @@ final class AccountStatementError extends AccountStatementState {
   const AccountStatementError(this.error);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

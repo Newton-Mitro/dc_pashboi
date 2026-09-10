@@ -4,7 +4,7 @@ sealed class ProductLoanCollectionAccountEvent extends Equatable {
   const ProductLoanCollectionAccountEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchProductLoanCollectionAccountEvent
@@ -14,5 +14,5 @@ class FetchProductLoanCollectionAccountEvent
   const FetchProductLoanCollectionAccountEvent(this.productCode);
 
   @override
-  List<Object> get props => [productCode];
+  List<Object?> get props => [productCode];
 }

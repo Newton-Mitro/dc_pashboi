@@ -4,7 +4,7 @@ sealed class RelationshipEvent extends Equatable {
   const RelationshipEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class FetchRelationshipsEvent extends RelationshipEvent {
@@ -13,5 +13,5 @@ final class FetchRelationshipsEvent extends RelationshipEvent {
   const FetchRelationshipsEvent({required this.gender});
 
   @override
-  List<Object> get props => [gender];
+  List<Object?> get props => [gender];
 }

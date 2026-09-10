@@ -4,7 +4,7 @@ sealed class InstantLoanEligibilityState extends Equatable {
   const InstantLoanEligibilityState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class InstantLoanEligibilityInitial extends InstantLoanEligibilityState {
@@ -21,7 +21,7 @@ final class InstantLoanEligibilitySuccess extends InstantLoanEligibilityState {
   const InstantLoanEligibilitySuccess(this.instantLoanEligibilityDTO);
 
   @override
-  List<Object> get props => [instantLoanEligibilityDTO];
+  List<Object?> get props => [instantLoanEligibilityDTO];
 }
 
 final class InstantLoanEligibilityError extends InstantLoanEligibilityState {
@@ -30,5 +30,5 @@ final class InstantLoanEligibilityError extends InstantLoanEligibilityState {
   const InstantLoanEligibilityError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

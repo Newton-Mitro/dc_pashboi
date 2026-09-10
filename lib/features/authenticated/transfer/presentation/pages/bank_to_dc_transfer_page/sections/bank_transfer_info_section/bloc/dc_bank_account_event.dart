@@ -4,7 +4,9 @@ sealed class DcBankAccountEvent extends Equatable {
   const DcBankAccountEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class DcBankAccountLoadEvent extends DcBankAccountEvent {}
+class DcBankAccountLoadEvent extends DcBankAccountEvent {
+  const DcBankAccountLoadEvent();
+}

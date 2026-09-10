@@ -4,19 +4,23 @@ sealed class DevelopmentCreditState extends Equatable {
   const DevelopmentCreditState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class DevelopmentCreditInitial extends DevelopmentCreditState {}
+final class DevelopmentCreditInitial extends DevelopmentCreditState {
+  const DevelopmentCreditInitial();
+}
 
-final class DevelopmentCreditLoading extends DevelopmentCreditState {}
+final class DevelopmentCreditLoading extends DevelopmentCreditState {
+  const DevelopmentCreditLoading();
+}
 
 final class DevelopmentCreditSuccess extends DevelopmentCreditState {
   final List<DevelopmentCreditsEntity> developmentCredit;
   const DevelopmentCreditSuccess({required this.developmentCredit});
 
   @override
-  List<Object> get props => [developmentCredit];
+  List<Object?> get props => [developmentCredit];
 }
 
 final class DevelopmentCreditError extends DevelopmentCreditState {
@@ -25,5 +29,5 @@ final class DevelopmentCreditError extends DevelopmentCreditState {
   const DevelopmentCreditError({required this.error});
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

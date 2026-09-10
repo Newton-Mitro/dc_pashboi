@@ -4,12 +4,16 @@ sealed class AddFamilyAndRelativeState extends Equatable {
   const AddFamilyAndRelativeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class AddFamilyAndRelativeInitial extends AddFamilyAndRelativeState {}
+final class AddFamilyAndRelativeInitial extends AddFamilyAndRelativeState {
+  const AddFamilyAndRelativeInitial();
+}
 
-class AddFamilyAndRelativeLoading extends AddFamilyAndRelativeState {}
+class AddFamilyAndRelativeLoading extends AddFamilyAndRelativeState {
+  const AddFamilyAndRelativeLoading();
+}
 
 final class AddFamilyAndRelativeValidationErrorState
     extends AddFamilyAndRelativeState {
@@ -17,10 +21,12 @@ final class AddFamilyAndRelativeValidationErrorState
   const AddFamilyAndRelativeValidationErrorState(this.errors);
 
   @override
-  List<Object> get props => [errors];
+  List<Object?> get props => [errors];
 }
 
-class AddFamilyAndRelativeSuccess extends AddFamilyAndRelativeState {}
+class AddFamilyAndRelativeSuccess extends AddFamilyAndRelativeState {
+  const AddFamilyAndRelativeSuccess();
+}
 
 class AddFamilyAndRelativeFailure extends AddFamilyAndRelativeState {
   final String error;
@@ -28,5 +34,5 @@ class AddFamilyAndRelativeFailure extends AddFamilyAndRelativeState {
   const AddFamilyAndRelativeFailure(this.error);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

@@ -4,7 +4,7 @@ sealed class SubmitWoooApprovalEvent extends Equatable {
   const SubmitWoooApprovalEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SubmitWoooApplicationEvent extends SubmitWoooApprovalEvent {
@@ -17,5 +17,5 @@ class SubmitWoooApplicationEvent extends SubmitWoooApprovalEvent {
   });
 
   @override
-  List<Object> get props => [status, employeeWoooId];
+  List<Object?> get props => [status, employeeWoooId];
 }

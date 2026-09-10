@@ -4,10 +4,12 @@ abstract class DepositNowStepsEvent extends Equatable {
   const DepositNowStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class DepositNowGoToNextStep extends DepositNowStepsEvent {}
+class DepositNowGoToNextStep extends DepositNowStepsEvent {
+  const DepositNowGoToNextStep();
+}
 
 class DepositNowValidateStep extends DepositNowStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class DepositNowValidateStep extends DepositNowStepsEvent {
   const DepositNowValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class DepositNowGoToPreviousStep extends DepositNowStepsEvent {}
+class DepositNowGoToPreviousStep extends DepositNowStepsEvent {
+  const DepositNowGoToPreviousStep();
+}
 
 class UpdateStepData extends DepositNowStepsEvent {
   final int step;
@@ -27,7 +31,7 @@ class UpdateStepData extends DepositNowStepsEvent {
   const UpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class SetCollectionLedgers extends DepositNowStepsEvent {
@@ -36,7 +40,7 @@ class SetCollectionLedgers extends DepositNowStepsEvent {
   const SetCollectionLedgers({required this.ledgers});
 
   @override
-  List<Object> get props => [ledgers];
+  List<Object?> get props => [ledgers];
 }
 
 class ToggleLedgerSelection extends DepositNowStepsEvent {
@@ -45,7 +49,7 @@ class ToggleLedgerSelection extends DepositNowStepsEvent {
   const ToggleLedgerSelection(this.ledger);
 
   @override
-  List<Object> get props => [ledger];
+  List<Object?> get props => [ledger];
 }
 
 class ToggleSelectAllLedgers extends DepositNowStepsEvent {
@@ -54,7 +58,7 @@ class ToggleSelectAllLedgers extends DepositNowStepsEvent {
   const ToggleSelectAllLedgers(this.selectAll);
 
   @override
-  List<Object> get props => [selectAll];
+  List<Object?> get props => [selectAll];
 }
 
 class UpdateLedgerAmount extends DepositNowStepsEvent {
@@ -64,7 +68,7 @@ class UpdateLedgerAmount extends DepositNowStepsEvent {
   const UpdateLedgerAmount({required this.ledger, required this.newAmount});
 
   @override
-  List<Object> get props => [ledger, newAmount];
+  List<Object?> get props => [ledger, newAmount];
 }
 
 class UpdateLpsAmount extends DepositNowStepsEvent {
@@ -74,7 +78,7 @@ class UpdateLpsAmount extends DepositNowStepsEvent {
   const UpdateLpsAmount({required this.loanNumber, required this.newAmount});
 
   @override
-  List<Object> get props => [loanNumber, newAmount];
+  List<Object?> get props => [loanNumber, newAmount];
 }
 
 class SelectCardAccount extends DepositNowStepsEvent {
@@ -83,7 +87,7 @@ class SelectCardAccount extends DepositNowStepsEvent {
   const SelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class SelectDebitCard extends DepositNowStepsEvent {
@@ -92,9 +96,13 @@ class SelectDebitCard extends DepositNowStepsEvent {
   const SelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
-class ResetDepositNowFlow extends DepositNowStepsEvent {}
+class ResetDepositNowFlow extends DepositNowStepsEvent {
+  const ResetDepositNowFlow();
+}
 
-class SubmitDepositNow extends DepositNowStepsEvent {}
+class SubmitDepositNow extends DepositNowStepsEvent {
+  const SubmitDepositNow();
+}

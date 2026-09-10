@@ -4,7 +4,7 @@ sealed class TenureAmountEvent extends Equatable {
   const TenureAmountEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchTenureAmountsEvent extends TenureAmountEvent {
@@ -15,4 +15,7 @@ class FetchTenureAmountsEvent extends TenureAmountEvent {
     required this.productCode,
     required this.duration,
   });
+
+  @override
+  List<Object?> get props => [productCode, duration];
 }

@@ -4,7 +4,7 @@ sealed class PageEvent extends Equatable {
   const PageEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchPageEvent extends PageEvent {
@@ -13,6 +13,5 @@ class FetchPageEvent extends PageEvent {
   const FetchPageEvent(this.pageProps);
 
   @override
-  // List<Object> get props => [props];
-  List<Object> get props => [pageProps];
+  List<Object?> get props => [pageProps];
 }

@@ -4,14 +4,20 @@ abstract class OnboardingPageState extends Equatable {
   const OnboardingPageState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class OnboardingPageInitial extends OnboardingPageState {}
+class OnboardingPageInitial extends OnboardingPageState {
+  const OnboardingPageInitial();
+}
 
-class OnboardingLoading extends OnboardingPageState {}
+class OnboardingLoading extends OnboardingPageState {
+  const OnboardingLoading();
+}
 
-class OnboardingSeenSetSuccess extends OnboardingPageState {}
+class OnboardingSeenSetSuccess extends OnboardingPageState {
+  const OnboardingSeenSetSuccess();
+}
 
 class OnboardingSeenLoaded extends OnboardingPageState {
   final bool seen;
@@ -19,7 +25,7 @@ class OnboardingSeenLoaded extends OnboardingPageState {
   const OnboardingSeenLoaded({required this.seen});
 
   @override
-  List<Object> get props => [seen];
+  List<Object?> get props => [seen];
 }
 
 class OnboardingInfosLoaded extends OnboardingPageState {
@@ -28,7 +34,7 @@ class OnboardingInfosLoaded extends OnboardingPageState {
   const OnboardingInfosLoaded({required this.infos});
 
   @override
-  List<Object> get props => [infos];
+  List<Object?> get props => [infos];
 }
 
 class OnboardingError extends OnboardingPageState {
@@ -37,5 +43,5 @@ class OnboardingError extends OnboardingPageState {
   const OnboardingError({required this.message});
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

@@ -4,7 +4,7 @@ sealed class LoanPaymentEvent extends Equatable {
   const LoanPaymentEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchLoanPayment extends LoanPaymentEvent {
@@ -27,4 +27,16 @@ class FetchLoanPayment extends LoanPaymentEvent {
     required this.issuedDate,
     required this.lastPaidDate,
   });
+
+  @override
+  List<Object?> get props => [
+        loanNumber,
+        interestDays,
+        interestRate,
+        loanBalance,
+        loanRefundAmount,
+        moduleCode,
+        issuedDate,
+        lastPaidDate,
+      ];
 }

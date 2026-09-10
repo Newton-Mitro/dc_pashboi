@@ -4,7 +4,7 @@ sealed class GetWoooDataState extends Equatable {
   const GetWoooDataState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class GetWoooDataInitial extends GetWoooDataState {
@@ -21,7 +21,7 @@ final class GetWoooDataSuccess extends GetWoooDataState {
   const GetWoooDataSuccess(this.WoooData);
 
   @override
-  List<Object> get props => [WoooData];
+  List<Object?> get props => [WoooData];
 }
 
 final class GetWoooDataError extends GetWoooDataState {
@@ -30,5 +30,5 @@ final class GetWoooDataError extends GetWoooDataState {
   const GetWoooDataError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

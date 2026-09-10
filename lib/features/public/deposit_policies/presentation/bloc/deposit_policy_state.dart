@@ -4,19 +4,23 @@ sealed class DepositPolicyState extends Equatable {
   const DepositPolicyState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class DepositPolicyInitial extends DepositPolicyState {}
+final class DepositPolicyInitial extends DepositPolicyState {
+  const DepositPolicyInitial();
+}
 
-final class DepositProductLoading extends DepositPolicyState {}
+final class DepositProductLoading extends DepositPolicyState {
+  const DepositProductLoading();
+}
 
 final class DepositPolicySuccess extends DepositPolicyState {
   final List<DepositPolicyEntity> depositPolicies;
   const DepositPolicySuccess({required this.depositPolicies});
 
   @override
-  List<Object> get props => [depositPolicies];
+  List<Object?> get props => [depositPolicies];
 }
 
 final class DepositPolicyError extends DepositPolicyState {
@@ -24,5 +28,5 @@ final class DepositPolicyError extends DepositPolicyState {
   const DepositPolicyError({required this.error});
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

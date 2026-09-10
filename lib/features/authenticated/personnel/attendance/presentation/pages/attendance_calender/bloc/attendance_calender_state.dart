@@ -4,7 +4,7 @@ sealed class AttendanceCalenderState extends Equatable {
   const AttendanceCalenderState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class AttendanceCalenderInitial extends AttendanceCalenderState {
@@ -21,7 +21,7 @@ final class AttendanceCalenderSuccess extends AttendanceCalenderState {
   const AttendanceCalenderSuccess(this.attendanceEntities);
 
   @override
-  List<Object> get props => [attendanceEntities];
+  List<Object?> get props => [attendanceEntities];
 }
 
 final class AttendanceCalenderError extends AttendanceCalenderState {
@@ -30,5 +30,5 @@ final class AttendanceCalenderError extends AttendanceCalenderState {
   const AttendanceCalenderError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

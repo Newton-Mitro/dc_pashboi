@@ -4,7 +4,7 @@ sealed class AcceptedFallbackRequestState extends Equatable {
   const AcceptedFallbackRequestState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class AcceptedFallbackRequestInitial
@@ -24,7 +24,7 @@ final class AcceptedFallbackRequestSuccess
   const AcceptedFallbackRequestSuccess(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class AcceptedFallbackRequestError extends AcceptedFallbackRequestState {
@@ -33,5 +33,5 @@ final class AcceptedFallbackRequestError extends AcceptedFallbackRequestState {
   const AcceptedFallbackRequestError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

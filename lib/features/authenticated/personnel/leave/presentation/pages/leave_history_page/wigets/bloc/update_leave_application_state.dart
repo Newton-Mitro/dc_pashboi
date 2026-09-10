@@ -4,7 +4,7 @@ sealed class UpdateLeaveApplicationState extends Equatable {
   const UpdateLeaveApplicationState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class UpdateLeaveApplicationInitial extends UpdateLeaveApplicationState {
@@ -21,7 +21,7 @@ final class UpdateLeaveApplicationSuccess extends UpdateLeaveApplicationState {
   const UpdateLeaveApplicationSuccess(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class UpdateLeaveApplicationError extends UpdateLeaveApplicationState {
@@ -30,5 +30,5 @@ final class UpdateLeaveApplicationError extends UpdateLeaveApplicationState {
   const UpdateLeaveApplicationError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

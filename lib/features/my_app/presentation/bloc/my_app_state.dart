@@ -7,9 +7,13 @@ abstract class AppStatusState extends Equatable {
   List<Object?> get props => [];
 }
 
-class AppStatusInitial extends AppStatusState {}
+class AppStatusInitial extends AppStatusState {
+  const AppStatusInitial();
+}
 
-class AppStatusLoading extends AppStatusState {}
+class AppStatusLoading extends AppStatusState {
+  const AppStatusLoading();
+}
 
 class NewVersionAvailable extends AppStatusState {
   final String message;

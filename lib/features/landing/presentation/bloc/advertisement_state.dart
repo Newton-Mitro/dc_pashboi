@@ -4,19 +4,23 @@ sealed class AdvertisementState extends Equatable {
   const AdvertisementState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class AdvertisementInitial extends AdvertisementState {}
+final class AdvertisementInitial extends AdvertisementState {
+  const AdvertisementInitial();
+}
 
-final class AdvertisementLoading extends AdvertisementState {}
+final class AdvertisementLoading extends AdvertisementState {
+  const AdvertisementLoading();
+}
 
 final class AdvertisementLoaded extends AdvertisementState {
   final List<AdvertisementEntity> advertisements;
   const AdvertisementLoaded({required this.advertisements});
 
   @override
-  List<Object> get props => [advertisements];
+  List<Object?> get props => [advertisements];
 }
 
 final class AdvertisementError extends AdvertisementState {
@@ -25,5 +29,5 @@ final class AdvertisementError extends AdvertisementState {
   const AdvertisementError({required this.error});
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

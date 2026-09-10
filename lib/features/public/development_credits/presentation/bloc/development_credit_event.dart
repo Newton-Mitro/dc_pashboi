@@ -4,7 +4,7 @@ sealed class DevelopmentCreditEvent extends Equatable {
   const DevelopmentCreditEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchDevelopmentCreditEvent extends DevelopmentCreditEvent {

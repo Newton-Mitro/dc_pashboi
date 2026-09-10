@@ -4,19 +4,23 @@ sealed class NoticeState extends Equatable {
   const NoticeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class NoticeInitial extends NoticeState {}
+final class NoticeInitial extends NoticeState {
+  const NoticeInitial();
+}
 
-final class NoticeLoading extends NoticeState {}
+final class NoticeLoading extends NoticeState {
+  const NoticeLoading();
+}
 
 final class NoticeSuccess extends NoticeState {
   final List<NoticeEntity> notices;
   const NoticeSuccess({required this.notices});
 
   @override
-  List<Object> get props => [notices];
+  List<Object?> get props => [notices];
 }
 
 final class NoticeError extends NoticeState {
@@ -25,5 +29,5 @@ final class NoticeError extends NoticeState {
   const NoticeError({required this.error});
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

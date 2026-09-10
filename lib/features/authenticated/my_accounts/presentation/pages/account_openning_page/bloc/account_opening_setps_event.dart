@@ -4,10 +4,12 @@ abstract class AccountOpeningStepsEvent extends Equatable {
   const AccountOpeningStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class AccountOpeningGoToNextStep extends AccountOpeningStepsEvent {}
+class AccountOpeningGoToNextStep extends AccountOpeningStepsEvent {
+  const AccountOpeningGoToNextStep();
+}
 
 class AccountOpeningValidateStep extends AccountOpeningStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class AccountOpeningValidateStep extends AccountOpeningStepsEvent {
   const AccountOpeningValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class AccountOpeningGoToPreviousStep extends AccountOpeningStepsEvent {}
+class AccountOpeningGoToPreviousStep extends AccountOpeningStepsEvent {
+  const AccountOpeningGoToPreviousStep();
+}
 
 class AccountOpeningUpdateStepData extends AccountOpeningStepsEvent {
   final int step;
@@ -27,7 +31,7 @@ class AccountOpeningUpdateStepData extends AccountOpeningStepsEvent {
   const AccountOpeningUpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class AccountOpeningSelectCardAccount extends AccountOpeningStepsEvent {
@@ -36,7 +40,7 @@ class AccountOpeningSelectCardAccount extends AccountOpeningStepsEvent {
   const AccountOpeningSelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class AccountOpeningSelectTenure extends AccountOpeningStepsEvent {
@@ -45,7 +49,7 @@ class AccountOpeningSelectTenure extends AccountOpeningStepsEvent {
   const AccountOpeningSelectTenure(this.selectedTenure);
 
   @override
-  List<Object> get props => [selectedTenure];
+  List<Object?> get props => [selectedTenure];
 }
 
 class AccountOpeningAddNominee extends AccountOpeningStepsEvent {
@@ -54,7 +58,7 @@ class AccountOpeningAddNominee extends AccountOpeningStepsEvent {
   const AccountOpeningAddNominee(this.nominee);
 
   @override
-  List<Object> get props => [nominee];
+  List<Object?> get props => [nominee];
 }
 
 class AccountOpeningRemoveNominee extends AccountOpeningStepsEvent {
@@ -63,7 +67,7 @@ class AccountOpeningRemoveNominee extends AccountOpeningStepsEvent {
   const AccountOpeningRemoveNominee(this.nominee);
 
   @override
-  List<Object> get props => [nominee];
+  List<Object?> get props => [nominee];
 }
 
 class AccountOpeningSelectTenureAmount extends AccountOpeningStepsEvent {
@@ -72,7 +76,7 @@ class AccountOpeningSelectTenureAmount extends AccountOpeningStepsEvent {
   const AccountOpeningSelectTenureAmount(this.selectedTenureAmount);
 
   @override
-  List<Object> get props => [selectedTenureAmount];
+  List<Object?> get props => [selectedTenureAmount];
 }
 
 class AccountOpeningSelectDebitCard extends AccountOpeningStepsEvent {
@@ -81,10 +85,12 @@ class AccountOpeningSelectDebitCard extends AccountOpeningStepsEvent {
   const AccountOpeningSelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
-class AccountOpeningFlowReset extends AccountOpeningStepsEvent {}
+class AccountOpeningFlowReset extends AccountOpeningStepsEvent {
+  const AccountOpeningFlowReset();
+}
 
 // class AccountOpeningSubmit extends AccountOpeningStepsEvent {}
 
@@ -94,5 +100,5 @@ class AccountOpeningSubmit extends AccountOpeningStepsEvent {
   const AccountOpeningSubmit({required this.productCode});
 
   @override
-  List<Object> get props => [productCode];
+  List<Object?> get props => [productCode];
 }

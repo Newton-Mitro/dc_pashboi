@@ -4,10 +4,12 @@ abstract class PaymentStepsEvent extends Equatable {
   const PaymentStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class PaymentGoToNextStep extends PaymentStepsEvent {}
+class PaymentGoToNextStep extends PaymentStepsEvent {
+  const PaymentGoToNextStep();
+}
 
 class PaymentValidateStep extends PaymentStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class PaymentValidateStep extends PaymentStepsEvent {
   const PaymentValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class PaymentGoToPreviousStep extends PaymentStepsEvent {}
+class PaymentGoToPreviousStep extends PaymentStepsEvent {
+  const PaymentGoToPreviousStep();
+}
 
 class PaymentUpdateStepData extends PaymentStepsEvent {
   final int step;
@@ -27,7 +31,7 @@ class PaymentUpdateStepData extends PaymentStepsEvent {
   const PaymentUpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class PaymentSelectCardAccount extends PaymentStepsEvent {
@@ -36,7 +40,7 @@ class PaymentSelectCardAccount extends PaymentStepsEvent {
   const PaymentSelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class PaymentSelectDebitCard extends PaymentStepsEvent {
@@ -45,7 +49,9 @@ class PaymentSelectDebitCard extends PaymentStepsEvent {
   const PaymentSelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
-class PaymentSubmit extends PaymentStepsEvent {}
+class PaymentSubmit extends PaymentStepsEvent {
+  const PaymentSubmit();
+}

@@ -4,7 +4,7 @@ sealed class GetWoooDataEvent extends Equatable {
   const GetWoooDataEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchWoooDataEvent extends GetWoooDataEvent {
@@ -14,5 +14,5 @@ class FetchWoooDataEvent extends GetWoooDataEvent {
   const FetchWoooDataEvent({required this.fromDate, required this.toDate});
 
   @override
-  List<Object> get props => [fromDate, toDate];
+  List<Object?> get props => [fromDate, toDate];
 }

@@ -7,9 +7,13 @@ abstract class VerifyMobileNumberState extends Equatable {
   List<Object?> get props => [];
 }
 
-class VerifyMobileNumberInitial extends VerifyMobileNumberState {}
+class VerifyMobileNumberInitial extends VerifyMobileNumberState {
+  const VerifyMobileNumberInitial();
+}
 
-class VerifyMobileNumberLoading extends VerifyMobileNumberState {}
+class VerifyMobileNumberLoading extends VerifyMobileNumberState {
+  const VerifyMobileNumberLoading();
+}
 
 class VerifyMobileNumberSuccess extends VerifyMobileNumberState {
   final String message;

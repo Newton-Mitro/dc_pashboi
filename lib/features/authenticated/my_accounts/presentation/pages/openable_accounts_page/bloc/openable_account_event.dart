@@ -4,7 +4,7 @@ sealed class OpenableAccountEvent extends Equatable {
   const OpenableAccountEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchOpenableAccountsEvent extends OpenableAccountEvent {

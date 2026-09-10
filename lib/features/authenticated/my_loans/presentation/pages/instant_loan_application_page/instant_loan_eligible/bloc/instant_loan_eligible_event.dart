@@ -4,10 +4,12 @@ sealed class InstantLoanEligibleEvent extends Equatable {
   const InstantLoanEligibleEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class InstantLoanGoToNextStep extends InstantLoanEligibleEvent {}
+class InstantLoanGoToNextStep extends InstantLoanEligibleEvent {
+  const InstantLoanGoToNextStep();
+}
 
 class InstantLoanValidateStep extends InstantLoanEligibleEvent {
   final int step;
@@ -15,10 +17,12 @@ class InstantLoanValidateStep extends InstantLoanEligibleEvent {
   const InstantLoanValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class InstantLoanGoToPreviousStep extends InstantLoanEligibleEvent {}
+class InstantLoanGoToPreviousStep extends InstantLoanEligibleEvent {
+  const InstantLoanGoToPreviousStep();
+}
 
 class UpdateStepData extends InstantLoanEligibleEvent {
   final int step;
@@ -27,7 +31,7 @@ class UpdateStepData extends InstantLoanEligibleEvent {
   const UpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class SelectDebitCard extends InstantLoanEligibleEvent {
@@ -36,7 +40,7 @@ class SelectDebitCard extends InstantLoanEligibleEvent {
   const SelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
 class SelectCardAccount extends InstantLoanEligibleEvent {
@@ -45,10 +49,12 @@ class SelectCardAccount extends InstantLoanEligibleEvent {
   const SelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
-class ResetInstantLoanFlow extends InstantLoanEligibleEvent {}
+class ResetInstantLoanFlow extends InstantLoanEligibleEvent {
+  const ResetInstantLoanFlow();
+}
 
 class SubmitInstantLoan extends InstantLoanEligibleEvent {
   final String moduleCode;
@@ -56,5 +62,5 @@ class SubmitInstantLoan extends InstantLoanEligibleEvent {
   const SubmitInstantLoan(this.moduleCode);
 
   @override
-  List<Object> get props => [moduleCode];
+  List<Object?> get props => [moduleCode];
 }

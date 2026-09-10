@@ -4,7 +4,7 @@ abstract class OnboardingPageEvent extends Equatable {
   const OnboardingPageEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SetOnboardingSeenEvent extends OnboardingPageEvent {
@@ -13,7 +13,7 @@ class SetOnboardingSeenEvent extends OnboardingPageEvent {
   const SetOnboardingSeenEvent({required this.seen});
 
   @override
-  List<Object> get props => [seen];
+  List<Object?> get props => [seen];
 }
 
 class GetOnboardingSeenEvent extends OnboardingPageEvent {

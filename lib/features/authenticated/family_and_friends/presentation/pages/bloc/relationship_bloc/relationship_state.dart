@@ -4,12 +4,16 @@ sealed class RelationshipState extends Equatable {
   const RelationshipState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class RelationshipInitial extends RelationshipState {}
+final class RelationshipInitial extends RelationshipState {
+  const RelationshipInitial();
+}
 
-final class RelationshipLoading extends RelationshipState {}
+final class RelationshipLoading extends RelationshipState {
+  const RelationshipLoading();
+}
 
 final class RelationshipLoaded extends RelationshipState {
   final List<RelationshipEntity> relationships;
@@ -17,7 +21,7 @@ final class RelationshipLoaded extends RelationshipState {
   const RelationshipLoaded(this.relationships);
 
   @override
-  List<Object> get props => [relationships];
+  List<Object?> get props => [relationships];
 }
 
 final class RelationshipError extends RelationshipState {
@@ -26,5 +30,5 @@ final class RelationshipError extends RelationshipState {
   const RelationshipError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

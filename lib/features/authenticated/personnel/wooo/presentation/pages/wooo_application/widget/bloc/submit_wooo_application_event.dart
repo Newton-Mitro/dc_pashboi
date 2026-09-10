@@ -4,7 +4,7 @@ sealed class SubmitWoooApplicationEvent extends Equatable {
   const SubmitWoooApplicationEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class SubmitWoooApplication extends SubmitWoooApplicationEvent {
@@ -25,7 +25,7 @@ class SubmitWoooApplication extends SubmitWoooApplicationEvent {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
     fromDate,
     toDate,
     rejoiningDate,

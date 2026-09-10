@@ -4,7 +4,7 @@ sealed class ProfileEvent extends Equatable {
   const ProfileEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchProfileEvent extends ProfileEvent {
@@ -16,5 +16,5 @@ class UpdateProfileImageEvent extends ProfileEvent {
   const UpdateProfileImageEvent({required this.imageData});
 
   @override
-  List<Object> get props => [imageData];
+  List<Object?> get props => [imageData];
 }

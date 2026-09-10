@@ -4,7 +4,7 @@ sealed class SubmitLeaveApprovalState extends Equatable {
   const SubmitLeaveApprovalState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class SubmitLeaveApprovalInitial extends SubmitLeaveApprovalState {
@@ -21,7 +21,7 @@ final class SubmitLeaveApprovalSuccess extends SubmitLeaveApprovalState {
   const SubmitLeaveApprovalSuccess(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class SubmitLeaveApprovalError extends SubmitLeaveApprovalState {
@@ -30,5 +30,5 @@ final class SubmitLeaveApprovalError extends SubmitLeaveApprovalState {
   const SubmitLeaveApprovalError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

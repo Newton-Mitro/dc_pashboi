@@ -4,7 +4,7 @@ sealed class MyLoansEvent extends Equatable {
   const MyLoansEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchMyLoansEvent extends MyLoansEvent {

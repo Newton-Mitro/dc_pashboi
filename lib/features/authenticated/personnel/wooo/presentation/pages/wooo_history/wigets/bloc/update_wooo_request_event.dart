@@ -4,7 +4,7 @@ sealed class UpdateWoooRequestEvent extends Equatable {
   const UpdateWoooRequestEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class UpdateWoooApplication extends UpdateWoooRequestEvent {
@@ -27,12 +27,13 @@ class UpdateWoooApplication extends UpdateWoooRequestEvent {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
     fromDate,
     toDate,
     rejoiningDate,
     reason,
     woooTypeCode,
     isHourly,
+    leaveApplicationId,
   ];
 }

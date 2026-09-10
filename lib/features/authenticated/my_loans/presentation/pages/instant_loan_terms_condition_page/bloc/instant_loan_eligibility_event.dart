@@ -4,7 +4,7 @@ sealed class InstantLoanEligibilityEvent extends Equatable {
   const InstantLoanEligibilityEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchInstantLoanEligibilityEvent extends InstantLoanEligibilityEvent {

@@ -4,7 +4,7 @@ sealed class FallbackRequestState extends Equatable {
   const FallbackRequestState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class FallbackRequestInitial extends FallbackRequestState {
@@ -21,7 +21,7 @@ final class FallbackRequestSuccess extends FallbackRequestState {
   const FallbackRequestSuccess(this.requests);
 
   @override
-  List<Object> get props => [requests];
+  List<Object?> get props => [requests];
 }
 
 final class FallbackRequestError extends FallbackRequestState {
@@ -30,5 +30,5 @@ final class FallbackRequestError extends FallbackRequestState {
   const FallbackRequestError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

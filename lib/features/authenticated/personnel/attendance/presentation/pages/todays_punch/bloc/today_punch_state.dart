@@ -4,7 +4,7 @@ sealed class TodayPunchState extends Equatable {
   const TodayPunchState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class TodayPunchInitial extends TodayPunchState {
@@ -21,7 +21,7 @@ final class TodayPunchSuccess extends TodayPunchState {
   const TodayPunchSuccess(this.todayPunchEntities);
 
   @override
-  List<Object> get props => [todayPunchEntities];
+  List<Object?> get props => [todayPunchEntities];
 }
 
 final class TodayPunchError extends TodayPunchState {
@@ -30,5 +30,5 @@ final class TodayPunchError extends TodayPunchState {
   const TodayPunchError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

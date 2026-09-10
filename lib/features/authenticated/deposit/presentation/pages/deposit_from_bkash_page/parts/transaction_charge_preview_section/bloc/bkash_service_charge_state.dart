@@ -4,12 +4,16 @@ sealed class BkashServiceChargeState extends Equatable {
   const BkashServiceChargeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class BkashServiceChargeInitial extends BkashServiceChargeState {}
+final class BkashServiceChargeInitial extends BkashServiceChargeState {
+  const BkashServiceChargeInitial();
+}
 
-final class BkashServiceChargeLoading extends BkashServiceChargeState {}
+final class BkashServiceChargeLoading extends BkashServiceChargeState {
+  const BkashServiceChargeLoading();
+}
 
 final class BkashServiceChargeLoaded extends BkashServiceChargeState {
   final double serviceCharge;
@@ -17,7 +21,7 @@ final class BkashServiceChargeLoaded extends BkashServiceChargeState {
   const BkashServiceChargeLoaded({required this.serviceCharge});
 
   @override
-  List<Object> get props => [serviceCharge];
+  List<Object?> get props => [serviceCharge];
 }
 
 final class BkashServiceChargeError extends BkashServiceChargeState {
@@ -26,5 +30,5 @@ final class BkashServiceChargeError extends BkashServiceChargeState {
   const BkashServiceChargeError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

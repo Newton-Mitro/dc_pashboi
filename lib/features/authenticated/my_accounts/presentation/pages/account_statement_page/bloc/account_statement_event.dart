@@ -4,7 +4,7 @@ sealed class AccountStatementEvent extends Equatable {
   const AccountStatementEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchAccountStatementEvent extends AccountStatementEvent {
@@ -18,5 +18,5 @@ class FetchAccountStatementEvent extends AccountStatementEvent {
   });
 
   @override
-  List<Object> get props => [accountNumber, fromDate, toDate];
+  List<Object?> get props => [accountNumber, fromDate, toDate];
 }

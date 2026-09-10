@@ -4,7 +4,7 @@ sealed class SearchEmployeeState extends Equatable {
   const SearchEmployeeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class SearchEmployeeInitial extends SearchEmployeeState {
@@ -21,7 +21,7 @@ final class SearchEmployeeSuccess extends SearchEmployeeState {
   const SearchEmployeeSuccess(this.employees);
 
   @override
-  List<Object> get props => [employees];
+  List<Object?> get props => [employees];
 }
 
 final class SearchEmployeeError extends SearchEmployeeState {
@@ -30,5 +30,5 @@ final class SearchEmployeeError extends SearchEmployeeState {
   const SearchEmployeeError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

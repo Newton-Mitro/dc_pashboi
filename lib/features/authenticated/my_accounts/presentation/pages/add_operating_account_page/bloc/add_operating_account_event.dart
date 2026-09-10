@@ -10,5 +10,5 @@ final class AddOperatingAccountEvent extends Equatable {
   });
 
   @override
-  List<Object> get props => [accountHolderId, accountHolderInfoId];
+  List<Object?> get props => [accountHolderId, accountHolderInfoId];
 }

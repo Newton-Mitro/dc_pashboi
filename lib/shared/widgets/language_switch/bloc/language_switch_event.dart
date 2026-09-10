@@ -16,4 +16,6 @@ class SwitchLanguage extends LanguageSwitchEvent {
   List<Object?> get props => [language];
 }
 
-class LoadLocaleEvent extends LanguageSwitchEvent {}
+class LoadLocaleEvent extends LanguageSwitchEvent {
+  const LoadLocaleEvent();
+}

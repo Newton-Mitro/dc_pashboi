@@ -4,19 +4,23 @@ sealed class LoanPolicyState extends Equatable {
   const LoanPolicyState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class LoanPolicyInitial extends LoanPolicyState {}
+final class LoanPolicyInitial extends LoanPolicyState {
+  const LoanPolicyInitial();
+}
 
-final class LoanPolicyLoading extends LoanPolicyState {}
+final class LoanPolicyLoading extends LoanPolicyState {
+  const LoanPolicyLoading();
+}
 
 final class LoanPolicySuccess extends LoanPolicyState {
   final List<LoanPolicyEntity> loanPolicies;
   const LoanPolicySuccess({required this.loanPolicies});
 
   @override
-  List<Object> get props => [loanPolicies];
+  List<Object?> get props => [loanPolicies];
 }
 
 final class LoanPolicyerror extends LoanPolicyState {
@@ -24,5 +28,5 @@ final class LoanPolicyerror extends LoanPolicyState {
 
   const LoanPolicyerror({required this.error});
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

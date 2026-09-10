@@ -18,7 +18,7 @@ class LoanProductEntity extends Entity<int> {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
     id,
     loanProductCode,
     loanProductName,

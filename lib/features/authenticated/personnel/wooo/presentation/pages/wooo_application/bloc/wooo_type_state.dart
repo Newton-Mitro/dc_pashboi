@@ -4,7 +4,7 @@ sealed class WoooTypeState extends Equatable {
   const WoooTypeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class WoooTypeInitial extends WoooTypeState {
@@ -21,7 +21,7 @@ final class WoooTypeSuccess extends WoooTypeState {
   const WoooTypeSuccess(this.woooTypeEntities);
 
   @override
-  List<Object> get props => [woooTypeEntities];
+  List<Object?> get props => [woooTypeEntities];
 }
 
 final class WoooTypeError extends WoooTypeState {
@@ -30,5 +30,5 @@ final class WoooTypeError extends WoooTypeState {
   const WoooTypeError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

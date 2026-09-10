@@ -4,7 +4,7 @@ sealed class AcceptedFallbackRequestEvent extends Equatable {
   const AcceptedFallbackRequestEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AcceptedFallbackRequestSubmitted extends AcceptedFallbackRequestEvent {
@@ -17,5 +17,5 @@ class AcceptedFallbackRequestSubmitted extends AcceptedFallbackRequestEvent {
   });
 
   @override
-  List<Object> get props => [remarks, leaveApplicationId];
+  List<Object?> get props => [remarks, leaveApplicationId];
 }

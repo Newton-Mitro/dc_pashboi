@@ -4,7 +4,7 @@ sealed class SubmitWoooApprovalState extends Equatable {
   const SubmitWoooApprovalState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class SubmitWoooApprovalInitial extends SubmitWoooApprovalState {
@@ -21,7 +21,7 @@ final class SubmitWoooApprovalSuccess extends SubmitWoooApprovalState {
   const SubmitWoooApprovalSuccess(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class SubmitWoooApprovalError extends SubmitWoooApprovalState {
@@ -30,5 +30,5 @@ final class SubmitWoooApprovalError extends SubmitWoooApprovalState {
   const SubmitWoooApprovalError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

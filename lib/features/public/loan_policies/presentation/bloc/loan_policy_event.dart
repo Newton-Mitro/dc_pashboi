@@ -4,7 +4,7 @@ sealed class LoanPolicyEvent extends Equatable {
   const LoanPolicyEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchLoanPolicyEvent extends LoanPolicyEvent {

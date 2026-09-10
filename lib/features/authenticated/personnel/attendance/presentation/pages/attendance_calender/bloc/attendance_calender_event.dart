@@ -4,7 +4,7 @@ sealed class AttendanceCalenderEvent extends Equatable {
   const AttendanceCalenderEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class AttendanceCalenderHistory extends AttendanceCalenderEvent {
@@ -17,5 +17,5 @@ class AttendanceCalenderHistory extends AttendanceCalenderEvent {
   });
 
   @override
-  List<Object> get props => [fromDate, toDate];
+  List<Object?> get props => [fromDate, toDate];
 }

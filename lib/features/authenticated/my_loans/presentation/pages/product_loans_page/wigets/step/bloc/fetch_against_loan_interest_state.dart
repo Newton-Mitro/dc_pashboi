@@ -4,7 +4,7 @@ sealed class FetchAgainstLoanInterestState extends Equatable {
   const FetchAgainstLoanInterestState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class FetchAgainstLoanInterestInitial
@@ -24,7 +24,7 @@ final class FetchAgainstLoanInterestSuccess
   const FetchAgainstLoanInterestSuccess(this.againstLoanInterestEntity);
 
   @override
-  List<Object> get props => [againstLoanInterestEntity];
+  List<Object?> get props => [againstLoanInterestEntity];
 }
 
 final class FetchAgainstLoanInterestError
@@ -34,5 +34,5 @@ final class FetchAgainstLoanInterestError
   const FetchAgainstLoanInterestError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

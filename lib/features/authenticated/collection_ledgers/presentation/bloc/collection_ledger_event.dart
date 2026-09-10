@@ -4,7 +4,7 @@ sealed class CollectionLedgerEvent extends Equatable {
   const CollectionLedgerEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class FetchCollectionLedgersEvent extends CollectionLedgerEvent {
@@ -17,5 +17,5 @@ final class FetchCollectionLedgersEvent extends CollectionLedgerEvent {
   });
 
   @override
-  List<Object> get props => [searchText, moduleCode];
+  List<Object?> get props => [searchText, moduleCode];
 }

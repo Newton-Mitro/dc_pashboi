@@ -4,7 +4,7 @@ sealed class ServicePolicyEvent extends Equatable {
   const ServicePolicyEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchServicePolicyEvent extends ServicePolicyEvent {

@@ -4,7 +4,7 @@ sealed class NoticeEvent extends Equatable {
   const NoticeEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchNoticeEvent extends NoticeEvent {

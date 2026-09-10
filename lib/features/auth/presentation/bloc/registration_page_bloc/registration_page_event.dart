@@ -4,7 +4,7 @@ sealed class RegistrationPageEvent extends Equatable {
   const RegistrationPageEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class RegisterEvent extends RegistrationPageEvent {
@@ -19,5 +19,5 @@ final class RegisterEvent extends RegistrationPageEvent {
   });
 
   @override
-  List<Object> get props => [password, email, confirmPassword];
+  List<Object?> get props => [password, email, confirmPassword];
 }

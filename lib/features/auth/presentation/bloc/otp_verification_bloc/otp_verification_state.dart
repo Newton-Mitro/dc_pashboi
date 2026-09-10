@@ -7,9 +7,13 @@ abstract class OtpVerificationState extends Equatable {
   List<Object?> get props => [];
 }
 
-class OtpVerificationInitial extends OtpVerificationState {}
+class OtpVerificationInitial extends OtpVerificationState {
+  const OtpVerificationInitial();
+}
 
-class OtpVerificationLoading extends OtpVerificationState {}
+class OtpVerificationLoading extends OtpVerificationState {
+  const OtpVerificationLoading();
+}
 
 class OtpVerificationSuccess extends OtpVerificationState {
   final String message;

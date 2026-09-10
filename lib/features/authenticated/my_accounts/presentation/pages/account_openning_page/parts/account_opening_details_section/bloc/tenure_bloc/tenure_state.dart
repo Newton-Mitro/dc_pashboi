@@ -4,12 +4,16 @@ sealed class TenureState extends Equatable {
   const TenureState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class TenureInitial extends TenureState {}
+final class TenureInitial extends TenureState {
+  const TenureInitial();
+}
 
-final class TenureLoading extends TenureState {}
+final class TenureLoading extends TenureState {
+  const TenureLoading();
+}
 
 final class TenureSuccess extends TenureState {
   final List<TenureEntity> tenures;
@@ -17,7 +21,7 @@ final class TenureSuccess extends TenureState {
   const TenureSuccess(this.tenures);
 
   @override
-  List<Object> get props => [tenures];
+  List<Object?> get props => [tenures];
 }
 
 final class TenureError extends TenureState {
@@ -25,5 +29,5 @@ final class TenureError extends TenureState {
   const TenureError(this.error);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

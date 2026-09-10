@@ -4,10 +4,12 @@ abstract class TransferToBkashStepsEvent extends Equatable {
   const TransferToBkashStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class TransferToBkashGoToNextStep extends TransferToBkashStepsEvent {}
+class TransferToBkashGoToNextStep extends TransferToBkashStepsEvent {
+  const TransferToBkashGoToNextStep();
+}
 
 class TransferToBkashValidateStep extends TransferToBkashStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class TransferToBkashValidateStep extends TransferToBkashStepsEvent {
   const TransferToBkashValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class TransferToBkashGoToPreviousStep extends TransferToBkashStepsEvent {}
+class TransferToBkashGoToPreviousStep extends TransferToBkashStepsEvent {
+  const TransferToBkashGoToPreviousStep();
+}
 
 class TransferToBkashUpdateStepData extends TransferToBkashStepsEvent {
   final int step;
@@ -27,7 +31,7 @@ class TransferToBkashUpdateStepData extends TransferToBkashStepsEvent {
   const TransferToBkashUpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class TransferToBkashSelectCardAccount extends TransferToBkashStepsEvent {
@@ -36,7 +40,7 @@ class TransferToBkashSelectCardAccount extends TransferToBkashStepsEvent {
   const TransferToBkashSelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class TransferToBkashSelectDebitCard extends TransferToBkashStepsEvent {
@@ -45,9 +49,13 @@ class TransferToBkashSelectDebitCard extends TransferToBkashStepsEvent {
   const TransferToBkashSelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
-class TransferToBkashSubmit extends TransferToBkashStepsEvent {}
+class TransferToBkashSubmit extends TransferToBkashStepsEvent {
+  const TransferToBkashSubmit();
+}
 
-class TransferToBkashLoadUser extends TransferToBkashStepsEvent {}
+class TransferToBkashLoadUser extends TransferToBkashStepsEvent {
+  const TransferToBkashLoadUser();
+}

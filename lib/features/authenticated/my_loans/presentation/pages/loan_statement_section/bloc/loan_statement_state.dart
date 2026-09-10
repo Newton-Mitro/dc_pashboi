@@ -4,12 +4,16 @@ sealed class LoanStatementState extends Equatable {
   const LoanStatementState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class LoanStatementInitial extends LoanStatementState {}
+final class LoanStatementInitial extends LoanStatementState {
+  const LoanStatementInitial();
+}
 
-final class LoanStatementLoading extends LoanStatementState {}
+final class LoanStatementLoading extends LoanStatementState {
+  const LoanStatementLoading();
+}
 
 final class LoanStatementSuccess extends LoanStatementState {
   final List<LoanTransactionEntity> transactions;
@@ -17,7 +21,7 @@ final class LoanStatementSuccess extends LoanStatementState {
   const LoanStatementSuccess(this.transactions);
 
   @override
-  List<Object> get props => [transactions];
+  List<Object?> get props => [transactions];
 }
 
 final class LoanStatementError extends LoanStatementState {
@@ -25,5 +29,5 @@ final class LoanStatementError extends LoanStatementState {
   const LoanStatementError(this.error);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

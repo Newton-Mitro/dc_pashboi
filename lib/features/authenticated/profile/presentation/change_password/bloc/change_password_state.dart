@@ -4,12 +4,16 @@ sealed class ChangePasswordState extends Equatable {
   const ChangePasswordState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class ChangePasswordInitial extends ChangePasswordState {}
+final class ChangePasswordInitial extends ChangePasswordState {
+  const ChangePasswordInitial();
+}
 
-final class ChangePasswordLoading extends ChangePasswordState {}
+final class ChangePasswordLoading extends ChangePasswordState {
+  const ChangePasswordLoading();
+}
 
 final class ChangePasswordSuccess extends ChangePasswordState {
   final String message;
@@ -17,7 +21,7 @@ final class ChangePasswordSuccess extends ChangePasswordState {
   const ChangePasswordSuccess(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class ChangePasswordError extends ChangePasswordState {
@@ -26,7 +30,7 @@ final class ChangePasswordError extends ChangePasswordState {
   const ChangePasswordError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }
 
 final class ChangePasswordValidationError extends ChangePasswordState {
@@ -35,5 +39,5 @@ final class ChangePasswordValidationError extends ChangePasswordState {
   const ChangePasswordValidationError(this.errors);
 
   @override
-  List<Object> get props => [errors];
+  List<Object?> get props => [errors];
 }

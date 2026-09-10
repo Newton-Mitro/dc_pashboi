@@ -4,10 +4,12 @@ sealed class LeaveTypeBalanceState extends Equatable {
   const LeaveTypeBalanceState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class LeaveTypeBalanceInitial extends LeaveTypeBalanceState {}
+final class LeaveTypeBalanceInitial extends LeaveTypeBalanceState {
+  const LeaveTypeBalanceInitial();
+}
 
 final class LeaveTypeBalanceLoading extends LeaveTypeBalanceState {
   const LeaveTypeBalanceLoading();
@@ -19,7 +21,7 @@ final class LeaveTypeBalanceSuccess extends LeaveTypeBalanceState {
   const LeaveTypeBalanceSuccess(this.leaveTypeBalance);
 
   @override
-  List<Object> get props => [leaveTypeBalance];
+  List<Object?> get props => [leaveTypeBalance];
 }
 
 final class LeaveTypeBalanceError extends LeaveTypeBalanceState {
@@ -28,5 +30,5 @@ final class LeaveTypeBalanceError extends LeaveTypeBalanceState {
   const LeaveTypeBalanceError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

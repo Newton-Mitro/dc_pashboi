@@ -4,7 +4,7 @@ sealed class GetWoooApprovalEvent extends Equatable {
   const GetWoooApprovalEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchWoooApprovalDataEvent extends GetWoooApprovalEvent {
@@ -17,5 +17,5 @@ class FetchWoooApprovalDataEvent extends GetWoooApprovalEvent {
   });
 
   @override
-  List<Object> get props => [fromDate, toDate];
+  List<Object?> get props => [fromDate, toDate];
 }

@@ -4,7 +4,7 @@ sealed class TodayPunchEvent extends Equatable {
   const TodayPunchEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class TodayPunchHistory extends TodayPunchEvent {
@@ -14,5 +14,5 @@ class TodayPunchHistory extends TodayPunchEvent {
   const TodayPunchHistory({required this.fromDate, required this.toDate});
 
   @override
-  List<Object> get props => [fromDate, toDate];
+  List<Object?> get props => [fromDate, toDate];
 }

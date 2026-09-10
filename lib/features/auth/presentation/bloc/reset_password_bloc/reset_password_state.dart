@@ -7,11 +7,17 @@ abstract class ResetPasswordState extends Equatable {
   List<Object?> get props => [];
 }
 
-class ResetPasswordInitial extends ResetPasswordState {}
+class ResetPasswordInitial extends ResetPasswordState {
+  const ResetPasswordInitial();
+}
 
-class ResetPasswordLoading extends ResetPasswordState {}
+class ResetPasswordLoading extends ResetPasswordState {
+  const ResetPasswordLoading();
+}
 
-class ResetPasswordSuccess extends ResetPasswordState {}
+class ResetPasswordSuccess extends ResetPasswordState {
+  const ResetPasswordSuccess();
+}
 
 class ResetPasswordValidationError extends ResetPasswordState {
   final Map<String, dynamic> errors;
@@ -19,7 +25,7 @@ class ResetPasswordValidationError extends ResetPasswordState {
   const ResetPasswordValidationError(this.errors);
 
   @override
-  List<Object> get props => [errors];
+  List<Object?> get props => [errors];
 }
 
 class ResetPasswordFailure extends ResetPasswordState {

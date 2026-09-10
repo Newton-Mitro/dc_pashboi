@@ -4,7 +4,7 @@ sealed class LeaveTypeState extends Equatable {
   const LeaveTypeState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class LeaveTypeInitial extends LeaveTypeState {
@@ -21,7 +21,7 @@ final class LeaveTypeSuccess extends LeaveTypeState {
   const LeaveTypeSuccess(this.leaveTypeEntity);
 
   @override
-  List<Object> get props => [leaveTypeEntity];
+  List<Object?> get props => [leaveTypeEntity];
 }
 
 final class LeaveTypeError extends LeaveTypeState {
@@ -30,5 +30,5 @@ final class LeaveTypeError extends LeaveTypeState {
   const LeaveTypeError(this.message);
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [message];
 }

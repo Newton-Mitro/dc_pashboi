@@ -4,12 +4,16 @@ sealed class ScheduledDepositsState extends Equatable {
   const ScheduledDepositsState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class ScheduledDepositsInitial extends ScheduledDepositsState {}
+final class ScheduledDepositsInitial extends ScheduledDepositsState {
+  const ScheduledDepositsInitial();
+}
 
-class ScheduledDepositsLoading extends ScheduledDepositsState {}
+class ScheduledDepositsLoading extends ScheduledDepositsState {
+  const ScheduledDepositsLoading();
+}
 
 class ScheduledDepositsLoaded extends ScheduledDepositsState {
   final List<DepositRequestEntity> depositRequests;
@@ -17,7 +21,7 @@ class ScheduledDepositsLoaded extends ScheduledDepositsState {
   const ScheduledDepositsLoaded({required this.depositRequests});
 
   @override
-  List<Object> get props => [depositRequests];
+  List<Object?> get props => [depositRequests];
 }
 
 class ScheduledDepositsFailure extends ScheduledDepositsState {
@@ -26,5 +30,5 @@ class ScheduledDepositsFailure extends ScheduledDepositsState {
   const ScheduledDepositsFailure(this.error);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

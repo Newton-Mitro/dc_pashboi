@@ -4,10 +4,12 @@ abstract class DepositLaterStepsEvent extends Equatable {
   const DepositLaterStepsEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-class DepositLaterGoToNextStep extends DepositLaterStepsEvent {}
+class DepositLaterGoToNextStep extends DepositLaterStepsEvent {
+  const DepositLaterGoToNextStep();
+}
 
 class DepositLaterValidateStep extends DepositLaterStepsEvent {
   final int step;
@@ -15,10 +17,12 @@ class DepositLaterValidateStep extends DepositLaterStepsEvent {
   const DepositLaterValidateStep(this.step);
 
   @override
-  List<Object> get props => [step];
+  List<Object?> get props => [step];
 }
 
-class DepositLaterGoToPreviousStep extends DepositLaterStepsEvent {}
+class DepositLaterGoToPreviousStep extends DepositLaterStepsEvent {
+  const DepositLaterGoToPreviousStep();
+}
 
 class DepositLaterUpdateStepData extends DepositLaterStepsEvent {
   final int step;
@@ -27,7 +31,7 @@ class DepositLaterUpdateStepData extends DepositLaterStepsEvent {
   const DepositLaterUpdateStepData({required this.step, required this.data});
 
   @override
-  List<Object> get props => [step, data];
+  List<Object?> get props => [step, data];
 }
 
 class DepositLaterSetCollectionLedgers extends DepositLaterStepsEvent {
@@ -36,7 +40,7 @@ class DepositLaterSetCollectionLedgers extends DepositLaterStepsEvent {
   const DepositLaterSetCollectionLedgers({required this.ledgers});
 
   @override
-  List<Object> get props => [ledgers];
+  List<Object?> get props => [ledgers];
 }
 
 class DepoistLaterToggleLedgerSelection extends DepositLaterStepsEvent {
@@ -45,7 +49,7 @@ class DepoistLaterToggleLedgerSelection extends DepositLaterStepsEvent {
   const DepoistLaterToggleLedgerSelection(this.ledger);
 
   @override
-  List<Object> get props => [ledger];
+  List<Object?> get props => [ledger];
 }
 
 class DepositLaterToggleSelectAllLedgers extends DepositLaterStepsEvent {
@@ -54,7 +58,7 @@ class DepositLaterToggleSelectAllLedgers extends DepositLaterStepsEvent {
   const DepositLaterToggleSelectAllLedgers(this.selectAll);
 
   @override
-  List<Object> get props => [selectAll];
+  List<Object?> get props => [selectAll];
 }
 
 class DepositLaterUpdateLedgerAmount extends DepositLaterStepsEvent {
@@ -67,7 +71,7 @@ class DepositLaterUpdateLedgerAmount extends DepositLaterStepsEvent {
   });
 
   @override
-  List<Object> get props => [ledger, newAmount];
+  List<Object?> get props => [ledger, newAmount];
 }
 
 class DepositLaterUpdateLpsAmount extends DepositLaterStepsEvent {
@@ -80,7 +84,7 @@ class DepositLaterUpdateLpsAmount extends DepositLaterStepsEvent {
   });
 
   @override
-  List<Object> get props => [loanNumber, newAmount];
+  List<Object?> get props => [loanNumber, newAmount];
 }
 
 class DepositLaterSelectCardAccount extends DepositLaterStepsEvent {
@@ -89,7 +93,7 @@ class DepositLaterSelectCardAccount extends DepositLaterStepsEvent {
   const DepositLaterSelectCardAccount(this.selectedCardAccount);
 
   @override
-  List<Object> get props => [selectedCardAccount];
+  List<Object?> get props => [selectedCardAccount];
 }
 
 class DepositLaterSelectDebitCard extends DepositLaterStepsEvent {
@@ -98,9 +102,13 @@ class DepositLaterSelectDebitCard extends DepositLaterStepsEvent {
   const DepositLaterSelectDebitCard(this.selectedCard);
 
   @override
-  List<Object> get props => [selectedCard];
+  List<Object?> get props => [selectedCard];
 }
 
-class DepositLaterFlowReset extends DepositLaterStepsEvent {}
+class DepositLaterFlowReset extends DepositLaterStepsEvent {
+  const DepositLaterFlowReset();
+}
 
-class DepositLaterSubmit extends DepositLaterStepsEvent {}
+class DepositLaterSubmit extends DepositLaterStepsEvent {
+  const DepositLaterSubmit();
+}

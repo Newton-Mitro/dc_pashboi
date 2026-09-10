@@ -4,12 +4,16 @@ sealed class PageState extends Equatable {
   const PageState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class PageInitial extends PageState {}
+final class PageInitial extends PageState {
+  const PageInitial();
+}
 
-final class PageLoading extends PageState {}
+final class PageLoading extends PageState {
+  const PageLoading();
+}
 
 final class PageSuccess extends PageState {
   final pageData;
@@ -17,7 +21,7 @@ final class PageSuccess extends PageState {
   const PageSuccess({required this.pageData});
 
   @override
-  List<Object> get props => [pageData];
+  List<Object?> get props => [pageData];
 }
 
 final class PageError extends PageState {
@@ -25,5 +29,5 @@ final class PageError extends PageState {
   const PageError({required this.error});
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 }

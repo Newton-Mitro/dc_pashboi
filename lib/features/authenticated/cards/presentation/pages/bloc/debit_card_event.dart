@@ -4,7 +4,7 @@ sealed class DebitCardEvent extends Equatable {
   const DebitCardEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class DebitCardLoad extends DebitCardEvent {
@@ -16,6 +16,9 @@ class DebitCardIssue extends DebitCardEvent {
   final bool withCard;
 
   const DebitCardIssue({required this.cardTypeCode, required this.withCard});
+
+  @override
+  List<Object?> get props => [cardTypeCode, withCard];
 }
 
 class DebitCardReIssue extends DebitCardEvent {
@@ -30,6 +33,9 @@ class DebitCardReIssue extends DebitCardEvent {
     required this.virtualCard,
     required this.nameOnCard,
   });
+
+  @override
+  List<Object?> get props => [cardNumber, cardTypeCode, virtualCard, nameOnCard];
 }
 
 class DebitCardBlock extends DebitCardEvent {
@@ -42,6 +48,9 @@ class DebitCardBlock extends DebitCardEvent {
     required this.accountNumber,
     required this.nameOnCard,
   });
+
+  @override
+  List<Object?> get props => [cardNumber, accountNumber, nameOnCard];
 }
 
 class DebitCardPinVerify extends DebitCardEvent {
@@ -56,4 +65,7 @@ class DebitCardPinVerify extends DebitCardEvent {
     required this.cardPIN,
     required this.accountNumber,
   });
+
+  @override
+  List<Object?> get props => [cardNumber, nameOnCard, cardPIN, accountNumber];
 }

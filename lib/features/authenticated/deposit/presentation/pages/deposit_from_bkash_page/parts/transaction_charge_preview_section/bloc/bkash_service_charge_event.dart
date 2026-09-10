@@ -4,7 +4,7 @@ sealed class BkashServiceChargeEvent extends Equatable {
   const BkashServiceChargeEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class FetchBkashServiceChargeEvent extends BkashServiceChargeEvent {
@@ -13,5 +13,5 @@ class FetchBkashServiceChargeEvent extends BkashServiceChargeEvent {
   const FetchBkashServiceChargeEvent({required this.totalAmount});
 
   @override
-  List<Object> get props => [totalAmount];
+  List<Object?> get props => [totalAmount];
 }

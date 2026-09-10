@@ -4,7 +4,7 @@ abstract class OtpVerificationEvent extends Equatable {
   const OtpVerificationEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 class OtpChanged extends OtpVerificationEvent {
@@ -13,7 +13,7 @@ class OtpChanged extends OtpVerificationEvent {
   const OtpChanged(this.otp);
 
   @override
-  List<Object> get props => [otp];
+  List<Object?> get props => [otp];
 }
 
 class VerifyOtpSubmitted extends OtpVerificationEvent {
@@ -28,5 +28,5 @@ class VerifyOtpSubmitted extends OtpVerificationEvent {
   });
 
   @override
-  List<Object> get props => [mobileNumber, otp, otpRegId];
+  List<Object?> get props => [mobileNumber, otp, otpRegId];
 }
