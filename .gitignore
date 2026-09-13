@@ -33,6 +33,9 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+**/build/
+**/.fvm/
+**/.dart_tool/
 
 # Symbolication related
 app.*.symbols
@@ -40,15 +43,36 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# Android Studio will place build artifacts here
+# Android Studio / Gradle generated files
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/upload-keystore.jks
+**/GeneratedPluginRegistrant.java
+**/key.properties
+**/*.jks
+**/*.keystore
+**/*.p8
+**/*.pem
+
+# Android build outputs
 /android/app/debug
 /android/app/profile
 /android/app/release
+**/android/app/debug/**
+**/android/app/profile/**
+**/android/app/release/**
 
-# Others
+# IDE / editor files
+.idea/
+.vscode/
+*.code-workspace
+
+# env and secrets
 .env
+.env.*
+*.env
 
-android/key.properties
-android/app/upload-keystore.jks
-*.jks
-*.keystore
+# OS / misc
+.DS_Store
+Thumbs.db
