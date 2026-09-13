@@ -200,7 +200,7 @@ class AccountOpeningStepsBloc
 
       final user = authUserResult.getOrElse(() => throw Exception()).user;
 
-      final cardPin = state.stepData[3]?['cardPin']?.trim() ?? '';
+      final cardPin = state.stepData[5]?['cardPin']?.trim() ?? '';
 
       final secretKey = md5.convert(utf8.encode(cardPin)).toString();
 
@@ -231,7 +231,7 @@ class AccountOpeningStepsBloc
           cardNo: state.selectedCard!.cardNumber,
           nameOnCard: state.selectedCard!.nameOnCard,
           secretKey: secretKey,
-          otpRegId: state.stepData[4]?['OTPRegId'],
+          otpRegId: state.stepData[5]?['OTPRegId'],
           otpValue: state.stepData[6]?['OTP'],
           introducers: [],
           accountHolders: [

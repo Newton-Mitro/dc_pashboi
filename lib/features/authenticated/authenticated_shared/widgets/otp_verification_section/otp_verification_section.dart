@@ -29,6 +29,7 @@ class _OtpVerificationSectionState extends State<OtpVerificationSection> {
   late List<FocusNode> _focusNodes;
   late CountDownController _countDownController;
   bool _isWaiting = true;
+  int _timerKey = 0;
 
   @override
   void initState() {
@@ -62,7 +63,7 @@ class _OtpVerificationSectionState extends State<OtpVerificationSection> {
   void _startCountdown() {
     setState(() {
       _isWaiting = true;
-      _countDownController.start();
+      _timerKey++;
     });
   }
 
@@ -216,6 +217,7 @@ class _OtpVerificationSectionState extends State<OtpVerificationSection> {
                       Column(
                         children: [
                           CircularCountDownTimer(
+                            key: ValueKey(_timerKey),
                             duration: widget.countdownSeconds,
                             initialDuration: 0,
                             controller: _countDownController,

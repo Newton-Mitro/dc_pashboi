@@ -306,9 +306,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
             depositLaterStepsState.selectedCard!.nameOnCard
                 .toLowerCase()
                 .trim(),
-        cardPIN:
-            depositLaterStepsState.stepData[depositLaterStepsState
-                .currentStep]?['cardPin'],
+        cardPIN: depositLaterStepsState.stepData[2]?['cardPin'],
       ),
     );
   }

@@ -530,9 +530,7 @@ class _DepositLoanApplicationPageState
             depositLoanProductState.selectedCard!.nameOnCard
                 .toLowerCase()
                 .trim(),
-        cardPIN:
-            depositLoanProductState.stepData[depositLoanProductState
-                .currentStep]?['cardPin'],
+        cardPIN: depositLoanProductState.stepData[3]?['cardPin'],
       ),
     );
   }

@@ -85,7 +85,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
             if (state.successMessage != null) {
               context.read<AccountOpeningStepsBloc>().add(
                 AccountOpeningUpdateStepData(
-                  step: 4,
+                  step: 5,
                   data: {'OTPRegId': state.successMessage},
                 ),
               );
@@ -340,9 +340,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
             accountOpeningStepsState.selectedCard!.nameOnCard
                 .toLowerCase()
                 .trim(),
-        cardPIN:
-            accountOpeningStepsState.stepData[accountOpeningStepsState
-                .currentStep]?['cardPin'],
+        cardPIN: accountOpeningStepsState.stepData[5]?['cardPin'],
       ),
     );
   }

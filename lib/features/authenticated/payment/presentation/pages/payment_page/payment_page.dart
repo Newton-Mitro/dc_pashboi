@@ -312,9 +312,7 @@ class _PaymentPageState extends State<PaymentPage> {
             depositLaterStepsState.selectedCard!.nameOnCard
                 .toLowerCase()
                 .trim(),
-        cardPIN:
-            depositLaterStepsState.stepData[depositLaterStepsState
-                .currentStep]?['cardPin'],
+        cardPIN: depositLaterStepsState.stepData[4]?['cardPin'],
       ),
     );
   }

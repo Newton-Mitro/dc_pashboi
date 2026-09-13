@@ -329,9 +329,7 @@ class _DepositNowPageState extends State<DepositNowPage> {
         cardNumber: depositNowStepsState.selectedCard!.cardNumber,
         nameOnCard:
             depositNowStepsState.selectedCard!.nameOnCard.toLowerCase().trim(),
-        cardPIN:
-            depositNowStepsState.stepData[depositNowStepsState
-                .currentStep]?['cardPin'],
+        cardPIN: depositNowStepsState.stepData[4]?['cardPin'],
       ),
     );
   }

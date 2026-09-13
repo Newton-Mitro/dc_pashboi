@@ -274,9 +274,7 @@ class _InstantLoanEligibleState extends State<InstantLoanEligible> {
             instantLoanEligibleState.selectedCard!.nameOnCard
                 .toLowerCase()
                 .trim(),
-        cardPIN:
-            instantLoanEligibleState.stepData[instantLoanEligibleState
-                .currentStep]?['cardPin'],
+        cardPIN: instantLoanEligibleState.stepData[3]?['cardPin'],
       ),
     );
   }
