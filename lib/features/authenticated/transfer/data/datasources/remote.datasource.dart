@@ -180,6 +180,12 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
             {
               "AccountNo": PhoneUtils.removeCountryCode(props.transferToAcc),
               "AccountType": "bKash Account",
+              "IsDefaulter": false,
+              "IsLps": false,
+              "IsMultiplier": false,
+              "IsNotEditable": false,
+              "IsRefundBased": false,
+              "IsSubLedger": false,
               "LedgerId": 0,
               "Amount": props.amount,
               "Balance": 0,
