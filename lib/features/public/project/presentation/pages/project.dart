@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/injection.dart';
-import 'package:pashboi/core/utils/text_util.dart';
 import 'package:pashboi/features/public/project/domain/entites/project_entity.dart';
 import 'package:pashboi/features/public/project/presentation/bloc/project_bloc.dart';
 import 'package:pashboi/routes/public_routes_name.dart';
@@ -82,11 +82,7 @@ class ProjectPage extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 5),
-                                Text(
-                                  TextUtil.truncateText(
-                                    product.shortDescription,
-                                  ),
-                                ),
+                                Html(data: product.shortDescription),
                               ],
                             ),
                           ),

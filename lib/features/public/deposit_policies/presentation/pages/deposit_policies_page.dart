@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/injection.dart';
-import 'package:pashboi/core/utils/text_util.dart';
 import 'package:pashboi/features/public/deposit_policies/domain/enities/deposit_policy_entity.dart';
 import 'package:pashboi/features/public/deposit_policies/presentation/bloc/deposit_policy_bloc.dart';
 import 'package:pashboi/routes/public_routes_name.dart';
@@ -62,9 +62,7 @@ class DepositPoliciesPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Text(
-                              TextUtil.truncateText(product.shortDescription),
-                            ),
+                            Html(data: product.shortDescription),
                           ],
                         ),
                       ),

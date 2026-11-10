@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/public/deposit_policies/domain/enities/deposit_policy_entity.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/app_network_image.dart';
+import 'package:pashboi/shared/widgets/app_html_content.dart';
 
 class DepositPolicyDetailsPage extends StatelessWidget {
   final DepositPolicyEntity depositPolicy;
@@ -55,7 +55,7 @@ class DepositPolicyDetailsPage extends StatelessWidget {
                     ),
                 const SizedBox(height: 16),
 
-                Html(data: depositPolicy.longDescription),
+                AppHtmlContent(data: depositPolicy.longDescription),
                 // HtmlContentWebView(htmlContent: depositPolicy.longDescription),
               ],
             ),

@@ -30,22 +30,27 @@ class PageContainer extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Positioned.fill(
-              child: Image.asset(
-                _backgroundFor(state),
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
-                  FlutterError.reportError(
-                    FlutterErrorDetails(
-                      exception: error,
-                      stack: stackTrace,
-                      library: 'page container',
-                      context: ErrorDescription(
-                        'while loading the theme background image',
+              child: Opacity(
+                opacity: 0.2,
+                child: Image.asset(
+                  _backgroundFor(state),
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    FlutterError.reportError(
+                      FlutterErrorDetails(
+                        exception: error,
+                        stack: stackTrace,
+                        library: 'page container',
+                        context: ErrorDescription(
+                          'while loading the theme background image',
+                        ),
                       ),
-                    ),
-                  );
-                  return ColoredBox(color: state.themeData.colorScheme.surface);
-                },
+                    );
+                    return ColoredBox(
+                      color: state.themeData.colorScheme.surface,
+                    );
+                  },
+                ),
               ),
             ),
             ResponsiveContent(child: child),

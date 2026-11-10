@@ -51,25 +51,26 @@ class AppDialog extends StatelessWidget {
               Text(content, textAlign: TextAlign.center),
               const SizedBox(height: 20),
               // Close button
-              Wrap(
-                alignment: WrapAlignment.center,
-                spacing: 8,
-                runSpacing: 8,
+              Row(
                 children: [
-                  AppPrimaryButton(
-                    label: positiveButtonLabel,
-                    horizontalPadding: 10,
-                    onPressed: () {
-                      onPositiveButtonTap();
-                    },
+                  Expanded(
+                    child: AppPrimaryButton(
+                      label: positiveButtonLabel,
+                      horizontalPadding: 0,
+                      onPressed: () {
+                        onPositiveButtonTap();
+                      },
+                    ),
                   ),
-                  AppPrimaryButton(
-                    label: negativeButtonLabel,
-                    horizontalPadding: 10,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    // child: const Text("Close"),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: AppPrimaryButton(
+                      label: negativeButtonLabel,
+                      horizontalPadding: 0,
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
                   ),
                 ],
               ),

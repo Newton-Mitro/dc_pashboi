@@ -1,71 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:pashboi/core/utils/network_utils.dart';
+import 'package:pashboi/shared/widgets/app_dialog.dart';
 
-class NetworkErrorDialog extends StatefulWidget {
+class NetworkErrorDialog extends StatelessWidget {
   const NetworkErrorDialog({super.key});
 
-  @override
-  State<NetworkErrorDialog> createState() => _NetworkErrorDialogState();
-
-  // Static method to show the dialog
-  static void show(BuildContext context) {
-    showDialog(
+  static Future<void> show(BuildContext context) {
+    return showDialog<void>(
       context: context,
-      builder: (context) => const NetworkErrorDialog(),
+      builder: (_) => const NetworkErrorDialog(),
     );
-  }
-}
-
-class _NetworkErrorDialogState extends State<NetworkErrorDialog>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _controller.forward(); // Start the animation
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FadeTransition(
-      opacity: _animation,
-      child: AlertDialog(
-        title: Text(Locales.string(context, 'network_error')),
-        content: Text(Locales.string(context, 'no_internet_connection')),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(
-              Locales.string(context, 'cancel'),
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              NetworkUtils.openInternetSettings();
-              Navigator.pop(context);
-            },
-            child: Text(
-              Locales.string(context, 'open_settings'),
-              style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-            ),
-          ),
-        ],
-      ),
+    return AppDialog(
+      title: Locales.string(context, 'network_error'),
+      content: Locales.string(context, 'no_internet_connection'),
+      icon: const Icon(Icons.wifi_off, size: 40),
+      positiveButtonLabel: Locales.string(context, 'open_settings'),
+      negativeButtonLabel: Locales.string(context, 'cancel'),
+      onPositiveButtonTap: () {
+        Navigator.of(context).pop();
+        NetworkUtils.openInternetSettings();
+      },
     );
   }
 }

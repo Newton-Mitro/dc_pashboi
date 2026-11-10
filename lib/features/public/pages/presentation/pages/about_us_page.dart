@@ -55,9 +55,21 @@ class _AboutUsPageState extends State<AboutUsPage> {
                         const SizedBox(height: 12),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            page.shortDescription ?? 'No shortDescription',
-                            style: Theme.of(context).textTheme.headlineSmall,
+                          child: Html(
+                            data:
+                                page.shortDescription ??
+                                'No short description available.',
+                            style: {
+                              "body": Style(
+                                fontSize: FontSize(
+                                  Theme.of(
+                                        context,
+                                      ).textTheme.headlineSmall?.fontSize ??
+                                      24,
+                                ),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            },
                           ),
                         ),
                         const SizedBox(height: 12),

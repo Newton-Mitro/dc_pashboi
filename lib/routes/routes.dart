@@ -170,7 +170,7 @@ class AppRoutes {
         return _materialRoute(LoginPage());
 
       case PublicRoutesName.registerPage:
-        return _materialRoute(RegistrationPage());
+        return _materialRoute(const RegistrationPage());
 
       case PublicRoutesName.resetPasswordPage:
         // ResetPasswordPage provides itself in build using sl and initState.

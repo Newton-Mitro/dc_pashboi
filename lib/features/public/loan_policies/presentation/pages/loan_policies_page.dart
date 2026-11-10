@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/injection.dart';
-import 'package:pashboi/core/utils/text_util.dart';
 import 'package:pashboi/features/public/loan_policies/presentation/bloc/loan_policy_bloc.dart';
 import 'package:pashboi/routes/public_routes_name.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
@@ -63,9 +63,7 @@ class _LoanPoliciesPageState extends State<LoanPoliciesPage> {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            Text(
-                              TextUtil.truncateText(product.shortDescription),
-                            ),
+                            Html(data: product.shortDescription),
                           ],
                         ),
                       ),

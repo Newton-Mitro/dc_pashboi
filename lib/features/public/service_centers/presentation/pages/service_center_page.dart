@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:pashboi/core/constants/app_icons.dart';
 import 'package:pashboi/core/injection.dart';
 import 'package:pashboi/features/public/service_centers/domain/entites/service_center_entity.dart';
 import 'package:pashboi/features/public/service_centers/presentation/bloc/service_center_bloc.dart';
@@ -15,34 +14,47 @@ class ServiceCenterPage extends StatefulWidget {
   State<ServiceCenterPage> createState() => _ServiceCenterPageState();
 }
 
+class _ServiceCenterLocation {
+  const _ServiceCenterLocation({required this.center, required this.point});
+
+  final ServiceCenterEntity center;
+  final LatLng point;
+}
+
 class _ServiceCenterPageState extends State<ServiceCenterPage> {
   final MapController _mapController = MapController();
   LatLng _currentCenter = LatLng(23.7806, 90.4043);
   double _currentZoom = 11.0;
 
-  LatLng parseLatLng(String lag, String lng) {
-    final double? latitude = double.tryParse(lag);
-    final double? longitude = double.tryParse(lng);
-
-    if (latitude == null || longitude == null) {
-      throw FormatException('Invalid coordinates: lag="$lag", lng="$lng"');
-    }
-
-    return LatLng(latitude, longitude);
+  List<_ServiceCenterLocation> _locationsFor(
+    List<ServiceCenterEntity> serviceCenters,
+  ) {
+    return serviceCenters
+        .map((center) {
+          final latitude = double.tryParse(center.lat.trim());
+          final longitude = double.tryParse(center.lng.trim());
+          if (latitude == null ||
+              longitude == null ||
+              !latitude.isFinite ||
+              !longitude.isFinite ||
+              latitude < -90 ||
+              latitude > 90 ||
+              longitude < -180 ||
+              longitude > 180) {
+            return null;
+          }
+          return _ServiceCenterLocation(
+            center: center,
+            point: LatLng(latitude, longitude),
+          );
+        })
+        .whereType<_ServiceCenterLocation>()
+        .toList();
   }
 
-  void _zoomIn() {
-    setState(() {
-      _currentZoom++;
-      _mapController.move(_currentCenter, _currentZoom);
-    });
-  }
-
-  void _zoomOut() {
-    setState(() {
-      _currentZoom--;
-      _mapController.move(_currentCenter, _currentZoom);
-    });
+  void _changeZoom(double amount) {
+    _currentZoom = (_currentZoom + amount).clamp(3.0, 18.0);
+    _mapController.move(_currentCenter, _currentZoom);
   }
 
   void _showDetailsDialog(BuildContext context, ServiceCenterEntity center) {
@@ -55,14 +67,11 @@ class _ServiceCenterPageState extends State<ServiceCenterPage> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (center.address.trim().isNotEmpty ?? false)
+                if (center.address.trim().isNotEmpty)
                   Text("📍 ${center.address}"),
-                if (center.phone.trim().isNotEmpty ?? false)
-                  Text("📞 ${center.phone}"),
-                if (center.email.trim().isNotEmpty ?? false)
-                  Text("✉️ ${center.email}"),
-                if (center.time.trim().isNotEmpty ?? false)
-                  Text("⏰ ${center.time}"),
+                if (center.phone.trim().isNotEmpty) Text("📞 ${center.phone}"),
+                if (center.email.trim().isNotEmpty) Text("✉️ ${center.email}"),
+                if (center.time.trim().isNotEmpty) Text("⏰ ${center.time}"),
                 if (center.inChargeInfos.isNotEmpty) ...[
                   const SizedBox(height: 8),
                   const Text(
@@ -70,12 +79,12 @@ class _ServiceCenterPageState extends State<ServiceCenterPage> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   for (var person in center.inChargeInfos) ...[
-                    if ((person.name.trim().isNotEmpty ?? false) &&
-                        (person.designation.trim().isNotEmpty ?? false))
+                    if (person.name.trim().isNotEmpty &&
+                        person.designation.trim().isNotEmpty)
                       Text("👤 ${person.name} (${person.designation})"),
-                    if (person.contactNumber.trim().isNotEmpty ?? false)
+                    if (person.contactNumber.trim().isNotEmpty)
                       Text("📞 ${person.contactNumber}"),
-                    if (person.email.trim().isNotEmpty ?? false)
+                    if (person.email.trim().isNotEmpty)
                       Text("✉️ ${person.email}"),
                   ],
                 ],
@@ -116,6 +125,12 @@ class _ServiceCenterPageState extends State<ServiceCenterPage> {
                   child: Text("No service centers available."),
                 );
               }
+              final locations = _locationsFor(serviceCenters);
+              if (locations.isEmpty) {
+                return const Center(
+                  child: Text("Service center locations are unavailable."),
+                );
+              }
 
               return Stack(
                 children: [
@@ -124,58 +139,54 @@ class _ServiceCenterPageState extends State<ServiceCenterPage> {
                     options: MapOptions(
                       initialCenter: _currentCenter,
                       initialZoom: _currentZoom,
+                      initialCameraFit: CameraFit.coordinates(
+                        coordinates:
+                            locations
+                                .map((location) => location.point)
+                                .toList(),
+                        padding: const EdgeInsets.all(48),
+                        maxZoom: 13,
+                      ),
+                      minZoom: 3,
+                      maxZoom: 18,
                       onPositionChanged: (position, hasGesture) {
-                        setState(() {
-                          _currentCenter = position.center;
-                        });
+                        _currentCenter = position.center;
+                        _currentZoom = position.zoom;
                       },
                     ),
                     children: [
                       TileLayer(
                         urlTemplate:
                             'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        userAgentPackageName: 'com.cccul',
+                        userAgentPackageName: 'com.dhakacredit.cccul',
                       ),
                       MarkerLayer(
                         markers:
-                            serviceCenters.map((center) {
+                            locations.map((location) {
                               return Marker(
-                                point: LatLng(
-                                  double.parse(center.lat),
-                                  double.parse(center.lng),
-                                ),
-                                width: 200,
-                                height: 80,
+                                point: location.point,
+                                alignment: Alignment.bottomCenter,
+                                width: 48,
+                                height: 48,
                                 child: GestureDetector(
                                   onTap:
-                                      () => _showDetailsDialog(context, center),
-                                  child: Column(
-                                    children: [
-                                      Image.asset(
-                                        AppIcons.pathPinIcon,
-                                        width: 40,
-                                        height: 40,
+                                      () => _showDetailsDialog(
+                                        context,
+                                        location.center,
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        center.name,
-                                        style: const TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color.fromARGB(
-                                            255,
-                                            48,
-                                            12,
-                                            116,
-                                          ),
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
+                                  child: const Icon(
+                                    Icons.location_pin,
+                                    color: Colors.red,
+                                    size: 48,
                                   ),
                                 ),
                               );
                             }).toList(),
+                      ),
+                      RichAttributionWidget(
+                        attributions: [
+                          TextSourceAttribution('OpenStreetMap contributors'),
+                        ],
                       ),
                     ],
                   ),
@@ -186,13 +197,13 @@ class _ServiceCenterPageState extends State<ServiceCenterPage> {
                       children: [
                         FloatingActionButton.small(
                           heroTag: 'zoomIn',
-                          onPressed: _zoomIn,
+                          onPressed: () => _changeZoom(1),
                           child: const Icon(Icons.add),
                         ),
                         const SizedBox(height: 8),
                         FloatingActionButton.small(
                           heroTag: 'zoomOut',
-                          onPressed: _zoomOut,
+                          onPressed: () => _changeZoom(-1),
                           child: const Icon(Icons.remove),
                         ),
                       ],

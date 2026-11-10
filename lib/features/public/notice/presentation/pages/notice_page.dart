@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/injection.dart';
@@ -59,7 +60,7 @@ class NoticesPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 5),
-                            // Text(product.shortDescription),
+                            Html(data: product.shortDescription),
                           ],
                         ),
                       ),

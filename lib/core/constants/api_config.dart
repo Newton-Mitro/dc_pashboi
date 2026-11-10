@@ -14,6 +14,11 @@ class AppConfig {
     if (url == null || url.isEmpty) {
       throw Exception('Missing PRODUCT_API_URL in .env');
     }
+
+    final uri = Uri.parse(url);
+    if (uri.host.toLowerCase() == 'cccul.com') {
+      return uri.replace(host: 'www.cccul.com').toString();
+    }
     return url;
   }
 
