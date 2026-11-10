@@ -363,17 +363,52 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                                           context.theme.colorScheme.onPrimary,
                                       width: 2,
                                     ),
-                                    image: DecorationImage(
-                                      image:
-                                          user.userPicture != null
-                                              ? Base64ImageWidget(
-                                                base64String: user.userPicture!,
-                                              ).imageProvider
-                                              : const NetworkImage(
-                                                'https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg',
+                                  ),
+                                  child: ClipOval(
+                                    child:
+                                        user.userPicture != null &&
+                                                user.userPicture!.isNotEmpty
+                                            ? Base64ImageWidget(
+                                              base64String: user.userPicture!,
+                                              cacheSize: 80,
+                                              placeholder: Icon(
+                                                Icons.person,
+                                                color:
+                                                    context
+                                                        .theme
+                                                        .colorScheme
+                                                        .onPrimary,
                                               ),
-                                      fit: BoxFit.cover,
-                                    ),
+                                            )
+                                            : Image.network(
+                                              'https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg',
+                                              fit: BoxFit.cover,
+                                              cacheWidth:
+                                                  (40 *
+                                                          MediaQuery.devicePixelRatioOf(
+                                                            context,
+                                                          ))
+                                                      .round(),
+                                              cacheHeight:
+                                                  (40 *
+                                                          MediaQuery.devicePixelRatioOf(
+                                                            context,
+                                                          ))
+                                                      .round(),
+                                              errorBuilder:
+                                                  (
+                                                    context,
+                                                    error,
+                                                    stackTrace,
+                                                  ) => Icon(
+                                                    Icons.person,
+                                                    color:
+                                                        context
+                                                            .theme
+                                                            .colorScheme
+                                                            .onPrimary,
+                                                  ),
+                                            ),
                                   ),
                                 ),
                               ),

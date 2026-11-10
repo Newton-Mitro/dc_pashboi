@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -10,6 +7,7 @@ import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/core/utils/my_date_utils.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/presentation/pages/employee_profile_page/bloc/employees_profile_bloc.dart';
+import 'package:pashboi/features/authenticated/authenticated_shared/widgets/base64_image_widget.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
 
 class EmployeesProfilePage extends StatefulWidget {
@@ -24,30 +22,6 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
   void initState() {
     super.initState();
     context.read<EmployeesProfileBloc>().add(FetchEmployeeDetailsEvent());
-  }
-
-  Uint8List? getImageBytes(String? photo) {
-    if (photo == null) return null;
-
-    photo = photo.trim();
-
-    if (photo.isEmpty ||
-        photo.toLowerCase() == 'n/a' ||
-        photo.toLowerCase() == 'null') {
-      return null;
-    }
-
-    try {
-      // Handle data:image/jpeg;base64,...
-      if (photo.contains(',')) {
-        photo = photo.split(',').last;
-      }
-
-      return base64Decode(photo);
-    } catch (e) {
-      debugPrint('Invalid Base64 Image: $e');
-      return null;
-    }
   }
 
   Widget buildInfoRow(IconData icon, String title, String value) {
@@ -88,25 +62,14 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
   }
 
   Widget buildProfileImage(String? photo) {
-    final imageBytes = getImageBytes(photo);
-
-    if (imageBytes == null) {
-      return Container(
-        color: Colors.grey.shade200,
-        child: const Center(
-          child: Icon(Icons.person, size: 80, color: Colors.grey),
-        ),
-      );
-    }
-
-    return Image.memory(
-      imageBytes,
-      fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) {
-        return const Center(
-          child: Icon(Icons.person, size: 80, color: Colors.grey),
-        );
-      },
+    return Base64ImageWidget(
+      base64String: photo ?? '',
+      cacheSize: 300,
+      placeholder: Icon(
+        Icons.person,
+        size: 80,
+        color: context.theme.colorScheme.onSurfaceVariant,
+      ),
     );
   }
 

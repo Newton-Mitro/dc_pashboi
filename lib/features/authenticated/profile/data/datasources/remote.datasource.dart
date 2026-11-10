@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:pashboi/core/constants/api_urls.dart';
 import 'package:pashboi/core/errors/exceptions.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
-import 'package:pashboi/core/utils/json_util.dart';
+import 'package:pashboi/features/authenticated/profile/data/models/person_profile_parser.dart';
 import 'package:pashboi/features/authenticated/profile/data/models/person_model.dart';
 import 'package:pashboi/features/authenticated/profile/domain/usecases/change_password_usecase.dart';
 import 'package:pashboi/features/authenticated/profile/domain/usecases/get_profile_usecase.dart';
@@ -43,22 +43,21 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
         final dataString = response.data?['Data'];
         final errorMessage = response.data?['Message'];
         final statusMessage = response.data?['Status'];
-        if (dataString == null || dataString.isNotEmpty) {
-          if (statusMessage != null && statusMessage == "failed") {
-            throw ServerException(message: errorMessage);
-          } else {
-            final jsonResponse =
-                await compute<String, List<Map<String, dynamic>>>(
-                  JsonUtil.decodeModelList,
-                  dataString,
-                );
-
-            final personModel = PersonModel.fromJson(jsonResponse.first);
-
-            return personModel;
-          }
+        if (statusMessage == "failed") {
+          throw ServerException(
+            message:
+                errorMessage is String && errorMessage.isNotEmpty
+                    ? errorMessage
+                    : "Failed to load profile",
+          );
         }
-        throw ServerException(message: "Server Error");
+        if (dataString is! String || dataString.isEmpty) {
+          throw ServerException(
+            message: "Server returned invalid profile data",
+          );
+        }
+
+        return compute<String, PersonModel>(parsePersonProfileJson, dataString);
       } else {
         throw ServerException(message: "Server Error");
       }
