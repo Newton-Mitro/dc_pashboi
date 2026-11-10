@@ -40,4 +40,31 @@ void main() {
     expect(find.byType(ResponsiveContent), findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+
+  testWidgets('loads the Oliver Petal background asset', (tester) async {
+    final themeBloc = _MockThemeSelectorBloc();
+    whenListen(
+      themeBloc,
+      const Stream<ThemeSelectorState>.empty(),
+      initialState: OliverPetalTheme(),
+    );
+    addTearDown(themeBloc.close);
+
+    await tester.pumpWidget(
+      BlocProvider<ThemeSelectorBloc>.value(
+        value: themeBloc,
+        child: const MaterialApp(
+          home: Scaffold(body: PageContainer(child: Text('Page content'))),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    final backgroundImage = tester.widget<Image>(find.byType(Image).first);
+    expect(
+      (backgroundImage.image as AssetImage).assetName,
+      'assets/images/bg/oliver_petal.png',
+    );
+    expect(tester.takeException(), isNull);
+  });
 }

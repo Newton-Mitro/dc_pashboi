@@ -22,13 +22,7 @@ class AppImages {
   //theme background
   static const String darkAbyssThemeBackground = '${rootPath}bg/dark_abyss.png';
   static const String blueOceanThemeBackground = '${rootPath}bg/blue_ocean.png';
-  static const String blueOceanDarkThemeBackground =
-      '${rootPath}bg/blue_ocean.png';
   static const String oliverPetalThemeBackground =
       '${rootPath}bg/oliver_petal.png';
-  static const String oliverPetalDarkThemeBackground =
-      '${rootPath}bg/oliver_petal.png';
   static const String eleganceThemeBackground = '${rootPath}bg/elegance.png';
-  static const String eleganceDarkThemeBackground =
-      '${rootPath}bg/elegance.png';
 }

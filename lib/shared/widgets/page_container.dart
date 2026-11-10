@@ -12,11 +12,11 @@ class PageContainer extends StatelessWidget {
   String _backgroundFor(ThemeSelectorState state) {
     return switch (state) {
       DarkAbyssTheme() => AppImages.darkAbyssThemeBackground,
-      BlueOceanDarkTheme() => AppImages.blueOceanDarkThemeBackground,
+      BlueOceanDarkTheme() => AppImages.blueOceanThemeBackground,
       BlueOceanTheme() => AppImages.blueOceanThemeBackground,
-      EleganceDarkTheme() => AppImages.eleganceDarkThemeBackground,
+      EleganceDarkTheme() => AppImages.eleganceThemeBackground,
       EleganceTheme() => AppImages.eleganceThemeBackground,
-      OliverPetalDarkTheme() => AppImages.oliverPetalDarkThemeBackground,
+      OliverPetalDarkTheme() => AppImages.oliverPetalThemeBackground,
       OliverPetalTheme() => AppImages.oliverPetalThemeBackground,
       _ => AppImages.blueOceanThemeBackground,
     };
