@@ -10,6 +10,7 @@ import 'package:pashboi/features/public/service/presentation/bloc/service_policy
 import 'package:pashboi/features/public/service/presentation/bloc/service_policy_state.dart';
 import 'package:pashboi/routes/public_routes_name.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
+import 'package:pashboi/shared/widgets/app_network_image.dart';
 import 'package:pashboi/shared/widgets/public_app_image_card.dart';
 
 class ServicePage extends StatelessWidget {
@@ -56,11 +57,14 @@ class ServicePage extends StatelessWidget {
                           vertical: 10,
                         ), // Adjust spacing here
                         child: PublicAppImageCard(
-                          leftIcon: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              product.attachmentUrl,
+                          leftIcon: ClipOval(
+                            child: SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: AppNetworkImage(
+                                url: product.attachmentUrl,
+                              ),
                             ),
-                            radius: 20,
                           ),
                           rightIcon: FontAwesomeIcons.chevronRight,
                           boarderColor: context.theme.colorScheme.primary,

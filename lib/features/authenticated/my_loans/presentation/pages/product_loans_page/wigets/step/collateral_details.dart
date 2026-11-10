@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
+import 'package:pashboi/shared/widgets/responsive_key_value_row.dart';
 import 'package:pashboi/core/utils/taka_formatter.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/product_loan_collateral_account_entity.dart';
 import 'package:pashboi/features/authenticated/my_loans/presentation/pages/product_loans_page/wigets/bloc/deposit_loan_product_bloc.dart';
@@ -247,27 +248,22 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                         ),
                         const SizedBox(height: 6),
                       ],
-                      Row(
-                        children: [
-                          Text(
-                            Locales.string(context, 'total_apply_loan_amount'),
-                            style: TextStyle(
-                              color: colorScheme.onSurface,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                            ),
-                          ),
-                          Spacer(), // Pushes the next widget to the right end
-                          Text(
-                            TakaFormatter.format(widget.totalAmount),
-                            style: TextStyle(
-                              color: colorScheme.onSurface,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                            textAlign: TextAlign.right, // Just to be explicit
-                          ),
-                        ],
+                      ResponsiveKeyValueRow(
+                        label: Locales.string(
+                          context,
+                          'total_apply_loan_amount',
+                        ),
+                        value: TakaFormatter.format(widget.totalAmount),
+                        labelStyle: TextStyle(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                        valueStyle: TextStyle(
+                          color: colorScheme.onSurface,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                        ),
                       ),
                     ],
                   ),

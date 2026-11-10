@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/usecases/usecase.dart';
 import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
@@ -136,7 +136,7 @@ class BankToDcTransferStepsBloc
     emit(state.copyWith(validationErrors: updatedValidationErrors));
   }
 
-  Future<String> fileToBase64(File file) async {
+  Future<String> fileToBase64(XFile file) async {
     final bytes = await file.readAsBytes();
     return base64Encode(bytes);
   }
@@ -162,11 +162,11 @@ class BankToDcTransferStepsBloc
 
       final user = authUserResult.getOrElse(() => throw Exception()).user;
 
-      final file = state.stepData[1]?['receiptFile'];
+      final receipt = state.stepData[1]?['receiptFile'];
 
       String? base64String;
-      if (file != null && file is File) {
-        base64String = await fileToBase64(file);
+      if (receipt != null && receipt is XFile) {
+        base64String = await fileToBase64(receipt);
       } else {
         base64String = '';
       }

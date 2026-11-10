@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
+import 'package:pashboi/shared/widgets/responsive_key_value_row.dart';
 import 'package:pashboi/core/utils/my_date_utils.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/domain/entities/leave_type_entity.dart';
 import 'package:pashboi/features/authenticated/personnel/leave/presentation/pages/leave_info_page/bloc/leave_type_balance_bloc.dart';
@@ -324,17 +325,12 @@ class _LeaveInformationPageState extends State<LeaveInformationPage> {
   Widget _buildInfoRow({required String title, required String value}) {
     return Column(
       children: [
-        Padding(
+        ResponsiveKeyValueRow(
+          label: title,
+          value: value,
+          leading: const Icon(Icons.calendar_today, size: 16),
+          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
           padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Row(
-            children: [
-              const Icon(Icons.calendar_today, size: 16),
-              const SizedBox(width: 8),
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-              const Spacer(),
-              Text(value),
-            ],
-          ),
         ),
         const Divider(thickness: 1.5),
       ],

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/public/project/domain/entites/project_entity.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
+import 'package:pashboi/shared/widgets/app_network_image.dart';
 
 class ProjectDetailsPage extends StatelessWidget {
   final ProjectEntity project;
@@ -44,15 +45,12 @@ class ProjectDetailsPage extends StatelessWidget {
                         color: context.theme.colorScheme.onPrimary,
                       ),
                     )
-                    : Container(
-                      height: 200,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                          image: NetworkImage(imageUrl),
-                          fit: BoxFit.cover,
-                        ),
+                    : ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: AppNetworkImage(url: imageUrl),
                       ),
                     ),
                 const SizedBox(height: 16),

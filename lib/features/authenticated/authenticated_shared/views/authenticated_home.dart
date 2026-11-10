@@ -23,6 +23,7 @@ import 'package:pashboi/features/authenticated/cards/presentation/pages/bloc/deb
 import 'package:pashboi/routes/auth_routes_name.dart';
 import 'package:pashboi/routes/public_routes_name.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
+import 'package:pashboi/shared/widgets/app_network_image.dart';
 import 'package:pashboi/shared/widgets/app_dialog.dart';
 import 'package:pashboi/shared/widgets/language_switch/language_switch.dart';
 import 'package:pashboi/shared/widgets/theme_selector/bloc/theme_selector_bloc.dart';
@@ -380,8 +381,9 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                                                         .onPrimary,
                                               ),
                                             )
-                                            : Image.network(
-                                              'https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg',
+                                            : AppNetworkImage(
+                                              url:
+                                                  'https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg',
                                               fit: BoxFit.cover,
                                               cacheWidth:
                                                   (40 *
@@ -395,19 +397,14 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                                                             context,
                                                           ))
                                                       .round(),
-                                              errorBuilder:
-                                                  (
-                                                    context,
-                                                    error,
-                                                    stackTrace,
-                                                  ) => Icon(
-                                                    Icons.person,
-                                                    color:
-                                                        context
-                                                            .theme
-                                                            .colorScheme
-                                                            .onPrimary,
-                                                  ),
+                                              errorWidget: Icon(
+                                                Icons.person,
+                                                color:
+                                                    context
+                                                        .theme
+                                                        .colorScheme
+                                                        .onPrimary,
+                                              ),
                                             ),
                                   ),
                                 ),

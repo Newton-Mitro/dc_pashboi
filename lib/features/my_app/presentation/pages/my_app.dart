@@ -12,6 +12,7 @@ import 'package:pashboi/routes/routes.dart';
 import 'package:pashboi/security_gurd.dart';
 import 'package:pashboi/shared/widgets/language_switch/bloc/language_switch_bloc.dart';
 import 'package:pashboi/shared/widgets/theme_selector/bloc/theme_selector_bloc.dart';
+import 'package:pashboi/shared/widgets/responsive_content.dart';
 
 import '../../../../core/extensions/global_key.dart';
 
@@ -48,6 +49,10 @@ class _MyAppState extends State<MyApp> {
                       navigatorKey: navigatorKey,
                       scaffoldMessengerKey: rootScaffoldMessengerKey,
                       navigatorObservers: [routeObserver],
+                      builder:
+                          (context, child) => ResponsiveContent(
+                            child: child ?? const SizedBox.shrink(),
+                          ),
                       theme: themeState.themeData,
                       supportedLocales: const [
                         Locale('en', 'US'),

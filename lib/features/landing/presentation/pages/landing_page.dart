@@ -9,6 +9,7 @@ import 'package:pashboi/shared/widgets/page_container.dart';
 import 'package:pashboi/shared/widgets/app_tooltip.dart';
 import 'package:pashboi/shared/widgets/buttons/app_primary_button.dart';
 import 'package:pashboi/shared/widgets/app_logo.dart';
+import 'package:pashboi/shared/widgets/app_network_image.dart';
 import 'package:pashboi/shared/widgets/language_switch/language_switch.dart';
 import 'package:pashboi/shared/widgets/theme_selector/theme_selector.dart';
 import 'package:pashboi/features/terms_and_condition/presentation/pages/terms_and_conditions_page.dart';
@@ -79,21 +80,13 @@ class _LandingPageState extends State<LandingPage> {
                                 itemBuilder: (context, index) {
                                   final ad = ads[index];
 
-                                  return Image.network(
-                                    ad.attachmentUrl,
+                                  return AppNetworkImage(
+                                    url: ad.attachmentUrl,
                                     fit: BoxFit.contain,
-                                    width: double.infinity,
-                                    loadingBuilder: (context, child, progress) {
-                                      if (progress == null) return child;
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    },
-                                    errorBuilder:
-                                        (_, __, ___) => const Icon(
-                                          Icons.broken_image_outlined,
-                                          size: 60,
-                                        ),
+                                    errorWidget: const Icon(
+                                      Icons.broken_image_outlined,
+                                      size: 60,
+                                    ),
                                   );
                                 },
                               ),

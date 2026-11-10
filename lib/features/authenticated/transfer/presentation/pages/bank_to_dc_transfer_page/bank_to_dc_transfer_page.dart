@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/string_casing_extension.dart';
 import 'package:pashboi/features/authenticated/authenticated_shared/widgets/transfer_from_section/transfer_from_section.dart';
@@ -442,7 +441,7 @@ class _BankToDcTransferPageState extends State<BankToDcTransferPage> {
           receiptFile: state.stepData[state.currentStep]?['receiptFile'],
           receiptError:
               state.validationErrors[state.currentStep]?['receiptFile'],
-          onReceiptFileChange: (File? receiptFile) {
+          onReceiptFileChange: (XFile? receiptFile) {
             context.read<BankToDcTransferStepsBloc>().add(
               BankToDcTransferUpdateStepData(
                 step: state.currentStep,

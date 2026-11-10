@@ -3,6 +3,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/features/public/development_credits/domain/entites/development_credits_entity.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
+import 'package:pashboi/shared/widgets/app_network_image.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -47,15 +48,12 @@ class DevelopmentCreditDetails extends StatelessWidget {
                         color: Colors.grey,
                       ),
                     )
-                    : Container(
-                      height: 400,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                          image: NetworkImage(imageUrl),
-                          fit: BoxFit.cover,
-                        ),
+                    : ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        height: 400,
+                        width: double.infinity,
+                        child: AppNetworkImage(url: imageUrl),
                       ),
                     ),
                 const SizedBox(height: 16),

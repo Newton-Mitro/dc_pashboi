@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:pashboi/features/authenticated/transfer/domain/entities/dc_bank_
 import 'package:pashboi/features/authenticated/transfer/presentation/pages/bank_to_dc_transfer_page/sections/bank_transfer_info_section/bloc/dc_bank_account_bloc.dart';
 import 'package:pashboi/shared/widgets/app_dropdown_select.dart';
 import 'package:pashboi/shared/widgets/app_text_input.dart';
+import 'package:pashboi/shared/widgets/picked_image_preview.dart';
 
 class BankTransferInfoSection extends StatefulWidget {
   final String? sectionTitle;
@@ -23,9 +23,9 @@ class BankTransferInfoSection extends StatefulWidget {
   final String amount;
   final String? amountError;
   final void Function(String amount) onAmountChange;
-  final File? receiptFile;
+  final XFile? receiptFile;
   final String? receiptError;
-  final void Function(File? receiptFile) onReceiptFileChange;
+  final void Function(XFile? receiptFile) onReceiptFileChange;
 
   const BankTransferInfoSection({
     super.key,
@@ -60,8 +60,7 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
   void _pickImage() async {
     final result = await _imagePicker.pickImage(source: ImageSource.gallery);
     if (result != null) {
-      final file = File(result.path);
-      widget.onReceiptFileChange(file);
+      widget.onReceiptFileChange(result);
     }
   }
 
@@ -200,7 +199,9 @@ class _BankTransferInfoSectionState extends State<BankTransferInfoSection> {
                           alignment: Alignment.center,
                           child:
                               widget.receiptFile != null
-                                  ? Image.file(widget.receiptFile!)
+                                  ? PickedImagePreview(
+                                    file: widget.receiptFile!,
+                                  )
                                   : Text(
                                     Locales.string(
                                       context,

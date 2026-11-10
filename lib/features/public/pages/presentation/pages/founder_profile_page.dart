@@ -6,6 +6,7 @@ import 'package:pashboi/core/injection.dart';
 import 'package:pashboi/features/public/pages/domain/usecases/fetch_page_usecase.dart';
 import 'package:pashboi/features/public/pages/presentation/bloc/page_bloc.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
+import 'package:pashboi/shared/widgets/app_network_image.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class FounderProfilePage extends StatefulWidget {
@@ -55,15 +56,12 @@ class _FounderProfilePageState extends State<FounderProfilePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 500,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: NetworkImage(page?.attachmentUrl),
-                              fit: BoxFit.cover,
-                            ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: SizedBox(
+                            height: 500,
+                            width: double.infinity,
+                            child: AppNetworkImage(url: page?.attachmentUrl),
                           ),
                         ),
 

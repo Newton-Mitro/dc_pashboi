@@ -72,6 +72,8 @@ void main() {
   testWidgets('boots app shell and renders initial loading state', (
     tester,
   ) async {
+    await tester.binding.setSurfaceSize(const Size(1600, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     await Locales.init(['en', 'bn']);
 
     await tester.pumpWidget(
@@ -88,6 +90,7 @@ void main() {
     await tester.pump();
 
     expect(find.byType(MaterialApp), findsOneWidget);
+    expect(tester.getSize(find.byType(Navigator)).width, 1200);
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
     expect(tester.takeException(), isNull);
   });

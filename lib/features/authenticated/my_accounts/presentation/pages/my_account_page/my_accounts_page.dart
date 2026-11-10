@@ -121,39 +121,30 @@ class MyAccountsPage extends StatelessWidget {
                         const SizedBox(height: 20),
 
                         // Account Cards
-                        Column(
-                          children:
-                              accountList.map((account) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 5,
-                                  ),
-                                  child: AppIconCard(
-                                    leftIcon: FontAwesomeIcons.piggyBank,
-                                    rightIcon: FontAwesomeIcons.chevronRight,
-                                    boarderColor:
-                                        account.defaultAccount
-                                            ? context.theme.colorScheme.error
-                                            : context.theme.colorScheme.primary,
-                                    cardBody: AccountCardBody(
-                                      accountName: account.typeName.trim(),
-                                      accountNumber: account.number,
-                                      balance: account.balance,
-                                    ),
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        AuthRoutesName.accountsDetailsPage,
-                                        arguments: {
-                                          'accountNumber':
-                                              account.number.trim(),
-                                        },
-                                      );
-                                    },
-                                  ),
-                                );
-                              }).toList(),
-                        ),
+                        ...accountList.map((account) {
+                          return AppIconCard(
+                            leftIcon: FontAwesomeIcons.piggyBank,
+                            rightIcon: FontAwesomeIcons.chevronRight,
+                            boarderColor:
+                                account.defaultAccount
+                                    ? context.theme.colorScheme.error
+                                    : context.theme.colorScheme.primary,
+                            cardBody: AccountCardBody(
+                              accountName: account.typeName.trim(),
+                              accountNumber: account.number,
+                              balance: account.balance,
+                            ),
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                AuthRoutesName.accountsDetailsPage,
+                                arguments: {
+                                  'accountNumber': account.number.trim(),
+                                },
+                              );
+                            },
+                          );
+                        }),
                       ],
                     ),
                   );

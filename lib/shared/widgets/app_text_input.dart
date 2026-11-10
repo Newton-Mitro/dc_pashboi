@@ -77,8 +77,8 @@ class _AppTextInputState extends State<AppTextInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 50,
+        ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 48),
           child: TextField(
             controller: effectiveController,
             obscureText: isObscured,
@@ -117,7 +117,7 @@ class _AppTextInputState extends State<AppTextInput> {
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  color: colorScheme.primary.withOpacity(0.3),
+                  color:                   colorScheme.primary.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),

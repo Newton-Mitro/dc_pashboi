@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/core/extensions/app_context.dart';
 import 'package:pashboi/features/authenticated/deposit/presentation/pages/deposit_later_page/sections/deposit_later_preview/deposit_later_preview_section.dart';
 import 'package:pashboi/features/authenticated/my_accounts/domain/entities/nominee_entity.dart';
+import 'package:pashboi/shared/widgets/responsive_key_value_row.dart';
 
 class AccountPreviewSection extends StatelessWidget {
   final String? accountName;
@@ -162,23 +163,12 @@ class InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final textStyle = context.theme.textTheme.bodyMedium;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: textStyle?.copyWith(fontWeight: FontWeight.w600)),
-          Row(
-            children: [
-              Text(value, style: textStyle),
-              if (icon != null) ...[
-                const SizedBox(width: 4),
-                Icon(icon, size: 14),
-              ],
-            ],
-          ),
-        ],
-      ),
+    return ResponsiveKeyValueRow(
+      label: label,
+      value: value,
+      valueSuffix: icon == null ? null : Icon(icon, size: 14),
+      labelStyle: textStyle?.copyWith(fontWeight: FontWeight.w600),
+      valueStyle: textStyle,
     );
   }
 }

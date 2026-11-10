@@ -17,10 +17,13 @@ class AccountCardBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           accountName,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -29,6 +32,8 @@ class AccountCardBody extends StatelessWidget {
         ),
         Text(
           accountNumber.trim(),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 12,
             fontFamily: 'Lexend',
@@ -38,6 +43,8 @@ class AccountCardBody extends StatelessWidget {
         ),
         Text(
           TakaFormatter.format(balance),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 12,
             fontFamily: 'Lexend',

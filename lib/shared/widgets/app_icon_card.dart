@@ -19,6 +19,12 @@ class AppIconCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final leftSectionFlex = rightIcon != null ? 4 : 3;
+    final bodyFlex = rightIcon != null ? 7 : 8;
+    final rightSectionFlex = rightIcon != null ? 2 : 0;
+    final leftSectionFraction =
+        leftSectionFlex / (leftSectionFlex + bodyFlex + rightSectionFlex);
+
     return Card(
       color: context.theme.colorScheme.surface,
       elevation: 3,
@@ -28,59 +34,58 @@ class AppIconCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         child: Container(
           decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                context.theme.colorScheme.primary,
+                context.theme.colorScheme.primary,
+                context.theme.colorScheme.surface,
+                context.theme.colorScheme.surface,
+              ],
+              stops: [0, leftSectionFraction, leftSectionFraction, 1],
+            ),
             border: Border.all(color: boarderColor, width: 2),
             borderRadius: BorderRadius.circular(6),
           ),
-          child: IntrinsicHeight(
-            child: Row(
-              children: [
-                // Left Icon Area
-                Expanded(
-                  flex: rightIcon != null ? 4 : 3,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: context.theme.colorScheme.primary,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(4),
-                        bottomLeft: Radius.circular(4),
-                      ),
-                    ),
-                    child: SizedBox.expand(
-                      child: Center(
-                        child: Icon(
-                          leftIcon,
-                          size: 30,
-                          color: context.theme.colorScheme.onPrimary,
-                        ),
-                      ),
-                    ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Left Icon Area
+              Expanded(
+                flex: rightIcon != null ? 4 : 3,
+                child: Center(
+                  child: Icon(
+                    leftIcon,
+                    size: 30,
+                    color: context.theme.colorScheme.onPrimary,
                   ),
                 ),
+              ),
 
-                // Body
+              // Body
+              Expanded(
+                flex: rightIcon != null ? 7 : 8,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  child: cardBody,
+                ),
+              ),
+
+              // Optional Right Icon
+              if (rightIcon != null)
                 Expanded(
-                  flex: rightIcon != null ? 7 : 8,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 20,
-                    ),
-                    child: cardBody,
+                  flex: 2,
+                  child: Icon(
+                    rightIcon,
+                    size: 15,
+                    color: context.theme.colorScheme.onSurface,
                   ),
                 ),
-
-                // Optional Right Icon
-                if (rightIcon != null)
-                  Expanded(
-                    flex: 2,
-                    child: Icon(
-                      rightIcon,
-                      size: 15,
-                      color: context.theme.colorScheme.onSurface,
-                    ),
-                  ),
-              ],
-            ),
+            ],
           ),
         ),
       ),

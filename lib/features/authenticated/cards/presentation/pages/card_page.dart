@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -69,11 +71,12 @@ class CardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double cardHeight =
-        context.isMobile
-            ? MediaQuery.of(context).size.height * 0.27
-            : MediaQuery.of(context).size.height * 0.5;
-    final double cardWidth = cardHeight * 2.0;
+    final size = MediaQuery.sizeOf(context);
+    final double cardWidth = math.min(
+      size.width - 40,
+      size.height * (context.isMobile ? 0.54 : 1),
+    );
+    final double cardHeight = cardWidth / 1.6;
 
     return Scaffold(
       appBar: AppBar(
@@ -225,12 +228,16 @@ class CardPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const AppLogo(width: 80, showOrganizationName: false),
-                      Text(
-                        card.type.toUpperCase(),
-                        style: TextStyle(
-                          color: context.theme.colorScheme.onSurface,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      Flexible(
+                        child: Text(
+                          card.type.toUpperCase(),
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: context.theme.colorScheme.onSurface,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -266,15 +273,21 @@ class CardPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Text(
-                          card.cardNumber.replaceAllMapped(
-                            RegExp(r".{1,4}"),
-                            (match) => "${match.group(0)}   ",
-                          ),
-                          style: TextStyle(
-                            color: context.theme.colorScheme.onSurface,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              card.cardNumber.replaceAllMapped(
+                                RegExp(r".{1,4}"),
+                                (match) => "${match.group(0)}   ",
+                              ),
+                              style: TextStyle(
+                                color: context.theme.colorScheme.onSurface,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -283,12 +296,16 @@ class CardPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        card.nameOnCard.toUpperCase(),
-                        style: TextStyle(
-                          color: context.theme.colorScheme.onSurface,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
+                      Expanded(
+                        child: Text(
+                          card.nameOnCard.toUpperCase(),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: context.theme.colorScheme.onSurface,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
                         ),
                       ),
                       Column(

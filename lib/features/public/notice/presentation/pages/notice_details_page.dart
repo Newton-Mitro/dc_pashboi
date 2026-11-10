@@ -4,6 +4,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pashboi/features/public/notice/domain/enities/notice_entity.dart';
 import 'package:pashboi/shared/widgets/page_container.dart';
+import 'package:pashboi/shared/widgets/app_network_image.dart';
 
 class NoticeDetailsPage extends StatelessWidget {
   final NoticeEntity notice;
@@ -43,15 +44,12 @@ class NoticeDetailsPage extends StatelessWidget {
                         color: Colors.grey,
                       ),
                     )
-                    : Container(
-                      height: 500,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                          image: NetworkImage(imageUrl),
-                          fit: BoxFit.cover,
-                        ),
+                    : ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: SizedBox(
+                        height: 500,
+                        width: double.infinity,
+                        child: AppNetworkImage(url: imageUrl),
                       ),
                     ),
                 const SizedBox(height: 16),
