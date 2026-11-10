@@ -126,7 +126,9 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                       return Center(
                         child: Text(
                           Locales.string(context, "an_error_occurred"),
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       );

@@ -42,7 +42,10 @@ class _OpenableAccountsPageState extends State<OpenableAccountsPage> {
               return Center(
                 child: Text(
                   state.error,
-                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.error,
+                    fontSize: 16,
+                  ),
                 ),
               );
             } else if (state is OpenableAccountSuccess) {

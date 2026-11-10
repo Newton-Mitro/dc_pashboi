@@ -147,7 +147,7 @@ class _AppTextInputState extends State<AppTextInput> {
             padding: const EdgeInsets.only(left: 8),
             child: Text(
               widget.errorText!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: colorScheme.error, fontSize: 12),
             ),
           ),
       ],

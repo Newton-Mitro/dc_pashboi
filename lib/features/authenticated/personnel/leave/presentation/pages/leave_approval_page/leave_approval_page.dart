@@ -121,7 +121,9 @@ class _LeaveApprovalPageState extends State<LeaveApprovalPage> {
                 return Center(
                   child: Text(
                     state.message,
-                    style: const TextStyle(color: Colors.red),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 );
               }

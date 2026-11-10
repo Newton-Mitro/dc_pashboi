@@ -58,7 +58,7 @@ class AppTimePicker extends StatelessWidget {
         color:
             enabled
                 ? context.theme.colorScheme.secondary
-                : Colors.grey, // grey border when disabled
+                : context.theme.disabledColor,
         width: 1.0,
       ),
     );
@@ -66,12 +66,12 @@ class AppTimePicker extends StatelessWidget {
     final textColor =
         enabled
             ? context.theme.colorScheme.onSurface
-            : Colors.grey; // grey text when disabled
+            : context.theme.disabledColor;
 
     final iconColor =
         enabled
             ? (prefixIcon?.color ?? context.theme.colorScheme.onSurface)
-            : Colors.grey; // grey icon when disabled
+            : context.theme.disabledColor;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,13 +94,13 @@ class AppTimePicker extends StatelessWidget {
                   color:
                       enabled
                           ? context.theme.colorScheme.secondary
-                          : Colors.grey,
+                          : context.theme.disabledColor,
                   width: 2,
                 ),
               ),
               enabledBorder: border,
               errorBorder: border.copyWith(
-                borderSide: const BorderSide(color: Colors.red),
+                borderSide: BorderSide(color: context.theme.colorScheme.error),
               ),
             ),
             child: Text(
@@ -114,7 +114,10 @@ class AppTimePicker extends StatelessWidget {
             padding: const EdgeInsets.only(top: 1.0, left: 8),
             child: Text(
               errorText!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(
+                color: context.theme.colorScheme.error,
+                fontSize: 12,
+              ),
             ),
           ),
       ],

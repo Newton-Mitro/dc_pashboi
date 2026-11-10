@@ -106,7 +106,9 @@ class _WooApprovalPageState extends State<WooApprovalPage> {
                       return Center(
                         child: Text(
                           Locales.string(context, "an_error_occurred"),
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                       );

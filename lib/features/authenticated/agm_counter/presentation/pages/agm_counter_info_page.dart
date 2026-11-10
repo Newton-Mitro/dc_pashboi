@@ -124,7 +124,9 @@ class _AgmCounterInfoPageState extends State<AgmCounterInfoPage> {
                           child: Text(
                             state.message,
                             textAlign: TextAlign.center,
-                            style: const TextStyle(color: Colors.red),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.error,
+                            ),
                           ),
                         );
                       } else if (state is AgmCounterInfoLoaded) {

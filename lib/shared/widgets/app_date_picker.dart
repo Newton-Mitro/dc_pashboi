@@ -78,7 +78,7 @@ class AppDatePicker extends StatelessWidget {
                   color:
                       enabled
                           ? context.theme.colorScheme.onSurface
-                          : Colors.grey,
+                          : context.theme.disabledColor,
                 ),
                 filled: true,
                 isDense: true,
@@ -86,7 +86,7 @@ class AppDatePicker extends StatelessWidget {
                     prefixIcon ??
                     Icon(
                       Icons.calendar_today,
-                      color: enabled ? null : Colors.grey,
+                      color: enabled ? null : context.theme.disabledColor,
                     ), // Icon color when disabled
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10),
                 focusedBorder: border.copyWith(
@@ -97,7 +97,9 @@ class AppDatePicker extends StatelessWidget {
                 ),
                 enabledBorder: border,
                 errorBorder: border.copyWith(
-                  borderSide: const BorderSide(color: Colors.red),
+                  borderSide: BorderSide(
+                    color: context.theme.colorScheme.error,
+                  ),
                 ),
                 enabled: enabled,
               ),
@@ -107,7 +109,7 @@ class AppDatePicker extends StatelessWidget {
                   color:
                       enabled
                           ? context.theme.colorScheme.onSurface
-                          : Colors.grey,
+                          : context.theme.disabledColor,
                   fontSize: 16,
                 ),
               ),
@@ -119,7 +121,10 @@ class AppDatePicker extends StatelessWidget {
             padding: const EdgeInsets.only(top: 1.0, left: 8),
             child: Text(
               errorText!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(
+                color: context.theme.colorScheme.error,
+                fontSize: 12,
+              ),
             ),
           ),
       ],

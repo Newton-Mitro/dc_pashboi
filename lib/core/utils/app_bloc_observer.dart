@@ -46,15 +46,17 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
-    _prettyPrint('❌ Error', {
-      'bloc': bloc.runtimeType.toString(),
-      'error': error.toString(),
-      'stackTrace': stackTrace
-          .toString()
-          .split('\n')
-          .take(3)
-          .join('\n'), // only top 3 lines
-    });
+    final message = 'Unhandled ${bloc.runtimeType} error';
+    try {
+      if (sl.isRegistered<LoggerService>()) {
+        sl<LoggerService>().logError(message, error, stackTrace);
+      } else {
+        debugPrint('$message: $error\n$stackTrace');
+      }
+    } on Object catch (loggingError) {
+      debugPrint('Failed to log $message: $loggingError');
+      debugPrint('$message: $error\n$stackTrace');
+    }
   }
 
   void _prettyPrint(String title, Map<String, String> data) {

@@ -236,7 +236,9 @@ class AppDropdownSelect<T> extends StatelessWidget {
                   ),
                 ),
                 errorBorder: border.copyWith(
-                  borderSide: const BorderSide(color: Colors.red),
+                  borderSide: BorderSide(
+                    color: context.theme.colorScheme.error,
+                  ),
                 ),
               ),
               child: Row(
@@ -260,7 +262,10 @@ class AppDropdownSelect<T> extends StatelessWidget {
             padding: const EdgeInsets.only(top: 1.0, left: 8),
             child: Text(
               errorText!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(
+                color: context.theme.colorScheme.error,
+                fontSize: 12,
+              ),
             ),
           ),
       ],

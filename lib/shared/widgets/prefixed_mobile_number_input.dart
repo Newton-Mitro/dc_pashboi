@@ -136,7 +136,10 @@ class _PrefixedMobileNumberInputState extends State<PrefixedMobileNumberInput> {
             padding: const EdgeInsets.only(top: 1.0, left: 8),
             child: Text(
               widget.errorText!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(
+                color: context.theme.colorScheme.error,
+                fontSize: 12,
+              ),
             ),
           ),
       ],

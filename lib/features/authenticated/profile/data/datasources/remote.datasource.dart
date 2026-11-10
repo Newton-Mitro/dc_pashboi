@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:pashboi/core/constants/api_urls.dart';
 import 'package:pashboi/core/errors/exceptions.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
@@ -46,7 +47,11 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
           if (statusMessage != null && statusMessage == "failed") {
             throw ServerException(message: errorMessage);
           } else {
-            final jsonResponse = JsonUtil.decodeModelList(dataString);
+            final jsonResponse =
+                await compute<String, List<Map<String, dynamic>>>(
+                  JsonUtil.decodeModelList,
+                  dataString,
+                );
 
             final personModel = PersonModel.fromJson(jsonResponse.first);
 

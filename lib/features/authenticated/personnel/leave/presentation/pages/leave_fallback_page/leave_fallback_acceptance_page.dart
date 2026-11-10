@@ -63,7 +63,9 @@ class _LeaveFallbackAcceptancePageState
                   child: Center(
                     child: Text(
                       Locales.string(context, "an_error_occurred"),
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),

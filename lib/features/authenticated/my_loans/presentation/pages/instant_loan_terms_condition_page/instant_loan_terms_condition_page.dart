@@ -51,7 +51,9 @@ class _InstantLoanTermsAndConditionPageState
                       children: [
                         Text(
                           state.message,
-                          style: const TextStyle(color: Colors.red),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
                         ),
                         const SizedBox(height: 20),
                         AppErrorButton(

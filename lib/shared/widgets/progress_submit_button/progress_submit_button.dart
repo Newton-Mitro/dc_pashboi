@@ -7,9 +7,9 @@ class ProgressSubmitButton extends StatefulWidget {
   final String label;
   final double height;
   final double width;
-  final Color backgroundColor;
-  final Color foregroundColor;
-  final Color progressColor;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final Color? progressColor;
   final int duration;
   final bool enabled; // <-- new parameter
 
@@ -19,9 +19,9 @@ class ProgressSubmitButton extends StatefulWidget {
     this.label = "Hold to Submit",
     this.height = 100,
     this.width = double.infinity,
-    this.backgroundColor = Colors.blue,
-    this.foregroundColor = Colors.white,
-    this.progressColor = Colors.red,
+    this.backgroundColor,
+    this.foregroundColor,
+    this.progressColor,
     this.duration = 1,
     this.enabled = true,
   });
@@ -84,14 +84,14 @@ class _ProgressSubmitButtonState extends State<ProgressSubmitButton> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor =
-        widget.enabled
-            ? widget.backgroundColor
-            : widget.backgroundColor.withOpacity(0.5);
-    final foregroundColor =
-        widget.enabled
-            ? widget.foregroundColor
-            : widget.foregroundColor.withOpacity(0.5);
+    final colors = Theme.of(context).colorScheme;
+    final backgroundColor = widget.backgroundColor ?? colors.primary;
+    final foregroundColor = widget.foregroundColor ?? colors.onPrimary;
+    final progressColor = widget.progressColor ?? colors.secondary;
+    final effectiveBackgroundColor =
+        widget.enabled ? backgroundColor : backgroundColor.withOpacity(0.5);
+    final effectiveForegroundColor =
+        widget.enabled ? foregroundColor : foregroundColor.withOpacity(0.5);
 
     return GestureDetector(
       onTapDown: (_) => _startTimer(), // <--- Fast trigger
@@ -113,8 +113,8 @@ class _ProgressSubmitButtonState extends State<ProgressSubmitButton> {
                     size: Size(widget.width, widget.height),
                     painter: HalfCirclePainter(
                       progress: _progress,
-                      backgroundColor: backgroundColor,
-                      progressColor: widget.progressColor,
+                      backgroundColor: effectiveBackgroundColor,
+                      progressColor: progressColor,
                     ),
                   ),
                   Positioned(
@@ -123,7 +123,7 @@ class _ProgressSubmitButtonState extends State<ProgressSubmitButton> {
                       widget.label,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: foregroundColor,
+                        color: effectiveForegroundColor,
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                       ),

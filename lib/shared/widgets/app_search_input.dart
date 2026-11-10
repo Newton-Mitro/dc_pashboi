@@ -114,7 +114,7 @@ class _AppSearchTextInputState extends State<AppSearchTextInput> {
                 borderSide: BorderSide(color: theme.disabledColor),
               ),
               errorBorder: border.copyWith(
-                borderSide: const BorderSide(color: Colors.red),
+                borderSide: BorderSide(color: colorScheme.error),
               ),
               suffixIcon: _buildSuffixIcon(),
             ),
@@ -126,7 +126,7 @@ class _AppSearchTextInputState extends State<AppSearchTextInput> {
             padding: const EdgeInsets.only(left: 8),
             child: Text(
               widget.errorText!,
-              style: const TextStyle(color: Colors.red, fontSize: 12),
+              style: TextStyle(color: colorScheme.error, fontSize: 12),
             ),
           ),
       ],
