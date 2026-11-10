@@ -12,6 +12,7 @@ import 'package:pashboi/features/authenticated/transfer/domain/usecases/fetch_tr
 import 'package:pashboi/features/authenticated/transfer/domain/usecases/submit_fund_transfer_usecase.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/usecases/submit_transfer_bank_to_dc_usecase.dart';
 import 'package:pashboi/features/authenticated/transfer/domain/usecases/submit_transfer_to_bkash_usecase.dart';
+import 'package:pashboi/core/utils/phone_utils.dart';
 
 abstract class TransferRemoteDataSource {
   Future<String> submitFundTransfer(SubmitFundTransferProps props);
@@ -149,20 +150,42 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
       final response = await apiService.post(
         ApiUrls.bKashWithdrawal,
         data: {
+          "UserName": props.email,
+          "UID": props.userId,
+          "ByUserId": props.userId,
+          "PersonId": props.personId,
+          "EmployeeCode": props.employeeCode,
+          "MobileNo": props.mobileNumber,
+          "MobileNumber": props.mobileNumber,
+          "RolePermissionId": props.rolePermissionId,
+          "RequestFrom": "MobileApp",
+          "AccountNo": props.accountNumber,
+          'AccountHolderName': props.accountHolderName,
+          "CardNo": props.cardNumber,
+          "NameOnCard": props.nameOnCard,
+          "LedgerId": props.ledgerId,
           'TransferToAcc': props.transferToAcc,
           'RecipientName': props.recipientName,
-          'AccountHolderName': props.accountHolderName,
-          "AccountType": props.accountType,
-          "TransactionType": "bKashWithdrawalRequest",
-          "TransactionMethod": "17",
-          "LedgerId": props.ledgerId,
-          "AccountId": props.accountId,
+          "SecretKey": props.cardPin,
           "FromAccountNo": props.accountNumber,
-          "AccountNo": props.accountNumber,
+          "TransactionMethod": "17",
+          "TransactionType": "bKashWithdrawalRequest",
+          "TotalDepositAmount": props.amount,
+          "AccountType": props.accountType,
+          "AccountId": props.accountId,
+          "Year": 2024,
+          "IsNewMenu": false,
+          "IsRegistered": true,
           "TransactionModels": [
             {
-              "AccountNo": props.transferToAcc,
+              "AccountNo": PhoneUtils.removeCountryCode(props.transferToAcc),
               "AccountType": "bKash Account",
+              "IsDefaulter": false,
+              "IsLps": false,
+              "IsMultiplier": false,
+              "IsNotEditable": false,
+              "IsRefundBased": false,
+              "IsSubLedger": false,
               "LedgerId": 0,
               "Amount": props.amount,
               "Balance": 0,
@@ -171,21 +194,8 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
               "PlType": 0,
             },
           ],
-          "TotalDepositAmount": props.amount,
           "OTPRegId": props.otpRegId,
           "OTPValue": props.otpValue,
-          "CardNo": props.cardNumber,
-          "NameOnCard": props.nameOnCard,
-          "SecretKey": props.cardPin,
-          "UserName": props.email,
-          "MobileNo": props.mobileNumber,
-          "MobileNumber": props.mobileNumber,
-          "RolePermissionId": props.rolePermissionId,
-          "ByUserId": props.userId,
-          "UID": props.userId,
-          "EmployeeCode": props.employeeCode,
-          "PersonId": props.personId,
-          "RequestFrom": "MobileApp",
         },
       );
 
