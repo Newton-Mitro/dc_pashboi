@@ -63,7 +63,7 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
                             FontAwesomeIcons.boxOpen,
                             size: 50,
                             color: context.theme.colorScheme.onSurface
-                                .withOpacity(0.6),
+                                .withValues(alpha: 0.6),
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -272,8 +272,8 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
                     ? Container(
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
-                        color: (value ? Colors.green : Colors.red).withOpacity(
-                          0.2,
+                        color: (value ? Colors.green : Colors.red).withValues(
+                          alpha: 0.2,
                         ),
                         shape: BoxShape.circle,
                       ),
@@ -298,7 +298,7 @@ class _ProductLoansPageState extends State<ProductLoansPage> {
         Container(
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: (isPositive ? Colors.green : Colors.red).withOpacity(0.1),
+            color: (isPositive ? Colors.green : Colors.red).withValues(alpha: 0.1),
             shape: BoxShape.circle,
           ),
           child: Icon(

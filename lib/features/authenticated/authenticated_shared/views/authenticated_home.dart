@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
@@ -227,14 +229,18 @@ class _AuthenticatedHomeState extends State<AuthenticatedHome> {
                               ),
                               onSelected: (value) async {
                                 if (value == 0) {
-                                  Navigator.pushNamed(
-                                    context,
-                                    AuthRoutesName.profilePage,
+                                  unawaited(
+                                    Navigator.pushNamed(
+                                      context,
+                                      AuthRoutesName.profilePage,
+                                    ),
                                   );
                                 } else if (value == 1) {
-                                  Navigator.pushNamed(
-                                    context,
-                                    AuthRoutesName.changePasswordPage,
+                                  unawaited(
+                                    Navigator.pushNamed(
+                                      context,
+                                      AuthRoutesName.changePasswordPage,
+                                    ),
                                   );
                                 } else if (value == 2) {
                                   await showDialog(

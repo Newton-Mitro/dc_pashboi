@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 
 import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,7 @@ class _LoanStatementPageState extends State<LoanStatementPage> {
                     return ElevatedButton(
                       onPressed: () async {
                         await createAndSavePdf(state.transactions);
+                        if (!context.mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text("PDF saved to Downloads folder"),
@@ -516,7 +518,7 @@ class _LoanStatementPageState extends State<LoanStatementPage> {
       }
     } else {
       // Prompt user to go to settings
-      openAppSettings();
+      unawaited(openAppSettings());
       debugPrint("❌ Permission not granted, please enable manually");
     }
   }

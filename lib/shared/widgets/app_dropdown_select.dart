@@ -232,7 +232,7 @@ class AppDropdownSelect<T> extends StatelessWidget {
                 enabledBorder: border,
                 disabledBorder: border.copyWith(
                   borderSide: BorderSide(
-                    color: context.theme.colorScheme.primary.withOpacity(0.3),
+                    color: context.theme.colorScheme.primary.withValues(alpha: 0.3),
                   ),
                 ),
                 errorBorder: border.copyWith(

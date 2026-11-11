@@ -135,7 +135,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                     }
 
                     if (state is GetWoooDataSuccess) {
-                      final requestList = state.WoooData;
+                      final requestList = state.woooData;
                       if (requestList.isEmpty) {
                         return Center(
                           child: Column(
@@ -265,7 +265,7 @@ class _WoooHistoryPageState extends State<WoooHistoryPage> with RouteAware {
                                               if (request.isEditable)
                                                 IconButton(
                                                   icon: const Icon(
-                                                    FontAwesomeIcons.edit,
+                                                    FontAwesomeIcons.penToSquare,
                                                     size: 15,
                                                   ),
                                                   color:

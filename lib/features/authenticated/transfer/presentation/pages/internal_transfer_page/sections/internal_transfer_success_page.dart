@@ -28,7 +28,7 @@ class InternalTransferSuccessPage extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: DarkBlueOceanColors().success.withOpacity(0.1),
+                  color: DarkBlueOceanColors().success.withValues(alpha: 0.1),
                 ),
                 padding: const EdgeInsets.all(24),
                 child: Icon(

@@ -29,7 +29,7 @@ class TransferPreviewSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.primary.withOpacity(0.08),
+            color: colorScheme.primary.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 4),
           ),

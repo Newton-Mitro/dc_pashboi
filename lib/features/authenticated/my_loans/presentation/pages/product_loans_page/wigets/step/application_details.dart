@@ -124,7 +124,7 @@ class _ApplicationDetailsState extends State<ApplicationDetails> {
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
-                  color: colorScheme.primary.withOpacity(0.08),
+                  color: colorScheme.primary.withValues(alpha: 0.08),
                   blurRadius: 6,
                   offset: const Offset(0, 4),
                 ),

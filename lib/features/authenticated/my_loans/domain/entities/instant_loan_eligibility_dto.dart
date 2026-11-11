@@ -1,8 +1,10 @@
-class InstantLoanEligibilityDTO {
+import 'package:equatable/equatable.dart';
+
+class InstantLoanEligibilityDTO extends Equatable {
   final String eligibilityMessage;
   final List<dynamic> eligibleConditions;
 
-  InstantLoanEligibilityDTO({
+  const InstantLoanEligibilityDTO({
     required this.eligibilityMessage,
     required this.eligibleConditions,
   });

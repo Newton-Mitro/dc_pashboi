@@ -42,7 +42,6 @@ class UpdateLeaveApplicationBloc
     UpdateLeaveApplication event,
     Emitter<UpdateLeaveApplicationState> emit,
   ) async {
-    final errors = <String, String>{};
     emit(const UpdateLeaveApplicationLoading());
     try {
       final user = await _getAuthenticatedUser(emit);

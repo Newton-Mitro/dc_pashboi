@@ -56,7 +56,6 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
             : null;
   }
 
-  @override
   Widget _buildTextArea({
     required TextEditingController controller,
     required String label,
@@ -201,7 +200,7 @@ class _LeaveApprovalDetailsPageState extends State<LeaveApprovalDetailsPage> {
                             ),
                           ],
                         ),
-                      if (_leaveTypeController == '03')
+                      if (_leaveTypeController.text == '03')
                         const SizedBox(height: 16),
                       Row(
                         children: [

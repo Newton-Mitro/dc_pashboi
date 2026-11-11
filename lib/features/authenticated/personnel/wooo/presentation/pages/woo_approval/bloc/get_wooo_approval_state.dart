@@ -16,12 +16,12 @@ final class GetWoooApprovalLoading extends GetWoooApprovalState {
 }
 
 final class GetWoooApprovalSuccess extends GetWoooApprovalState {
-  final List<WoooDataEntities> WoooData;
+  final List<WoooDataEntities> woooData;
 
-  const GetWoooApprovalSuccess(this.WoooData);
+  const GetWoooApprovalSuccess(this.woooData);
 
   @override
-  List<Object?> get props => [WoooData];
+  List<Object?> get props => [woooData];
 }
 
 final class GetWoooApprovalError extends GetWoooApprovalState {

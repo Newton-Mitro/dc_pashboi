@@ -179,7 +179,7 @@ class _TodaysPunchState extends State<TodaysPunch> {
 
                 if (state is TodayPunchError) {
                   return Center(
-                    child: Text(state.message ?? "Something went wrong."),
+                    child: Text(state.message),
                   );
                 }
 

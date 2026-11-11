@@ -37,7 +37,7 @@ class GetWoooApprovalBloc
       },
       (authData) async {
         final user = authData.user;
-        final WoooHistoryResult = await getWoooApprovalUsecase(
+        final woooHistoryResult = await getWoooApprovalUsecase(
           GetWoooApprovalProps(
             email: user.loginEmail,
             userId: user.userId,
@@ -50,12 +50,12 @@ class GetWoooApprovalBloc
           ),
         );
 
-        WoooHistoryResult.fold(
+        woooHistoryResult.fold(
           (failure) {
             emit(GetWoooApprovalError(failure.message));
           },
-          (WoooData) {
-            emit(GetWoooApprovalSuccess(WoooData));
+          (woooData) {
+            emit(GetWoooApprovalSuccess(woooData));
           },
         );
       },

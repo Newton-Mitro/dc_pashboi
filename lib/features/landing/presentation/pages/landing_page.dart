@@ -140,7 +140,7 @@ class _LandingPageState extends State<LandingPage> {
                             style: TextStyle(
                               fontSize: 12,
                               color: context.theme.colorScheme.onSurface
-                                  .withOpacity(0.6),
+                                  .withValues(alpha: 0.6),
                             ),
                           ),
 

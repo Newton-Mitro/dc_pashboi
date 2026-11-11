@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:pashboi/core/constants/api_urls.dart';
@@ -237,8 +236,6 @@ class TransferRemoteDataSourceImpl implements TransferRemoteDataSource {
         "MobileNo": props.mobileNumber,
         "RequestFrom": "MobileApp",
       };
-
-      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getBankAccounts,

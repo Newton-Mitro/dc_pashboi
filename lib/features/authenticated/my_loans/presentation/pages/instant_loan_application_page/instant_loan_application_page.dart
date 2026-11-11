@@ -16,8 +16,6 @@ class InstantLoanApplicationPage extends StatefulWidget {
 
 class _InstantLoanApplicationPageState
     extends State<InstantLoanApplicationPage> {
-  bool isTopUp = false;
-
   @override
   void initState() {
     super.initState();
@@ -25,12 +23,6 @@ class _InstantLoanApplicationPageState
     context.read<InstantLoanEligibilityBloc>().add(
       FetchInstantLoanEligibilityEvent(),
     );
-  }
-
-  void _handleTopUpChange() {
-    setState(() {
-      isTopUp = true;
-    });
   }
 
   @override

@@ -316,9 +316,9 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                               children: [
                                 AppDateTimePicker(
                                   selectedDateTime: startDate,
-                                  onDateTimeChanged: (DateTime) {
+                                  onDateTimeChanged: (dateTime) {
                                     setState(() {
-                                      startDate = DateTime!;
+                                      startDate = dateTime!;
                                       endDate = startDate.add(
                                         Duration(hours: 2, minutes: 30),
                                       );
@@ -332,9 +332,9 @@ class _LeaveHistoryDetailsPageState extends State<LeaveHistoryDetailsPage> {
                                 SizedBox(height: 16),
                                 AppDateTimePicker(
                                   selectedDateTime: endDate,
-                                  onDateTimeChanged: (DateTime) {
+                                  onDateTimeChanged: (dateTime) {
                                     setState(() {
-                                      endDate = DateTime!; // fallback if null
+                                      endDate = dateTime!;
                                     });
                                   },
 

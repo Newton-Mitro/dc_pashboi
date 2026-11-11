@@ -58,93 +58,91 @@ class DevelopmentCreditDetails extends StatelessWidget {
                     ),
                 const SizedBox(height: 16),
                 Center(
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          credit.name,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        credit.name,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(credit.designation),
+                      const SizedBox(height: 8),
+                      Text(credit.email),
+                      const SizedBox(height: 8),
+                      Text(credit.mobileNumber),
+                      const SizedBox(height: 24),
+
+                      // 3 Rounded Icon Buttons
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () async {
+                              final url = credit.facebookUrl;
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(
+                                  Uri.parse(url),
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(16),
+                            ),
+                            child: const Icon(FontAwesomeIcons.facebook),
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(credit.designation),
-                        const SizedBox(height: 8),
-                        Text(credit.email),
-                        const SizedBox(height: 8),
-                        Text(credit.mobileNumber),
-                        const SizedBox(height: 24),
+                          ElevatedButton(
+                            onPressed: () async {
+                              final url = credit.linkedinUrl;
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(
+                                  Uri.parse(url),
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(16),
+                            ),
+                            child: const Icon(FontAwesomeIcons.linkedinIn),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              final url = credit.githubUrl;
+                              if (await canLaunchUrl(Uri.parse(url))) {
+                                await launchUrl(
+                                  Uri.parse(url),
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              } else {
+                                throw 'Could not launch $url';
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              padding: const EdgeInsets.all(16),
+                            ),
+                            child: const Icon(FontAwesomeIcons.github),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
 
-                        // 3 Rounded Icon Buttons
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url = credit.facebookUrl;
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(
-                                    Uri.parse(url),
-                                    mode: LaunchMode.externalApplication,
-                                  );
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: const CircleBorder(),
-                                padding: const EdgeInsets.all(16),
-                              ),
-                              child: const Icon(FontAwesomeIcons.facebook),
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url = credit.linkedinUrl;
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(
-                                    Uri.parse(url),
-                                    mode: LaunchMode.externalApplication,
-                                  );
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: const CircleBorder(),
-                                padding: const EdgeInsets.all(16),
-                              ),
-                              child: const Icon(FontAwesomeIcons.linkedinIn),
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url = credit.githubUrl;
-                                if (await canLaunchUrl(Uri.parse(url))) {
-                                  await launchUrl(
-                                    Uri.parse(url),
-                                    mode: LaunchMode.externalApplication,
-                                  );
-                                } else {
-                                  throw 'Could not launch $url';
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                shape: const CircleBorder(),
-                                padding: const EdgeInsets.all(16),
-                              ),
-                              child: const Icon(FontAwesomeIcons.github),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-
-                        Html(
-                          data: credit.bio,
-                          style: {"*": Style(textAlign: TextAlign.justify)},
-                        ),
-                      ],
-                    ),
+                      Html(
+                        data: credit.bio,
+                        style: {"*": Style(textAlign: TextAlign.justify)},
+                      ),
+                    ],
                   ),
                 ),
               ],

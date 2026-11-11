@@ -28,10 +28,6 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
   final TextEditingController _reasonController = TextEditingController();
   final TextEditingController _remarksController = TextEditingController();
 
-  // Time values
-  TimeOfDay? _startTime;
-  TimeOfDay? _endTime;
-
   // Date values
   DateTime? _startDate;
   DateTime? _endDate;
@@ -256,7 +252,7 @@ class _LeaveFallbackPageState extends State<LeaveFallbackPage> {
                               context.read<AcceptedFallbackRequestBloc>().add(
                                 AcceptedFallbackRequestSubmitted(
                                   leaveApplicationId:
-                                      widget.data.leaveApplicationId ?? 0,
+                                      widget.data.leaveApplicationId,
                                   remarks: _remarksController.text.trim(),
                                 ),
                               );

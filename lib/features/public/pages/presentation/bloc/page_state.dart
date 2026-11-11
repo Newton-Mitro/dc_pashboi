@@ -16,7 +16,7 @@ final class PageLoading extends PageState {
 }
 
 final class PageSuccess extends PageState {
-  final pageData;
+  final dynamic pageData;
 
   const PageSuccess({required this.pageData});
 

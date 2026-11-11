@@ -76,7 +76,7 @@ class _WoooDataHistoryDetailsPageState extends State<WoooDataHistoryDetailsPage>
     fromDate = _parseDate(history.fromDate);
     toDate = _parseDate(history.toDate);
     rejoiningDate = _parseDate(history.rejoiningDate);
-    reasonController.text = history.reason ?? '';
+    reasonController.text = history.reason;
 
     context.read<WoooTypeBloc>().add(FetchWoooTypeEvent());
   }

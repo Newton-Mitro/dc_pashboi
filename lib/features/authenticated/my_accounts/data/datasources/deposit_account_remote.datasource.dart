@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:pashboi/core/constants/api_urls.dart';
@@ -53,8 +52,6 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      final jsonEncodedRequestBody = jsonEncode(requestBody);
-
       final response = await apiService.post(
         ApiUrls.getMyAccounts,
         data: requestBody,
@@ -104,8 +101,6 @@ class DepositAccountRemoteDataSourceImpl
         "AccountNo": props.accountNumber,
         "RequestFrom": "MobileApp",
       };
-
-      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getAccountDetails,
@@ -157,8 +152,6 @@ class DepositAccountRemoteDataSourceImpl
         "EndDate": props.toDate,
         "RequestFrom": "MobileApp",
       };
-
-      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getAccountStatement,
@@ -212,8 +205,6 @@ class DepositAccountRemoteDataSourceImpl
         "RequestFrom": "MobileApp",
       };
 
-      final jsonEncodedRequestBody = jsonEncode(requestBody);
-
       final response = await apiService.post(
         ApiUrls.addDependent,
         data: requestBody,
@@ -256,8 +247,6 @@ class DepositAccountRemoteDataSourceImpl
         "MobileNo": props.mobileNumber,
         "RequestFrom": "MobileApp",
       };
-
-      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getDependentAccounts,
@@ -305,8 +294,6 @@ class DepositAccountRemoteDataSourceImpl
         "MobileNo": props.mobileNumber,
         "RequestFrom": "MobileApp",
       };
-
-      final jsonEncodedRequestBody = jsonEncode(requestBody);
 
       final response = await apiService.post(
         ApiUrls.getDependentAccounts,

@@ -32,6 +32,7 @@ class InstantLoanEligible extends StatefulWidget {
 class _InstantLoanEligibleState extends State<InstantLoanEligible> {
   @override
   void initState() {
+    super.initState();
     _checkTopUpCondition(widget.eligibleConditions);
   }
 

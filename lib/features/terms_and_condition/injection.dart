@@ -1,8 +1,6 @@
 import 'package:pashboi/core/injection.dart';
-import 'package:pashboi/core/locale/services/app_localization_service.dart';
 import 'package:pashboi/core/services/network/api_service.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
-import 'package:pashboi/features/auth/domain/usecases/get_auth_user_usecase.dart';
 import 'package:pashboi/features/terms_and_condition/data/datasources/term_and_condition_remote_datasource.dart';
 import 'package:pashboi/features/terms_and_condition/data/repositories/term_and_condition_repository_impl.dart';
 import 'package:pashboi/features/terms_and_condition/domain/repositories/term_and_condition_repository.dart';
@@ -33,9 +31,7 @@ void registerTermAndConditionModule() async {
   // Register Bloc
   sl.registerFactory<TermAndConditionBloc>(
     () => TermAndConditionBloc(
-      getAuthUserUseCase: sl<GetAuthUserUseCase>(),
       fetchTermAndConditionUseCase: sl<FetchTermAndConditionUseCase>(),
-      appLocalizationService: sl<AppLocalizationService>(),
     ),
   );
 }

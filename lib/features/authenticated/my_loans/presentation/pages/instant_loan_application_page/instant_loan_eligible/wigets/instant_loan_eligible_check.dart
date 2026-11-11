@@ -59,11 +59,11 @@ class _InstantLoanEligibleCheckState extends State<InstantLoanEligibleCheck> {
                     decoration: BoxDecoration(
                       color:
                           isEligible
-                              ? context.theme.colorScheme.secondary.withOpacity(
-                                0.1,
+                              ? context.theme.colorScheme.secondary.withValues(
+                                alpha: 0.1,
                               )
-                              : context.theme.colorScheme.error.withOpacity(
-                                0.1,
+                              : context.theme.colorScheme.error.withValues(
+                                alpha: 0.1,
                               ),
                       shape: BoxShape.circle,
                     ),

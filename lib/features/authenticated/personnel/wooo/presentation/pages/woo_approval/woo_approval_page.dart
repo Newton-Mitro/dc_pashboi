@@ -114,7 +114,7 @@ class _WooApprovalPageState extends State<WooApprovalPage> {
                       );
                     }
                     if (state is GetWoooApprovalSuccess) {
-                      final requestList = state.WoooData;
+                      final requestList = state.woooData;
                       if (requestList.isEmpty) {
                         return Center(
                           child: Column(
@@ -241,7 +241,7 @@ class _WooApprovalPageState extends State<WooApprovalPage> {
                                               if (request.isEditable)
                                                 IconButton(
                                                   icon: const Icon(
-                                                    FontAwesomeIcons.edit,
+                                                    FontAwesomeIcons.penToSquare,
                                                     size: 15,
                                                   ),
                                                   color:

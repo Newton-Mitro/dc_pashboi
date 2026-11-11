@@ -23,7 +23,7 @@ class MenuCard extends StatelessWidget {
     final textColor =
         isEnabled
             ? theme.colorScheme.onSurface
-            : theme.colorScheme.onSurface.withOpacity(0.4);
+            : theme.colorScheme.onSurface.withValues(alpha: 0.4);
     final iconWidget =
         isEnabled
             ? icon

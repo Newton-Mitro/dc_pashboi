@@ -89,9 +89,13 @@ class _ProgressSubmitButtonState extends State<ProgressSubmitButton> {
     final foregroundColor = widget.foregroundColor ?? colors.onPrimary;
     final progressColor = widget.progressColor ?? colors.secondary;
     final effectiveBackgroundColor =
-        widget.enabled ? backgroundColor : backgroundColor.withOpacity(0.5);
+        widget.enabled
+            ? backgroundColor
+            : backgroundColor.withValues(alpha: 0.5);
     final effectiveForegroundColor =
-        widget.enabled ? foregroundColor : foregroundColor.withOpacity(0.5);
+        widget.enabled
+            ? foregroundColor
+            : foregroundColor.withValues(alpha: 0.5);
 
     return GestureDetector(
       onTapDown: (_) => _startTimer(), // <--- Fast trigger

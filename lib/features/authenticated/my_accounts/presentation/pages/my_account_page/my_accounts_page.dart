@@ -51,7 +51,7 @@ class MyAccountsPage extends StatelessWidget {
                             FontAwesomeIcons.boxOpen,
                             size: 50,
                             color: context.theme.colorScheme.onSurface
-                                .withOpacity(0.6),
+                                .withValues(alpha: 0.6),
                           ),
                           const SizedBox(height: 16),
                           Text(

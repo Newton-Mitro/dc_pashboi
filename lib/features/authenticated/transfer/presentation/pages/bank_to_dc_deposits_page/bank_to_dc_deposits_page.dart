@@ -71,7 +71,7 @@ class _BankToDcDepositsPageState extends State<BankToDcDepositsPage> {
                             FontAwesomeIcons.boxOpen,
                             size: 60,
                             color: context.theme.colorScheme.onSurface
-                                .withOpacity(0.4),
+                                .withValues(alpha: 0.4),
                           ),
                           const SizedBox(height: 12),
                           Text(

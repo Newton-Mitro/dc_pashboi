@@ -142,10 +142,9 @@ class _OtpVerificationSectionState extends State<OtpVerificationSection> {
                         return SizedBox(
                           width: 50,
                           height: 50,
-                          child: RawKeyboardListener(
-                            focusNode: FocusNode(), // for backspace detection
-                            onKey: (event) {
-                              if (event is RawKeyDownEvent &&
+                          child: Focus(
+                            onKeyEvent: (node, event) {
+                              if (event is KeyDownEvent &&
                                   event.logicalKey ==
                                       LogicalKeyboardKey.backspace &&
                                   _otpControllers[index].text.isEmpty &&
@@ -154,6 +153,7 @@ class _OtpVerificationSectionState extends State<OtpVerificationSection> {
                                   context,
                                 ).requestFocus(_focusNodes[index - 1]);
                               }
+                              return KeyEventResult.ignored;
                             },
                             child: TextField(
                               controller: _otpControllers[index],

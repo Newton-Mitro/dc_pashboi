@@ -154,10 +154,10 @@ class AccountOpeningStepsBloc
   ) {
     final totalPercentage = state.nominees.fold<double>(
       0,
-      (sum, nominee) => sum + (nominee.percentage ?? 0),
+      (sum, nominee) => sum + nominee.percentage,
     );
 
-    final newTotal = totalPercentage + (event.nominee.percentage ?? 0);
+    final newTotal = totalPercentage + event.nominee.percentage;
 
     if (newTotal > 100) {
       // Optionally emit error or use a side-effect to show a dialog/snackbar

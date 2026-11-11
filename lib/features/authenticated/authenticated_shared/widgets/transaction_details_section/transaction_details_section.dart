@@ -248,7 +248,7 @@ class TransactionDetailsSection extends StatelessWidget {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: context.theme.colorScheme.error.withOpacity(0.1),
+                        color: context.theme.colorScheme.error.withValues(alpha: 0.1),
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(6),
                           topRight: Radius.circular(6),

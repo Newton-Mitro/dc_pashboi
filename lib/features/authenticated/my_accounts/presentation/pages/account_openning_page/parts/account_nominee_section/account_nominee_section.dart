@@ -237,7 +237,7 @@ class _AccountNomineeSectionState extends State<AccountNomineeSection> {
                           Locales.string(context, 'no_nominees_added_yet'),
                           style: TextStyle(
                             color: context.theme.colorScheme.onSurface
-                                .withOpacity(0.6),
+                                .withValues(alpha: 0.6),
                           ),
                         ),
                       )

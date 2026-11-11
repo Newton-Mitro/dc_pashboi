@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import 'package:pashboi/features/authenticated/my_loans/domain/entities/eligibility_details_entity.dart';
 
-class DepositLoanEligibilityDto {
+class DepositLoanEligibilityDto extends Equatable {
   final int productId;
   final String loanProductCode;
   final String loanProductName;
@@ -9,7 +11,7 @@ class DepositLoanEligibilityDto {
   final bool isEligible;
   final List<EligibilityDetailEntity> eligibilityDetails;
 
-  DepositLoanEligibilityDto({
+  const DepositLoanEligibilityDto({
     required this.productId,
     required this.loanProductCode,
     required this.loanProductName,

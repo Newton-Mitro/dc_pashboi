@@ -34,7 +34,7 @@ class _EmployeesProfilePageState extends State<EmployeesProfilePage> {
           margin: const EdgeInsets.only(right: 16),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: context.theme.colorScheme.primary.withOpacity(0.8),
+            color: context.theme.colorScheme.primary.withValues(alpha: 0.8),
           ),
           child: Icon(
             icon,

@@ -36,7 +36,7 @@ class AppDateTimePicker extends StatelessWidget {
           ),
     );
 
-    if (pickedDate == null) return;
+    if (pickedDate == null || !context.mounted) return;
 
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,

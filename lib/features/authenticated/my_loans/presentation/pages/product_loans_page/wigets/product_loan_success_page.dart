@@ -26,7 +26,7 @@ class ProductLoanSuccessPage extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: colorScheme.primary.withOpacity(0.1),
+                  color: colorScheme.primary.withValues(alpha: 0.1),
                 ),
                 padding: const EdgeInsets.all(24),
                 child: Icon(

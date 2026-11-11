@@ -87,9 +87,9 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                                     color:
                                         isEligible
                                             ? theme.colorScheme.secondary
-                                                .withOpacity(0.1)
+                                                .withValues(alpha: 0.1)
                                             : theme.colorScheme.error
-                                                .withOpacity(0.1),
+                                                .withValues(alpha: 0.1),
                                     shape: BoxShape.circle,
                                   ),
                                   child: FaIcon(
@@ -160,7 +160,7 @@ class _InstantLoanNotEligibleState extends State<InstantLoanNotEligible> {
                               vertical: 12,
                             ),
                             backgroundColor: theme.colorScheme.primary
-                                .withOpacity(0.5),
+                                .withValues(alpha: 0.5),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),

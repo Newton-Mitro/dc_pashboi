@@ -16,12 +16,12 @@ final class GetWoooDataLoading extends GetWoooDataState {
 }
 
 final class GetWoooDataSuccess extends GetWoooDataState {
-  final List<WoooDataEntities> WoooData;
+  final List<WoooDataEntities> woooData;
 
-  const GetWoooDataSuccess(this.WoooData);
+  const GetWoooDataSuccess(this.woooData);
 
   @override
-  List<Object?> get props => [WoooData];
+  List<Object?> get props => [woooData];
 }
 
 final class GetWoooDataError extends GetWoooDataState {

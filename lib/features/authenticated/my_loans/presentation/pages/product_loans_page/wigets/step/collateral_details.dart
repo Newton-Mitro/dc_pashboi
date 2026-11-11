@@ -63,7 +63,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: colorScheme.primary.withOpacity(0.08),
+            color: colorScheme.primary.withValues(alpha: 0.08),
             blurRadius: 6,
             offset: const Offset(0, 4),
           ),
@@ -137,7 +137,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                           context,
                                           'account_type',
                                         ),
-                                        value: accounts.accountType ?? "N/A",
+                                        value: accounts.accountType,
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.hashtag,
@@ -145,7 +145,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                           context,
                                           'account_number',
                                         ),
-                                        value: accounts.accountNumber ?? "N/A",
+                                        value: accounts.accountNumber,
                                       ),
                                       _InfoItem(
                                         icon: FontAwesomeIcons.sackDollar,
@@ -154,7 +154,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                           'account_balance',
                                         ),
                                         value: TakaFormatter.format(
-                                          accounts.totalBalance ?? 0,
+                                          accounts.totalBalance,
                                         ),
                                       ),
                                       _InfoItem(
@@ -164,7 +164,7 @@ class _CollateralDetailsState extends State<CollateralDetails> {
                                           'loanable_balance',
                                         ),
                                         value: TakaFormatter.format(
-                                          accounts.loanableBalance ?? 0,
+                                          accounts.loanableBalance,
                                         ),
                                       ),
                                     ],
@@ -304,7 +304,7 @@ class _InfoItem extends StatelessWidget {
               Text(
                 label,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   fontWeight: FontWeight.w500,
                 ),
               ),

@@ -67,7 +67,7 @@ class _LoanDetailsPageState extends State<LoanDetailsPage> {
                   value,
                   style: TextStyle(
                     fontSize: 15,
-                    color: colorScheme.onSurface.withOpacity(0.8),
+                    color: colorScheme.onSurface.withValues(alpha: 0.8),
                   ),
                 ),
               ],

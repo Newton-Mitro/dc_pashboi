@@ -167,7 +167,7 @@ class _AppSearchTextInputState extends State<AppSearchTextInput> {
       decoration: BoxDecoration(
         color:
             disabled
-                ? theme.disabledColor.withOpacity(0.2)
+                ? theme.disabledColor.withValues(alpha: 0.2)
                 : theme.colorScheme.primary,
         borderRadius: const BorderRadius.only(
           topRight: Radius.circular(10),

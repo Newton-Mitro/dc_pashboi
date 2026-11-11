@@ -131,6 +131,190 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
     }
   }
 
+  Widget _buildAttendanceCard(BuildContext context, AttendanceEvent event) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    final statusColor = _getMarkerColor(event.remarks);
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      color: colors.surface,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(color: colors.outlineVariant),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 42,
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: statusColor.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(
+                    Icons.event_available_rounded,
+                    color: statusColor,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    '${Locales.string(context, "status")}: ${event.remarks ?? "--"}',
+                    style: theme.textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                if (event.status != null && event.status!.isNotEmpty)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: statusColor.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text(
+                      event.status!,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        color: statusColor,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildPunchTime(
+                    context,
+                    label: Locales.string(context, "punch_in"),
+                    time: extractTime(event.punchIn),
+                    icon: Icons.login_rounded,
+                    color: colors.primary,
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: _buildPunchTime(
+                    context,
+                    label: Locales.string(context, "punch_out"),
+                    time: extractTime(event.punchOut),
+                    icon: Icons.logout_rounded,
+                    color: colors.tertiary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Divider(color: colors.outlineVariant, height: 1),
+            const SizedBox(height: 12),
+            _buildDetailRow(
+              context,
+              icon: Icons.location_on_outlined,
+              label: Locales.string(context, "punch_area"),
+              value: event.punchArea,
+            ),
+            const SizedBox(height: 8),
+            _buildDetailRow(
+              context,
+              icon: Icons.account_balance_outlined,
+              label: Locales.string(context, "branch"),
+              value: event.branchName,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPunchTime(
+    BuildContext context, {
+    required String label,
+    required String time,
+    required IconData icon,
+    required Color color,
+  }) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: color),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  time,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetailRow(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required String? value,
+  }) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Icon(icon, size: 18, color: theme.colorScheme.onSurfaceVariant),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              Text(
+                value == null || value.isEmpty ? "--" : value,
+                style: theme.textTheme.bodyMedium,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   void dispose() {
     _selectedEvents.dispose();
@@ -156,7 +340,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
                 backgroundColor: Colors.transparent,
                 content: AwesomeSnackbarContent(
                   title: Locales.string(context, "oops"),
-                  message: state.message ?? "Something went wrong",
+                  message: state.message,
                   contentType: ContentType.failure,
                 ),
               );
@@ -168,7 +352,7 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
           },
           child: PageContainer(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(12),
               child: BlocBuilder<
                 AttendanceCalenderBloc,
                 AttendanceCalenderState
@@ -187,127 +371,227 @@ class _AttendanceCalendarState extends State<AttendanceCalendar> {
 
                     _updateAttendanceEvents(attendanceEvents);
 
-                    return Column(
-                      children: [
-                        TableCalendar<AttendanceEvent>(
-                          firstDay: DateTime.utc(2020, 1, 1),
-                          lastDay: DateTime.utc(2040, 12, 31),
-                          focusedDay: _focusedDay,
-                          selectedDayPredicate:
-                              (day) => isSameDay(_selectedDay, day),
-                          calendarFormat: _calendarFormat,
-                          eventLoader: _getEventsForDay,
-                          onDaySelected: (selectedDay, focusedDay) {
-                            setState(() {
-                              _selectedDay = selectedDay;
-                              _focusedDay = focusedDay;
-                              _selectedEvents.value = _getEventsForDay(
-                                selectedDay,
-                              );
-                            });
-                          },
-                          onFormatChanged: (format) {
-                            setState(() => _calendarFormat = format);
-                          },
-                          onPageChanged: (focusedDay) {
-                            setState(() {
-                              _focusedDay = focusedDay;
-                            });
+                    final theme = Theme.of(context);
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Card(
+                            margin: EdgeInsets.zero,
+                            color: theme.colorScheme.surface,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                              side: BorderSide(
+                                color: theme.colorScheme.outlineVariant,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 8, 8, 12),
+                              child: TableCalendar<AttendanceEvent>(
+                                firstDay: DateTime.utc(2020, 1, 1),
+                                lastDay: DateTime.utc(2040, 12, 31),
+                                focusedDay: _focusedDay,
+                                selectedDayPredicate:
+                                    (day) => isSameDay(_selectedDay, day),
+                                calendarFormat: _calendarFormat,
+                                eventLoader: _getEventsForDay,
+                                rowHeight: 48,
+                                daysOfWeekHeight: 36,
+                                headerStyle: HeaderStyle(
+                                  titleCentered: true,
+                                  formatButtonDecoration: BoxDecoration(
+                                    color: theme.colorScheme.primaryContainer,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  formatButtonTextStyle: TextStyle(
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  leftChevronIcon: Icon(
+                                    Icons.chevron_left_rounded,
+                                    color: theme.colorScheme.primary,
+                                  ),
+                                  rightChevronIcon: Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: theme.colorScheme.primary,
+                                  ),
+                                ),
+                                daysOfWeekStyle: DaysOfWeekStyle(
+                                  weekdayStyle: theme.textTheme.labelMedium!
+                                      .copyWith(
+                                        color:
+                                            theme.colorScheme.onSurfaceVariant,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                  weekendStyle: theme.textTheme.labelMedium!
+                                      .copyWith(
+                                        color:
+                                            theme.colorScheme.onSurfaceVariant,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                                calendarStyle: CalendarStyle(
+                                  outsideDaysVisible: false,
+                                  defaultDecoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  weekendDecoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  selectedDecoration: BoxDecoration(
+                                    color: theme.colorScheme.primary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  todayDecoration: BoxDecoration(
+                                    color: theme.colorScheme.primaryContainer,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  selectedTextStyle: TextStyle(
+                                    color: theme.colorScheme.onPrimary,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  todayTextStyle: TextStyle(
+                                    color: theme.colorScheme.onPrimaryContainer,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  markersAlignment: Alignment.bottomCenter,
+                                  markersMaxCount: 3,
+                                  markerSize: 5,
+                                  markerMargin: const EdgeInsets.symmetric(
+                                    horizontal: 1,
+                                  ),
+                                ),
+                                onDaySelected: (selectedDay, focusedDay) {
+                                  setState(() {
+                                    _selectedDay = selectedDay;
+                                    _focusedDay = focusedDay;
+                                    _selectedEvents.value = _getEventsForDay(
+                                      selectedDay,
+                                    );
+                                  });
+                                },
+                                onFormatChanged: (format) {
+                                  setState(() => _calendarFormat = format);
+                                },
+                                onPageChanged: (focusedDay) {
+                                  setState(() {
+                                    _focusedDay = focusedDay;
+                                  });
 
-                            _sendAttendanceHistoryForMonth(focusedDay);
-                          },
-                          calendarBuilders: CalendarBuilders(
-                            markerBuilder: (context, date, events) {
-                              if (events.isEmpty) return const SizedBox();
+                                  _sendAttendanceHistoryForMonth(focusedDay);
+                                },
+                                calendarBuilders: CalendarBuilders(
+                                  markerBuilder: (context, date, events) {
+                                    if (events.isEmpty) {
+                                      return const SizedBox.shrink();
+                                    }
 
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children:
-                                    events.map((event) {
-                                      return Container(
-                                        width: 20,
-                                        height: 20,
-                                        margin: const EdgeInsets.symmetric(
-                                          horizontal: 1,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: _getMarkerColor(event.remarks),
-                                        ),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          event.status ?? '',
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
-                              );
-                            },
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children:
+                                          events.take(3).map((event) {
+                                            return Container(
+                                              width: 5,
+                                              height: 5,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 1,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: _getMarkerColor(
+                                                  event.remarks,
+                                                ),
+                                              ),
+                                            );
+                                          }).toList(),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Expanded(
-                          child: ValueListenableBuilder<List<AttendanceEvent>>(
+                          const SizedBox(height: 20),
+                          ValueListenableBuilder<List<AttendanceEvent>>(
                             valueListenable: _selectedEvents,
                             builder: (context, value, _) {
-                              if (value.isEmpty) {
-                                return Center(
-                                  child: Text(
-                                    Locales.string(
-                                      context,
-                                      "no_record_selected",
-                                    ),
-                                  ),
-                                );
-                              }
-                              return ListView.builder(
-                                itemCount: value.length,
-                                itemBuilder: (context, index) {
-                                  final event = value[index];
-                                  return ListTile(
-                                    leading: Container(
-                                      width: 20,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                        color: _getMarkerColor(event.remarks),
-                                        shape: BoxShape.circle,
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (_selectedDay != null)
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        4,
+                                        0,
+                                        4,
+                                        12,
+                                      ),
+                                      child: Text(
+                                        DateFormat.yMMMMEEEEd().format(
+                                          _selectedDay!,
+                                        ),
+                                        style: theme.textTheme.titleMedium
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                            ),
                                       ),
                                     ),
-                                    title: Text(
-                                      '${Locales.string(context, "status")}: ${event.remarks}',
+                                  if (value.isEmpty)
+                                    Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 20,
+                                        vertical: 28,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: theme.colorScheme.surface,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(
+                                          color:
+                                              theme.colorScheme.outlineVariant,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Icon(
+                                            Icons.event_busy_rounded,
+                                            size: 34,
+                                            color:
+                                                theme
+                                                    .colorScheme
+                                                    .onSurfaceVariant,
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            Locales.string(
+                                              context,
+                                              "no_record_selected",
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            style: theme.textTheme.bodyMedium
+                                                ?.copyWith(
+                                                  color:
+                                                      theme
+                                                          .colorScheme
+                                                          .onSurfaceVariant,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  else
+                                    ...value.map(
+                                      (event) =>
+                                          _buildAttendanceCard(context, event),
                                     ),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${Locales.string(context, "punch_in")}:  ${extractTime(event.punchIn)}',
-                                        ),
-                                        Text(
-                                          '${Locales.string(context, "punch_out")}:  ${extractTime(event.punchOut)}',
-                                        ),
-                                        Text(
-                                          '${Locales.string(context, "punch_area")}: ${event.punchArea ?? "--"}',
-                                        ),
-                                        Text(
-                                          '${Locales.string(context, "branch")}: ${event.branchName ?? "--"}',
-                                        ),
-                                        Text(
-                                          '${Locales.string(context, "remarks")}: ${event.remarks}',
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
+                                ],
                               );
                             },
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     );
                   }
 

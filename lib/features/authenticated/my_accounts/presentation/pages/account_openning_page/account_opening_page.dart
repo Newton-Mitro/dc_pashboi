@@ -293,7 +293,7 @@ class _AccountOpeningPageState extends State<AccountOpeningPage> {
                     builder: (context, state) {
                       if (state.isLoading) {
                         return Container(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Colors.black.withValues(alpha: 0.4),
                           child: Center(child: CircularProgressIndicator()),
                         );
                       } else if (state.error != null) {

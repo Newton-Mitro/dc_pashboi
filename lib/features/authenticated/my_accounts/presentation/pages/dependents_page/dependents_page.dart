@@ -47,7 +47,7 @@ class DependentsPage extends StatelessWidget {
                           Icon(
                             FontAwesomeIcons.boxOpen,
                             size: 60,
-                            color: theme.colorScheme.onSurface.withOpacity(0.4),
+                            color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
                           ),
                           const SizedBox(height: 12),
                           Text(

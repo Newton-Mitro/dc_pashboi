@@ -35,7 +35,7 @@ class GetWoooDataBloc extends Bloc<FetchWoooDataEvent, GetWoooDataState> {
       },
       (authData) async {
         final user = authData.user;
-        final WoooHistoryResult = await getWoooDataUseCase(
+        final woooHistoryResult = await getWoooDataUseCase(
           GetWoooProps(
             email: user.loginEmail,
             userId: user.userId,
@@ -48,12 +48,12 @@ class GetWoooDataBloc extends Bloc<FetchWoooDataEvent, GetWoooDataState> {
           ),
         );
 
-        WoooHistoryResult.fold(
+        woooHistoryResult.fold(
           (failure) {
             emit(GetWoooDataError(failure.message));
           },
-          (WoooData) {
-            emit(GetWoooDataSuccess(WoooData));
+          (woooData) {
+            emit(GetWoooDataSuccess(woooData));
           },
         );
       },

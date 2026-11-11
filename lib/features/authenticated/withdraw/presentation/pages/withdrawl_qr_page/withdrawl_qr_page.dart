@@ -258,7 +258,7 @@ class _WithdrawlQrPageState extends State<WithdrawlQrPage> {
                     builder: (context, state) {
                       if (state.isLoading) {
                         return Container(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Colors.black.withValues(alpha: 0.4),
                           child: const Center(
                             child: CircularProgressIndicator(),
                           ),

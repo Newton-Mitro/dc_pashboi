@@ -14,7 +14,7 @@ class OnboardingInfoRepositoryImpl implements OnboardingInfoRepository {
   @override
   ResultFuture<void> setOnboardingSeen(bool seen) async {
     try {
-      localDataSource.setOnboardingSeen(seen);
+      await localDataSource.setOnboardingSeen(seen);
       return Right(null);
     } catch (e) {
       return Left(FailureMapper.fromException(e));

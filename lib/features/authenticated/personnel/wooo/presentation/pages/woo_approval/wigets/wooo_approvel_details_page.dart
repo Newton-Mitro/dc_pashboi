@@ -77,7 +77,6 @@ class _WoooApprovalDetailsPageState extends State<WoooApprovalDetailsPage>
     reasonController.text = history.reason;
   }
 
-  @override
   void _updateTotalHoursOrDays() {
     if (fromDate != null && toDate != null) {
       if (_activeTabIndex == 0) {

@@ -23,7 +23,7 @@ import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_lo
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_loan_statement_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_my_loans_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_eligible_loan_products_usecase.dart';
-import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_product_loan_collateral%20_account_usecase.dart';
+import 'package:pashboi/features/authenticated/my_loans/domain/usecases/fetch_product_loan_collateral_account_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_instant_loan_usecase.dart';
 import 'package:pashboi/features/authenticated/my_loans/domain/usecases/submit_loan_against_deposit_product_usecase.dart';
 
@@ -595,30 +595,6 @@ class LoanRemoteDataSourceImpl implements LoanRemoteDataSource {
                     ).toJson(),
               )
               .toList();
-
-      final String jsonRequestBody = jsonEncode({
-        "ByUserId": props.userId,
-        "UID": props.userId,
-        "RolePermissionId": props.rolePermissionId,
-        "PersonId": props.personId,
-        "EmployeeCode": props.employeeCode,
-        "MobileNo": props.mobileNumber,
-        "MobileNumber": props.mobileNumber,
-        "RequestFrom": "MobileApp",
-        "UserName": props.email,
-        "LoanProductCode": props.loanProductCode,
-        "AccountNo": props.accountNo,
-        "NameOnCard": props.nameOnCard,
-        "MaximumLoanAmount": props.maximumLoanAmount,
-        "InterestRate": props.interestRate,
-        "NumberOfInstallment": props.numberOfInstallment,
-        "CollateralAccounts": collateralAccounts,
-        "TotalApplyLoan": props.totalApplyLoan,
-        "SecretKey": props.secretKey,
-        "CardNo": props.cardNo,
-        "OTPRegId": props.oTPRegId,
-        "OTPValue": props.oTPValue,
-      });
 
       final response = await apiService.post(
         ApiUrls.submitLoansAgainstDepositProduct,
