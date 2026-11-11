@@ -18,7 +18,7 @@ class TodayPunchModel extends TodayPunchEntity {
 
   factory TodayPunchModel.fromJson(Map<String, dynamic> json) {
     return TodayPunchModel(
-      id: json['Id'] ?? "",
+      id: json['Id'] ?? 0,
       employeeName: json['EmployeeName'] ?? "",
       designationName: json['DesignationName'] ?? "",
       attendanceDate: json['AttendanceDate'] ?? "",

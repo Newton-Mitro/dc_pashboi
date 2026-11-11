@@ -16,12 +16,12 @@ class LoanPaymentModel extends LoanPaymentEntity {
     return LoanPaymentModel(
       id: json['id'] ?? 0,
       loanNumber: json['LoanNumber'] ?? '',
-      loanRefundAmount: json['LoanRefundAmount'] ?? 0.0,
-      interestAmount: json['InterestAmount'] ?? 0.0,
-      loanFineAmount: json['LoanFine'] ?? 0.0,
-      loanLpsAmount: json['LoanLpsAmount'] ?? 0.0,
-      loanLpsRenewalFeeAmount: json['LoanLpsRenewFeeAmount'] ?? 0.0,
-      shareFineAmount: json['ShareFine'] ?? 0.0,
+      loanRefundAmount: json['LoanRefundAmount'] ?? 0,
+      interestAmount: json['InterestAmount'] ?? 0,
+      loanFineAmount: json['LoanFine'] ?? 0,
+      loanLpsAmount: json['LoanLpsAmount'] ?? 0,
+      loanLpsRenewalFeeAmount: json['LoanLpsRenewFeeAmount'] ?? 0,
+      shareFineAmount: json['ShareFine'] ?? 0,
     );
   }
 

@@ -49,6 +49,8 @@ class AttendanceModel extends GetAttendanceEntities {
       'PunchArea': punchArea,
       'ScheduleType': scheduleType,
       'Status': status,
+      'PunchIn': punchIn,
+      'PunchOut': punchOut,
       'WorkHour': workHour,
       'EmployeeCode': employeeCode,
     };

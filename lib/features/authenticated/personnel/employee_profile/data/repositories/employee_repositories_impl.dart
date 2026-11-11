@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:pashboi/core/errors/failures.dart';
 import 'package:pashboi/core/services/network/network_info.dart';
 import 'package:pashboi/core/types/typedef.dart';
+import 'package:pashboi/core/utils/failure_mapper.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/data/datasources/employee_details_remote_datasource.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/domain/entities/employee_details_entity.dart';
 import 'package:pashboi/features/authenticated/personnel/employee_profile/domain/repositories/employee_details_repository.dart';
@@ -21,7 +23,7 @@ class EmployeeRepositoriesImpl implements EmployeeDetailsRepository {
   ) async {
     try {
       if (!await networkInfo.isConnected) {
-        throw Exception("No internet connection");
+        return const Left(NetworkFailure(message: "No internet connection"));
       }
 
       final data = await employeeDetailsRemoteDataSource
@@ -29,7 +31,7 @@ class EmployeeRepositoriesImpl implements EmployeeDetailsRepository {
 
       return Right(data);
     } catch (e) {
-      return Future.error(e);
+      return Left(FailureMapper.fromException(e));
     }
   }
 }

@@ -42,6 +42,7 @@ class ServiceCenterEntity extends Entity<String> {
   @override
   List<Object?> get props => [
     id,
+    name,
     slug,
     order,
     email,

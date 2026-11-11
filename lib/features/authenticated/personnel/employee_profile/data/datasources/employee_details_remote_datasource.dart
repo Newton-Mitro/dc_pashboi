@@ -42,20 +42,18 @@ class EmployeeDetailsRemoteDataSourceImpl
         final dataString = response.data?['Data'];
         final errorMessage = response.data?['Message'];
         final statusMessage = response.data?['Status'];
-        if (dataString == null || dataString.isNotEmpty) {
-          if (statusMessage != null && statusMessage == "failed") {
-            throw ServerException(message: errorMessage);
-          } else {
-            final jsonResponse = JsonUtil.decodeModelList(dataString);
-
-            final personModel = EmployeeDetailsModel.fromJson(
-              jsonResponse.first,
-            );
-
-            return personModel;
-          }
+        if (statusMessage == "failed") {
+          throw ServerException(message: errorMessage ?? "Server Error");
         }
-        throw ServerException(message: "Server Error");
+        if (dataString is! String || dataString.isEmpty) {
+          throw ServerException(message: "Server Error");
+        }
+
+        final jsonResponse = JsonUtil.decodeModelList(dataString);
+        if (jsonResponse.isEmpty) {
+          throw ServerException(message: "Server Error");
+        }
+        return EmployeeDetailsModel.fromJson(jsonResponse.first);
       } else {
         throw ServerException(message: "Server Error");
       }

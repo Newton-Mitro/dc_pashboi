@@ -44,6 +44,8 @@ class GetAttendanceEntities extends Entity<String> {
     punchArea,
     scheduleType,
     status,
+    punchIn,
+    punchOut,
     workHour,
     employeeCode,
   ];

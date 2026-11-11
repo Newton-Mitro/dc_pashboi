@@ -23,7 +23,7 @@ class LoanPolicyModel extends LoanPolicyEntity {
       id: json['id'] ?? "",
       title: json['title'] ?? "",
       slug: json['slug'] ?? "",
-      order: json['order'] ?? "",
+      order: json['order'] ?? 0,
       shortDescription: json['short_description'] ?? "",
       longDescription: json['long_description'] ?? "",
       attachmentUrl: json['attachment_url'] ?? "",

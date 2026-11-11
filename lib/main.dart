@@ -27,23 +27,25 @@ void main() async {
   await dotenv.load(fileName: ".env");
   await setupDependencies();
 
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => sl<LanguageSwitchBloc>()..add(LoadLocaleEvent()),
-        ),
-        BlocProvider(create: (_) => sl<ThemeSelectorBloc>()..add(LoadTheme())),
-        BlocProvider(create: (_) => sl<OnboardingPageBloc>()),
-        BlocProvider(create: (_) => sl<AppStatusBloc>()),
-        BlocProvider(create: (_) => sl<AuthBloc>()),
-        BlocProvider(create: (_) => sl<DebitCardBloc>()),
-        BlocProvider(create: (_) => sl<BeneficiariesBloc>()),
-        BlocProvider(create: (_) => sl<FamilyAndRelativesBloc>()),
-        BlocProvider(create: (_) => sl<CollectionLedgerBloc>()),
-        BlocProvider(create: (_) => sl<AdvertisementBloc>()),
-      ],
-      child: const MyApp(),
-    ),
+  runApp(createPashboiApp());
+}
+
+Widget createPashboiApp({Widget child = const MyApp()}) {
+  return MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (_) => sl<LanguageSwitchBloc>()..add(LoadLocaleEvent()),
+      ),
+      BlocProvider(create: (_) => sl<ThemeSelectorBloc>()..add(LoadTheme())),
+      BlocProvider(create: (_) => sl<OnboardingPageBloc>()),
+      BlocProvider(create: (_) => sl<AppStatusBloc>()),
+      BlocProvider(create: (_) => sl<AuthBloc>()),
+      BlocProvider(create: (_) => sl<DebitCardBloc>()),
+      BlocProvider(create: (_) => sl<BeneficiariesBloc>()),
+      BlocProvider(create: (_) => sl<FamilyAndRelativesBloc>()),
+      BlocProvider(create: (_) => sl<CollectionLedgerBloc>()),
+      BlocProvider(create: (_) => sl<AdvertisementBloc>()),
+    ],
+    child: child,
   );
 }

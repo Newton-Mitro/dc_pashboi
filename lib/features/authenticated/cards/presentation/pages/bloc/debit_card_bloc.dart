@@ -26,7 +26,7 @@ class DebitCardBloc extends Bloc<DebitCardEvent, DebitCardState> {
   final GetAuthUserUseCase getAuthUserUseCase;
   final AppLocalizationService appLocalizationService;
 
-  late UserEntity? user;
+  UserEntity? user;
 
   DebitCardBloc({
     required this.getMyCardUseCase,
