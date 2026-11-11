@@ -22,6 +22,16 @@ class PageContainer extends StatelessWidget {
     };
   }
 
+  double _backgroundOpacityFor(ThemeSelectorState state) {
+    return switch (state) {
+      BlueOceanDarkTheme() ||
+      EleganceDarkTheme() ||
+      OliverPetalDarkTheme() ||
+      DarkAbyssTheme() => 0.2,
+      _ => 0.5,
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeSelectorBloc, ThemeSelectorState>(
@@ -31,7 +41,7 @@ class PageContainer extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Opacity(
-                opacity: 0.2,
+                opacity: _backgroundOpacityFor(state),
                 child: Image.asset(
                   _backgroundFor(state),
                   fit: BoxFit.cover,
